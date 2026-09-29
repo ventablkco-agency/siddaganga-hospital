@@ -1,10 +1,30 @@
 <header class="header">
-  <a class="brand" href="#home" aria-label="Siddaganga Hospital home"><img src="/assets/brand/siddaganga-hospital.svg" alt="Siddaganga Hospital" /></a>
-  <button class="menu-trigger" type="button" data-menu-toggle aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  <a class="brand" href="#home" aria-label="Siddaganga Hospital home">
+    <img src="/assets/brand/siddaganga-hospital.svg" alt="Siddaganga Hospital" />
+  </a>
+
+  <nav class="desktop-nav" aria-label="Primary navigation">
+    <button class="menu-trigger" type="button" data-menu-toggle aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#about">About us</a>
+    <a href="#services">Services</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="header-actions">
+    <div class="location"><span class="location__pin">⌖</span><span>Ranebennur, Karnataka<br />581115</span></div>
+    <a class="icon-button icon-button--dark" href="tel:+919591799099" aria-label="Call Siddaganga Hospital">⌕</a>
+    <button class="icon-button icon-button--soft" type="button" aria-label="Notifications">♧</button>
+    <button class="icon-button icon-button--dark" type="button" aria-label="Patient account">◯</button>
+  </div>
 </header>
 
 <style>
-.header{position:absolute;top:0;left:0;right:0;z-index:30;height:96px;padding:0 var(--page-pad);display:flex;align-items:center;justify-content:space-between}.brand{display:block;width:72px}.brand img{display:block;width:100%;height:auto}.menu-trigger{width:52px;height:52px;border:1px solid rgba(17,19,23,.14);border-radius:50%;background:rgba(255,255,255,.72);backdrop-filter:blur(12px);display:grid;place-content:center;gap:5px;cursor:pointer}.menu-trigger span{display:block;width:18px;height:1.5px;background:var(--color-ink);transition:transform .35s ease,opacity .2s ease}.menu-trigger.is-open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}.menu-trigger.is-open span:nth-child(2){opacity:0}.menu-trigger.is-open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.header{position:absolute;inset:0 0 auto;z-index:30;height:92px;padding:0 clamp(26px,3.7vw,66px);display:flex;align-items:center;gap:24px}.brand{display:block;width:105px;flex:0 0 auto}.brand img{display:block;width:100%;height:auto}.desktop-nav{display:flex;align-items:center;gap:5px;margin-left:10px}.desktop-nav>a{padding:14px 21px;border-radius:999px;color:#233149;background:rgba(255,255,255,.67);box-shadow:0 7px 22px rgba(37,61,87,.045);font-size:11px;white-space:nowrap;transition:background .25s ease,transform .25s ease}.desktop-nav>a:hover{background:#fff;transform:translateY(-1px)}.menu-trigger{width:50px;height:50px;border:0;border-radius:50%;background:rgba(255,255,255,.82);display:grid;place-content:center;gap:5px;cursor:pointer;box-shadow:0 8px 24px rgba(30,58,89,.06)}.menu-trigger span{display:block;width:17px;height:1.5px;background:#17253a;transition:transform .35s ease,opacity .2s ease}.menu-trigger.is-open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}.menu-trigger.is-open span:nth-child(2){opacity:0}.menu-trigger.is-open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}.header-actions{margin-left:auto;display:flex;align-items:center;gap:9px}.location{display:flex;align-items:center;gap:9px;margin-right:5px;color:#fff;font-size:10px;line-height:1.35}.location__pin{font-size:21px}.icon-button{width:48px;height:48px;border:0;border-radius:50%;display:grid;place-items:center;cursor:pointer;font-size:20px}.icon-button--dark{color:#fff;background:#08101d}.icon-button--soft{color:#fff;background:rgba(255,255,255,.23);backdrop-filter:blur(8px)}
+@media(max-width:1050px){.desktop-nav>a{padding:13px 14px}.location{display:none}}
+@media(max-width:760px){.header{height:78px;padding:0 20px}.brand{width:91px}.desktop-nav{margin-left:auto}.desktop-nav>a{display:none}.menu-trigger{width:46px;height:46px}.header-actions{display:none}}
 </style>
 
 <script>
