@@ -2,31 +2,260 @@
 import Header from './navigation/Header.astro';
 import MenuOverlay from './navigation/MenuOverlay.astro';
 ---
+
 <section id="home" class="hero">
-  <Header />
-  <MenuOverlay />
-  <div class="hero__grid" aria-hidden="true"></div>
-  <div class="hero__copy">
-    <p class="eyebrow">Siddaganga Hospital · Ranebennur</p>
-    <h1><span>Heart &amp;</span><span>Diabetes, <em>In Sync</em></span></h1>
-    <p class="intro">Specialist care, advanced diagnostics and a team that listens carefully to every patient.</p>
-    <a class="cta" href="https://wa.me/919591799099" target="_blank" rel="noreferrer"><span>Book Appointment</span><span aria-hidden="true">↗</span></a>
-    <div class="pills"><span>24×7 Emergency</span><span>On-site Lab</span><span>Family Care</span></div>
+  <div class="hero__frame">
+    <div class="hero__blue-field" aria-hidden="true"></div>
+    <div class="hero__ambient" aria-hidden="true"></div>
+
+    <Header />
+    <MenuOverlay />
+
+    <div class="hero__copy">
+      <p class="eyebrow">Siddaganga Hospital · Ranebennur</p>
+      <h1>
+        <span>Heart &amp;</span>
+        <span>Diabetes, <em>In</em></span>
+        <span><em>Sync</em></span>
+      </h1>
+      <p class="intro">Specialist care, advanced diagnostics and a team that listens carefully to every patient.</p>
+
+      <a class="cta" href="https://wa.me/919591799099" target="_blank" rel="noreferrer">
+        <span>Book Appointment</span>
+        <span class="cta__arrow" aria-hidden="true">↗</span>
+      </a>
+
+      <div class="service-pills" aria-label="Hospital highlights">
+        <span>24×7 Emergency</span>
+        <span>On-site Lab</span>
+        <span>Family Care</span>
+      </div>
+    </div>
+
+    <div class="hero__visual" aria-hidden="true">
+      <div class="hero__halo"></div>
+      <img class="hand hand--patient" src="/assets/hero/patient-hand.png" alt="" />
+      <img class="hand hand--clinician" src="/assets/hero/clinician-hand.png" alt="" />
+    </div>
+
+    <aside class="technology-card">
+      <span class="technology-card__number">01</span>
+      <div>
+        <h2>With Specialist<br />Technology</h2>
+        <p>The latest diagnostic equipment, paired with a team that never rushes a conversation — because every patient deserves both.</p>
+      </div>
+    </aside>
+
+    <div class="care-stats">
+      <div class="care-stat"><strong>15+</strong><span>years of experience</span></div>
+      <div class="care-stat"><strong>20+</strong><span>highly qualified doctors</span></div>
+      <div class="care-stat"><strong>100%</strong><span>advanced diagnostics</span></div>
+    </div>
+
+    <div class="blue-services" aria-label="Care services">
+      <span><i>⌁</i>24×7 Emergency</span>
+      <span><i>⌬</i>On-site Lab</span>
+      <span><i>♧</i>Family Care</span>
+    </div>
+
+    <div class="explore">Scroll to explore <span></span></div>
   </div>
-  <div class="hero__visual">
-    <div class="orb"></div>
-    <img class="hand hand--patient" src="/assets/hero/patient-hand.png" alt="" />
-    <img class="hand hand--clinician" src="/assets/hero/clinician-hand.png" alt="" />
-  </div>
-  <aside class="technology">
-    <span class="technology__number">01</span>
-    <div><p class="technology__title">With Specialist Technology</p><p>The latest diagnostic equipment, paired with a team that never rushes a conversation — because every patient deserves both.</p></div>
-  </aside>
-  <div class="stats"><div><strong>15+</strong><span>years of experience</span></div><div><strong>20+</strong><span>highly qualified doctors</span></div><div><strong>100%</strong><span>advanced diagnostics</span></div></div>
-  <div class="scroll">Scroll to explore <span></span></div>
 </section>
+
 <style>
-.hero{position:relative;min-height:100svh;overflow:hidden;background:#f7f9fc;isolation:isolate}.hero__grid{position:absolute;inset:0;opacity:.55;background:linear-gradient(90deg,transparent 49.95%,rgba(17,19,23,.045) 50%,transparent 50.05%),linear-gradient(0deg,transparent 49.95%,rgba(17,19,23,.035) 50%,transparent 50.05%);background-size:25% 100%,100% 25%;pointer-events:none}.hero__copy{position:relative;z-index:4;width:min(760px,58vw);padding:clamp(150px,18vh,210px) 0 160px var(--page-pad)}.eyebrow{margin:0 0 28px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#747a83}.hero h1{margin:0;font-family:var(--font-display);font-size:clamp(58px,7.4vw,118px);line-height:.88;letter-spacing:-.07em;font-weight:600}.hero h1 span{display:block}.hero h1 em{font-style:normal;color:var(--color-blue)}.intro{max-width:420px;margin:32px 0 24px;color:var(--color-muted);font-size:15px;line-height:1.7}.cta{display:inline-flex;align-items:center;gap:28px;padding:15px 18px 15px 22px;background:#111317;color:#fff;border-radius:999px;font-size:13px}.cta span:last-child{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#111317}.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.pills span{padding:9px 13px;border:1px solid var(--color-line);border-radius:999px;background:rgba(255,255,255,.55);font-size:11px;color:#555b63}.hero__visual{position:absolute;z-index:2;inset:0 0 0 43%;pointer-events:none}.orb{position:absolute;width:min(54vw,780px);height:min(54vw,780px);right:-8%;top:50%;transform:translateY(-50%);border-radius:50%;background:radial-gradient(circle at 38% 35%,#fff 0,#eef5fb 42%,#dcecf9 100%);box-shadow:var(--shadow-soft)}.hand{position:absolute;object-fit:contain;filter:drop-shadow(0 25px 35px rgba(20,40,60,.12));will-change:transform}.hand--patient{width:min(44vw,650px);right:4%;top:38%;z-index:3}.hand--clinician{width:min(38vw,560px);right:18%;top:19%;z-index:2}.technology{position:absolute;right:var(--page-pad);bottom:130px;z-index:5;width:min(330px,27vw);padding:20px;border:1px solid rgba(17,19,23,.1);border-radius:22px;background:rgba(255,255,255,.72);backdrop-filter:blur(18px);box-shadow:0 18px 55px rgba(20,40,60,.08)}.technology__number{font-size:10px;color:#7c828a}.technology__title{margin:10px 0 8px;font-family:var(--font-display);font-weight:600;font-size:16px}.technology p:last-child{margin:0;color:#6b7179;font-size:11px;line-height:1.65}.stats{position:absolute;left:var(--page-pad);right:var(--page-pad);bottom:34px;z-index:6;display:flex;gap:clamp(28px,5vw,80px)}.stats div{display:flex;align-items:baseline;gap:9px}.stats strong{font-family:var(--font-display);font-size:18px}.stats span{font-size:10px;color:#777d85}.scroll{position:absolute;right:var(--page-pad);bottom:40px;font-size:10px;color:#7c828a;display:flex;align-items:center;gap:10px}.scroll span{display:block;width:45px;height:1px;background:#a7adb4}
-@media(max-width:900px){.hero{min-height:900px}.hero__copy{width:100%;padding-right:var(--page-pad);padding-bottom:420px}.hero h1{font-size:clamp(54px,12vw,86px)}.hero__visual{inset:42% 0 100px 0}.orb{width:100vw;height:100vw;right:-22%;top:52%}.hand--patient{width:85vw;right:-4%;top:37%}.hand--clinician{width:70vw;right:13%;top:19%}.technology{right:var(--page-pad);bottom:115px;width:min(360px,calc(100% - 40px))}.stats{bottom:28px;gap:18px}.stats div{display:block}.stats strong,.stats span{display:block}.scroll{display:none}}
-@media(max-width:560px){.hero{min-height:850px}.hero__copy{padding-top:135px}.eyebrow{margin-bottom:20px}.intro{font-size:13px;margin-top:25px}.technology{bottom:112px;padding:16px}.stats{gap:12px}.stats strong{font-size:15px}.stats span{font-size:9px;line-height:1.3;margin-top:3px}.pills{max-width:330px}}
+.hero {
+  min-height: 100svh;
+  padding: 16px;
+  background: #f4f7fb;
+  overflow: hidden;
+}
+
+.hero__frame {
+  position: relative;
+  min-height: calc(100svh - 32px);
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 30px;
+  background: #f8fafc;
+  box-shadow: 0 20px 70px rgba(21, 48, 77, .08);
+}
+
+.hero__frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border: 1px solid rgba(255,255,255,.95);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.hero__blue-field {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  width: 47.5%;
+  height: 100%;
+  background: linear-gradient(125deg, #2376ed 0%, #2f83f4 48%, #2372df 100%);
+  clip-path: polygon(17% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.hero__blue-field::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 62% 38%, rgba(255,255,255,.09), transparent 24%),
+    radial-gradient(circle at 80% 76%, rgba(255,255,255,.07), transparent 22%);
+}
+
+.hero__ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: linear-gradient(rgba(20,35,52,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(20,35,52,.035) 1px, transparent 1px);
+  background-size: 25% 25%;
+  opacity: .65;
+  pointer-events: none;
+}
+
+.hero__copy {
+  position: relative;
+  z-index: 7;
+  width: 52%;
+  padding: clamp(145px, 19vh, 205px) 0 170px clamp(32px, 3.7vw, 66px);
+}
+
+.eyebrow {
+  margin: 0 0 30px;
+  color: #637084;
+  font-size: 11px;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  max-width: 820px;
+  font-family: var(--font-display);
+  font-size: clamp(66px, 7.1vw, 122px);
+  line-height: .86;
+  letter-spacing: -.075em;
+  font-weight: 700;
+}
+
+.hero h1 span { display: block; }
+.hero h1 em { font-style: normal; color: var(--color-blue); }
+
+.intro {
+  max-width: 410px;
+  margin: 32px 0 25px;
+  color: #687588;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
+  padding: 7px 8px 7px 22px;
+  color: #fff;
+  background: #101319;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 12px 25px rgba(17,19,23,.13);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.cta:hover { transform: translateY(-2px); box-shadow: 0 17px 32px rgba(17,19,23,.17); }
+.cta__arrow { width: 32px; height: 32px; display: grid; place-items: center; color: #101319; background: #fff; border-radius: 50%; font-size: 15px; }
+
+.service-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 22px; }
+.service-pills span { padding: 8px 13px; border: 1px solid rgba(41,57,76,.12); border-radius: 999px; color: #667487; background: rgba(255,255,255,.58); font-size: 10px; }
+
+.hero__visual { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+.hero__halo { position: absolute; width: min(44vw, 710px); aspect-ratio: 1; right: -2%; top: 50%; transform: translateY(-45%); border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.88) 0%, rgba(230,243,255,.42) 54%, rgba(230,243,255,0) 72%); }
+
+.hand { position: absolute; object-fit: contain; filter: drop-shadow(0 22px 28px rgba(17,43,72,.13)); will-change: transform; }
+.hand--clinician { z-index: 3; width: min(43vw, 700px); right: -1.5%; top: 18%; animation: clinicianFloat 7s ease-in-out infinite; }
+.hand--patient { z-index: 4; width: min(47vw, 760px); right: 16%; top: 43%; animation: patientFloat 7s ease-in-out -1.2s infinite; }
+
+.technology-card {
+  position: absolute;
+  z-index: 8;
+  right: clamp(34px, 4vw, 68px);
+  bottom: 102px;
+  width: min(330px, 25vw);
+  padding: 22px 24px;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 22px;
+  color: #fff;
+  background: rgba(22,111,226,.27);
+  backdrop-filter: blur(16px);
+}
+
+.technology-card__number { display: block; margin-bottom: 22px; color: rgba(255,255,255,.58); font-size: 10px; }
+.technology-card h2 { margin: 0 0 13px; font-family: var(--font-display); font-size: 25px; line-height: .96; letter-spacing: -.045em; }
+.technology-card p { margin: 0; max-width: 270px; color: rgba(255,255,255,.8); font-size: 11px; line-height: 1.6; }
+
+.care-stats {
+  position: absolute;
+  z-index: 8;
+  left: clamp(32px, 3.7vw, 66px);
+  bottom: 39px;
+  display: flex;
+  gap: clamp(30px, 4.5vw, 72px);
+}
+
+.care-stat { display: flex; align-items: baseline; gap: 9px; }
+.care-stat strong { font-family: var(--font-display); font-size: 19px; letter-spacing: -.04em; }
+.care-stat span { color: #778293; font-size: 10px; }
+
+.blue-services { position: absolute; z-index: 9; right: 21%; bottom: 64px; display: flex; gap: 10px; }
+.blue-services span { display: flex; align-items: center; gap: 8px; padding: 11px 17px; border: 1px solid rgba(255,255,255,.32); border-radius: 999px; color: #f5f9ff; background: rgba(255,255,255,.13); backdrop-filter: blur(10px); font-size: 11px; white-space: nowrap; }
+.blue-services i { font-style: normal; opacity: .9; }
+
+.explore { position: absolute; z-index: 8; right: 3.7vw; bottom: 39px; display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.8); font-size: 10px; }
+.explore span { width: 42px; height: 1px; background: rgba(255,255,255,.65); }
+
+@keyframes clinicianFloat { 0%,100% { transform: translate3d(0,0,0); } 50% { transform: translate3d(-8px,7px,0); } }
+@keyframes patientFloat { 0%,100% { transform: translate3d(0,0,0); } 50% { transform: translate3d(7px,-5px,0); } }
+
+@media (max-width: 1050px) {
+  .hero__copy { width: 56%; }
+  .hero h1 { font-size: clamp(56px, 7.6vw, 88px); }
+  .hand--clinician { width: 45vw; top: 20%; }
+  .hand--patient { width: 49vw; right: 12%; top: 44%; }
+  .technology-card { width: 285px; }
+  .blue-services { right: 20px; }
+}
+
+@media (max-width: 760px) {
+  .hero { padding: 8px; }
+  .hero__frame { min-height: calc(100svh - 16px); border-radius: 22px; }
+  .hero__blue-field { top: 48%; width: 100%; height: 52%; clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%); }
+  .hero__copy { width: 100%; padding: 125px 24px 430px; }
+  .hero h1 { font-size: clamp(52px, 13vw, 78px); }
+  .intro { margin-top: 24px; max-width: 340px; font-size: 12px; }
+  .hero__halo { width: 100vw; right: -23%; top: 69%; }
+  .hand--clinician { width: 78vw; right: -5%; top: 53%; }
+  .hand--patient { width: 84vw; right: 1%; top: 65%; }
+  .technology-card { right: 20px; bottom: 90px; width: min(330px, calc(100% - 40px)); padding: 17px; }
+  .technology-card__number { margin-bottom: 12px; }
+  .technology-card h2 { font-size: 20px; }
+  .blue-services { display: none; }
+  .care-stats { left: 22px; right: 22px; bottom: 22px; justify-content: space-between; gap: 8px; }
+  .care-stat { display: block; }
+  .care-stat strong, .care-stat span { display: block; }
+  .care-stat strong { font-size: 16px; }
+  .care-stat span { margin-top: 3px; font-size: 8px; line-height: 1.25; }
+  .explore { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hand--clinician, .hand--patient { animation: none; }
+}
 </style>
