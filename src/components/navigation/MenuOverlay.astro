@@ -1,0 +1,18 @@
+<div class="menu" data-menu aria-hidden="true">
+  <div class="menu__backdrop" data-menu-close></div>
+  <aside class="menu__panel" aria-label="Main navigation">
+    <div class="menu__top"><span class="menu__label">Navigation</span><button class="menu__close" type="button" data-menu-close>Close</button></div>
+    <nav class="menu__links">
+      <a href="#home" data-menu-link><span>01</span>Home</a>
+      <a href="#about" data-menu-link><span>02</span>About</a>
+      <a href="#services" data-menu-link><span>03</span>Services</a>
+      <a href="#doctors" data-menu-link><span>04</span>Doctors</a>
+      <a href="#contact" data-menu-link><span>05</span>Contact</a>
+    </nav>
+    <div class="menu__footer"><span>Ranebennur · Karnataka</span><a href="https://wa.me/919591799099" target="_blank" rel="noreferrer">WhatsApp</a></div>
+  </aside>
+</div>
+
+<style>
+.menu{position:fixed;inset:0;z-index:100;pointer-events:none;visibility:hidden}.menu.is-open{pointer-events:auto;visibility:visible}.menu__backdrop{position:absolute;inset:0;background:rgba(10,18,28,.28);opacity:0;transition:opacity .45s ease;backdrop-filter:blur(8px)}.menu__panel{position:absolute;right:0;top:0;height:100%;width:min(620px,100%);padding:32px clamp(24px,5vw,64px);background:#f7f9fc;transform:translateX(100%);transition:transform .65s cubic-bezier(.77,0,.18,1);display:flex;flex-direction:column}.menu.is-open .menu__backdrop{opacity:1}.menu.is-open .menu__panel{transform:translateX(0)}.menu__top,.menu__footer{display:flex;align-items:center;justify-content:space-between;gap:20px}.menu__label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#747a83}.menu__close{border:0;background:none;cursor:pointer;font-size:13px;text-transform:uppercase;letter-spacing:.1em}.menu__links{margin:auto 0;display:grid;gap:10px}.menu__links a{display:flex;align-items:baseline;gap:18px;font-family:var(--font-display);font-size:clamp(42px,7vw,82px);font-weight:600;letter-spacing:-.055em;transition:color .25s ease,transform .25s ease}.menu__links a span{font:11px var(--font-body);letter-spacing:.08em;color:#8b9199}.menu__links a:hover{color:var(--color-blue);transform:translateX(8px)}.menu__footer{font-size:12px;color:#737981}.menu__footer a{color:var(--color-blue);font-weight:600}
+</style>
