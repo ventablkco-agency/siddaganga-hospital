@@ -1,0 +1,26 @@
+<header class="header">
+  <a class="brand" href="#home" aria-label="Siddaganga Hospital home"><img src="/assets/brand/siddaganga-hospital.svg" alt="Siddaganga Hospital" /></a>
+  <button class="menu-trigger" type="button" data-menu-toggle aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</header>
+
+<style>
+.header{position:absolute;top:0;left:0;right:0;z-index:30;height:96px;padding:0 var(--page-pad);display:flex;align-items:center;justify-content:space-between}.brand{display:block;width:72px}.brand img{display:block;width:100%;height:auto}.menu-trigger{width:52px;height:52px;border:1px solid rgba(17,19,23,.14);border-radius:50%;background:rgba(255,255,255,.72);backdrop-filter:blur(12px);display:grid;place-content:center;gap:5px;cursor:pointer}.menu-trigger span{display:block;width:18px;height:1.5px;background:var(--color-ink);transition:transform .35s ease,opacity .2s ease}.menu-trigger.is-open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}.menu-trigger.is-open span:nth-child(2){opacity:0}.menu-trigger.is-open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+</style>
+
+<script>
+  const trigger = document.querySelector('[data-menu-toggle]');
+  const menu = document.querySelector('[data-menu]');
+  const closeButtons = document.querySelectorAll('[data-menu-close], [data-menu-link]');
+  const setMenu = (open: boolean) => {
+    if (!trigger || !menu) return;
+    trigger.classList.toggle('is-open', open);
+    trigger.setAttribute('aria-expanded', String(open));
+    trigger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    menu.classList.toggle('is-open', open);
+    menu.setAttribute('aria-hidden', String(!open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  trigger?.addEventListener('click', () => setMenu(!menu?.classList.contains('is-open')));
+  closeButtons.forEach((button) => button.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setMenu(false); });
+</script>
