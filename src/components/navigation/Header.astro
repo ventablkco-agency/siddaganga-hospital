@@ -11,6 +11,20 @@
   </nav>
 
   <div class="header-actions">
+    <a
+      class="location-link"
+      href="https://maps.app.goo.gl/QFri8RggV5JmZVpe9"
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Open Siddaganga Hospital location in Google Maps"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20 10c0 5.2-8 11-8 11S4 15.2 4 10a8 8 0 1 1 16 0Z"></path>
+        <circle cx="12" cy="10" r="2.5"></circle>
+      </svg>
+      <span>Ranebennur, Karnataka<br />581115</span>
+    </a>
+
     <button class="search-button" type="button" aria-label="Search">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg>
     </button>
@@ -83,6 +97,31 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.location-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-right: 4px;
+  color: #526176;
+  font-size: 10px;
+  line-height: 1.35;
+  letter-spacing: .01em;
+  transition: color .25s ease, transform .25s ease;
+}
+
+.location-link:hover { color: #0c63ce; transform: translateY(-1px); }
+
+.location-link svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: 0 0 auto;
 }
 
 .search-button,
@@ -166,7 +205,8 @@
 .menu-trigger.is-open span:nth-child(2) { opacity: 0; }
 .menu-trigger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-@media (max-width: 1100px) {
+@media (max-width: 1180px) {
+  .location-link { display: none; }
   .desktop-nav a { min-width: auto; padding-inline: 14px; }
 }
 
