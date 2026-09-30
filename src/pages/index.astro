@@ -1,9 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import MedicalTicker from '../components/sections/MedicalTicker.astro';
+import SectionTwo from '../components/sections/SectionTwo.astro';
 ---
+
 <Layout>
   <main>
     <Hero />
+
+    <section class="section-two-flow" aria-label="Siddaganga Hospital introduction">
+      <MedicalTicker />
+      <SectionTwo />
+    </section>
   </main>
 </Layout>
+
+<style>
+  .section-two-flow {
+    background: #eef7ff;
+  }
+</style>
