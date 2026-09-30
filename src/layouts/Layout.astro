@@ -1,5 +1,7 @@
 ---
 import '../styles/tokens.css';
+import Header from '../components/navigation/Header.astro';
+import MenuOverlay from '../components/navigation/MenuOverlay.astro';
 ---
 <!doctype html>
 <html lang="en">
@@ -10,7 +12,11 @@ import '../styles/tokens.css';
     <meta name="description" content="Siddaganga Hospital · Ranebennur — specialist care, advanced diagnostics and 24×7 emergency support." />
     <title>Siddaganga Hospital · Ranebennur</title>
   </head>
-  <body><slot /></body>
+  <body>
+    <Header />
+    <MenuOverlay />
+    <slot />
+  </body>
 </html>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;600;700&display=swap');
