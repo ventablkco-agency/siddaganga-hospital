@@ -1,0 +1,78 @@
+---
+const items = [
+  'CARDIOLOGY',
+  'DIABETOLOGY',
+  'GENERAL MEDICINE',
+  '24×7 EMERGENCY',
+  'ADVANCED DIAGNOSTICS',
+  'PERSONALIZED CARE',
+  'PATIENT FIRST',
+];
+---
+
+<div class="medical-ticker" aria-label="Siddaganga Hospital care services">
+  <div class="medical-ticker__track">
+    {[...items, ...items].map((item, index) => (
+      <span class="medical-ticker__item" aria-hidden={index >= items.length ? 'true' : undefined}>
+        <span>{item}</span>
+        <b>✦</b>
+      </span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .medical-ticker {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 58px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(20, 71, 119, 0.06);
+    border-bottom: 1px solid rgba(20, 71, 119, 0.06);
+    background: #f8fbff;
+  }
+
+  .medical-ticker__track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    animation: ticker-scroll 34s linear infinite;
+    will-change: transform;
+  }
+
+  .medical-ticker__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 34px;
+    padding-right: 34px;
+    white-space: nowrap;
+    color: #49627f;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.17em;
+  }
+
+  .medical-ticker__item b {
+    color: #2477e8;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  @keyframes ticker-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .medical-ticker__track { animation: none; }
+  }
+
+  @media (max-width: 760px) {
+    .medical-ticker { height: 50px; }
+    .medical-ticker__item { gap: 22px; padding-right: 22px; font-size: 9px; letter-spacing: 0.13em; }
+  }
+</style>
