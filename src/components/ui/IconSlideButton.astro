@@ -3,54 +3,74 @@ interface Props {
   href?: string;
   label?: string;
   newTab?: boolean;
-  variant?: 'dark' | 'blue' | 'light';
+  smoothScroll?: boolean;
+  fontSize?: number;
+  radius?: number;
+  background?: string;
+  backgroundHover?: string;
+  textColor?: string;
+  textHover?: string;
+  fillColor?: string;
+  iconColor?: string;
+  iconHoverFill?: string;
 }
 
 const {
   href = '#',
   label = 'Book Appointment',
   newTab = false,
-  variant = 'blue',
+  smoothScroll = false,
+  fontSize = 14,
+  radius = 999,
+  background = '#1769D1',
+  backgroundHover = '#0D1015',
+  textColor = '#FFFFFF',
+  textHover = '#FFFFFF',
+  fillColor = '#FFFFFF',
+  iconColor = '#1769D1',
+  iconHoverFill = '#0D1015',
 } = Astro.props;
+
+const target = newTab ? '_blank' : undefined;
+const rel = newTab ? 'noopener noreferrer' : undefined;
+const classes = `icon-slide-button${smoothScroll ? ' icon-slide-button--smooth' : ''}`;
 ---
 
 <a
-  class={`icon-slide-button icon-slide-button--${variant}`}
+  class={classes}
   href={href}
-  target={newTab ? '_blank' : undefined}
-  rel={newTab ? 'noopener noreferrer' : undefined}
+  target={target}
+  rel={rel}
   aria-label={label}
+  style={`--button-bg:${background};--button-bg-hover:${backgroundHover};--button-text:${textColor};--button-text-hover:${textHover};--button-fill:${fillColor};--button-icon:${iconColor};--button-icon-hover-fill:${iconHoverFill};--button-font-size:${fontSize}px;--button-radius:${radius}px;`}
 >
-  <span class="icon-slide-button__label">{label}</span>
+  <span class="icon-slide-button__text">{label}</span>
   <span class="icon-slide-button__icon" aria-hidden="true">
-    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3 8H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-      <path d="M8.5 4.5L12 8L8.5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 12H18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+      <path d="M13 7L18 12L13 17" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
   </span>
 </a>
 
 <style>
   .icon-slide-button {
-    --button-bg: #1769d1;
-    --button-hover: #0d1015;
-    --button-text: #ffffff;
-    --button-icon: #1769d1;
-    --button-icon-bg: #ffffff;
-
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
     display: inline-flex;
     align-items: center;
-    min-height: 56px;
-    padding: 0 7px 0 26px;
+    justify-content: space-between;
+    min-height: 58px;
+    min-width: 194px;
+    padding: 7px 7px 7px 25px;
     overflow: hidden;
-    border-radius: 999px;
+    border-radius: var(--button-radius);
     background: var(--button-bg);
     color: var(--button-text);
     text-decoration: none;
-    box-shadow: 0 14px 32px rgba(23, 105, 209, .18);
     isolation: isolate;
-    transition: transform .45s cubic-bezier(.22, 1, .36, 1), box-shadow .45s cubic-bezier(.22, 1, .36, 1), background .45s ease;
+    box-sizing: border-box;
+    transition: transform 0.45s var(--ease), background-color 0.45s var(--ease), color 0.3s ease;
   }
 
   .icon-slide-button::before {
@@ -59,52 +79,22 @@ const {
     inset: 0;
     z-index: -1;
     border-radius: inherit;
-    background: var(--button-hover);
-    transform: translateX(-105%);
-    transition: transform .55s cubic-bezier(.22, 1, .36, 1);
+    background: var(--button-bg-hover);
+    transform: translateX(-102%);
+    transition: transform 0.6s var(--ease);
   }
 
-  .icon-slide-button--dark {
-    --button-bg: #0d1015;
-    --button-hover: #1769d1;
-    --button-icon: #0d1015;
-    --button-icon-bg: #ffffff;
-  }
-
-  .icon-slide-button--light {
-    --button-bg: #ffffff;
-    --button-hover: #1769d1;
-    --button-text: #10151c;
-    --button-icon: #ffffff;
-    --button-icon-bg: #10151c;
-    box-shadow: 0 14px 32px rgba(18, 40, 66, .1);
-  }
-
-  .icon-slide-button:hover,
-  .icon-slide-button:focus-visible {
-    transform: translateY(-2px);
-    box-shadow: 0 18px 38px rgba(23, 105, 209, .24);
-  }
-
-  .icon-slide-button:hover::before,
-  .icon-slide-button:focus-visible::before {
-    transform: translateX(0);
-  }
-
-  .icon-slide-button:active {
-    transform: translateY(0) scale(.98);
-  }
-
-  .icon-slide-button__label {
+  .icon-slide-button__text {
     position: relative;
     z-index: 2;
-    padding: 17px 0;
-    font-size: 13px;
+    font-family: inherit;
+    font-size: var(--button-font-size);
     font-weight: 600;
     line-height: 1;
-    letter-spacing: -.01em;
+    letter-spacing: -0.015em;
     white-space: nowrap;
-    transition: transform .45s cubic-bezier(.22, 1, .36, 1), color .35s ease;
+    color: var(--button-text);
+    transition: color 0.3s ease, transform 0.55s var(--ease);
   }
 
   .icon-slide-button__icon {
@@ -112,62 +102,102 @@ const {
     z-index: 2;
     display: grid;
     place-items: center;
-    width: 42px;
-    height: 42px;
-    margin-left: 22px;
-    flex: 0 0 42px;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    margin-left: 20px;
     border-radius: 50%;
-    background: var(--button-icon-bg);
+    background: var(--button-fill);
     color: var(--button-icon);
-    transform: translateX(0);
-    transition: transform .45s cubic-bezier(.22, 1, .36, 1), background .35s ease, color .35s ease;
+    overflow: hidden;
+    transition: background-color 0.45s var(--ease), color 0.45s var(--ease), transform 0.55s var(--ease);
+  }
+
+  .icon-slide-button__icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--button-icon-hover-fill);
+    transform: translateX(-105%);
+    transition: transform 0.5s var(--ease);
   }
 
   .icon-slide-button__icon svg {
-    width: 17px;
-    height: 17px;
-    transition: transform .45s cubic-bezier(.22, 1, .36, 1);
+    position: relative;
+    z-index: 2;
+    width: 19px;
+    height: 19px;
+    transition: transform 0.55s var(--ease), color 0.35s ease;
   }
 
-  .icon-slide-button:hover .icon-slide-button__label,
-  .icon-slide-button:focus-visible .icon-slide-button__label {
-    transform: translateX(-2px);
+  .icon-slide-button:hover,
+  .icon-slide-button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .icon-slide-button:hover::before,
+  .icon-slide-button:focus-visible::before {
+    transform: translateX(0);
+  }
+
+  .icon-slide-button:hover .icon-slide-button__text,
+  .icon-slide-button:focus-visible .icon-slide-button__text {
+    color: var(--button-text-hover);
+    transform: translateX(1px);
   }
 
   .icon-slide-button:hover .icon-slide-button__icon,
   .icon-slide-button:focus-visible .icon-slide-button__icon {
-    transform: translateX(-1px) scale(1.04);
+    color: var(--button-fill);
+    transform: translateX(-1px) scale(1.03);
+  }
+
+  .icon-slide-button:hover .icon-slide-button__icon::after,
+  .icon-slide-button:focus-visible .icon-slide-button__icon::after {
+    transform: translateX(0);
   }
 
   .icon-slide-button:hover .icon-slide-button__icon svg,
   .icon-slide-button:focus-visible .icon-slide-button__icon svg {
+    color: var(--button-fill);
     transform: translateX(2px);
   }
 
+  .icon-slide-button:active {
+    transform: translateY(0) scale(0.97);
+  }
+
   .icon-slide-button:focus-visible {
-    outline: 2px solid #1769d1;
+    outline: 2px solid var(--button-bg);
     outline-offset: 4px;
+  }
+
+  .icon-slide-button--smooth {
+    scroll-behavior: smooth;
   }
 
   @media (max-width: 760px) {
     .icon-slide-button {
-      min-height: 52px;
-      padding-left: 22px;
+      min-width: 176px;
+      min-height: 54px;
+      padding-left: 21px;
     }
 
     .icon-slide-button__icon {
-      width: 38px;
-      height: 38px;
-      flex-basis: 38px;
-      margin-left: 18px;
+      width: 40px;
+      height: 40px;
+      flex-basis: 40px;
+      margin-left: 16px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .icon-slide-button,
     .icon-slide-button::before,
-    .icon-slide-button__label,
+    .icon-slide-button__text,
     .icon-slide-button__icon,
+    .icon-slide-button__icon::after,
     .icon-slide-button__icon svg {
       transition: none;
     }
