@@ -15,7 +15,7 @@ const items = [
     {[...items, ...items].map((item, index) => (
       <span class="medical-ticker__item" aria-hidden={index >= items.length ? 'true' : undefined}>
         <span>{item}</span>
-        <b>✦</b>
+        <b aria-hidden="true">✦</b>
       </span>
     ))}
   </div>
@@ -25,13 +25,13 @@ const items = [
   .medical-ticker {
     position: relative;
     z-index: 2;
+    flex: 0 0 clamp(72px, 5.6vw, 88px);
     width: 100%;
-    height: 58px;
     overflow: hidden;
     display: flex;
     align-items: center;
-    border-top: 1px solid rgba(20, 71, 119, 0.06);
-    border-bottom: 1px solid rgba(20, 71, 119, 0.06);
+    border-top: 1px solid rgba(20, 71, 119, 0.08);
+    border-bottom: 1px solid rgba(20, 71, 119, 0.08);
     background: #f8fbff;
   }
 
@@ -46,19 +46,19 @@ const items = [
   .medical-ticker__item {
     display: inline-flex;
     align-items: center;
-    gap: 34px;
-    padding-right: 34px;
+    gap: clamp(28px, 2.6vw, 42px);
+    padding-right: clamp(28px, 2.6vw, 42px);
     white-space: nowrap;
     color: #49627f;
     font-family: var(--font-body);
-    font-size: 11px;
+    font-size: clamp(12px, 0.8vw, 14px);
     font-weight: 600;
-    letter-spacing: 0.17em;
+    letter-spacing: 0.18em;
   }
 
   .medical-ticker__item b {
     color: #2477e8;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
   }
 
@@ -72,7 +72,12 @@ const items = [
   }
 
   @media (max-width: 760px) {
-    .medical-ticker { height: 50px; }
-    .medical-ticker__item { gap: 22px; padding-right: 22px; font-size: 9px; letter-spacing: 0.13em; }
+    .medical-ticker { flex-basis: 64px; }
+    .medical-ticker__item {
+      gap: 22px;
+      padding-right: 22px;
+      font-size: 10px;
+      letter-spacing: 0.13em;
+    }
   }
 </style>
