@@ -1,0 +1,526 @@
+---
+import IconSlideButton from '../ui/IconSlideButton.astro';
+---
+
+<div class="hero-body">
+  <div class="hero-body__grid" aria-hidden="true"></div>
+  <div class="hero-body__blue-panel" aria-hidden="true"></div>
+
+  <div class="hero-body__copy">
+    <p class="eyebrow">SIDDAGANGA HOSPITAL · RANEBENNUR</p>
+
+    <h1>
+      <span>Heart &amp;</span>
+      <span>Diabetes, <em>In Sync</em></span>
+    </h1>
+
+    <p class="intro">
+      Specialist care, advanced diagnostics and a team that listens carefully to every patient.
+    </p>
+
+    <IconSlideButton
+      href="https://wa.me/919591799099"
+      label="Book Appointment"
+      newTab={true}
+      variant="blue"
+    />
+  </div>
+
+  <div class="hero-body__right-copy">
+    <h2>With Specialist<br />Technology</h2>
+    <p>
+      The latest diagnostic equipment, paired with a team that never rushes a conversation — because every patient deserves both.
+    </p>
+  </div>
+
+  <div class="hero-body__hands" aria-hidden="true">
+    <div class="hero-body__hand-glow"></div>
+    <img class="hand hand--clinician" src="/assets/hero/clinician-hand.png" alt="" />
+    <img class="hand hand--patient" src="/assets/hero/patient-hand.png" alt="" />
+  </div>
+
+  <aside class="care-panel">
+    <div class="care-panel__media">
+      <img src="/assets/hero/hospital-700.webp" alt="Siddaganga Hospital exterior" />
+      <span class="care-panel__play" aria-hidden="true">›</span>
+      <span class="care-panel__caption">Virtual tour</span>
+      <span class="care-panel__dot" aria-hidden="true"></span>
+    </div>
+
+    <div class="care-panel__content">
+      <div class="care-panel__label">Our care in numbers</div>
+      <div class="care-panel__rule" aria-hidden="true"><i></i></div>
+
+      <div class="stats">
+        <div class="stat">
+          <strong>15+</strong>
+          <span>years of<br />experience</span>
+        </div>
+        <div class="stat">
+          <strong>20+</strong>
+          <span>highly qualified<br />doctors</span>
+        </div>
+        <div class="stat">
+          <strong>100%</strong>
+          <span>advanced<br />diagnostics</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="service-pills" aria-label="Hospital highlights">
+    <span><b>♧</b>24×7 Emergency</span>
+    <span><b>⌬</b>On-site Lab</span>
+    <span><b>♙</b>Family Care</span>
+  </div>
+
+  <div class="feedback" aria-hidden="true">
+    <p>We appreciate every feedback<br />because it inspires us to<br />become better.</p>
+    <div class="feedback__avatars">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <div class="hero-arrow" aria-hidden="true">→</div>
+</div>
+
+<style>
+  .hero-body {
+    position: relative;
+    min-height: calc(100svh - 32px);
+    overflow: hidden;
+    isolation: isolate;
+    background: #f8fbff;
+  }
+
+  .hero-body__grid {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.55;
+    background-image:
+      linear-gradient(rgba(20, 42, 70, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(20, 42, 70, 0.022) 1px, transparent 1px);
+    background-size: 100% 25%, 100% 25%;
+    pointer-events: none;
+  }
+
+  .hero-body__blue-panel {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 49%;
+    background: linear-gradient(132deg, #2579ef 0%, #1769e7 52%, #287cf0 100%);
+    clip-path: polygon(17% 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .hero-body__blue-panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.18;
+    background:
+      radial-gradient(circle at 45% 52%, rgba(255,255,255,.35), transparent 28%),
+      linear-gradient(90deg, transparent 0 70%, rgba(255,255,255,.12) 70.2%, transparent 70.4%);
+  }
+
+  .hero-body__copy {
+    position: absolute;
+    z-index: 8;
+    left: clamp(38px, 3.7vw, 66px);
+    top: clamp(165px, 22vh, 205px);
+    width: min(49%, 770px);
+  }
+
+  .eyebrow {
+    margin: 0 0 27px;
+    color: #66758a;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    color: #0c1017;
+    font-family: var(--font-display);
+    font-size: clamp(62px, 6.4vw, 106px);
+    line-height: .86;
+    letter-spacing: -.075em;
+    font-weight: 700;
+  }
+
+  h1 span { display: block; }
+  h1 em { font-style: normal; color: #0c1017; }
+
+  .intro {
+    max-width: 390px;
+    margin: 29px 0 25px;
+    color: #65748a;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .hero-body__right-copy {
+    position: absolute;
+    z-index: 8;
+    top: clamp(190px, 24vh, 225px);
+    right: clamp(55px, 7vw, 130px);
+    width: min(28vw, 410px);
+    color: #fff;
+  }
+
+  .hero-body__right-copy h2 {
+    margin: 0 0 21px;
+    font-family: var(--font-display);
+    font-size: clamp(35px, 3.1vw, 54px);
+    line-height: .9;
+    letter-spacing: -.06em;
+    font-weight: 700;
+  }
+
+  .hero-body__right-copy p {
+    max-width: 390px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgba(255,255,255,.92);
+  }
+
+  .hero-body__hands {
+    position: absolute;
+    z-index: 5;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero-body__hand-glow {
+    position: absolute;
+    width: min(46vw, 700px);
+    aspect-ratio: 1;
+    right: 3%;
+    top: 9%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(231,243,255,.48) 58%, transparent 72%);
+  }
+
+  .hand {
+    position: absolute;
+    object-fit: contain;
+    filter: drop-shadow(0 22px 24px rgba(16, 52, 95, .12));
+    will-change: transform;
+  }
+
+  .hand--clinician {
+    width: min(42vw, 690px);
+    right: -1.5%;
+    top: 39%;
+    z-index: 3;
+    animation: clinicianFloat 7s ease-in-out infinite;
+  }
+
+  .hand--patient {
+    width: min(45vw, 735px);
+    right: 8%;
+    top: 47%;
+    z-index: 4;
+    animation: patientFloat 7s ease-in-out -1.1s infinite;
+  }
+
+  .care-panel {
+    position: absolute;
+    z-index: 12;
+    left: clamp(38px, 3.7vw, 66px);
+    bottom: 36px;
+    display: flex;
+    align-items: center;
+    width: min(600px, 39vw);
+    min-height: 184px;
+    padding: 10px 22px 10px 10px;
+    border-radius: 28px;
+    background: rgba(255,255,255,.82);
+    border: 1px solid rgba(255,255,255,.8);
+    box-shadow: 0 18px 50px rgba(39, 74, 109, .09);
+    backdrop-filter: blur(18px);
+  }
+
+  .care-panel__media {
+    position: relative;
+    width: 190px;
+    height: 164px;
+    flex: 0 0 auto;
+    overflow: hidden;
+    border-radius: 20px;
+  }
+
+  .care-panel__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .care-panel__play {
+    position: absolute;
+    top: 12px;
+    right: -1px;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #1769e7;
+    background: rgba(255,255,255,.96);
+    font-size: 25px;
+    line-height: 1;
+    transform: rotate(180deg);
+    box-shadow: 0 6px 18px rgba(17,48,88,.12);
+  }
+
+  .care-panel__caption {
+    position: absolute;
+    left: 15px;
+    bottom: 14px;
+    color: #fff;
+    font-size: 11px;
+    text-shadow: 0 1px 8px rgba(0,0,0,.3);
+  }
+
+  .care-panel__dot {
+    position: absolute;
+    right: 10px;
+    bottom: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #111820;
+  }
+
+  .care-panel__content {
+    min-width: 0;
+    padding-left: 28px;
+    flex: 1;
+  }
+
+  .care-panel__label {
+    color: #64738a;
+    font-size: 11px;
+    margin-bottom: 23px;
+  }
+
+  .care-panel__rule {
+    position: absolute;
+    top: 23px;
+    right: 24px;
+    width: 29px;
+    height: 6px;
+    border-radius: 99px;
+    background: rgba(35,121,239,.12);
+  }
+
+  .care-panel__rule i {
+    display: block;
+    width: 14px;
+    height: 6px;
+    border-radius: inherit;
+    background: #267bef;
+  }
+
+  .stats {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .stat {
+    min-width: 0;
+    padding: 0 21px;
+    border-left: 1px solid rgba(21,44,72,.09);
+  }
+
+  .stat:first-child { padding-left: 0; border-left: 0; }
+
+  .stat strong {
+    display: block;
+    margin-bottom: 7px;
+    color: #1769e7;
+    font-family: var(--font-display);
+    font-size: clamp(29px, 2.25vw, 39px);
+    line-height: .9;
+    letter-spacing: -.06em;
+  }
+
+  .stat span {
+    display: block;
+    color: #536278;
+    font-size: 10px;
+    line-height: 1.25;
+  }
+
+  .service-pills {
+    position: absolute;
+    z-index: 12;
+    right: clamp(170px, 20vw, 330px);
+    bottom: 73px;
+    display: flex;
+    gap: 13px;
+  }
+
+  .service-pills span {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 21px;
+    border: 1px solid rgba(255,255,255,.34);
+    border-radius: 999px;
+    background: rgba(255,255,255,.23);
+    color: #fff;
+    box-shadow: 0 8px 28px rgba(15,58,120,.08);
+    backdrop-filter: blur(12px);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .service-pills b {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  .feedback {
+    position: absolute;
+    z-index: 12;
+    right: 45px;
+    bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: rgba(255,255,255,.9);
+  }
+
+  .feedback p {
+    margin: 0 0 12px;
+    font-size: 9px;
+    line-height: 1.45;
+    text-align: right;
+  }
+
+  .feedback__avatars {
+    display: flex;
+    padding-right: 4px;
+  }
+
+  .feedback__avatars span {
+    width: 31px;
+    height: 31px;
+    margin-left: -7px;
+    border: 2px solid rgba(255,255,255,.85);
+    border-radius: 50%;
+    background: linear-gradient(135deg, #dbe9f7, #7e9ec0);
+  }
+
+  .feedback__avatars span:nth-child(2) { background: linear-gradient(135deg, #f3d8c6, #b48b72); }
+  .feedback__avatars span:nth-child(3) { background: linear-gradient(135deg, #b6d6ef, #416f99); }
+
+  .hero-arrow {
+    position: absolute;
+    z-index: 12;
+    right: 190px;
+    bottom: 39px;
+    color: #fff;
+    font-size: 27px;
+    font-weight: 300;
+  }
+
+  @keyframes clinicianFloat {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(-8px, 7px, 0); }
+  }
+
+  @keyframes patientFloat {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(7px, -5px, 0); }
+  }
+
+  @media (max-width: 1200px) {
+    .hero-body__copy { width: 52%; }
+    h1 { font-size: clamp(56px, 6.7vw, 88px); }
+    .hero-body__right-copy { right: 45px; width: 30vw; }
+    .care-panel { width: 47vw; }
+    .service-pills { right: 18vw; }
+    .service-pills span { padding-inline: 14px; }
+  }
+
+  @media (max-width: 900px) {
+    .hero-body__blue-panel { width: 47%; }
+    .hero-body__right-copy { top: 165px; width: 30%; }
+    .hero-body__right-copy h2 { font-size: 28px; }
+    .hero-body__right-copy p { font-size: 10px; }
+    .hand--clinician { width: 47vw; top: 41%; }
+    .hand--patient { width: 49vw; top: 50%; right: 7%; }
+    .care-panel { width: 54vw; }
+    .care-panel__media { width: 145px; height: 145px; }
+    .stat { padding-inline: 12px; }
+    .service-pills { right: 2vw; bottom: 28px; transform: translateY(-1px) scale(.85); transform-origin: right bottom; }
+    .feedback { display: none; }
+    .hero-arrow { right: 30px; bottom: 26px; }
+  }
+
+  @media (max-width: 760px) {
+    .hero-body { min-height: calc(100svh - 16px); }
+    .hero-body__grid { opacity: .35; }
+    .hero-body__blue-panel {
+      top: 45%;
+      width: 100%;
+      height: 55%;
+      clip-path: polygon(0 9%, 100% 0, 100% 100%, 0 100%);
+    }
+    .hero-body__copy {
+      left: 24px;
+      right: 24px;
+      top: 120px;
+      width: auto;
+    }
+    .eyebrow { margin-bottom: 20px; font-size: 8px; }
+    h1 { font-size: clamp(50px, 13vw, 72px); }
+    .intro { max-width: 315px; margin-top: 22px; font-size: 11px; }
+    .hero-body__right-copy {
+      top: auto;
+      right: 24px;
+      bottom: 230px;
+      width: 47%;
+    }
+    .hero-body__right-copy h2 { margin-bottom: 10px; font-size: 27px; }
+    .hero-body__right-copy p { font-size: 9px; }
+    .hero-body__hand-glow { width: 90vw; right: -10%; top: 42%; }
+    .hand--clinician { width: 82vw; right: -13%; top: 47%; }
+    .hand--patient { width: 86vw; right: 5%; top: 57%; }
+    .care-panel {
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      width: auto;
+      min-height: 120px;
+      padding: 7px 13px 7px 7px;
+      border-radius: 20px;
+    }
+    .care-panel__media { width: 110px; height: 106px; border-radius: 14px; }
+    .care-panel__play { width: 30px; height: 30px; font-size: 18px; top: 7px; }
+    .care-panel__caption { left: 9px; bottom: 8px; font-size: 8px; }
+    .care-panel__content { padding-left: 13px; }
+    .care-panel__label { margin-bottom: 14px; font-size: 8px; }
+    .care-panel__rule { top: 14px; right: 14px; transform: scale(.8); transform-origin: right; }
+    .stat { padding-inline: 8px; }
+    .stat strong { font-size: 21px; }
+    .stat span { font-size: 7px; }
+    .service-pills { display: none; }
+    .hero-arrow { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hand--clinician,
+    .hand--patient { animation: none; }
+  }
+</style>
