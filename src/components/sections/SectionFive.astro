@@ -101,9 +101,8 @@ const doctors = [
       cards.forEach((card, index) => {
         const offset = (index - activeIndex + cards.length) % cards.length;
         card.classList.toggle('is-active', offset === 0);
-        card.classList.toggle('is-left', offset === cards.length - 1);
-        card.classList.toggle('is-right', offset === 1);
-        card.classList.toggle('is-hidden', offset > 1 && offset < cards.length - 1);
+        card.classList.toggle('is-right-one', offset === 1);
+        card.classList.toggle('is-right-two', offset === 2);
       });
     };
 
@@ -143,12 +142,7 @@ const doctors = [
     font-family: var(--font-body);
   }
 
-  .doctors-inner {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    box-sizing: border-box;
-  }
+  .doctors-inner { width: 100%; height: 100%; position: relative; box-sizing: border-box; }
 
   .trust-area {
     position: relative;
@@ -173,10 +167,7 @@ const doctors = [
     z-index: 2;
   }
 
-  .trust-message strong {
-    color: #111820;
-    font-weight: 700;
-  }
+  .trust-message strong { color: #111820; font-weight: 700; }
 
   .decor {
     position: absolute;
@@ -258,12 +249,7 @@ const doctors = [
     z-index: 5;
   }
 
-  .eyebrow {
-    margin: 0 0 15px;
-    color: #8ca0bb;
-    font-size: 11px;
-    letter-spacing: .03em;
-  }
+  .eyebrow { margin: 0 0 15px; color: #8ca0bb; font-size: 11px; letter-spacing: .03em; }
 
   .people-copy h2 {
     margin: 0;
@@ -277,18 +263,9 @@ const doctors = [
 
   .people-copy h2 strong { font-weight: 700; }
 
-  .people-description {
-    margin: 24px 0 0;
-    color: #71839d;
-    font-size: 12px;
-    line-height: 1.45;
-  }
+  .people-description { margin: 24px 0 0; color: #71839d; font-size: 12px; line-height: 1.45; }
 
-  .carousel-controls {
-    display: flex;
-    gap: 13px;
-    margin-top: 58px;
-  }
+  .carousel-controls { display: flex; gap: 13px; margin-top: 58px; }
 
   .carousel-button {
     width: 25px;
@@ -303,23 +280,11 @@ const doctors = [
     transition: transform .25s ease, background .25s ease, color .25s ease;
   }
 
-  .carousel-button--prev {
-    background: transparent;
-    color: var(--blue);
-  }
-
-  .carousel-button--next {
-    background: var(--blue);
-    color: white;
-  }
-
+  .carousel-button--prev { background: transparent; color: var(--blue); }
+  .carousel-button--next { background: var(--blue); color: white; }
   .carousel-button:hover { transform: translateY(-2px); }
 
-  .doctor-carousel {
-    position: relative;
-    height: 100%;
-    overflow: visible;
-  }
+  .doctor-carousel { position: relative; height: 100%; overflow: visible; }
 
   .doctor-card {
     position: absolute;
@@ -331,32 +296,12 @@ const doctors = [
     background: #fff;
     border: 1px solid rgba(255,255,255,.8);
     box-shadow: 0 8px 28px rgba(66,91,129,.06);
-    transition: left .55s cubic-bezier(.22,1,.36,1), background .45s ease, color .35s ease, transform .55s cubic-bezier(.22,1,.36,1), opacity .35s ease;
+    transition: left .55s cubic-bezier(.22,1,.36,1), background .45s ease, color .35s ease, transform .55s cubic-bezier(.22,1,.36,1);
   }
 
-  .doctor-card.is-active {
-    left: 0;
-    background: linear-gradient(160deg, #2778f1 0%, #1f68df 100%);
-    color: white;
-    z-index: 3;
-  }
-
-  .doctor-card.is-right {
-    left: 31.5%;
-    z-index: 2;
-  }
-
-  .doctor-card.is-left {
-    left: -31.5%;
-    z-index: 1;
-    opacity: 0;
-  }
-
-  .doctor-card.is-hidden {
-    left: 100%;
-    opacity: 0;
-    pointer-events: none;
-  }
+  .doctor-card.is-active { left: 0; background: linear-gradient(160deg, #2778f1 0%, #1f68df 100%); color: white; z-index: 3; }
+  .doctor-card.is-right-one { left: 31.5%; z-index: 2; }
+  .doctor-card.is-right-two { left: 63%; z-index: 1; }
 
   .doctor-image {
     position: absolute;
@@ -406,23 +351,8 @@ const doctors = [
     box-sizing: border-box;
   }
 
-  .doctor-info h3 {
-    margin: 0 0 3px;
-    font-family: var(--font-display);
-    font-size: clamp(14px, 1.2vw, 18px);
-    line-height: 1.05;
-    letter-spacing: -.035em;
-  }
-
-  .doctor-info p,
-  .doctor-info small {
-    display: block;
-    margin: 0;
-    color: #65758d;
-    font-size: 8px;
-    line-height: 1.25;
-  }
-
+  .doctor-info h3 { margin: 0 0 3px; font-family: var(--font-display); font-size: clamp(14px, 1.2vw, 18px); line-height: 1.05; letter-spacing: -.035em; }
+  .doctor-info p, .doctor-info small { display: block; margin: 0; color: #65758d; font-size: 8px; line-height: 1.25; }
   .doctor-info small { margin-top: 2px; }
 
   .card-arrow {
@@ -445,9 +375,9 @@ const doctors = [
     .trust-image { right: 12%; }
     .people-area { grid-template-columns: 34% 66%; bottom: 7%; height: 45%; }
     .people-copy h2 { font-size: clamp(34px, 5.3vw, 52px); }
-    .doctor-card { width: 45%; }
-    .doctor-card.is-right { left: 48%; }
-    .doctor-card.is-left { left: -48%; }
+    .doctor-card { width: 30%; }
+    .doctor-card.is-right-one { left: 34%; }
+    .doctor-card.is-right-two { left: 68%; }
     .people-description { font-size: 11px; }
   }
 
@@ -467,12 +397,11 @@ const doctors = [
     .doctor-carousel { position: absolute; left: 6%; right: 6%; bottom: 6%; height: 58%; }
     .doctor-card { width: 58%; height: 100%; }
     .doctor-card.is-active { left: 0; }
-    .doctor-card.is-right { left: 62%; }
-    .doctor-card.is-left { left: -62%; }
+    .doctor-card.is-right-one { left: 62%; }
+    .doctor-card.is-right-two { left: 124%; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .doctor-card,
-    .carousel-button { transition: none; }
+    .doctor-card, .carousel-button { transition: none; }
   }
 </style>
