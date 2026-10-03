@@ -3,8 +3,8 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
 ---
 
 <div class="hero-body">
-  <div class="hero-body__grid" aria-hidden="true"></div>
   <div class="hero-body__blue-panel" aria-hidden="true"></div>
+  <div class="hero-body__white-panel" aria-hidden="true"></div>
 
   <div class="hero-body__copy">
     <p class="eyebrow">SIDDAGANGA HOSPITAL · RANEBENNUR</p>
@@ -41,31 +41,33 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
 
   <aside class="care-panel" aria-label="Siddaganga Hospital care highlights">
     <div class="care-panel__media" aria-hidden="true">
-      <div class="care-panel__placeholder">
-        <span>SGH</span>
-        <small>Siddaganga Hospital</small>
+      <div class="care-panel__image-slot">
+        <span class="care-panel__media-kicker">SIDDAGANGA</span>
+        <strong>Hospital</strong>
+        <span class="care-panel__media-meta">Ranebennur · Karnataka</span>
+        <img src="/assets/brand/siddaganga-hospital.svg" alt="" />
+        <span class="care-panel__media-mark"></span>
       </div>
-      <span class="care-panel__play">→</span>
-      <span class="care-panel__caption">Hospital</span>
-      <span class="care-panel__dot"></span>
     </div>
 
     <div class="care-panel__content">
-      <div class="care-panel__label">our care in numbers</div>
-      <div class="care-panel__rule" aria-hidden="true"><i></i></div>
+      <div class="care-panel__topline">
+        <span>care highlights</span>
+        <i aria-hidden="true"></i>
+      </div>
 
-      <div class="stats">
-        <div class="stat">
-          <strong>4.5★</strong>
-          <span>Google<br />rating</span>
-        </div>
-        <div class="stat">
+      <div class="care-highlights">
+        <div class="care-highlight">
           <strong>24×7</strong>
-          <span>emergency<br />care</span>
+          <span>Emergency</span>
         </div>
-        <div class="stat">
-          <strong>2D</strong>
-          <span>Echo +<br />TMT</span>
+        <div class="care-highlight">
+          <strong>Lab</strong>
+          <span>On-site diagnostics</span>
+        </div>
+        <div class="care-highlight">
+          <strong>2D Echo</strong>
+          <span>ECG support</span>
         </div>
       </div>
     </div>
@@ -91,45 +93,20 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
 .hero-body{
   position:relative;
   width:100%;
-  min-height:100%;
-  height:100%;
+  min-height:calc(100svh - clamp(16px, 2.3vw, 36px));
   overflow:hidden;
   isolation:isolate;
   background:var(--color-white);
 }
 
-.hero-body::before{
-  content:"";
-  position:absolute;
-  inset:clamp(8px, 1.1vw, 18px);
-  border-radius:clamp(18px, 1.8vw, 28px);
-  background:var(--color-white);
-  z-index:0;
-}
-
-.hero-body__grid{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  opacity:.42;
-  background:
-    linear-gradient(rgba(11,10,10,.018) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(11,10,10,.018) 1px,transparent 1px);
-  background-size:clamp(72px, 8vw, 128px) 100%,100% clamp(72px, 8vw, 128px);
-}
-
-/* The blue side is a fluid panel rather than a fixed rectangle. Its curved
-   inner edge keeps the hero visually connected to the white side. */
+/* The blue surface is the actual hero card. It owns all four outer corners so
+   the colour can never leak into a square viewport edge. */
 .hero-body__blue-panel{
   position:absolute;
-  z-index:2;
-  top:clamp(12px, 1.45vw, 24px);
-  right:clamp(12px, 1.45vw, 24px);
-  bottom:clamp(12px, 1.45vw, 24px);
-  left:clamp(38%, 40vw, 43%);
+  z-index:1;
+  inset:clamp(10px, 1.2vw, 18px);
   overflow:hidden;
-  border-radius:clamp(72px, 8vw, 150px) clamp(14px, 1.5vw, 24px) clamp(14px, 1.5vw, 24px) clamp(72px, 8vw, 150px);
+  border-radius:clamp(24px, 2.5vw, 40px);
   background:var(--color-brand);
 }
 
@@ -138,8 +115,35 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
   position:absolute;
   inset:0;
   background:
-    radial-gradient(ellipse at 48% 18%,rgba(255,255,255,.24) 0%,rgba(255,255,255,.08) 34%,transparent 62%),
-    radial-gradient(ellipse at 16% 74%,rgba(255,255,255,.08),transparent 44%);
+    radial-gradient(ellipse at 52% 17%,rgba(255,255,255,.25) 0%,rgba(255,255,255,.10) 30%,transparent 60%),
+    radial-gradient(ellipse at 88% 80%,rgba(255,255,255,.08),transparent 42%);
+}
+
+/* White left field. The elliptical pseudo-element makes the inner boundary
+   curve naturally instead of using a hard rectangular split. */
+.hero-body__white-panel{
+  position:absolute;
+  z-index:2;
+  top:clamp(10px, 1.2vw, 18px);
+  bottom:clamp(10px, 1.2vw, 18px);
+  left:clamp(10px, 1.2vw, 18px);
+  width:clamp(42%, 44vw, 47%);
+  border-radius:clamp(24px, 2.5vw, 40px) 0 0 clamp(24px, 2.5vw, 40px);
+  background:var(--color-white);
+  overflow:visible;
+}
+
+.hero-body__white-panel::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  top:0;
+  right:-22%;
+  width:44%;
+  height:100%;
+  border-radius:50%;
+  background:var(--color-white);
+  pointer-events:none;
 }
 
 .hero-body__copy{
@@ -147,7 +151,7 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
   z-index:10;
   left:clamp(28px, 3.6vw, 56px);
   top:clamp(150px, 23vh, 230px);
-  width:min(48vw, 700px);
+  width:min(52vw, 720px);
 }
 
 .eyebrow{
@@ -211,7 +215,7 @@ h1 strong{font-weight:800;color:var(--color-ink)}
 
 .hero-body__hands{
   position:absolute;
-  z-index:5;
+  z-index:7;
   inset:0;
   pointer-events:none;
 }
@@ -229,6 +233,8 @@ h1 strong{font-weight:800;color:var(--color-ink)}
 
 .hand{
   position:absolute;
+  display:block;
+  max-width:none;
   object-fit:contain;
   filter:none;
   will-change:transform;
@@ -252,124 +258,96 @@ h1 strong{font-weight:800;color:var(--color-ink)}
 
 .care-panel{
   position:absolute;
-  z-index:12;
+  z-index:20;
   left:clamp(24px, 3.2vw, 52px);
-  bottom:clamp(18px, 2.7vw, 42px);
+  bottom:clamp(20px, 2.7vw, 42px);
   display:flex;
-  align-items:center;
-  width:clamp(430px, 39vw, 600px);
+  align-items:stretch;
+  width:min(clamp(430px, 39vw, 600px), calc(100% - 48px));
   min-height:clamp(142px, 11vw, 176px);
-  padding:clamp(9px, .85vw, 14px) clamp(18px, 2vw, 30px) clamp(9px, .85vw, 14px) clamp(9px, .85vw, 14px);
-  gap:clamp(18px, 2vw, 30px);
-  border-radius:clamp(14px, 1.2vw, 18px);
+  padding:clamp(9px, .85vw, 14px);
+  gap:clamp(16px, 1.8vw, 26px);
+  border:1px solid rgba(11,10,10,.06);
+  border-radius:clamp(16px, 1.4vw, 22px);
   background:var(--color-white);
   box-shadow:var(--shadow-md);
 }
 
 .care-panel__media{
   position:relative;
-  width:clamp(118px, 11.5vw, 170px);
-  height:clamp(118px, 9.6vw, 146px);
+  width:clamp(130px, 11.5vw, 174px);
+  min-height:clamp(120px, 9.6vw, 146px);
   flex:0 0 auto;
-  border-radius:var(--radius-sm);
   overflow:hidden;
+  border-radius:var(--radius-sm);
   background:var(--color-bg);
 }
 
-.care-panel__placeholder{
+/* The repository currently has no hospital photograph. This is a deliberate
+   image slot, not a fake video card; a real hospital photo can be dropped in
+   here later without changing the card layout. */
+.care-panel__image-slot{
   position:absolute;
   inset:0;
   display:flex;
   flex-direction:column;
   justify-content:flex-end;
-  padding:14px;
+  padding:clamp(12px, 1.1vw, 18px);
+  overflow:hidden;
   background:
-    radial-gradient(circle at 72% 28%,rgba(36,106,254,.26),transparent 28%),
-    linear-gradient(145deg,var(--color-bg),var(--brand-12));
+    radial-gradient(circle at 76% 22%,var(--brand-22),transparent 28%),
+    linear-gradient(145deg,var(--color-bg),var(--brand-06));
   color:var(--color-ink);
 }
 
-.care-panel__placeholder span{
-  font-family:var(--font-display);
-  font-size:clamp(24px, 2.3vw, 34px);
-  font-weight:800;
-  letter-spacing:-.05em;
-}
-
-.care-panel__placeholder small{
-  margin-top:2px;
-  font-size:clamp(7px,.6vw,9px);
-  color:var(--text-secondary);
-}
-
-.care-panel__play{
+.care-panel__image-slot::before{
+  content:"";
   position:absolute;
-  top:10px;
-  right:10px;
-  width:clamp(28px, 2.3vw, 36px);
-  height:clamp(28px, 2.3vw, 36px);
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  background:var(--color-white);
-  color:var(--color-brand);
-  font-size:13px;
-  box-shadow:var(--shadow-sm);
+  inset:10%;
+  border:1px solid var(--brand-12);
+  border-radius:28% 72% 72% 28% / 35% 35% 65% 65%;
 }
 
-.care-panel__caption{
+.care-panel__image-slot img{
   position:absolute;
-  left:12px;
-  bottom:10px;
-  color:var(--color-ink);
-  font-size:9px;
-  font-weight:600;
+  top:14px;
+  right:14px;
+  width:clamp(58px, 5vw, 78px);
+  height:auto;
+  opacity:.12;
+  filter:grayscale(1);
 }
 
-.care-panel__dot{
-  position:absolute;
-  right:10px;
-  bottom:9px;
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--color-brand);
+.care-panel__media-kicker,
+.care-panel__media-meta{
+  position:relative;
+  z-index:2;
+  font-size:clamp(7px,.58vw,9px);
+  line-height:1.25;
+  letter-spacing:.12em;
+  text-transform:uppercase;
 }
 
-.care-panel__content{position:relative;flex:1;min-width:0}
+.care-panel__media-kicker{color:var(--color-brand);font-weight:700}
+.care-panel__media strong{position:relative;z-index:2;margin-top:2px;font-family:var(--font-display);font-size:clamp(22px,2vw,30px);line-height:.95;letter-spacing:-.04em}
+.care-panel__media-meta{margin-top:5px;color:var(--text-secondary);letter-spacing:.02em;text-transform:none}
+.care-panel__media-mark{position:absolute;right:12px;bottom:12px;width:8px;height:8px;border-radius:50%;background:var(--color-brand);box-shadow:0 0 0 6px var(--brand-12)}
 
-.care-panel__label{
-  position:absolute;
-  left:0;
-  top:clamp(-20px,-1.5vw,-14px);
-  color:var(--color-ink);
-  font-size:clamp(9px,.75vw,12px);
-  font-weight:500;
-  white-space:nowrap;
-}
+.care-panel__content{display:flex;flex:1;min-width:0;flex-direction:column;justify-content:center;padding-right:clamp(4px, .6vw, 10px)}
 
-.care-panel__rule{
-  position:absolute;
-  right:0;
-  top:clamp(-24px,-1.7vw,-15px);
-  width:28px;
-  height:6px;
-  border-radius:var(--radius-pill);
-  background:var(--brand-12);
-}
+.care-panel__topline{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:clamp(18px, 1.8vw, 28px);color:var(--color-ink);font-size:clamp(9px,.72vw,11px);font-weight:500;white-space:nowrap}
+.care-panel__topline i{display:block;width:28px;height:6px;flex:0 0 auto;border-radius:var(--radius-pill);background:var(--brand-12)}
+.care-panel__topline i::after{content:"";display:block;width:14px;height:6px;border-radius:inherit;background:var(--color-brand)}
 
-.care-panel__rule i{display:block;width:14px;height:6px;border-radius:inherit;background:var(--color-brand)}
-
-.stats{display:flex;align-items:flex-start;gap:clamp(18px,2.3vw,36px);margin-top:clamp(16px,2vw,25px)}
-
-.stat{position:relative;min-width:0}
-.stat:not(:first-child)::before{content:"";position:absolute;left:clamp(-18px,-1.2vw,-10px);top:0;width:1px;height:clamp(44px,4vw,62px);background:var(--line)}
-.stat strong{display:block;margin:0 0 5px;color:var(--color-brand);font-family:var(--font-body);font-size:clamp(25px,2.5vw,38px);line-height:1;font-weight:500;letter-spacing:-.04em}
-.stat span{display:block;color:var(--color-ink);font-size:clamp(8px,.72vw,11px);line-height:1.18}
+.care-highlights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,24px)}
+.care-highlight{position:relative;min-width:0}
+.care-highlight:not(:first-child)::before{content:"";position:absolute;left:clamp(-13px,-.9vw,-8px);top:0;width:1px;height:52px;background:var(--line)}
+.care-highlight strong{display:block;margin:0 0 5px;color:var(--color-brand);font-family:var(--font-display);font-size:clamp(20px,1.9vw,30px);line-height:1;font-weight:700;letter-spacing:-.04em}
+.care-highlight span{display:block;color:var(--color-ink);font-size:clamp(8px,.67vw,10px);line-height:1.2}
 
 .service-pills{
   position:absolute;
-  z-index:12;
+  z-index:18;
   right:clamp(7%, 8vw, 11%);
   bottom:clamp(54px, 7.2vw, 88px);
   display:flex;
@@ -392,74 +370,67 @@ h1 strong{font-weight:800;color:var(--color-ink)}
 
 .service-pills b{font-size:14px;font-weight:400;color:var(--color-white)}
 
-.feedback{position:absolute;z-index:12;right:clamp(24px,3vw,48px);bottom:clamp(18px,2.2vw,32px);color:var(--color-white);text-align:right}
+.feedback{position:absolute;z-index:18;right:clamp(24px,3vw,48px);bottom:clamp(18px,2.2vw,32px);color:var(--color-white);text-align:right}
 .feedback p{margin:0 0 10px;font-size:clamp(7px,.6vw,9px);line-height:1.35}
 .feedback__avatars{display:flex;justify-content:flex-end}
 .feedback__avatars span{width:clamp(24px,2vw,31px);height:clamp(24px,2vw,31px);margin-left:-7px;border:2px solid rgba(255,255,255,.86);border-radius:50%;background:var(--color-bg)}
 .feedback__avatars span:nth-child(2){background:var(--brand-12)}
 .feedback__avatars span:nth-child(3){background:var(--brand-22)}
-.hero-arrow{position:absolute;z-index:12;right:clamp(120px,13vw,190px);bottom:clamp(30px,3vw,48px);color:var(--color-white);font-size:clamp(22px,2vw,28px);font-weight:300}
+.hero-arrow{position:absolute;z-index:18;right:clamp(120px,13vw,190px);bottom:clamp(30px,3vw,48px);color:var(--color-white);font-size:clamp(22px,2vw,28px);font-weight:300}
 
 @keyframes clinicianFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-7px,6px,0)}}
 @keyframes patientFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(7px,-5px,0)}}
 
 @media (max-width:1100px){
-  .hero-body__blue-panel{left:38%;border-radius:clamp(58px,7vw,100px) 18px 18px clamp(58px,7vw,100px)}
-  .hero-body__copy{width:min(47vw,620px)}
-  .hero-body__right-copy{left:57%;width:34%}
+  .hero-body__copy{width:min(50vw,620px)}
+  .hero-body__right-copy{left:57%;width:35%}
   .service-pills{right:5%;transform:scale(.9);transform-origin:right bottom}
   .feedback{display:none}
+  .care-panel{width:min(520px,calc(100% - 40px))}
 }
 
 @media (max-width:860px){
-  .hero-body__copy{top:17%;width:54%;}
-  .hero-body__blue-panel{left:35%;}
-  .hero-body__right-copy{top:18%;left:58%;width:34%;}
-  .hero-body__right-copy p{line-height:1.2}
-  .care-panel{width:clamp(390px,48vw,520px)}
-  .service-pills{bottom:5%;transform:scale(.78);}
+  .hero-body{min-height:calc(100svh - 16px)}
+  .hero-body__blue-panel{inset:44% 10px 10px;border-radius:28px}
+  .hero-body__white-panel{top:10px;bottom:50%;left:10px;width:calc(100% - 20px);border-radius:28px 28px 0 0}
+  .hero-body__white-panel::after{right:-10%;top:72%;width:120%;height:42%;border-radius:50%}
+  .hero-body__copy{top:18%;left:28px;width:calc(100% - 56px)}
+  h1{font-size:clamp(3rem,10vw,4.8rem)}
+  .intro{max-width:420px}
+  .hero-body__right-copy{left:28px;top:auto;bottom:36%;width:calc(100% - 56px);max-width:520px}
+  .hero-body__right-copy h2{font-size:clamp(2rem,7vw,3rem)}
+  .hero-body__right-copy p{font-size:clamp(12px,2vw,15px);max-width:480px}
+  .hand--clinician{width:72%;right:-12%;top:43%}
+  .hand--patient{width:78%;left:-20%;top:52%}
+  .care-panel{left:20px;right:20px;bottom:18px;width:auto;min-height:128px}
+  .care-panel__media{width:112px;min-height:100px}
+  .care-highlights{gap:12px}
+  .care-highlight:not(:first-child)::before{left:-7px}
+  .service-pills{display:none}
   .hero-arrow{display:none}
 }
 
-@media (max-width:760px){
-  .hero-body{height:auto;min-height:760px}
-  .hero-body::before{inset:8px;border-radius:22px}
-  .hero-body__grid{opacity:.2}
-  .hero-body__blue-panel{
-    left:8px;
-    right:8px;
-    top:42%;
-    bottom:8px;
-    border-radius:clamp(52px,13vw,92px) 20px 20px 20px;
-  }
-  .hero-body__copy{left:24px;right:24px;top:104px;width:auto}
-  .eyebrow{margin-bottom:18px;font-size:8px}
-  h1{font-size:clamp(3.1rem,13vw,4.5rem)}
-  .intro{max-width:310px;font-size:11px}
-  .hero-body__right-copy{left:24px;right:24px;top:auto;bottom:300px;width:auto}
-  .hero-body__right-copy h2{font-size:28px;letter-spacing:-.04em}
-  .hero-body__right-copy p{font-size:11px;line-height:1.35}
-  .hero-body__hand-glow{width:90%;height:45%;right:-7%;top:38%}
-  .hand--clinician{width:85%;right:-15%;top:49%}
-  .hand--patient{width:88%;left:-5%;top:57%}
-  .care-panel{
-    left:18px;
-    right:18px;
-    bottom:18px;
-    width:auto;
-    min-height:120px;
-    padding:7px 10px 7px 7px;
-    gap:12px;
-    border-radius:20px;
-  }
-  .care-panel__media{width:110px;height:106px}
-  .care-panel__label{top:-2px;font-size:8px}
-  .care-panel__rule{top:-4px;transform:scale(.75);transform-origin:right}
-  .stats{gap:10px;margin-top:25px}
-  .stat:not(:first-child)::before{left:-6px;height:49px}
-  .stat strong{font-size:21px}
-  .stat span{font-size:7px}
-  .service-pills,.feedback,.hero-arrow{display:none}
+@media (max-width:600px){
+  .hero-body__copy{top:15%;left:22px;width:calc(100% - 44px)}
+  .eyebrow{margin-bottom:14px;font-size:8px;letter-spacing:.13em}
+  h1{font-size:clamp(2.75rem,13vw,4rem);line-height:.92}
+  .intro{margin:18px 0 20px;font-size:12px}
+  .hero-body__right-copy{left:22px;bottom:39%;width:calc(100% - 44px)}
+  .hero-body__right-copy h2{margin-bottom:14px;font-size:clamp(1.9rem,8.5vw,2.6rem)}
+  .hero-body__right-copy p{font-size:12px;line-height:1.2}
+  .hand--clinician{width:82%;right:-28%;top:43%}
+  .hand--patient{width:90%;left:-34%;top:54%}
+  .care-panel{left:16px;right:16px;bottom:16px;padding:8px;gap:10px;min-height:112px;border-radius:16px}
+  .care-panel__media{width:88px;min-height:96px;border-radius:10px}
+  .care-panel__image-slot{padding:10px}
+  .care-panel__media strong{font-size:19px}
+  .care-panel__media-meta{font-size:7px}
+  .care-panel__image-slot img{top:9px;right:9px;width:44px}
+  .care-panel__topline{margin-bottom:12px;font-size:8px}
+  .care-highlights{gap:8px}
+  .care-highlight strong{font-size:17px}
+  .care-highlight span{font-size:7px}
+  .care-highlight:not(:first-child)::before{height:42px;left:-5px}
 }
 
 @media (prefers-reduced-motion:reduce){.hand--clinician,.hand--patient{animation:none}}
