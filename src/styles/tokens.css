@@ -1,24 +1,185 @@
+/* ==========================================================================
+   Siddaganga Hospital — design tokens (single source of truth)
+   Palette: 4 base colours only. Everything else is a tint of these.
+   ========================================================================== */
+
 :root {
-  --color-bg: #EBF0FE;
-  --color-ink: #0B0A0A;
-  --color-accent: #246AFE;
-  --color-white: #FFFFFF;
-  --color-blue: #246AFE;
-  --color-blue-dark: #0B0A0A;
-  --color-sky: #EBF0FE;
-  --color-muted: rgba(11,10,10,.58);
-  --color-line: rgba(11,10,10,.10);
+  /* ---- Brand palette (the only 4 base colours) ---- */
+  --color-bg: #EBF0FE;      /* page background */
+  --color-ink: #0B0A0A;     /* text, dark surfaces */
+  --color-brand: #246AFE;   /* actions, accents, brand surfaces */
+  --color-white: #FFFFFF;   /* cards, text on brand/dark */
+
+  /* ---- Derived text colours (contrast-checked, WCAG AA) ----
+     ink @ 64% = 6.1:1 on white, 5.8:1 on bg
+     ink @ 60% = 5.2:1 on white, 5.0:1 on bg  (lowest allowed for small text)
+     brand on white = 4.6:1 OK | brand on bg = 4.0:1 -> large text ONLY
+     brand-strong (brand + 10% ink) = 5.4:1 white, 4.7:1 bg -> safe for small text */
+  --text-primary: var(--color-ink);
+  --text-secondary: rgba(11, 10, 10, .64);
+  --text-tertiary: rgba(11, 10, 10, .60);
+  --text-on-brand: #FFFFFF;                /* small text on brand = pure white only */
+  --text-on-dark: rgba(255, 255, 255, .82);
+  --color-brand-strong: #2260E6;           /* small links/labels on bg or white */
+
+  /* ---- Surfaces ---- */
+  --surface-page: var(--color-bg);
+  --surface-card: var(--color-white);
+  --surface-brand: var(--color-brand);
+  --surface-inverse: var(--color-ink);
+
+  /* ---- Lines and tints ---- */
+  --line: rgba(11, 10, 10, .10);
+  --line-inverse: rgba(255, 255, 255, .14);
+  --brand-06: rgba(36, 106, 254, .06);
+  --brand-12: rgba(36, 106, 254, .12);
+  --brand-22: rgba(36, 106, 254, .22);
+  --glass: rgba(255, 255, 255, .76);
+
+  /* ---- Fonts (Inter has no Kannada glyphs; the browser falls through to Noto per character) ---- */
+  --font-display: "Manrope", "Noto Sans Kannada", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Inter", "Noto Sans Kannada", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* ---- Type scale (rem so browser zoom/text-size works; 12px is the floor) ---- */
+  --text-xs: .75rem;                                            /* 12  captions, eyebrows */
+  --text-sm: .875rem;                                           /* 14  secondary UI, card text */
+  --text-md: 1rem;                                              /* 16  body */
+  --text-lg: clamp(1.0625rem, 1rem + .3vw, 1.25rem);            /* 17-20  lead paragraph */
+  --text-xl: clamp(1.25rem, 1.1rem + .6vw, 1.5rem);             /* 20-24  card titles */
+  --text-2xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);              /* 24-32  quotes, sub-headings */
+  --text-3xl: clamp(2rem, 1.3rem + 2.8vw, 3.75rem);             /* 32-60  section headings (h2) */
+  --text-4xl: clamp(2.75rem, 1.5rem + 5.2vw, 5.5rem);           /* 44-88  hero heading (h1) */
+  --text-stat: clamp(3rem, 2rem + 3.6vw, 4.75rem);              /* 48-76  big numbers */
+  --text-wordmark: clamp(6rem, 16vw, 15rem);                    /* decorative footer wordmark */
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --lh-tight: 1;
+  --lh-snug: 1.15;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.65;
+
+  --track-display: -.04em;
+  --track-heading: -.03em;
+  --track-tight: -.015em;
+  --track-eyebrow: .12em;
+
+  /* ---- Spacing (4px base) ---- */
+  --space-1: .25rem;   /* 4 */
+  --space-2: .5rem;    /* 8 */
+  --space-3: .75rem;   /* 12 */
+  --space-4: 1rem;     /* 16 */
+  --space-5: 1.5rem;   /* 24 */
+  --space-6: 2rem;     /* 32 */
+  --space-7: 3rem;     /* 48 */
+  --space-8: 4rem;     /* 64 */
+  --space-9: 6rem;     /* 96 */
+  --space-10: 8rem;    /* 128 */
+  --section-y: clamp(4rem, 8vw, 7.5rem);   /* vertical rhythm between sections */
+
+  /* ---- Layout (one container, one gutter) ---- */
+  --container: 1440px;
+  --gutter: clamp(16px, 3vw, 48px);
+  --header-offset: 112px;   /* fixed header height + gap, used for anchor scrolling */
+
+  /* ---- Radius scale ---- */
+  --radius-sm: 12px;    /* chips, small cards, image corners */
+  --radius-md: 16px;    /* cards */
+  --radius-lg: 24px;    /* panels */
+  --radius-xl: 32px;    /* section shells, footer */
   --radius-pill: 999px;
-  --radius-card: 28px;
-  --shadow-soft: 0 24px 70px rgba(11,10,10,.12);
-  --font-display: "Manrope", sans-serif;
-  --font-body: "Inter", sans-serif;
-  --content-width: 1440px;
-  --page-pad: clamp(20px, 4vw, 64px);
+
+  /* ---- Shadow scale ---- */
+  --shadow-sm: 0 8px 24px rgba(11, 10, 10, .06);
+  --shadow-md: 0 18px 50px rgba(11, 10, 10, .08);
+  --shadow-lg: 0 30px 90px rgba(11, 10, 10, .16);
+  --shadow-brand: 0 14px 34px rgba(36, 106, 254, .24);
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --dur-fast: .2s;
+  --dur: .35s;
+  --dur-slow: .6s;
+
+  /* ---- Z-index scale ---- */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-header: 1500;
+  --z-menu: 3000;
+
+  /* ---- Legacy aliases (old names still used or referenced; remove after migration) ---- */
+  --color-accent: var(--color-brand);
+  --color-blue: var(--color-brand);
+  --color-blue-dark: var(--color-brand-strong);
+  --color-sky: var(--color-bg);
+  --color-muted: var(--text-secondary);
+  --color-line: var(--line);
+  --radius-card: var(--radius-lg);
+  --shadow-soft: var(--shadow-md);
+  --content-width: var(--container);
+  --page-pad: var(--gutter);
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; background: var(--color-bg); }
-body { margin: 0; background: var(--color-bg); color: var(--color-ink); font-family: var(--font-body); }
+/* Kannada needs looser tracking and line-height than Latin display type. */
+:lang(kn) {
+  --track-display: 0;
+  --track-heading: 0;
+  --track-tight: 0;
+  --lh-tight: 1.3;
+  --lh-snug: 1.4;
+}
+
+/* ---- Base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-offset);   /* anchors no longer hide under the fixed header */
+  background: var(--surface-page);
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--surface-page);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: var(--lh-normal);
+  font-weight: var(--fw-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg, video { max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { font: inherit; }
+h1, h2, h3, h4 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+/* ---- Focus: visible everywhere, white on dark/brand surfaces ---- */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}
+.site-footer :focus-visible,
+.menu__panel :focus-visible,
+.hero-body__blue-panel ~ * :focus-visible {
+  outline-color: var(--color-white);
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
