@@ -3,6 +3,8 @@
    Opacity is used only as a tint of one of those four colors. */
 
 body { background:#EBF0FE !important; color:#0B0A0A !important; }
+.hero,.hero__frame,.section-two-flow{background:#EBF0FE!important}
+.hero__frame{box-shadow:0 20px 70px rgba(11,10,10,.07)!important}
 
 /* Navigation */
 .header .desktop-nav,.header .search-button,.header .language-button{background:rgba(255,255,255,.76)!important;border-color:rgba(11,10,10,.10)!important;box-shadow:0 10px 35px rgba(11,10,10,.06)!important}
