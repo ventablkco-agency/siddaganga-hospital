@@ -8,39 +8,55 @@ const doctors = [
     name: 'Dr. Nagaraj S K',
     role: 'General Medicine · Cardiac & Diabetes Specialist',
     badge: 'Lead physician',
-    featured: true,
+    years: '15+',
   },
   {
     name: 'Dr. Santosh V. Motagi',
     role: 'General Surgery',
     badge: 'Surgeon',
-    featured: false,
+    years: '',
   },
   {
     name: 'Dr. Basavaraj Kallihal',
     role: 'Obstetrics',
     badge: 'Obstetrics',
-    featured: false,
+    years: '',
+  },
+  {
+    name: 'Dr. Nisarga K.',
+    role: 'General Medicine',
+    badge: 'Physician',
+    years: '',
+  },
+  {
+    name: 'Dr. Puttaraj',
+    role: 'ENT',
+    badge: 'ENT specialist',
+    years: '',
+  },
+  {
+    name: 'Dr. Bhaktavatsala',
+    role: 'Dermatology',
+    badge: 'Dermatology',
+    years: '',
   },
 ];
 ---
 
 <section id="doctors" class="doctors-section" aria-labelledby="doctors-title">
-  <div class="trust-hero">
-    <span class="soft-square soft-square-left" aria-hidden="true"></span>
-    <span class="soft-square soft-square-right" aria-hidden="true"></span>
+  <div class="trust-panel">
+    <span class="decor decor-left" aria-hidden="true"></span>
+    <span class="decor decor-right" aria-hidden="true"></span>
 
     <p class="trust-message">
       Medicine <strong>starts with science</strong> — but true<br />
       healing <strong>begins with trust</strong>
     </p>
 
-    <div class="trust-visual-placeholder" aria-hidden="true">
-      <span>Image</span>
-    </div>
+    <div class="trust-image" aria-hidden="true"></div>
 
-    <div class="trust-cta">
-      <span class="trust-rule" aria-hidden="true"></span>
+    <div class="trust-appointment">
+      <span class="trust-line" aria-hidden="true"></span>
       <IconSlideButton
         href={appointmentUrl}
         label="Make an appointment"
@@ -50,85 +66,132 @@ const doctors = [
     </div>
   </div>
 
-  <div class="doctors-area">
-    <div class="doctors-intro">
-      <div class="brand-mark"><span>✦</span> SGH</div>
+  <div class="doctors-panel">
+    <div class="doctors-copy">
+      <div class="brand-mark" aria-label="Siddaganga Hospital">
+        <span>✦</span>
+        <span class="brand-name">SGH</span>
+      </div>
 
-      <div class="intro-copy">
+      <div class="copy-middle">
         <p class="eyebrow">{`{ Our doctors }`}</p>
         <h2 id="doctors-title">Meet the people<br /><strong>who care.</strong></h2>
         <p class="description">
-          Our team brings together expertise, empathy,
+          Our team brings together expertise, empathy,<br />
           and a deep passion for helping others.
         </p>
       </div>
 
       <div class="doctor-controls" aria-label="Doctor carousel controls">
-        <button type="button" aria-label="Previous doctors">←</button>
-        <button type="button" class="active" aria-label="Next doctors">→</button>
+        <button type="button" class="control previous" aria-label="Previous doctors">←</button>
+        <button type="button" class="control next active" aria-label="Next doctors">→</button>
       </div>
     </div>
 
-    <div class="doctors-rail">
-      {doctors.map((doctor, index) => (
-        <article class:list={["doctor-card", { featured: doctor.featured }]}>
-          <div class="doctor-visual" aria-label={`Image placeholder for ${doctor.name}`}>
-            {doctor.featured && <span class="practice-badge"><strong>8+</strong><small>Years in<br />practice</small></span>}
-            <span class="image-placeholder">Doctor image</span>
-          </div>
-
-          <div class="doctor-card-info">
-            <div>
-              <p class="doctor-role">{doctor.badge}</p>
-              <h3>{doctor.name}</h3>
-              <p class="doctor-speciality">{doctor.role}</p>
-            </div>
-            <a class="doctor-arrow" href={appointmentUrl} target="_blank" rel="noreferrer" aria-label={`Book an appointment with ${doctor.name}`}>
-              →
-            </a>
-          </div>
-        </article>
-      ))}
+    <div class="doctor-window" aria-live="polite">
+      <div class="doctor-rail" data-active="0">
+        <article class="doctor-card featured" data-slot="0"></article>
+        <article class="doctor-card" data-slot="1"></article>
+        <article class="doctor-card" data-slot="2"></article>
+      </div>
     </div>
   </div>
 </section>
 
+<script define:vars={{ doctors, appointmentUrl }}>
+  const section = document.querySelector('#doctors');
+  const rail = section?.querySelector('.doctor-rail');
+  const previous = section?.querySelector('.control.previous');
+  const next = section?.querySelector('.control.next');
+
+  if (rail && previous && next) {
+    let active = 0;
+    let locked = false;
+
+    const getDoctor = (offset) => doctors[(active + offset + doctors.length) % doctors.length];
+
+    const renderCard = (card, doctor, featured) => {
+      card.classList.toggle('featured', featured);
+      card.innerHTML = `
+        <div class="doctor-visual" aria-hidden="true">
+          ${doctor.years ? `<span class="practice-badge"><strong>${doctor.years}</strong><small>years in<br />practice</small></span>` : ''}
+        </div>
+        <div class="doctor-card-info">
+          <div class="doctor-card-copy">
+            <p class="doctor-role">${doctor.badge}</p>
+            <h3>${doctor.name}</h3>
+            <p class="doctor-speciality">${doctor.role}</p>
+          </div>
+          <a class="doctor-arrow" href="${appointmentUrl}" target="_blank" rel="noreferrer" aria-label="Book an appointment with ${doctor.name}">→</a>
+        </div>
+      `;
+    };
+
+    const render = () => {
+      const cards = rail.querySelectorAll('.doctor-card');
+      cards.forEach((card, index) => renderCard(card, getDoctor(index), index === 0));
+      rail.dataset.active = String(active);
+    };
+
+    const move = (direction) => {
+      if (locked) return;
+      locked = true;
+      rail.classList.add(direction === 1 ? 'moving-next' : 'moving-prev');
+
+      window.setTimeout(() => {
+        active = (active + direction + doctors.length) % doctors.length;
+        render();
+        rail.classList.remove('moving-next', 'moving-prev');
+        window.setTimeout(() => { locked = false; }, 30);
+      }, 280);
+    };
+
+    previous.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
+    render();
+  }
+</script>
+
 <style>
   .doctors-section {
+    --blue: #2878ed;
+    --ink: #111b2d;
+    --muted: #69788f;
     position: relative;
     min-height: 100svh;
     height: 100svh;
-    box-sizing: border-box;
     overflow: hidden;
-    padding: clamp(28px, 4vw, 54px) clamp(22px, 4.5vw, 64px) clamp(24px, 3vw, 42px);
-    background: #edf3ff;
-    color: #111827;
+    box-sizing: border-box;
+    padding: clamp(26px, 4vw, 48px) clamp(28px, 4.6vw, 70px) clamp(30px, 4vw, 48px);
+    background: #edf2ff;
+    color: var(--ink);
     display: flex;
     flex-direction: column;
   }
 
-  .trust-hero {
+  .trust-panel {
     position: relative;
     flex: 0 0 43%;
-    min-height: 270px;
+    min-height: 275px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: flex-start;
-    padding-top: clamp(6px, 1vw, 16px);
+    align-items: center;
+    flex-direction: column;
+    padding-top: clamp(10px, 1.2vw, 18px);
+    box-sizing: border-box;
   }
 
   .trust-message {
-    position: relative;
-    z-index: 2;
     margin: 0;
     text-align: center;
-    color: #4e5c70;
+    color: #5d6a7c;
     font-family: var(--font-display);
-    font-size: clamp(34px, 4.15vw, 61px);
-    line-height: 1.05;
+    font-size: clamp(34px, 4.05vw, 61px);
+    line-height: .99;
     letter-spacing: -.055em;
     font-weight: 400;
+    position: relative;
+    z-index: 2;
   }
 
   .trust-message strong {
@@ -136,227 +199,230 @@ const doctors = [
     font-weight: 700;
   }
 
-  .soft-square {
+  .decor {
     position: absolute;
-    width: 45px;
-    height: 45px;
+    width: 43px;
+    height: 43px;
     border-radius: 10px;
-    background: rgba(255,255,255,.48);
-    filter: blur(.2px);
+    background: rgba(255,255,255,.58);
   }
 
-  .soft-square-left { left: 2%; top: 16%; }
-  .soft-square-right { right: 1.5%; top: 21%; }
+  .decor-left { left: 1.5%; top: 17%; }
+  .decor-right { right: 1.5%; top: 24%; }
 
-  .trust-visual-placeholder {
+  .trust-image {
     position: absolute;
-    right: 16%;
-    top: 51%;
+    right: 17.5%;
+    bottom: 14%;
     width: 104px;
     height: 78px;
     border-radius: 12px;
-    background: rgba(255,255,255,.5);
     transform: rotate(-10deg);
-    display: grid;
-    place-items: center;
-    color: rgba(90,108,133,.28);
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: .1em;
+    background: rgba(255,255,255,.48);
+    border: 1px solid rgba(255,255,255,.65);
+    box-shadow: 0 12px 30px rgba(55,78,112,.05);
   }
 
-  .trust-cta {
+  .trust-appointment {
     position: absolute;
-    bottom: 4px;
     left: 50%;
+    bottom: 0;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 15px;
   }
 
-  .trust-rule {
-    width: 82px;
+  .trust-line {
+    width: 78px;
     height: 1px;
-    background: #d7dfeb;
+    background: #d2dbe9;
   }
 
-  .doctors-area {
+  .doctors-panel {
+    width: min(100%, 1420px);
     flex: 1 1 auto;
     min-height: 0;
-    width: min(100%, 1410px);
     margin: 0 auto;
     display: grid;
-    grid-template-columns: minmax(270px, .88fr) minmax(0, 1.9fr);
-    align-items: end;
-    gap: clamp(30px, 5vw, 70px);
+    grid-template-columns: minmax(290px, .88fr) minmax(0, 1.62fr);
+    column-gap: clamp(34px, 5.5vw, 78px);
+    align-items: stretch;
   }
 
-  .doctors-intro {
-    height: 100%;
-    min-height: 0;
+  .doctors-copy {
+    min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 0 0 3px;
+    padding: 2px 0 0;
   }
 
   .brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 7px;
     color: #172b49;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: -.02em;
   }
 
-  .brand-mark span {
-    display: inline-grid;
+  .brand-mark > span:first-child {
+    display: grid;
     place-items: center;
-    width: 22px;
-    height: 22px;
-    margin-right: 6px;
+    width: 21px;
+    height: 21px;
     border-radius: 50%;
-    background: #2478ed;
+    background: var(--blue);
     color: #fff;
     font-size: 9px;
   }
 
-  .intro-copy { margin: auto 0; }
-
-  .eyebrow {
-    margin: 0 0 12px;
-    color: #8793a6;
-    font-size: 9px;
-    letter-spacing: .01em;
+  .copy-middle {
+    margin-top: auto;
+    margin-bottom: auto;
   }
 
-  .intro-copy h2 {
+  .eyebrow {
+    margin: 0 0 13px;
+    color: #8a96a9;
+    font-size: 9px;
+    line-height: 1;
+  }
+
+  .copy-middle h2 {
     margin: 0;
     color: #111820;
     font-family: var(--font-display);
-    font-size: clamp(42px, 4.6vw, 67px);
-    line-height: .88;
-    letter-spacing: -.065em;
+    font-size: clamp(46px, 4.6vw, 68px);
+    line-height: .86;
+    letter-spacing: -.068em;
     font-weight: 400;
   }
 
-  .intro-copy h2 strong { font-weight: 700; }
+  .copy-middle h2 strong { font-weight: 700; }
 
   .description {
-    max-width: 300px;
-    margin: 20px 0 0;
-    color: #718096;
-    font-size: 11px;
-    line-height: 1.45;
+    margin: 21px 0 0;
+    color: #6f7f96;
+    font-size: 10px;
+    line-height: 1.42;
   }
 
   .doctor-controls {
     display: flex;
     gap: 9px;
+    padding-bottom: 1px;
   }
 
-  .doctor-controls button {
+  .control {
     width: 30px;
     height: 30px;
-    border: 1px solid #2478ed;
+    padding: 0;
     border-radius: 50%;
+    border: 1px solid var(--blue);
     background: transparent;
-    color: #2478ed;
+    color: var(--blue);
     font-size: 15px;
+    line-height: 1;
     cursor: pointer;
+    transition: transform .2s ease, background .2s ease, color .2s ease;
   }
 
-  .doctor-controls button.active {
-    background: #2478ed;
-    color: #fff;
-  }
+  .control:hover { transform: translateY(-1px); }
+  .control.active { background: var(--blue); color: #fff; }
 
-  .doctors-rail {
+  .doctor-window {
     min-width: 0;
-    height: min(48vh, 350px);
-    display: grid;
-    grid-template-columns: 1.18fr .84fr .84fr;
-    gap: 7px;
+    min-height: 0;
+    align-self: end;
+    height: min(47vh, 350px);
+    overflow: hidden;
   }
+
+  .doctor-rail {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1.12fr .82fr .82fr;
+    gap: 7px;
+    transition: transform .28s cubic-bezier(.2,.8,.2,1);
+  }
+
+  .doctor-rail.moving-next { transform: translateX(-10px); }
+  .doctor-rail.moving-prev { transform: translateX(10px); }
 
   .doctor-card {
     position: relative;
     min-width: 0;
+    height: 100%;
     overflow: hidden;
-    border-radius: 11px;
+    border-radius: 10px;
     background: #fff;
-    box-shadow: 0 12px 30px rgba(35, 63, 103, .055);
+    box-shadow: 0 12px 28px rgba(38,64,104,.055);
+    transition: background .28s ease, transform .28s ease;
   }
+
+  .doctor-card.featured { background: var(--blue); }
 
   .doctor-visual {
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(rgba(48,100,177,.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(48,100,177,.025) 1px, transparent 1px),
-      #fafcff;
-    background-size: 38px 38px;
+      linear-gradient(rgba(65,103,160,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(65,103,160,.035) 1px, transparent 1px),
+      #fbfdff;
+    background-size: 34px 34px;
   }
 
-  .doctor-card.featured .doctor-visual {
-    background: linear-gradient(145deg, #176bea 0%, #287af3 100%);
+  .featured .doctor-visual {
+    background:
+      radial-gradient(circle at 78% 18%, rgba(255,255,255,.11), transparent 22%),
+      linear-gradient(145deg, #176be7, #2a7cf4);
   }
-
-  .image-placeholder {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    color: rgba(79,101,131,.2);
-    font-size: 9px;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-  }
-
-  .featured .image-placeholder { color: rgba(255,255,255,.24); }
 
   .practice-badge {
     position: absolute;
     z-index: 2;
-    right: 10px;
     top: 10px;
+    right: 10px;
     width: 43px;
-    height: 48px;
-    border-radius: 5px;
-    background: rgba(255,255,255,.94);
+    height: 46px;
+    border-radius: 4px;
+    background: rgba(255,255,255,.95);
     color: #172b49;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     line-height: 1;
   }
 
   .practice-badge strong { font-size: 17px; }
-  .practice-badge small { margin-top: 3px; font-size: 6px; text-align: center; line-height: 1.2; }
+  .practice-badge small { margin-top: 3px; font-size: 5.5px; text-align: center; line-height: 1.15; }
 
   .doctor-card-info {
     position: absolute;
     z-index: 3;
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    min-height: 60px;
-    padding: 10px 10px 8px;
+    left: 7px;
+    right: 7px;
+    bottom: 7px;
+    min-height: 58px;
+    padding: 9px 10px 8px;
+    border-radius: 9px;
+    background: rgba(255,255,255,.96);
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     gap: 8px;
-    border-radius: 9px;
-    background: rgba(255,255,255,.95);
-    box-shadow: 0 8px 22px rgba(27,52,83,.08);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 7px 22px rgba(24,50,84,.08);
+    backdrop-filter: blur(9px);
   }
 
   .doctor-role {
     margin: 0 0 3px;
-    color: #2478ed;
-    font-size: 7px;
-    font-weight: 600;
+    color: var(--blue);
+    font-size: 6px;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .08em;
   }
@@ -365,48 +431,50 @@ const doctors = [
     margin: 0;
     color: #172b49;
     font-family: var(--font-display);
-    font-size: clamp(13px, 1.2vw, 17px);
-    line-height: 1.05;
-    letter-spacing: -.035em;
+    font-size: clamp(13px, 1.15vw, 17px);
+    line-height: 1.04;
+    letter-spacing: -.04em;
     font-weight: 600;
   }
 
   .doctor-speciality {
-    max-width: 205px;
+    max-width: 220px;
     margin: 3px 0 0;
-    color: #71809a;
-    font-size: 7px;
-    line-height: 1.3;
+    color: #70809a;
+    font-size: 6.5px;
+    line-height: 1.28;
   }
 
   .doctor-arrow {
-    flex: 0 0 auto;
     display: grid;
     place-items: center;
-    width: 26px;
-    height: 26px;
+    flex: 0 0 auto;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
-    background: #2478ed;
+    background: var(--blue);
     color: #fff;
-    font-size: 14px;
     text-decoration: none;
+    font-size: 14px;
   }
 
   @media (max-width: 950px) {
     .doctors-section { height: auto; min-height: 100svh; overflow: visible; }
-    .trust-hero { flex-basis: 390px; }
-    .doctors-area { grid-template-columns: 1fr; gap: 25px; }
-    .doctors-intro { min-height: 230px; }
-    .doctors-rail { height: 330px; }
+    .trust-panel { flex-basis: 350px; }
+    .doctors-panel { grid-template-columns: 1fr; row-gap: 28px; }
+    .doctors-copy { min-height: 260px; }
+    .doctor-window { height: 330px; }
   }
 
   @media (max-width: 640px) {
-    .doctors-section { padding: 26px 16px; }
-    .trust-hero { flex-basis: 310px; }
-    .trust-message { font-size: 34px; }
+    .doctors-section { padding: 24px 17px 28px; }
+    .trust-panel { flex-basis: 300px; }
+    .trust-message { font-size: 32px; }
     .trust-message br { display: none; }
-    .trust-visual-placeholder { right: 8%; }
-    .doctors-rail { grid-template-columns: 1fr; height: 320px; }
+    .trust-image { right: 7%; }
+    .doctors-copy { min-height: 250px; }
+    .doctor-window { height: 315px; }
+    .doctor-rail { grid-template-columns: 1fr; }
     .doctor-card:not(:first-child) { display: none; }
   }
 </style>
