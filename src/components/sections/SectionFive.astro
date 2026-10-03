@@ -1,0 +1,349 @@
+---
+import IconSlideButton from '../ui/IconSlideButton.astro';
+
+const appointmentUrl = 'https://wa.me/919591799099';
+
+const doctors = [
+  {
+    name: 'Dr. Nagaraj S K',
+    role: 'General Medicine · Cardiac & Diabetes Specialist',
+    badge: 'Lead physician',
+    featured: true,
+  },
+  {
+    name: 'Dr. Santosh V. Motagi',
+    role: 'General Surgery',
+    badge: 'Surgeon',
+    featured: false,
+  },
+  {
+    name: 'Dr. Basavaraj Kallihal',
+    role: 'Obstetrics',
+    badge: 'Obstetrics',
+    featured: false,
+  },
+];
+---
+
+<section id="doctors" class="doctors-section" aria-labelledby="doctors-title">
+  <div class="doctors-shell">
+    <div class="doctors-intro">
+      <div class="brand-mark" aria-hidden="true"><span>✦</span> SGH</div>
+
+      <div class="intro-copy">
+        <p class="eyebrow">{`{ Our doctors }`}</p>
+        <h2 id="doctors-title">Meet the people<br /><strong>who care.</strong></h2>
+        <p class="description">
+          Our team brings together specialist expertise, careful listening and a commitment to patient-centred care.
+        </p>
+      </div>
+
+      <div class="doctor-controls" aria-hidden="true">
+        <button type="button">←</button>
+        <button type="button" class="active">→</button>
+      </div>
+    </div>
+
+    <div class="doctors-rail">
+      {doctors.map((doctor) => (
+        <article class:list={["doctor-card", { featured: doctor.featured }]}>
+          <div class="doctor-visual" aria-label={`Image placeholder for ${doctor.name}`}>
+            <span class="visual-number">{doctor.featured ? '01' : ''}</span>
+            <span class="visual-cross" aria-hidden="true">+</span>
+            <span class="image-placeholder">Doctor image</span>
+          </div>
+
+          <div class="doctor-card-info">
+            <div>
+              <p class="doctor-role">{doctor.badge}</p>
+              <h3>{doctor.name}</h3>
+              <p class="doctor-speciality">{doctor.role}</p>
+            </div>
+            <a class="doctor-arrow" href={appointmentUrl} target="_blank" rel="noreferrer" aria-label={`Book an appointment with ${doctor.name}`}>
+              →
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="doctors-cta">
+    <p>Talk to our team about your care.</p>
+    <IconSlideButton
+      href={appointmentUrl}
+      label="Make an appointment"
+      newTab={true}
+      variant="blue"
+    />
+  </div>
+</section>
+
+<style>
+  .doctors-section {
+    min-height: 100svh;
+    height: 100svh;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: clamp(28px, 4vw, 58px) clamp(20px, 4vw, 64px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #edf3ff;
+  }
+
+  .doctors-shell {
+    width: min(100%, 1500px);
+    margin: 0 auto;
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(250px, .82fr) minmax(0, 1.8fr);
+    align-items: center;
+    gap: clamp(34px, 5vw, 80px);
+  }
+
+  .doctors-intro {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: clamp(0px, 1.5vw, 22px);
+  }
+
+  .brand-mark {
+    margin-bottom: auto;
+    padding-top: 10px;
+    color: #182b49;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+  }
+
+  .brand-mark span {
+    display: inline-grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    margin-right: 7px;
+    border-radius: 50%;
+    background: #2478ed;
+    color: #fff;
+    font-size: 11px;
+  }
+
+  .intro-copy { margin-top: auto; margin-bottom: auto; }
+
+  .eyebrow {
+    margin: 0 0 14px;
+    color: #8592a7;
+    font-size: 10px;
+    letter-spacing: .02em;
+  }
+
+  .intro-copy h2 {
+    margin: 0;
+    color: #101a29;
+    font-family: var(--font-display);
+    font-size: clamp(46px, 5vw, 78px);
+    line-height: .86;
+    letter-spacing: -.065em;
+    font-weight: 400;
+  }
+
+  .intro-copy h2 strong { font-weight: 700; }
+
+  .description {
+    max-width: 310px;
+    margin: 24px 0 0;
+    color: #6e7c92;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .doctor-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    padding-bottom: 12px;
+  }
+
+  .doctor-controls button {
+    width: 31px;
+    height: 31px;
+    border: 1px solid #2478ed;
+    border-radius: 50%;
+    background: transparent;
+    color: #2478ed;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .doctor-controls button.active {
+    background: #2478ed;
+    color: #fff;
+  }
+
+  .doctors-rail {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 8px;
+    height: min(64vh, 430px);
+  }
+
+  .doctor-card {
+    min-width: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 13px;
+    background: #fff;
+    box-shadow: 0 15px 35px rgba(34, 67, 109, .07);
+  }
+
+  .doctor-visual {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(45, 103, 184, .025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45, 103, 184, .025) 1px, transparent 1px),
+      #f9fbff;
+    background-size: 42px 42px;
+  }
+
+  .doctor-card.featured .doctor-visual {
+    background:
+      radial-gradient(circle at 75% 18%, rgba(255,255,255,.18), transparent 22%),
+      linear-gradient(145deg, #176bea 0%, #287af3 100%);
+  }
+
+  .visual-number {
+    position: absolute;
+    top: 8px;
+    left: 13px;
+    color: rgba(205, 221, 248, .72);
+    font-family: var(--font-display);
+    font-size: 45px;
+    line-height: 1;
+    letter-spacing: -.08em;
+  }
+
+  .featured .visual-number { color: rgba(255,255,255,.16); }
+
+  .visual-cross {
+    position: absolute;
+    right: 14px;
+    top: 16px;
+    color: rgba(42, 113, 230, .12);
+    font-size: 35px;
+    line-height: 1;
+  }
+
+  .featured .visual-cross { color: rgba(255,255,255,.16); }
+
+  .image-placeholder {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: rgba(91, 111, 139, .32);
+    font-size: 10px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .featured .image-placeholder { color: rgba(255,255,255,.45); }
+
+  .doctor-card-info {
+    position: absolute;
+    z-index: 2;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    min-height: 75px;
+    padding: 11px 12px 10px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.94);
+    box-shadow: 0 8px 24px rgba(27, 52, 83, .09);
+    backdrop-filter: blur(12px);
+  }
+
+  .doctor-role {
+    margin: 0 0 3px;
+    color: #2478ed;
+    font-size: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .doctor-card-info h3 {
+    margin: 0;
+    color: #172b4d;
+    font-family: var(--font-display);
+    font-size: clamp(14px, 1.35vw, 19px);
+    line-height: 1.05;
+    letter-spacing: -.035em;
+    font-weight: 600;
+  }
+
+  .doctor-speciality {
+    max-width: 210px;
+    margin: 4px 0 0;
+    color: #71809a;
+    font-size: 8px;
+    line-height: 1.35;
+  }
+
+  .doctor-arrow {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #2478ed;
+    color: #fff;
+    font-size: 15px;
+  }
+
+  .doctors-cta {
+    width: min(100%, 1500px);
+    margin: 14px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .doctors-cta p {
+    margin: 0;
+    color: #7b899e;
+    font-size: 11px;
+  }
+
+  @media (max-width: 950px) {
+    .doctors-section { height: auto; min-height: 100svh; overflow: visible; }
+    .doctors-shell { grid-template-columns: 1fr; gap: 30px; }
+    .doctors-intro { min-height: 330px; }
+    .brand-mark { margin-bottom: 30px; }
+    .doctor-controls { margin-top: 30px; }
+    .doctors-rail { height: 390px; }
+  }
+
+  @media (max-width: 640px) {
+    .doctors-section { padding: 28px 16px; }
+    .doctors-intro { min-height: 310px; }
+    .intro-copy h2 { font-size: 54px; }
+    .doctors-rail { grid-template-columns: 1fr; height: auto; }
+    .doctor-card { height: 320px; }
+    .doctor-card:not(:first-child) { display: none; }
+    .doctors-cta { flex-direction: column; gap: 10px; }
+  }
+</style>
