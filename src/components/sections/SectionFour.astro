@@ -1,0 +1,242 @@
+---
+const stats = [
+  {
+    value: '24×7',
+    label: 'Emergency care',
+    detail: 'Round-the-clock emergency support for patients when it matters most.',
+  },
+  {
+    value: '6+',
+    label: 'Specialist areas',
+    detail: 'General Medicine, Cardiology, Diabetology, Surgery, ENT and more.',
+  },
+  {
+    value: '2D',
+    label: 'Echo & cardiac care',
+    detail: '2D Echo and cardiac evaluation available as part of specialist care.',
+  },
+  {
+    value: 'TMT',
+    label: 'Cardiac testing',
+    detail: 'Treadmill testing alongside diagnostics and laboratory services.',
+  },
+];
+---
+
+<section class="why-section" aria-labelledby="why-title">
+  <div class="why-card">
+    <div class="visual-placeholder" aria-label="Image placeholder">
+      <div class="visual-label">WHY<br />CHOOSE US</div>
+      <span class="visual-caption">Clinical care · advanced diagnostics</span>
+      <span class="visual-dot dot-one"></span>
+      <span class="visual-dot dot-two"></span>
+      <span class="visual-dot dot-three"></span>
+    </div>
+
+    <div class="why-content">
+      <div class="eyebrow-row">
+        <span>( Advantages )</span>
+        <span class="looks-like">LOOKS LIKE: <strong>Complete care</strong></span>
+      </div>
+
+      <div class="stats-grid">
+        {stats.map((stat) => (
+          <article class="stat">
+            <div class="stat-number">{stat.value}</div>
+            <h3>{stat.label}</h3>
+            <p>{stat.detail}</p>
+          </article>
+        ))}
+      </div>
+
+      <p class="trust-line">IN FACT: <strong>Specialist care and essential diagnostics in one place.</strong></p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-section {
+    width: 100%;
+    padding: 0 20px 36px;
+    background: #edf3ff;
+    box-sizing: border-box;
+  }
+
+  .why-card {
+    width: 100%;
+    max-width: 1440px;
+    min-height: 430px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(320px, 42%) 1fr;
+    overflow: hidden;
+    border-radius: 28px;
+    background: #fff;
+  }
+
+  .visual-placeholder {
+    position: relative;
+    min-height: 430px;
+    overflow: hidden;
+    background: linear-gradient(145deg, #1469ef 0%, #2878f3 58%, #5c9af7 100%);
+  }
+
+  .visual-placeholder::before,
+  .visual-placeholder::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, .14);
+  }
+
+  .visual-placeholder::before {
+    width: 420px;
+    height: 420px;
+    right: -180px;
+    top: -120px;
+  }
+
+  .visual-placeholder::after {
+    width: 290px;
+    height: 290px;
+    left: -150px;
+    bottom: -160px;
+  }
+
+  .visual-label {
+    position: absolute;
+    z-index: 2;
+    top: 54px;
+    left: 54px;
+    color: #fff;
+    font-size: clamp(32px, 3.1vw, 58px);
+    line-height: .92;
+    font-weight: 500;
+    letter-spacing: -0.055em;
+  }
+
+  .visual-caption {
+    position: absolute;
+    z-index: 2;
+    left: 54px;
+    bottom: 42px;
+    color: rgba(255,255,255,.72);
+    font-size: 12px;
+    letter-spacing: .02em;
+  }
+
+  .visual-dot {
+    position: absolute;
+    z-index: 2;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #0d1729;
+  }
+
+  .dot-one { left: 46%; top: 59%; }
+  .dot-two { left: 74%; top: 73%; }
+  .dot-three { left: 27%; top: 82%; }
+
+  .why-content {
+    position: relative;
+    padding: 42px 58px 34px;
+    background: #fff;
+  }
+
+  .eyebrow-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #8b95a7;
+    font-size: 10px;
+    margin-bottom: 20px;
+  }
+
+  .looks-like {
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: #6e7788;
+    background: #fafafa;
+  }
+
+  .looks-like strong { color: #182a49; font-weight: 500; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 64px;
+    row-gap: 30px;
+  }
+
+  .stat {
+    position: relative;
+    min-width: 0;
+  }
+
+  .stat-number {
+    margin-left: -5px;
+    color: #111827;
+    font-size: clamp(52px, 5vw, 82px);
+    line-height: .72;
+    letter-spacing: -.07em;
+    font-weight: 400;
+  }
+
+  .stat:nth-child(1) .stat-number::after,
+  .stat:nth-child(2) .stat-number::after,
+  .stat:nth-child(3) .stat-number::after,
+  .stat:nth-child(4) .stat-number::after {
+    content: '+';
+    color: #1673ef;
+    font-size: .55em;
+    vertical-align: top;
+    margin-left: 3px;
+  }
+
+  .stat:nth-child(1) .stat-number::after { content: ''; }
+  .stat:nth-child(3) .stat-number::after { content: ''; }
+  .stat:nth-child(4) .stat-number::after { content: ''; }
+
+  .stat h3 {
+    margin: 18px 0 6px;
+    color: #172b4d;
+    font-size: 14px;
+    line-height: 1.1;
+    font-weight: 500;
+  }
+
+  .stat p {
+    max-width: 210px;
+    margin: 0;
+    color: #8a94a5;
+    font-size: 10px;
+    line-height: 1.45;
+  }
+
+  .trust-line {
+    margin: 28px 0 0;
+    color: #8a94a5;
+    font-size: 9px;
+    line-height: 1.4;
+  }
+
+  .trust-line strong {
+    color: #263550;
+    font-weight: 500;
+  }
+
+  @media (max-width: 900px) {
+    .why-card { grid-template-columns: 1fr; }
+    .visual-placeholder { min-height: 320px; }
+    .why-content { padding: 34px 30px; }
+  }
+
+  @media (max-width: 560px) {
+    .why-section { padding: 0 12px 24px; }
+    .why-card { border-radius: 22px; }
+    .stats-grid { column-gap: 24px; row-gap: 28px; }
+    .eyebrow-row { align-items: flex-start; gap: 10px; }
+    .looks-like { display: none; }
+  }
+</style>
