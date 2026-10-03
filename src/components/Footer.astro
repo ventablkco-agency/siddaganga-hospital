@@ -1,0 +1,59 @@
+---
+import IconSlideButton from './ui/IconSlideButton.astro';
+
+const appointmentUrl = 'https://wa.me/919591799099';
+const phoneUrl = 'tel:+919591799099';
+const emailUrl = 'mailto:siddagangahospitalrnr@gmail.com';
+const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=D.K.+Siddappa+Building,+Mruthyunjaya+Nagar,+Ranebennur,+Karnataka';
+---
+
+<footer class="site-footer" id="contact">
+  <section class="footer-cta" aria-labelledby="footer-title">
+    <span class="footer-kicker">SIDDAGANGA HOSPITAL · RANEBENNUR</span>
+    <h2 id="footer-title">Expert care. <strong>Built around people.</strong></h2>
+    <p>24×7 hospital care, specialist consultation and advanced diagnostics — with every patient treated with attention and respect.</p>
+    <IconSlideButton href={appointmentUrl} label="Make an appointment" newTab={true} variant="blue" />
+  </section>
+
+  <section class="footer-blue" aria-label="Siddaganga Hospital footer navigation">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand-lockup" href="/" aria-label="Siddaganga Hospital home">
+          <span class="brand-mark">SGH</span><span class="brand-name">Siddaganga<br /><small>Hospital</small></span>
+        </a>
+        <p>Specialist care in<br />Ranebennur, Karnataka.</p>
+        <div class="contact-orbit">
+          <a href={phoneUrl} aria-label="Call">⌕</a><a href={appointmentUrl} target="_blank" rel="noreferrer" aria-label="WhatsApp">◔</a><a href={emailUrl} aria-label="Email">@</a><a href={mapsUrl} target="_blank" rel="noreferrer" aria-label="Location">⌖</a>
+        </div>
+      </div>
+
+      <nav class="footer-column" aria-label="Care links">
+        <h3>Care</h3><a href="#services">Our services</a><a href="#why-choose-us">Why choose us</a><a href="#doctors">Our doctors</a><a href="#reviews">Patient reviews</a><a href="#contact">Emergency care</a>
+      </nav>
+
+      <nav class="footer-column" aria-label="Hospital links">
+        <h3>Hospital</h3><a href="#about">About SGH</a><a href="#services">Facilities</a><a href="#doctors">Specialists</a><a href="#contact">Contact</a><a href="#contact">Book an appointment</a>
+      </nav>
+
+      <div class="footer-contact">
+        <h3>Get in touch</h3><a href={phoneUrl}>95917 99099</a><a href="tel:+919620513688">96205 13688</a><a href={emailUrl}>siddagangahospitalrnr@gmail.com</a><a href={mapsUrl} target="_blank" rel="noreferrer">Ranebennur, Karnataka</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom"><div class="footer-emblem"><span></span></div><div class="footer-wordmark">Siddaganga</div></div>
+  </section>
+</footer>
+
+<style>
+.site-footer{--blue:#1764f5;--ink:#101a2b;position:relative;z-index:0;background:#f7f9fc;overflow:hidden}
+.footer-cta{position:relative;z-index:2;min-height:42svh;box-sizing:border-box;padding:clamp(62px,8vw,105px) 24px 70px;display:flex;flex-direction:column;align-items:center;text-align:center;background:#f7f9fc}
+.footer-kicker{display:inline-flex;padding:5px 10px;border-radius:999px;background:#fff;color:#7b8799;font-size:9px;letter-spacing:.04em;box-shadow:0 3px 12px rgba(30,54,90,.05)}
+.footer-cta h2{max-width:760px;margin:17px 0 13px;color:var(--ink);font-family:var(--font-display);font-size:clamp(43px,5.2vw,78px);line-height:.94;letter-spacing:-.065em;font-weight:700}.footer-cta h2 strong{font-weight:400}.footer-cta p{margin:0 0 23px;max-width:610px;color:#59687c;font-size:12px;line-height:1.45}
+.footer-blue{position:relative;z-index:1;min-height:58svh;padding:clamp(46px,5vw,72px) clamp(28px,5vw,76px) 0;box-sizing:border-box;color:#fff;overflow:hidden;background:radial-gradient(circle at 50% 0%,rgba(132,180,255,.72) 0,rgba(65,126,255,.32) 23%,rgba(23,100,245,0) 48%),linear-gradient(180deg,#2f7bf8 0%,#1764f5 40%,#0e59ee 100%);border-radius:44px 44px 0 0}
+.footer-blue:before{content:'';position:absolute;left:0;right:0;top:-170px;height:280px;background:radial-gradient(ellipse at center,rgba(255,255,255,.56),rgba(255,255,255,0) 68%);filter:blur(22px);pointer-events:none}
+.footer-top{position:relative;z-index:2;display:grid;grid-template-columns:1.45fr .8fr .8fr 1.15fr;gap:clamp(26px,4vw,72px);max-width:1420px;margin:0 auto}.footer-brand{min-width:0}.brand-lockup{display:inline-flex;align-items:center;gap:9px;color:#fff;text-decoration:none}.brand-mark{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;background:#fff;color:var(--blue);font-size:6px;font-weight:800}.brand-name{font-size:22px;line-height:.78;font-weight:700;letter-spacing:-.04em}.brand-name small{font-size:8px;letter-spacing:.12em;font-weight:600}.footer-brand>p{margin:12px 0 18px;color:rgba(255,255,255,.78);font-size:11px;line-height:1.25}.contact-orbit{display:flex;gap:8px}.contact-orbit a{width:27px;height:27px;border:1px solid rgba(255,255,255,.3);border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;font-size:11px;background:rgba(255,255,255,.06)}
+.footer-column,.footer-contact{display:flex;flex-direction:column;align-items:flex-start;gap:8px}.footer-column h3,.footer-contact h3{margin:0 0 5px;color:rgba(255,255,255,.92);font-size:10px;font-weight:600}.footer-column a,.footer-contact a{color:rgba(255,255,255,.72);text-decoration:none;font-size:9px;line-height:1.15}.footer-contact a{font-size:10px}
+.footer-bottom{position:relative;z-index:2;display:flex;align-items:flex-end;gap:clamp(28px,3vw,50px);max-width:1420px;height:clamp(210px,31svh,350px);margin:38px auto 0;overflow:hidden}.footer-emblem{flex:0 0 clamp(110px,13vw,180px);aspect-ratio:1;margin-bottom:-15px;border-radius:42px;display:grid;place-items:center;background:rgba(255,255,255,.22);box-shadow:inset 0 0 0 16px rgba(255,255,255,.16),inset 0 0 0 30px rgba(255,255,255,.09)}.footer-emblem span{width:58%;height:58%;border-radius:25px;background:rgba(255,255,255,.94);box-shadow:0 6px 24px rgba(5,47,140,.14)}.footer-wordmark{margin:0 0 -18px;color:#fff;font-family:var(--font-display);font-size:clamp(100px,16vw,240px);line-height:.75;letter-spacing:-.085em;font-weight:700;white-space:nowrap}
+@media(max-width:900px){.footer-top{grid-template-columns:1.3fr 1fr 1fr}.footer-contact{grid-column:2/-1}.footer-bottom{height:250px}}
+@media(max-width:620px){.footer-cta{min-height:46svh;padding-top:58px}.footer-cta h2{font-size:44px}.footer-cta p{font-size:11px}.footer-blue{min-height:75svh;border-radius:28px 28px 0 0;padding:38px 24px 0}.footer-top{grid-template-columns:1fr 1fr;gap:32px 22px}.footer-brand{grid-column:1/-1}.footer-bottom{height:190px;margin-top:32px;gap:18px}.footer-emblem{flex-basis:92px;border-radius:27px;box-shadow:inset 0 0 0 10px rgba(255,255,255,.16),inset 0 0 0 19px rgba(255,255,255,.09)}.footer-emblem span{border-radius:17px}.footer-wordmark{font-size:83px;margin-bottom:-8px}}
+</style>
