@@ -53,8 +53,8 @@ const classes = `icon-slide-button${smoothScroll ? ' icon-slide-button--smooth' 
 </a>
 
 <style>
-  .icon-slide-button{--ease:cubic-bezier(.22,1,.36,1);position:relative;display:inline-flex;align-items:center;justify-content:space-between;min-height:58px;min-width:194px;padding:7px 7px 7px 25px;overflow:hidden;border-radius:var(--button-radius);background:var(--button-bg);color:var(--button-text);text-decoration:none;isolation:isolate;box-sizing:border-box;transition:transform .45s var(--ease),background-color .45s var(--ease),color .3s ease}
-  .icon-slide-button::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--button-bg-hover);transform:translateX(-102%);transition:transform .6s var(--ease)}
+  .icon-slide-button{--ease:cubic-bezier(.22,1,.36,1);position:relative;display:inline-flex;align-items:center;justify-content:space-between;min-height:58px;min-width:194px;padding:7px 7px 7px 25px;overflow:hidden;border-radius:999px !important;background:var(--button-bg);color:var(--button-text);text-decoration:none;isolation:isolate;box-sizing:border-box;transition:transform .45s var(--ease),background-color .45s var(--ease),color .3s ease}
+  .icon-slide-button::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:999px;background:var(--button-bg-hover);transform:translateX(-102%);transition:transform .6s var(--ease)}
   .icon-slide-button__text{position:relative;z-index:2;font-family:inherit;font-size:var(--button-font-size);font-weight:600;line-height:1;letter-spacing:-.015em;white-space:nowrap;color:var(--button-text);transition:color .3s ease,transform .55s var(--ease)}
   .icon-slide-button__icon{position:relative;z-index:2;display:grid;place-items:center;width:44px;height:44px;flex:0 0 44px;margin-left:20px;border-radius:50%;background:var(--button-fill);color:var(--button-icon);overflow:hidden;transition:background-color .45s var(--ease),color .45s var(--ease),transform .55s var(--ease)}
   .icon-slide-button__icon::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--button-icon-hover-fill);transform:translateX(-105%);transition:transform .5s var(--ease)}
