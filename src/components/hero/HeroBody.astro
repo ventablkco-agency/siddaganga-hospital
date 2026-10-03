@@ -3,9 +3,6 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
 ---
 
 <div class="hero-body">
-  <div class="hero-body__blue-panel" aria-hidden="true"></div>
-  <div class="hero-body__white-panel" aria-hidden="true"></div>
-
   <div class="hero-body__copy">
     <p class="eyebrow">SIDDAGANGA HOSPITAL · RANEBENNUR</p>
 
@@ -92,57 +89,28 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
 <style>
 .hero-body{
   position:relative;
-  width:100%;
-  min-height:calc(100svh - clamp(16px, 2.3vw, 36px));
+  width:calc(100% - clamp(20px, 2.4vw, 36px));
+  margin:clamp(10px, 1.2vw, 18px) auto;
+  min-height:calc(100svh - clamp(20px, 2.4vw, 36px));
   overflow:hidden;
   isolation:isolate;
-  background:var(--color-white);
-}
-
-/* The blue surface is the actual hero card. It owns all four outer corners so
-   the colour can never leak into a square viewport edge. */
-.hero-body__blue-panel{
-  position:absolute;
-  z-index:1;
-  inset:clamp(10px, 1.2vw, 18px);
-  overflow:hidden;
-  border-radius:clamp(24px, 2.5vw, 40px);
-  background:var(--color-brand);
-}
-
-.hero-body__blue-panel::before{
-  content:"";
-  position:absolute;
-  inset:0;
+  border-radius:clamp(28px, 2.8vw, 44px);
   background:
-    radial-gradient(ellipse at 52% 17%,rgba(255,255,255,.25) 0%,rgba(255,255,255,.10) 30%,transparent 60%),
-    radial-gradient(ellipse at 88% 80%,rgba(255,255,255,.08),transparent 42%);
+    radial-gradient(ellipse at 68% 18%,rgba(255,255,255,.25) 0%,rgba(255,255,255,.10) 27%,transparent 56%),
+    radial-gradient(ellipse at 88% 80%,rgba(255,255,255,.08),transparent 42%),
+    var(--color-brand);
 }
 
-/* White left field. The elliptical pseudo-element makes the inner boundary
-   curve naturally instead of using a hard rectangular split. */
-.hero-body__white-panel{
-  position:absolute;
-  z-index:2;
-  top:clamp(10px, 1.2vw, 18px);
-  bottom:clamp(10px, 1.2vw, 18px);
-  left:clamp(10px, 1.2vw, 18px);
-  width:clamp(42%, 44vw, 47%);
-  border-radius:clamp(24px, 2.5vw, 40px) 0 0 clamp(24px, 2.5vw, 40px);
-  background:var(--color-white);
-  overflow:visible;
-}
-
-.hero-body__white-panel::after{
+/* One hero surface only. The white field is painted directly inside the
+   hero-body; there is deliberately no second white/blue card. */
+.hero-body::before{
   content:"";
   position:absolute;
   z-index:0;
-  top:0;
-  right:-22%;
-  width:44%;
-  height:100%;
-  border-radius:50%;
+  inset:-8% auto -8% -5%;
+  width:62%;
   background:var(--color-white);
+  clip-path:ellipse(78% 70% at 16% 50%);
   pointer-events:none;
 }
 
@@ -260,11 +228,11 @@ h1 strong{font-weight:800;color:var(--color-ink)}
   position:absolute;
   z-index:20;
   left:clamp(24px, 3.2vw, 52px);
-  bottom:clamp(20px, 2.7vw, 42px);
+  bottom:clamp(14px, 1.8vw, 28px);
   display:flex;
   align-items:stretch;
   width:min(clamp(430px, 39vw, 600px), calc(100% - 48px));
-  min-height:clamp(142px, 11vw, 176px);
+  min-height:clamp(132px, 10vw, 158px);
   padding:clamp(9px, .85vw, 14px);
   gap:clamp(16px, 1.8vw, 26px);
   border:1px solid rgba(11,10,10,.06);
@@ -276,16 +244,13 @@ h1 strong{font-weight:800;color:var(--color-ink)}
 .care-panel__media{
   position:relative;
   width:clamp(130px, 11.5vw, 174px);
-  min-height:clamp(120px, 9.6vw, 146px);
+  min-height:clamp(110px, 8.6vw, 132px);
   flex:0 0 auto;
   overflow:hidden;
   border-radius:var(--radius-sm);
   background:var(--color-bg);
 }
 
-/* The repository currently has no hospital photograph. This is a deliberate
-   image slot, not a fake video card; a real hospital photo can be dropped in
-   here later without changing the card layout. */
 .care-panel__image-slot{
   position:absolute;
   inset:0;
@@ -335,13 +300,13 @@ h1 strong{font-weight:800;color:var(--color-ink)}
 
 .care-panel__content{display:flex;flex:1;min-width:0;flex-direction:column;justify-content:center;padding-right:clamp(4px, .6vw, 10px)}
 
-.care-panel__topline{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:clamp(18px, 1.8vw, 28px);color:var(--color-ink);font-size:clamp(9px,.72vw,11px);font-weight:500;white-space:nowrap}
+.care-panel__topline{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:clamp(16px, 1.4vw, 22px);color:var(--color-ink);font-size:clamp(9px,.72vw,11px);font-weight:500;white-space:nowrap}
 .care-panel__topline i{display:block;width:28px;height:6px;flex:0 0 auto;border-radius:var(--radius-pill);background:var(--brand-12)}
 .care-panel__topline i::after{content:"";display:block;width:14px;height:6px;border-radius:inherit;background:var(--color-brand)}
 
 .care-highlights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,24px)}
 .care-highlight{position:relative;min-width:0}
-.care-highlight:not(:first-child)::before{content:"";position:absolute;left:clamp(-13px,-.9vw,-8px);top:0;width:1px;height:52px;background:var(--line)}
+.care-highlight:not(:first-child)::before{content:"";position:absolute;left:clamp(-13px,-.9vw,-8px);top:0;width:1px;height:48px;background:var(--line)}
 .care-highlight strong{display:block;margin:0 0 5px;color:var(--color-brand);font-family:var(--font-display);font-size:clamp(20px,1.9vw,30px);line-height:1;font-weight:700;letter-spacing:-.04em}
 .care-highlight span{display:block;color:var(--color-ink);font-size:clamp(8px,.67vw,10px);line-height:1.2}
 
@@ -349,7 +314,7 @@ h1 strong{font-weight:800;color:var(--color-ink)}
   position:absolute;
   z-index:18;
   right:clamp(7%, 8vw, 11%);
-  bottom:clamp(54px, 7.2vw, 88px);
+  bottom:clamp(42px, 5.6vw, 70px);
   display:flex;
   gap:clamp(8px, .9vw, 14px);
 }
@@ -370,13 +335,13 @@ h1 strong{font-weight:800;color:var(--color-ink)}
 
 .service-pills b{font-size:14px;font-weight:400;color:var(--color-white)}
 
-.feedback{position:absolute;z-index:18;right:clamp(24px,3vw,48px);bottom:clamp(18px,2.2vw,32px);color:var(--color-white);text-align:right}
+.feedback{position:absolute;z-index:18;right:clamp(24px,3vw,48px);bottom:clamp(12px,1.7vw,24px);color:var(--color-white);text-align:right}
 .feedback p{margin:0 0 10px;font-size:clamp(7px,.6vw,9px);line-height:1.35}
 .feedback__avatars{display:flex;justify-content:flex-end}
 .feedback__avatars span{width:clamp(24px,2vw,31px);height:clamp(24px,2vw,31px);margin-left:-7px;border:2px solid rgba(255,255,255,.86);border-radius:50%;background:var(--color-bg)}
 .feedback__avatars span:nth-child(2){background:var(--brand-12)}
 .feedback__avatars span:nth-child(3){background:var(--brand-22)}
-.hero-arrow{position:absolute;z-index:18;right:clamp(120px,13vw,190px);bottom:clamp(30px,3vw,48px);color:var(--color-white);font-size:clamp(22px,2vw,28px);font-weight:300}
+.hero-arrow{position:absolute;z-index:18;right:clamp(120px,13vw,190px);bottom:clamp(22px,2.2vw,34px);color:var(--color-white);font-size:clamp(22px,2vw,28px);font-weight:300}
 
 @keyframes clinicianFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-7px,6px,0)}}
 @keyframes patientFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(7px,-5px,0)}}
@@ -390,10 +355,8 @@ h1 strong{font-weight:800;color:var(--color-ink)}
 }
 
 @media (max-width:860px){
-  .hero-body{min-height:calc(100svh - 16px)}
-  .hero-body__blue-panel{inset:44% 10px 10px;border-radius:28px}
-  .hero-body__white-panel{top:10px;bottom:50%;left:10px;width:calc(100% - 20px);border-radius:28px 28px 0 0}
-  .hero-body__white-panel::after{right:-10%;top:72%;width:120%;height:42%;border-radius:50%}
+  .hero-body{min-height:calc(100svh - 16px);border-radius:28px}
+  .hero-body::before{inset:-8% auto -8% -15%;width:90%;clip-path:ellipse(82% 66% at 12% 50%)}
   .hero-body__copy{top:18%;left:28px;width:calc(100% - 56px)}
   h1{font-size:clamp(3rem,10vw,4.8rem)}
   .intro{max-width:420px}
@@ -411,6 +374,8 @@ h1 strong{font-weight:800;color:var(--color-ink)}
 }
 
 @media (max-width:600px){
+  .hero-body{width:calc(100% - 20px);margin:10px auto;border-radius:22px}
+  .hero-body::before{inset:-8% auto -8% -24%;width:120%;clip-path:ellipse(74% 58% at 14% 50%)}
   .hero-body__copy{top:15%;left:22px;width:calc(100% - 44px)}
   .eyebrow{margin-bottom:14px;font-size:8px;letter-spacing:.13em}
   h1{font-size:clamp(2.75rem,13vw,4rem);line-height:.92}
