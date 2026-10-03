@@ -1,5 +1,5 @@
 ---
-import { Ambulance, ArrowRight, FlaskConical, HeartHandshake } from 'lucide-astro';
+import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, UserRound } from 'lucide-astro';
 import IconSlideButton from '../ui/IconSlideButton.astro';
 ---
 
@@ -61,7 +61,11 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
 
   <div class="feedback" aria-hidden="true">
     <p>We appreciate every feedback<br />because it inspires us to<br />become better.</p>
-    <div class="feedback__avatars"><span></span><span></span><span></span></div>
+    <div class="feedback__avatars">
+      <span><UserRound size={13} strokeWidth={1.7} /></span>
+      <span><UserRound size={13} strokeWidth={1.7} /></span>
+      <span><UserRound size={13} strokeWidth={1.7} /></span>
+    </div>
   </div>
 
   <div class="hero-arrow" aria-hidden="true"><ArrowRight size={24} strokeWidth={1.7} /></div>
@@ -69,25 +73,24 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
 
 <style>
 .hero-body{position:relative;width:100%;min-height:inherit;margin:0;overflow:hidden;isolation:isolate;border-radius:inherit;background:radial-gradient(ellipse at 72% 18%,rgba(255,255,255,.22) 0%,rgba(255,255,255,.08) 28%,transparent 55%),radial-gradient(ellipse at 90% 78%,rgba(255,255,255,.08),transparent 42%),var(--color-brand)}
-
-/* One hero surface: blue is the frame background; white is a clipped field on that same surface. */
 .hero-body::before{content:'';position:absolute;z-index:0;inset:0 auto 0 0;width:61%;background:var(--color-white);clip-path:ellipse(100% 82% at 0% 50%);pointer-events:none}
 
-.hero-body__copy{position:absolute;z-index:10;left:clamp(28px,3.6vw,56px);top:clamp(150px,23vh,230px);width:min(52vw,720px)}
+.hero-body__copy{position:absolute;z-index:10;left:clamp(28px,3.6vw,56px);top:clamp(126px,19vh,190px);width:min(52vw,720px)}
 .eyebrow{margin:0 0 clamp(16px,1.6vw,24px);color:var(--text-secondary);font-size:clamp(9px,.7vw,11px);line-height:1;font-weight:500;letter-spacing:.17em;text-transform:uppercase}
 h1{margin:0;width:100%;color:var(--color-ink);font-family:var(--font-display);font-size:clamp(3.5rem,6.2vw,5.5rem);line-height:.9;letter-spacing:var(--track-display);font-weight:800}
 h1 span{display:block}h1 em{font-style:normal;color:var(--color-brand)}h1 strong{font-weight:800;color:var(--color-ink)}
 .intro{max-width:clamp(300px,30vw,420px);margin:clamp(20px,2.2vw,32px) 0 clamp(20px,2.2vw,32px);color:var(--text-secondary);font-size:clamp(12px,.9vw,14px);line-height:1.55}
 
-.hero-body__right-copy{position:absolute;z-index:10;left:clamp(62%,63vw,66%);top:clamp(185px,23vh,245px);width:min(31vw,460px);color:var(--color-white)}
-.hero-body__right-copy h2{margin:0 0 clamp(20px,2vw,30px);font-family:var(--font-display);font-size:clamp(2.2rem,3.55vw,3.35rem);line-height:.9;letter-spacing:var(--track-display);font-weight:700}
+.hero-body__right-copy{position:absolute;z-index:10;left:clamp(62%,63vw,66%);top:clamp(145px,18.5vh,195px);width:min(31vw,460px);color:var(--color-white)}
+.hero-body__right-copy h2{margin:0 0 clamp(18px,1.8vw,27px);font-family:var(--font-display);font-size:clamp(2.2rem,3.55vw,3.35rem);line-height:.9;letter-spacing:var(--track-display);font-weight:700}
 .hero-body__right-copy p{margin:0;max-width:440px;color:var(--color-white);font-size:clamp(13px,1.25vw,20px);line-height:1.1}
 
 .hero-body__hands{position:absolute;z-index:7;inset:0;pointer-events:none}
-.hero-body__hand-glow{position:absolute;z-index:0;right:3%;top:7%;width:58%;height:58%;border-radius:50%;background:radial-gradient(circle,var(--brand-22) 0%,rgba(255,255,255,.18) 40%,transparent 72%)}
+.hero-body__hand-glow{position:absolute;z-index:0;right:3%;top:4%;width:58%;height:58%;border-radius:50%;background:radial-gradient(circle,var(--brand-22) 0%,rgba(255,255,255,.18) 40%,transparent 72%)}
 .hand{position:absolute;display:block;max-width:none;object-fit:contain;filter:none;will-change:transform}
-.hand--clinician{--hand-x:-5.5%;--hand-y:-1%;z-index:4;width:clamp(48%,61vw,68%);right:clamp(-7%,-3vw,0%);top:clamp(21%,23vh,28%);transform:translate(var(--hand-x),var(--hand-y));animation:clinicianFloat 7s ease-in-out infinite}
-.hand--patient{--hand-x:5.5%;--hand-y:2%;z-index:6;width:clamp(48%,61vw,69%);left:clamp(-7%,-3vw,0%);top:clamp(33%,35vh,40%);transform:translate(var(--hand-x),var(--hand-y));animation:patientFloat 7s ease-in-out -1s infinite}
+/* The hands now point toward each other with a deliberate, stable visual gap. */
+.hand--clinician{--hand-x:.5%;--hand-y:-1%;z-index:4;width:clamp(48%,61vw,68%);right:clamp(-7%,-3vw,0%);top:clamp(18%,19vh,23%);transform:translate(var(--hand-x),var(--hand-y));animation:clinicianFloat 7s ease-in-out infinite}
+.hand--patient{--hand-x:-.5%;--hand-y:1%;z-index:6;width:clamp(48%,61vw,69%);left:clamp(-7%,-3vw,0%);top:clamp(29%,31vh,35%);transform:translate(var(--hand-x),var(--hand-y));animation:patientFloat 7s ease-in-out -1s infinite}
 
 .care-panel{position:absolute;z-index:20;left:clamp(24px,3.2vw,52px);bottom:clamp(14px,1.8vw,28px);display:flex;align-items:stretch;width:min(clamp(430px,39vw,600px),calc(100% - 48px));min-height:clamp(132px,10vw,158px);padding:clamp(9px,.85vw,14px);gap:clamp(16px,1.8vw,26px);border:1px solid rgba(11,10,10,.06);border-radius:clamp(16px,1.4vw,22px);background:var(--color-white);box-shadow:var(--shadow-md)}
 .care-panel__media{position:relative;width:clamp(130px,11.5vw,174px);min-height:clamp(110px,8.6vw,132px);flex:0 0 auto;overflow:hidden;border-radius:var(--radius-sm);background:var(--color-bg)}
@@ -106,14 +109,13 @@ h1 span{display:block}h1 em{font-style:normal;color:var(--color-brand)}h1 strong
 
 .service-pills{position:absolute;z-index:18;right:clamp(15%,16vw,18%);bottom:clamp(44px,5.8vw,72px);display:flex;gap:clamp(8px,.9vw,14px)}
 .service-pills span{display:inline-flex;align-items:center;gap:8px;padding:clamp(11px,1vw,15px) clamp(16px,1.4vw,22px);border:1px solid rgba(255,255,255,.4);border-radius:var(--radius-pill);background:rgba(255,255,255,.13);color:var(--color-white);font-size:clamp(9px,.72vw,11px);white-space:nowrap;backdrop-filter:blur(12px)}.service-pills svg{flex:0 0 auto}
-.feedback{position:absolute;z-index:18;right:clamp(20px,2.7vw,44px);bottom:clamp(12px,1.7vw,24px);color:var(--color-white);text-align:right}.feedback p{margin:0 0 10px;font-size:clamp(7px,.6vw,9px);line-height:1.35}.feedback__avatars{display:flex;justify-content:flex-end}.feedback__avatars span{width:clamp(24px,2vw,31px);height:clamp(24px,2vw,31px);margin-left:-7px;border:2px solid rgba(255,255,255,.86);border-radius:50%;background:var(--color-bg)}.feedback__avatars span:nth-child(2){background:var(--brand-12)}.feedback__avatars span:nth-child(3){background:var(--brand-22)}
+.feedback{position:absolute;z-index:18;right:clamp(20px,2.7vw,44px);bottom:clamp(12px,1.7vw,24px);color:var(--color-white);text-align:right}.feedback p{margin:0 0 10px;font-size:clamp(7px,.6vw,9px);line-height:1.35}.feedback__avatars{display:flex;justify-content:flex-end}.feedback__avatars span{display:grid;place-items:center;width:clamp(24px,2vw,31px);height:clamp(24px,2vw,31px);margin-left:-7px;border:2px solid rgba(255,255,255,.86);border-radius:50%;background:var(--color-bg);color:var(--color-brand)}.feedback__avatars span:nth-child(2){background:var(--brand-12)}.feedback__avatars span:nth-child(3){background:var(--brand-22)}.feedback__avatars svg{display:block}
 .hero-arrow{position:absolute;z-index:18;right:clamp(11%,12vw,15%);bottom:clamp(22px,2.2vw,34px);display:grid;place-items:center;color:var(--color-white)}
 
-@keyframes clinicianFloat{0%,100%{transform:translate(var(--hand-x),var(--hand-y))}50%{transform:translate(calc(var(--hand-x) - .6%),calc(var(--hand-y) + .5%))}}
-@keyframes patientFloat{0%,100%{transform:translate(var(--hand-x),var(--hand-y))}50%{transform:translate(calc(var(--hand-x) + .6%),calc(var(--hand-y) - .5%))}}
+@keyframes clinicianFloat{0%,100%{transform:translate(var(--hand-x),var(--hand-y))}50%{transform:translate(calc(var(--hand-x) + .2%),calc(var(--hand-y) + .35%))}}
+@keyframes patientFloat{0%,100%{transform:translate(var(--hand-x),var(--hand-y))}50%{transform:translate(calc(var(--hand-x) - .2%),calc(var(--hand-y) - .35%))}}
 
 @media (max-width:1100px){.hero-body__copy{width:min(50vw,620px)}.hero-body__right-copy{left:61%;width:35%}.service-pills{right:17%;transform:scale(.9);transform-origin:right bottom}.feedback{display:none}.care-panel{width:min(520px,calc(100% - 40px))}}
-@media (max-width:860px){.hero-body::before{width:92%;clip-path:ellipse(100% 66% at 0% 50%)}.hero-body__copy{top:18%;left:28px;width:calc(100% - 56px)}h1{font-size:clamp(3rem,10vw,4.8rem)}.intro{max-width:420px}.hero-body__right-copy{left:28px;top:auto;bottom:36%;width:calc(100% - 56px);max-width:520px}.hero-body__right-copy h2{font-size:clamp(2rem,7vw,3rem)}.hero-body__right-copy p{font-size:clamp(12px,2vw,15px);max-width:480px}.hand--clinician{width:72%;right:-12%;top:43%;--hand-x:-4%;--hand-y:-1%}.hand--patient{width:78%;left:-20%;top:52%;--hand-x:5%;--hand-y:2%}.care-panel{left:20px;right:20px;bottom:18px;width:auto;min-height:128px}.care-panel__media{width:112px;min-height:100px}.care-highlights{gap:12px}.care-highlight:not(:first-child)::before{left:-7px}.service-pills{display:none}.hero-arrow{display:none}}
-@media (max-width:600px){.hero-body::before{width:125%;clip-path:ellipse(82% 58% at 0% 50%)}.hero-body__copy{top:15%;left:22px;width:calc(100% - 44px)}.eyebrow{margin-bottom:14px;font-size:8px;letter-spacing:.13em}h1{font-size:clamp(2.75rem,13vw,4rem);line-height:.92}.intro{margin:18px 0 20px;font-size:12px}.hero-body__right-copy{left:22px;bottom:39%;width:calc(100% - 44px)}.hero-body__right-copy h2{margin-bottom:14px;font-size:clamp(1.9rem,8.5vw,2.6rem)}.hero-body__right-copy p{font-size:12px;line-height:1.2}.hand--clinician{width:82%;right:-28%;top:43%;--hand-x:-3%;--hand-y:-1%}.hand--patient{width:90%;left:-34%;top:54%;--hand-x:4%;--hand-y:2%}.care-panel{left:16px;right:16px;bottom:16px;padding:8px;gap:10px;min-height:112px;border-radius:16px}.care-panel__media{width:88px;min-height:96px;border-radius:10px}.care-panel__image-slot{padding:10px}.care-panel__media strong{font-size:19px}.care-panel__media-meta{font-size:7px}.care-panel__image-slot img{top:9px;right:9px;width:44px}.care-panel__topline{margin-bottom:12px;font-size:8px}.care-highlights{gap:8px}.care-highlight strong{font-size:17px}.care-highlight span{font-size:7px}.care-highlight:not(:first-child)::before{height:42px;left:-5px}}
-@media (prefers-reduced-motion:reduce){.hand--clinician,.hand--patient{animation:none}}
+@media (max-width:860px){.hero-body::before{width:92%;clip-path:ellipse(100% 66% at 0% 50%)}.hero-body__copy{top:16%;left:28px;width:calc(100% - 56px)}h1{font-size:clamp(3rem,10vw,4.8rem)}.intro{max-width:420px}.hero-body__right-copy{left:28px;top:auto;bottom:36%;width:calc(100% - 56px);max-width:520px}.hero-body__right-copy h2{font-size:clamp(2rem,7vw,3rem)}.hero-body__right-copy p{font-size:clamp(12px,2vw,15px);max-width:480px}.hand--clinician{width:72%;right:-12%;top:40%;--hand-x:.5%;--hand-y:-1%}.hand--patient{width:78%;left:-20%;top:49%;--hand-x:-.5%;--hand-y:1%}.care-panel{left:20px;right:20px;bottom:18px;width:auto;min-height:128px}.care-panel__media{width:112px;min-height:100px}.care-highlights{gap:12px}.care-highlight:not(:first-child)::before{left:-7px}.service-pills{display:none}.hero-arrow{display:none}}
+@media (max-width:600px){.hero-body::before{width:125%;clip-path:ellipse(82% 58% at 0% 50%)}.hero-body__copy{top:13%;left:22px;width:calc(100% - 44px)}.eyebrow{margin-bottom:14px;font-size:8px;letter-spacing:.13em}h1{font-size:clamp(2.75rem,13vw,4rem);line-height:.92}.intro{margin:18px 0 20px;font-size:12px}.hero-body__right-copy{left:22px;bottom:39%;width:calc(100% - 44px)}.hero-body__right-copy h2{margin-bottom:14px}.hero-body__right-copy p{font-size:12px}.hand--clinician{width:88%;right:-23%;top:39%;--hand-x:0;--hand-y:-1%}.hand--patient{width:92%;left:-28%;top:49%;--hand-x:0;--hand-y:1%}.care-panel{left:14px;right:14px;bottom:14px;min-height:116px;padding:8px;gap:10px}.care-panel__media{width:94px;min-height:98px}.care-panel__image-slot{padding:10px}.care-panel__media strong{font-size:21px}.care-panel__content{padding-right:2px}.care-panel__topline{margin-bottom:12px}.care-highlights{gap:9px}.care-highlight strong{font-size:19px}.care-highlight span{font-size:8px}.feedback{display:none}}
 </style>
