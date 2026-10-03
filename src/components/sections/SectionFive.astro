@@ -26,30 +26,54 @@ const doctors = [
 ---
 
 <section id="doctors" class="doctors-section" aria-labelledby="doctors-title">
-  <div class="doctors-shell">
+  <div class="trust-hero">
+    <span class="soft-square soft-square-left" aria-hidden="true"></span>
+    <span class="soft-square soft-square-right" aria-hidden="true"></span>
+
+    <p class="trust-message">
+      Medicine <strong>starts with science</strong> — but true<br />
+      healing <strong>begins with trust</strong>
+    </p>
+
+    <div class="trust-visual-placeholder" aria-hidden="true">
+      <span>Image</span>
+    </div>
+
+    <div class="trust-cta">
+      <span class="trust-rule" aria-hidden="true"></span>
+      <IconSlideButton
+        href={appointmentUrl}
+        label="Make an appointment"
+        newTab={true}
+        variant="blue"
+      />
+    </div>
+  </div>
+
+  <div class="doctors-area">
     <div class="doctors-intro">
-      <div class="brand-mark" aria-hidden="true"><span>✦</span> SGH</div>
+      <div class="brand-mark"><span>✦</span> SGH</div>
 
       <div class="intro-copy">
         <p class="eyebrow">{`{ Our doctors }`}</p>
         <h2 id="doctors-title">Meet the people<br /><strong>who care.</strong></h2>
         <p class="description">
-          Our team brings together specialist expertise, careful listening and a commitment to patient-centred care.
+          Our team brings together expertise, empathy,
+          and a deep passion for helping others.
         </p>
       </div>
 
-      <div class="doctor-controls" aria-hidden="true">
-        <button type="button">←</button>
-        <button type="button" class="active">→</button>
+      <div class="doctor-controls" aria-label="Doctor carousel controls">
+        <button type="button" aria-label="Previous doctors">←</button>
+        <button type="button" class="active" aria-label="Next doctors">→</button>
       </div>
     </div>
 
     <div class="doctors-rail">
-      {doctors.map((doctor) => (
+      {doctors.map((doctor, index) => (
         <article class:list={["doctor-card", { featured: doctor.featured }]}>
           <div class="doctor-visual" aria-label={`Image placeholder for ${doctor.name}`}>
-            <span class="visual-number">{doctor.featured ? '01' : ''}</span>
-            <span class="visual-cross" aria-hidden="true">+</span>
+            {doctor.featured && <span class="practice-badge"><strong>8+</strong><small>Years in<br />practice</small></span>}
             <span class="image-placeholder">Doctor image</span>
           </div>
 
@@ -67,40 +91,105 @@ const doctors = [
       ))}
     </div>
   </div>
-
-  <div class="doctors-cta">
-    <p>Talk to our team about your care.</p>
-    <IconSlideButton
-      href={appointmentUrl}
-      label="Make an appointment"
-      newTab={true}
-      variant="blue"
-    />
-  </div>
 </section>
 
 <style>
   .doctors-section {
+    position: relative;
     min-height: 100svh;
     height: 100svh;
     box-sizing: border-box;
     overflow: hidden;
-    padding: clamp(28px, 4vw, 58px) clamp(20px, 4vw, 64px);
+    padding: clamp(28px, 4vw, 54px) clamp(22px, 4.5vw, 64px) clamp(24px, 3vw, 42px);
+    background: #edf3ff;
+    color: #111827;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    background: #edf3ff;
   }
 
-  .doctors-shell {
-    width: min(100%, 1500px);
-    margin: 0 auto;
-    flex: 1;
-    min-height: 0;
-    display: grid;
-    grid-template-columns: minmax(250px, .82fr) minmax(0, 1.8fr);
+  .trust-hero {
+    position: relative;
+    flex: 0 0 43%;
+    min-height: 270px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: clamp(34px, 5vw, 80px);
+    justify-content: flex-start;
+    padding-top: clamp(6px, 1vw, 16px);
+  }
+
+  .trust-message {
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    text-align: center;
+    color: #4e5c70;
+    font-family: var(--font-display);
+    font-size: clamp(34px, 4.15vw, 61px);
+    line-height: 1.05;
+    letter-spacing: -.055em;
+    font-weight: 400;
+  }
+
+  .trust-message strong {
+    color: #111820;
+    font-weight: 700;
+  }
+
+  .soft-square {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.48);
+    filter: blur(.2px);
+  }
+
+  .soft-square-left { left: 2%; top: 16%; }
+  .soft-square-right { right: 1.5%; top: 21%; }
+
+  .trust-visual-placeholder {
+    position: absolute;
+    right: 16%;
+    top: 51%;
+    width: 104px;
+    height: 78px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.5);
+    transform: rotate(-10deg);
+    display: grid;
+    place-items: center;
+    color: rgba(90,108,133,.28);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+  }
+
+  .trust-cta {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .trust-rule {
+    width: 82px;
+    height: 1px;
+    background: #d7dfeb;
+  }
+
+  .doctors-area {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: min(100%, 1410px);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(270px, .88fr) minmax(0, 1.9fr);
+    align-items: end;
+    gap: clamp(30px, 5vw, 70px);
   }
 
   .doctors-intro {
@@ -108,15 +197,13 @@ const doctors = [
     min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding-left: clamp(0px, 1.5vw, 22px);
+    justify-content: space-between;
+    padding: 0 0 3px;
   }
 
   .brand-mark {
-    margin-bottom: auto;
-    padding-top: 10px;
-    color: #182b49;
-    font-size: 13px;
+    color: #172b49;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: -.02em;
   }
@@ -124,30 +211,30 @@ const doctors = [
   .brand-mark span {
     display: inline-grid;
     place-items: center;
-    width: 25px;
-    height: 25px;
-    margin-right: 7px;
+    width: 22px;
+    height: 22px;
+    margin-right: 6px;
     border-radius: 50%;
     background: #2478ed;
     color: #fff;
-    font-size: 11px;
+    font-size: 9px;
   }
 
-  .intro-copy { margin-top: auto; margin-bottom: auto; }
+  .intro-copy { margin: auto 0; }
 
   .eyebrow {
-    margin: 0 0 14px;
-    color: #8592a7;
-    font-size: 10px;
-    letter-spacing: .02em;
+    margin: 0 0 12px;
+    color: #8793a6;
+    font-size: 9px;
+    letter-spacing: .01em;
   }
 
   .intro-copy h2 {
     margin: 0;
-    color: #101a29;
+    color: #111820;
     font-family: var(--font-display);
-    font-size: clamp(46px, 5vw, 78px);
-    line-height: .86;
+    font-size: clamp(42px, 4.6vw, 67px);
+    line-height: .88;
     letter-spacing: -.065em;
     font-weight: 400;
   }
@@ -155,28 +242,26 @@ const doctors = [
   .intro-copy h2 strong { font-weight: 700; }
 
   .description {
-    max-width: 310px;
-    margin: 24px 0 0;
-    color: #6e7c92;
-    font-size: 12px;
-    line-height: 1.5;
+    max-width: 300px;
+    margin: 20px 0 0;
+    color: #718096;
+    font-size: 11px;
+    line-height: 1.45;
   }
 
   .doctor-controls {
     display: flex;
-    gap: 10px;
-    margin-top: auto;
-    padding-bottom: 12px;
+    gap: 9px;
   }
 
   .doctor-controls button {
-    width: 31px;
-    height: 31px;
+    width: 30px;
+    height: 30px;
     border: 1px solid #2478ed;
     border-radius: 50%;
     background: transparent;
     color: #2478ed;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
   }
 
@@ -187,97 +272,90 @@ const doctors = [
 
   .doctors-rail {
     min-width: 0;
+    height: min(48vh, 350px);
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    align-items: stretch;
-    gap: 8px;
-    height: min(64vh, 430px);
+    grid-template-columns: 1.18fr .84fr .84fr;
+    gap: 7px;
   }
 
   .doctor-card {
-    min-width: 0;
     position: relative;
+    min-width: 0;
     overflow: hidden;
-    border-radius: 13px;
+    border-radius: 11px;
     background: #fff;
-    box-shadow: 0 15px 35px rgba(34, 67, 109, .07);
+    box-shadow: 0 12px 30px rgba(35, 63, 103, .055);
   }
 
   .doctor-visual {
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(rgba(45, 103, 184, .025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(45, 103, 184, .025) 1px, transparent 1px),
-      #f9fbff;
-    background-size: 42px 42px;
+      linear-gradient(rgba(48,100,177,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(48,100,177,.025) 1px, transparent 1px),
+      #fafcff;
+    background-size: 38px 38px;
   }
 
   .doctor-card.featured .doctor-visual {
-    background:
-      radial-gradient(circle at 75% 18%, rgba(255,255,255,.18), transparent 22%),
-      linear-gradient(145deg, #176bea 0%, #287af3 100%);
+    background: linear-gradient(145deg, #176bea 0%, #287af3 100%);
   }
-
-  .visual-number {
-    position: absolute;
-    top: 8px;
-    left: 13px;
-    color: rgba(205, 221, 248, .72);
-    font-family: var(--font-display);
-    font-size: 45px;
-    line-height: 1;
-    letter-spacing: -.08em;
-  }
-
-  .featured .visual-number { color: rgba(255,255,255,.16); }
-
-  .visual-cross {
-    position: absolute;
-    right: 14px;
-    top: 16px;
-    color: rgba(42, 113, 230, .12);
-    font-size: 35px;
-    line-height: 1;
-  }
-
-  .featured .visual-cross { color: rgba(255,255,255,.16); }
 
   .image-placeholder {
     position: absolute;
     inset: 0;
     display: grid;
     place-items: center;
-    color: rgba(91, 111, 139, .32);
-    font-size: 10px;
-    letter-spacing: .08em;
+    color: rgba(79,101,131,.2);
+    font-size: 9px;
+    letter-spacing: .1em;
     text-transform: uppercase;
   }
 
-  .featured .image-placeholder { color: rgba(255,255,255,.45); }
+  .featured .image-placeholder { color: rgba(255,255,255,.24); }
+
+  .practice-badge {
+    position: absolute;
+    z-index: 2;
+    right: 10px;
+    top: 10px;
+    width: 43px;
+    height: 48px;
+    border-radius: 5px;
+    background: rgba(255,255,255,.94);
+    color: #172b49;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .practice-badge strong { font-size: 17px; }
+  .practice-badge small { margin-top: 3px; font-size: 6px; text-align: center; line-height: 1.2; }
 
   .doctor-card-info {
     position: absolute;
-    z-index: 2;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    min-height: 75px;
-    padding: 11px 12px 10px;
+    z-index: 3;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    min-height: 60px;
+    padding: 10px 10px 8px;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     gap: 8px;
-    border-radius: 10px;
-    background: rgba(255,255,255,.94);
-    box-shadow: 0 8px 24px rgba(27, 52, 83, .09);
-    backdrop-filter: blur(12px);
+    border-radius: 9px;
+    background: rgba(255,255,255,.95);
+    box-shadow: 0 8px 22px rgba(27,52,83,.08);
+    backdrop-filter: blur(10px);
   }
 
   .doctor-role {
     margin: 0 0 3px;
     color: #2478ed;
-    font-size: 8px;
+    font-size: 7px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .08em;
@@ -285,65 +363,50 @@ const doctors = [
 
   .doctor-card-info h3 {
     margin: 0;
-    color: #172b4d;
+    color: #172b49;
     font-family: var(--font-display);
-    font-size: clamp(14px, 1.35vw, 19px);
+    font-size: clamp(13px, 1.2vw, 17px);
     line-height: 1.05;
     letter-spacing: -.035em;
     font-weight: 600;
   }
 
   .doctor-speciality {
-    max-width: 210px;
-    margin: 4px 0 0;
+    max-width: 205px;
+    margin: 3px 0 0;
     color: #71809a;
-    font-size: 8px;
-    line-height: 1.35;
+    font-size: 7px;
+    line-height: 1.3;
   }
 
   .doctor-arrow {
     flex: 0 0 auto;
     display: grid;
     place-items: center;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background: #2478ed;
     color: #fff;
-    font-size: 15px;
-  }
-
-  .doctors-cta {
-    width: min(100%, 1500px);
-    margin: 14px auto 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-  }
-
-  .doctors-cta p {
-    margin: 0;
-    color: #7b899e;
-    font-size: 11px;
+    font-size: 14px;
+    text-decoration: none;
   }
 
   @media (max-width: 950px) {
     .doctors-section { height: auto; min-height: 100svh; overflow: visible; }
-    .doctors-shell { grid-template-columns: 1fr; gap: 30px; }
-    .doctors-intro { min-height: 330px; }
-    .brand-mark { margin-bottom: 30px; }
-    .doctor-controls { margin-top: 30px; }
-    .doctors-rail { height: 390px; }
+    .trust-hero { flex-basis: 390px; }
+    .doctors-area { grid-template-columns: 1fr; gap: 25px; }
+    .doctors-intro { min-height: 230px; }
+    .doctors-rail { height: 330px; }
   }
 
   @media (max-width: 640px) {
-    .doctors-section { padding: 28px 16px; }
-    .doctors-intro { min-height: 310px; }
-    .intro-copy h2 { font-size: 54px; }
-    .doctors-rail { grid-template-columns: 1fr; height: auto; }
-    .doctor-card { height: 320px; }
+    .doctors-section { padding: 26px 16px; }
+    .trust-hero { flex-basis: 310px; }
+    .trust-message { font-size: 34px; }
+    .trust-message br { display: none; }
+    .trust-visual-placeholder { right: 8%; }
+    .doctors-rail { grid-template-columns: 1fr; height: 320px; }
     .doctor-card:not(:first-child) { display: none; }
-    .doctors-cta { flex-direction: column; gap: 10px; }
   }
 </style>
