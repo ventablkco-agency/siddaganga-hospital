@@ -44,18 +44,18 @@ import HeroBody from './hero/HeroBody.astro';
 
   /* Hero-only appointment button: keep the circular container white on hover.
      The button still changes background; only the arrow switches to white. */
-  :global(.hero) :global(.hero-appointment-button) .icon-slide-button__icon::after {
+  :global(.hero) a[href^="https://wa.me/"] .icon-slide-button__icon::after {
     display: none;
   }
 
-  :global(.hero) :global(.hero-appointment-button:hover) .icon-slide-button__icon,
-  :global(.hero) :global(.hero-appointment-button:focus-visible) .icon-slide-button__icon {
+  :global(.hero) a[href^="https://wa.me/"]:hover .icon-slide-button__icon,
+  :global(.hero) a[href^="https://wa.me/"]:focus-visible .icon-slide-button__icon {
     background: var(--button-fill);
     color: var(--color-white);
   }
 
-  :global(.hero) :global(.hero-appointment-button:hover) .icon-slide-button__icon svg,
-  :global(.hero) :global(.hero-appointment-button:focus-visible) .icon-slide-button__icon svg {
+  :global(.hero) a[href^="https://wa.me/"]:hover .icon-slide-button__icon svg,
+  :global(.hero) a[href^="https://wa.me/"]:focus-visible .icon-slide-button__icon svg {
     color: var(--color-white);
   }
 
