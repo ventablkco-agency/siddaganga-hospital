@@ -1,0 +1,25 @@
+/* Shared footer visibility fix.
+   palette.css contains legacy footer selectors that force the shared
+   SiteShell footer onto the pale surface. The current Footer.astro is
+   intentionally designed as a dark footer, so keep that shared component
+   visually consistent across every page. */
+.site-footer {
+  background: #0B0A0A !important;
+  color: #FFFFFF !important;
+}
+
+.site-footer a {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.site-footer__label {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.site-footer__contact p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.site-footer__bottom {
+  color: rgba(255, 255, 255, 0.42);
+}
