@@ -15,6 +15,7 @@ interface Props {
   fillColor?: string;
   iconColor?: string;
   iconHoverFill?: string;
+  className?: string;
 }
 
 const {
@@ -31,11 +32,12 @@ const {
   fillColor = 'var(--color-white)',
   iconColor = 'var(--color-brand)',
   iconHoverFill = 'var(--color-ink)',
+  className = '',
 } = Astro.props;
 
 const target = newTab ? '_blank' : undefined;
 const rel = newTab ? 'noopener noreferrer' : undefined;
-const classes = `icon-slide-button${smoothScroll ? ' icon-slide-button--smooth' : ''}`;
+const classes = `icon-slide-button${smoothScroll ? ' icon-slide-button--smooth' : ''}${className ? ` ${className}` : ''}`;
 ---
 
 <a
