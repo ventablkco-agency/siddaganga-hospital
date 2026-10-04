@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import IconSlideButton from '../components/ui/IconSlideButton.astro';
+import DoctorFlipStack from '../components/sections/DoctorFlipStack.astro';
+
+const appointmentUrl = 'https://wa.me/919591799099';
+const doctors = [
+  { number:'01', name:'Dr. Nagaraj S.K.', role:'Physician · Diabetologist · Consultant Cardiologist', specialties:'General Medicine · Diabetology · Cardiology', description:'Specialist-led care for metabolic and cardiovascular health, with an emphasis on careful diagnosis, long-term management and clear conversations with every patient.', image:'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=1400&q=88&auto=format&fit=crop', imageAlt:'Doctor portrait placeholder for Siddaganga Hospital specialist profile', background:'#2869f3', foreground:'#ffffff' },
+  { number:'02', name:'Specialist Profile 02', role:'Consulting Specialist', specialties:'Patient assessment · Preventive care', description:'Temporary profile card while the final approved doctor roster and professional portraits are added.', image:'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=1400&q=88&auto=format&fit=crop', imageAlt:'Doctor portrait placeholder for specialist profile', background:'#0d6f7d', foreground:'#effdff' },
+  { number:'03', name:'Specialist Profile 03', role:'Consulting Specialist', specialties:'Diagnostics · Follow-up care', description:'Temporary profile card ready to be replaced with the confirmed specialist name, qualifications and approved photograph.', image:'https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=1400&q=88&auto=format&fit=crop', imageAlt:'Doctor portrait placeholder for specialist profile', background:'#173a9b', foreground:'#f4f7ff' },
+  { number:'04', name:'Specialist Profile 04', role:'Consulting Specialist', specialties:'Family care · Ongoing support', description:'Temporary profile card for the remaining clinical team. The structure is ready for the final verified doctor information.', image:'https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=1400&q=88&auto=format&fit=crop', imageAlt:'Doctor portrait placeholder for specialist profile', background:'#eaf0ff', foreground:'#0a0d14' },
+];
+---
+
+<Layout title="Doctors · Siddaganga Hospital · Ranebennur" description="Meet the specialist team at Siddaganga Hospital, Ranebennur. Specialist-led care across general medicine, diabetology, cardiology and more.">
+  <main class="doctors-page">
+    <section class="doctors-hero">
+      <div class="doctors-hero__grid"></div>
+      <div class="doctors-hero__content">
+        <p class="eyebrow">SIDDAGANGA HOSPITAL · RANEBENNUR</p>
+        <h1>Specialists who<br /><span>listen first.</span></h1>
+        <p class="hero-copy">Meet the people behind our care — combining specialist expertise, advanced diagnostics and a calm, patient-first approach.</p>
+        <div class="hero-actions"><IconSlideButton href={appointmentUrl} label="Book Appointment" newTab /></div>
+      </div>
+      <div class="doctors-hero__orb" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="doctors-hero__meta"><span>01</span><span>OUR SPECIALISTS</span><span>RANEBENNUR · KARNATAKA</span></div>
+    </section>
+
+    <section class="doctors-intro">
+      <div class="doctors-intro__label">Why our doctors</div>
+      <div>
+        <h2>Medicine is more than a diagnosis.<br /><span>It is a conversation.</span></h2>
+        <p>At Siddaganga Hospital, specialist care is designed around the person in front of us. We take time to understand symptoms, history and concerns before deciding what comes next.</p>
+      </div>
+      <div class="doctors-intro__stats">
+        <div><strong>24×7</strong><span>Emergency support</span></div>
+        <div><strong>2D Echo</strong><span>Cardiac diagnostics</span></div>
+        <div><strong>On-site</strong><span>Laboratory support</span></div>
+      </div>
+    </section>
+
+    <DoctorFlipStack doctors={doctors} />
+
+    <section class="clinical-focus">
+      <div class="clinical-focus__top">
+        <p class="eyebrow">Clinical focus</p>
+        <h2>One hospital.<br /><span>Connected care.</span></h2>
+        <p>Our specialist services work together so patients can move from assessment to diagnosis and ongoing care without losing the human connection.</p>
+      </div>
+      <div class="clinical-focus__grid">
+        <article><span>01</span><h3>General Medicine</h3><p>Evaluation, diagnosis and ongoing management for adults and complex medical needs.</p></article>
+        <article><span>02</span><h3>Cardiology</h3><p>Heart-focused assessment supported by ECG, 2D Echo and related diagnostics.</p></article>
+        <article><span>03</span><h3>Diabetology</h3><p>Personalized diabetes care focused on control, complications, lifestyle and long-term health.</p></article>
+        <article><span>04</span><h3>Family-focused care</h3><p>A coordinated approach designed around continuity, clarity and the needs of every patient.</p></article>
+      </div>
+    </section>
+
+    <section class="doctors-cta">
+      <p class="eyebrow">Ready when you are</p>
+      <h2>Talk to the right<br /><span>specialist.</span></h2>
+      <p>Tell us what you need help with and our team can guide you to the appropriate care.</p>
+      <IconSlideButton href={appointmentUrl} label="Book Appointment" newTab />
+    </section>
+  </main>
+</Layout>
+
+<style>
+.doctors-page{background:#fff;color:#0a0d14;overflow:hidden}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:11px;font-weight:700;color:#2567ee;margin:0}
+.doctors-hero{min-height:92vh;position:relative;display:flex;align-items:center;padding:150px clamp(28px,7vw,110px) 90px;background:#edf2ff;overflow:hidden}.doctors-hero__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(37,103,238,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(37,103,238,.055) 1px,transparent 1px);background-size:80px 80px;mask-image:linear-gradient(to bottom,black,transparent 90%)}.doctors-hero__content{position:relative;z-index:2;max-width:850px}.doctors-hero h1{font-size:clamp(58px,9vw,132px);line-height:.86;letter-spacing:-.075em;font-weight:600;margin:28px 0}.doctors-hero h1 span{color:#2869f3}.hero-copy{max-width:520px;color:#657086;font-size:clamp(15px,1.35vw,19px);line-height:1.55;margin:0}.hero-actions{margin-top:34px}.doctors-hero__orb{position:absolute;right:-5vw;top:18%;width:min(44vw,620px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0 8%,rgba(255,255,255,.7) 9%,rgba(40,105,243,.18) 40%,rgba(40,105,243,.08) 58%,transparent 70%);border:1px solid rgba(40,105,243,.15)}.doctors-hero__orb span{position:absolute;border:1px solid rgba(40,105,243,.16);border-radius:50%;inset:13%}.doctors-hero__orb span:nth-child(2){inset:27%}.doctors-hero__orb span:nth-child(3){inset:41%}.doctors-hero__meta{position:absolute;right:clamp(28px,7vw,110px);bottom:42px;display:flex;gap:28px;color:#71809a;font-size:9px;letter-spacing:.15em}.doctors-hero__meta span:first-child{color:#2869f3}
+.doctors-intro{width:min(1180px,calc(100% - 40px));margin:0 auto;padding:clamp(100px,13vw,180px) 0;display:grid;grid-template-columns:.55fr 1.7fr .8fr;gap:clamp(28px,5vw,90px);align-items:start}.doctors-intro h2{font-size:clamp(38px,5vw,72px);line-height:.94;letter-spacing:-.065em;font-weight:600;margin:0}.doctors-intro h2 span{color:#2869f3}.doctors-intro p{max-width:680px;color:#687286;font-size:15px;line-height:1.7;margin:30px 0 0}.doctors-intro__stats{display:grid;gap:18px}.doctors-intro__stats div{border-top:1px solid #dfe5f0;padding-top:13px}.doctors-intro__stats strong{display:block;font-size:24px;letter-spacing:-.04em}.doctors-intro__stats span{font-size:11px;color:#7b8494}
+.clinical-focus{background:#f7f9ff;padding:clamp(100px,12vw,170px) clamp(20px,5vw,70px)}.clinical-focus__top{width:min(1180px,100%);margin:0 auto;display:grid;grid-template-columns:.65fr 1.35fr .8fr;gap:50px;align-items:end}.clinical-focus h2{font-size:clamp(46px,6vw,86px);line-height:.9;letter-spacing:-.065em;margin:0}.clinical-focus h2 span{color:#2869f3}.clinical-focus__top>p:last-child{color:#687286;line-height:1.65;font-size:14px;max-width:340px;margin:0}.clinical-focus__grid{width:min(1180px,100%);margin:80px auto 0;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #d9e0ed}.clinical-focus article{padding:25px 24px 10px 0;border-right:1px solid #d9e0ed;margin-right:24px}.clinical-focus article:last-child{border-right:0;margin-right:0}.clinical-focus article span{font-size:11px;color:#2869f3;letter-spacing:.1em}.clinical-focus h3{font-size:22px;letter-spacing:-.035em;margin:42px 0 12px}.clinical-focus article p{font-size:13px;line-height:1.6;color:#70798a;margin:0;max-width:240px}
+.doctors-cta{text-align:center;padding:clamp(110px,14vw,190px) 20px;background:#0a0d14;color:#fff}.doctors-cta .eyebrow{color:#6e9cff}.doctors-cta h2{font-size:clamp(52px,8vw,116px);line-height:.88;letter-spacing:-.07em;margin:25px 0}.doctors-cta h2 span{color:#2869f3}.doctors-cta>p:not(.eyebrow){max-width:470px;margin:0 auto 32px;color:#a9b0bd;font-size:15px;line-height:1.6}.doctors-cta .icon-slide-button{margin:auto;--button-bg:#2869f3;--button-bg-hover:#fff;--button-text:#fff;--button-text-hover:#0a0d14;--button-fill:#fff;--button-icon:#2869f3;--button-icon-hover-fill:#0a0d14}
+@media(max-width:900px){.doctors-hero{min-height:820px}.doctors-hero__orb{right:-30%;width:75vw;opacity:.7}.doctors-intro,.clinical-focus__top{grid-template-columns:1fr}.doctors-intro__stats{grid-template-columns:repeat(3,1fr);margin-top:20px}.clinical-focus__grid{grid-template-columns:repeat(2,1fr)}.clinical-focus article:nth-child(2){border-right:0}.clinical-focus article:nth-child(3),.clinical-focus article:nth-child(4){border-top:1px solid #d9e0ed;padding-top:30px}}
+@media(max-width:600px){.doctors-hero{padding:130px 22px 80px;min-height:760px}.doctors-hero h1{font-size:clamp(58px,17vw,90px)}.doctors-hero__meta{display:none}.doctors-intro{width:calc(100% - 44px)}.doctors-intro__stats{grid-template-columns:1fr}.clinical-focus{padding-inline:22px}.clinical-focus__grid{grid-template-columns:1fr}.clinical-focus article,.clinical-focus article:nth-child(2){border-right:0;border-bottom:1px solid #d9e0ed;margin:0;padding:25px 0}.clinical-focus article:last-child{border-bottom:0}.doctors-cta{padding-inline:22px}}
+</style>
