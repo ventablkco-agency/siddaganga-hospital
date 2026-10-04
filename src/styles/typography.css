@@ -5,7 +5,7 @@
    ========================================================================== */
 
 /* Headings */
-.h-display {                       /* hero h1 only */
+.h-display {
   font-family: var(--font-display);
   font-size: var(--text-4xl);
   font-weight: var(--fw-bold);
@@ -14,7 +14,7 @@
   color: var(--text-primary);
   margin: 0;
 }
-.h-section {                       /* every section h2 */
+.h-section {
   font-family: var(--font-display);
   font-size: var(--text-3xl);
   font-weight: var(--fw-semibold);
@@ -23,7 +23,7 @@
   color: var(--text-primary);
   margin: 0;
 }
-.h-card {                          /* card / list-item titles (h3) */
+.h-card {
   font-family: var(--font-display);
   font-size: var(--text-xl);
   font-weight: var(--fw-semibold);
@@ -32,32 +32,31 @@
   color: inherit;
   margin: 0;
 }
-/* Emphasis inside headings: colour only, never a weight change */
+
 .h-display .accent, .h-section .accent, .h-display em, .h-section em, .h-section strong {
   color: var(--color-brand);
   font-style: normal;
   font-weight: inherit;
 }
 
-/* Body text */
+/* Body text: 15px is the minimum for normal supporting/UI copy. */
 .t-lead  { font-size: var(--text-lg); line-height: var(--lh-normal); color: var(--text-secondary); margin: 0; }
 .t-body  { font-size: var(--text-md); line-height: var(--lh-relaxed); color: var(--text-secondary); margin: 0; }
 .t-small { font-size: var(--text-sm); line-height: var(--lh-normal); color: var(--text-secondary); margin: 0; }
-.t-caption { font-size: var(--text-xs); line-height: var(--lh-normal); color: var(--text-tertiary); margin: 0; }
+.t-caption { font-size: var(--text-xs); line-height: 1.4; color: var(--text-tertiary); margin: 0; }
 
-/* The ONE eyebrow style: no brackets, no parentheses, no lowercase variants */
+/* Eyebrows are meaningful section labels, so keep them at 13px minimum. */
 .t-eyebrow {
   font-family: var(--font-body);
   font-size: var(--text-xs);
   font-weight: var(--fw-semibold);
-  line-height: 1;
+  line-height: 1.15;
   letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
   color: var(--text-tertiary);
   margin: 0;
 }
 
-/* Big numbers */
 .t-stat {
   font-family: var(--font-display);
   font-size: var(--text-stat);
@@ -68,14 +67,11 @@
   color: var(--text-primary);
 }
 
-/* Links in small text (brand-strong passes AA on bg and white) */
 .t-link { color: var(--color-brand-strong); font-weight: var(--fw-semibold); }
 
-/* On dark / brand surfaces */
 .on-brand, .on-dark { --text-primary: #FFFFFF; --text-secondary: var(--text-on-dark); --text-tertiary: var(--text-on-dark); }
 .on-brand { --text-secondary: #FFFFFF; --text-tertiary: #FFFFFF; }
 
-/* Layout */
 .container {
   width: min(100% - 2 * var(--gutter), var(--container));
   margin-inline: auto;
