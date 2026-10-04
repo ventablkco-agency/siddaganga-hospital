@@ -1,10 +1,8 @@
 /* ==========================================================================
    Siddaganga Hospital — type + layout utilities
-   Components use these (or the same tokens) so every heading, label and
-   paragraph on the site follows ONE system.
+   Single typography system for headings, labels and patient-facing copy.
    ========================================================================== */
 
-/* Headings */
 .h-display {
   font-family: var(--font-display);
   font-size: var(--text-4xl);
@@ -14,6 +12,7 @@
   color: var(--text-primary);
   margin: 0;
 }
+
 .h-section {
   font-family: var(--font-display);
   font-size: var(--text-3xl);
@@ -23,6 +22,7 @@
   color: var(--text-primary);
   margin: 0;
 }
+
 .h-card {
   font-family: var(--font-display);
   font-size: var(--text-xl);
@@ -39,18 +39,16 @@
   font-weight: inherit;
 }
 
-/* Body text: 15px is the minimum for normal supporting/UI copy. */
 .t-lead  { font-size: var(--text-lg); line-height: var(--lh-normal); color: var(--text-secondary); margin: 0; }
 .t-body  { font-size: var(--text-md); line-height: var(--lh-relaxed); color: var(--text-secondary); margin: 0; }
 .t-small { font-size: var(--text-sm); line-height: var(--lh-normal); color: var(--text-secondary); margin: 0; }
 .t-caption { font-size: var(--text-xs); line-height: 1.4; color: var(--text-tertiary); margin: 0; }
 
-/* Eyebrows are meaningful section labels, so keep them at 13px minimum. */
 .t-eyebrow {
   font-family: var(--font-body);
   font-size: var(--text-xs);
   font-weight: var(--fw-semibold);
-  line-height: 1.15;
+  line-height: 1.25;
   letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
   color: var(--text-tertiary);
@@ -68,15 +66,55 @@
 }
 
 .t-link { color: var(--color-brand-strong); font-weight: var(--fw-semibold); }
-
 .on-brand, .on-dark { --text-primary: #FFFFFF; --text-secondary: var(--text-on-dark); --text-tertiary: var(--text-on-dark); }
 .on-brand { --text-secondary: #FFFFFF; --text-tertiary: #FFFFFF; }
 
-.container {
-  width: min(100% - 2 * var(--gutter), var(--container));
-  margin-inline: auto;
-}
+.container { width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; }
 .section { padding-block: var(--section-y); }
+
+/*
+ * Component-level normalization.
+ * These selectors intentionally target legacy sections that still carry
+ * their own typography rules. Values stay within the shared type scale so
+ * patient-facing copy never falls below the 14px UI floor.
+ */
+:global(.services-eyebrow) { font-size: var(--text-xs) !important; }
+:global(.services-intro) { font-size: var(--text-sm) !important; }
+:global(.service-copy p) { font-size: var(--text-sm) !important; }
+:global(.service-link) { font-size: var(--text-xs) !important; }
+:global(.services-footer) { font-size: var(--text-xs) !important; }
+
+:global(.visual-kicker) { font-size: var(--text-xs) !important; }
+:global(.visual-note) { font-size: var(--text-xs) !important; }
+:global(.eyebrow-row) { font-size: var(--text-xs) !important; }
+:global(.stat h3) { font-size: var(--text-sm) !important; }
+:global(.stat p) { font-size: var(--text-sm) !important; }
+:global(.trust-line) { font-size: var(--text-xs) !important; }
+
+:global(.trust-image) { font-size: var(--text-xs) !important; }
+:global(.trust-brand) { font-size: var(--text-xs) !important; }
+:global(.trust-brand span) { font-size: var(--text-xs) !important; }
+:global(.eyebrow) { font-size: var(--text-xs) !important; }
+:global(.people-description) { font-size: var(--text-sm) !important; }
+:global(.doctor-image) { font-size: var(--text-xs) !important; }
+:global(.experience-badge) { font-size: var(--text-xs) !important; }
+:global(.experience-badge strong) { font-size: var(--text-xs) !important; }
+:global(.doctor-info p), :global(.doctor-info small) { font-size: var(--text-xs) !important; }
+
+:global(.reviews-heading p), :global(.reviews-heading h2) { font-size: var(--text-3xl) !important; }
+:global(.review-person strong) { font-size: var(--text-xs) !important; }
+:global(.review-person span:last-child) { font-size: var(--text-xs) !important; }
+:global(.google-mark) { font-size: var(--text-xs) !important; }
+:global(.review-stars) { font-size: var(--text-xs) !important; }
+:global(.review-footer) { font-size: var(--text-xs) !important; }
+:global(.review-orbit) { font-size: var(--text-xs) !important; }
+
+:global(.doctor-stack__intro .eyebrow), :global(.doctor-card__eyebrow) { font-size: var(--text-xs) !important; }
+:global(.intro-copy) { font-size: var(--text-sm) !important; }
+:global(.doctor-card__availability) { font-size: var(--text-xs) !important; }
+
+:global(.medical-ticker__item) { font-size: var(--text-xs) !important; }
+:global(.medical-ticker__item b) { font-size: var(--text-xs) !important; }
 
 .visually-hidden {
   position: absolute !important;
