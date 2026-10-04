@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="About Siddaganga Hospital | Ranebennur"
+  description="Learn about Siddaganga Hospital, our approach to prompt expert care, and the medical services and facilities available in Ranebennur."
+>
+  <section class="about-hero" aria-labelledby="about-title">
+    <div class="about-hero__inner">
+      <p class="eyebrow">ABOUT SIDDAGANGA HOSPITAL</p>
+      <h1 id="about-title">Prompt expert care,<br /><span>built around people.</span></h1>
+      <p class="intro">Siddaganga Hospital brings together experienced medical care, advanced diagnostics and compassionate treatment for patients and families in Ranebennur.</p>
+    </div>
+  </section>
+
+  <section class="about-story" aria-labelledby="story-title">
+    <div class="about-story__grid">
+      <div>
+        <p class="eyebrow">OUR APPROACH</p>
+        <h2 id="story-title">Medicine starts with science,<br /><span>but true healing begins with trust.</span></h2>
+      </div>
+      <div class="about-story__copy">
+        <p>Siddaganga Hospital is a 24×7 hospital in Mruthyunjaya Nagar, Ranebennur, focused on prompt treatment by expert doctors and dependable patient care.</p>
+        <p>Our care combines General Medicine, Cardiology and Diabetology with diagnostic and support facilities designed to make essential healthcare more accessible under one roof.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-capabilities" aria-labelledby="capabilities-title">
+    <div class="about-capabilities__heading">
+      <p class="eyebrow">CARE &amp; CAPABILITIES</p>
+      <h2 id="capabilities-title">Care that goes beyond<br /><span>the consultation room.</span></h2>
+    </div>
+    <div class="capability-grid">
+      <article><strong>24×7</strong><span>Emergency care</span></article>
+      <article><strong>2D Echo</strong><span>Cardiac diagnostics</span></article>
+      <article><strong>TMT</strong><span>Treadmill testing</span></article>
+      <article><strong>Digital X-Ray</strong><span>Diagnostic imaging</span></article>
+      <article><strong>Laboratory</strong><span>Blood, urine and specialist tests</span></article>
+      <article><strong>Pharmacy</strong><span>On-site medicine support</span></article>
+    </div>
+  </section>
+
+  <section class="about-location" aria-labelledby="location-title">
+    <div>
+      <p class="eyebrow">FIND US</p>
+      <h2 id="location-title">Healthcare in the heart<br /><span>of Ranebennur.</span></h2>
+      <p>D.K. Siddappa Building, Mruthyunjaya Nagar, near Cambridge School, opposite the Madarasa, Ranebennur, Dist. Haveri, Karnataka.</p>
+    </div>
+    <a class="appointment" href="https://wa.me/919591799099" target="_blank" rel="noopener">Book an appointment <span>↗</span></a>
+  </section>
+</Layout>
+
+<style>
+.about-hero,.about-story,.about-capabilities,.about-location{padding:clamp(88px,10vw,150px) clamp(24px,6vw,96px)}
+.about-hero{background:var(--color-surface-soft);min-height:62vh;display:flex;align-items:flex-end}.about-hero__inner{width:min(1120px,100%);margin:0 auto}.eyebrow{margin:0 0 24px;font:700 12px/1 var(--font-body);letter-spacing:.14em;color:var(--color-brand)}h1,h2{margin:0;font-family:var(--font-display);letter-spacing:-.045em;color:var(--color-ink)}h1{font-size:clamp(52px,8vw,116px);line-height:.96;font-weight:650}h1 span,h2 span{color:var(--color-brand)}.intro{max-width:700px;margin:34px 0 0;font:400 clamp(17px,1.5vw,22px)/1.55 var(--font-body);color:var(--color-text-secondary)}.about-story{background:#fff}.about-story__grid{width:min(1280px,100%);margin:auto;display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(48px,9vw,150px);align-items:start}h2{font-size:clamp(38px,5vw,72px);line-height:1.04;font-weight:600}.about-story__copy{padding-top:44px}.about-story__copy p,.about-location p{margin:0 0 22px;font:400 18px/1.7 var(--font-body);color:var(--color-text-secondary)}.about-capabilities{background:var(--color-surface-soft)}.about-capabilities__heading{width:min(1280px,100%);margin:0 auto 58px}.capability-grid{width:min(1280px,100%);margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.capability-grid article{min-height:180px;background:#fff;border:1px solid rgba(11,10,10,.08);border-radius:24px;padding:30px;display:flex;flex-direction:column;justify-content:space-between;transition:.25s ease}.capability-grid article:hover{background:var(--color-brand);color:#fff;transform:translateY(-4px)}.capability-grid strong{font:650 clamp(25px,2.2vw,36px)/1.1 var(--font-display)}.capability-grid span{font:500 14px/1.4 var(--font-body);color:var(--color-text-secondary)}.capability-grid article:hover span{color:#fff}.about-location{background:#fff;display:flex;justify-content:space-between;gap:60px;align-items:flex-end}.about-location>div{max-width:800px}.about-location p{margin-top:30px;max-width:620px}.appointment{display:inline-flex;align-items:center;gap:14px;flex:none;border-radius:999px;background:var(--color-brand);color:#fff;padding:15px 20px 15px 24px;font:650 14px/1 var(--font-body);text-decoration:none}.appointment span{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#fff;color:var(--color-brand)}@media(max-width:800px){.about-hero,.about-story,.about-capabilities,.about-location{padding:76px 20px}.about-story__grid{grid-template-columns:1fr;gap:20px}.about-story__copy{padding-top:0}.capability-grid{grid-template-columns:1fr 1fr}.about-location{flex-direction:column;align-items:flex-start}}@media(max-width:520px){h1{font-size:50px}.capability-grid{grid-template-columns:1fr}.capability-grid article{min-height:145px}}
+</style>
