@@ -90,26 +90,40 @@ const faqs = [
       </div>
     </section>
 
-    <section class="faq-section" aria-labelledby="faq-title">
-      <div class="faq-heading">
-        <p class="eyebrow">NEED TO KNOW?</p>
-        <h2 id="faq-title">Questions<br /><span>and answers.</span></h2>
-        <p class="faq-intro">If you have any other questions, please contact our hospital team and we will be happy to help.</p>
-        <a href="tel:+919591799099">Contact us ↗</a>
-      </div>
+    <section class="faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="faq-stage">
+        <div class="ambient-word ambient-word--left" aria-hidden="true">Questions /</div>
+        <div class="ambient-word ambient-word--right" aria-hidden="true">FAQs /</div>
 
-      <div class="faq-title-marquee" aria-hidden="true">Questions / FAQs / Questions / FAQs /</div>
+        <div class="faq-heading">
+          <p>Questions and</p>
+          <h2 id="faq-title">answers.</h2>
+          <p class="faq-intro">If you have any other questions, please contact our hospital team and we will be happy to help.</p>
+          <a href="tel:+919591799099">Contact us ↗</a>
+        </div>
 
-      <div class="faq-list">
-        {faqs.map((faq, index) => (
-          <details class="faq-item" open={index === 0}>
-            <summary>
-              <span>{faq.question}</span>
-              <span class="faq-icon">+</span>
-            </summary>
-            <p>{faq.answer}</p>
-          </details>
-        ))}
+        <div class="faq-orbit faq-orbit--one" aria-hidden="true"><span>Need to know</span></div>
+        <div class="faq-orbit faq-orbit--two" aria-hidden="true"><span>We are here to help</span></div>
+        <div class="faq-orbit faq-orbit--three" aria-hidden="true"><span>24×7 support</span></div>
+
+        <article class="featured-faq" data-faq-card>
+          <div class="faq-topline">
+            <div class="faq-number">01</div>
+            <span class="faq-mark">SGH</span>
+          </div>
+          <div class="faq-question" data-faq-question>{faqs[0].question}</div>
+          <p class="faq-answer" data-faq-answer>{faqs[0].answer}</p>
+          <div class="faq-footer">
+            <span>Frequently asked question</span>
+            <button type="button" class="faq-next" aria-label="Next frequently asked question">→</button>
+          </div>
+        </article>
+
+        <div class="faq-dots" aria-label="Frequently asked questions">
+          {faqs.map((_, index) => (
+            <button type="button" class:list={['faq-dot', index === 0 && 'is-active']} aria-label={`Show question ${index + 1}`} data-faq-dot={index}></button>
+          ))}
+        </div>
       </div>
     </section>
 
@@ -137,9 +151,62 @@ const faqs = [
   </main>
 </Layout>
 
+<script>
+  const initFaq = () => {
+    const card = document.querySelector('[data-faq-card]');
+    const dots = Array.from(document.querySelectorAll('[data-faq-dot]'));
+    const next = document.querySelector('.faq-next');
+    if (!card || !dots.length || !next) return;
+
+    const faqs = [
+      {
+        question: 'What should I bring for my first visit?',
+        answer: 'Please bring any previous prescriptions, reports, scan results and a list of current medicines. This helps our team understand your medical history quickly.',
+      },
+      {
+        question: 'How can I book an appointment?',
+        answer: 'Use the appointment button on this page or contact our hospital team directly on 95917 99099 or 96205 13688.',
+      },
+      {
+        question: 'Is Siddaganga Hospital open 24×7?',
+        answer: 'Yes. Siddaganga Hospital provides 24×7 emergency support in Ranebennur.',
+      },
+      {
+        question: 'What services are available?',
+        answer: 'Our core care includes General Medicine, Cardiology, Diabetology, diagnostics and emergency support, with facilities including laboratory services, Digital X-Ray and 2D Echo.',
+      },
+    ];
+
+    let index = 0;
+    const render = () => {
+      const faq = faqs[index];
+      const number = card.querySelector('.faq-number');
+      const question = card.querySelector('[data-faq-question]');
+      const answer = card.querySelector('[data-faq-answer]');
+      if (!number || !question || !answer) return;
+      number.textContent = String(index + 1).padStart(2, '0');
+      question.textContent = faq.question;
+      answer.textContent = faq.answer;
+      dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === index));
+    };
+
+    next.addEventListener('click', () => {
+      index = (index + 1) % faqs.length;
+      render();
+    });
+    dots.forEach((dot, dotIndex) => dot.addEventListener('click', () => {
+      index = dotIndex;
+      render();
+    }));
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initFaq, { once: true });
+  else initFaq();
+</script>
+
 <style>
 .contact-page{background:#fff;color:var(--color-ink);overflow:hidden}
-.contact-hero{padding:clamp(28px,4vw,58px) clamp(18px,3vw,48px) clamp(70px,8vw,120px);background:var(--color-surface-soft)}
+.contact-hero{padding:clamp(12px,2vw,30px) clamp(18px,3vw,48px) clamp(70px,8vw,120px);background:var(--color-surface-soft)}
 .contact-hero__card{width:min(1440px,100%);min-height:min(700px,76vh);margin:0 auto;border-radius:28px;overflow:hidden;display:grid;grid-template-columns:1.05fr .95fr;background:#fff;box-shadow:0 22px 70px rgba(34,58,102,.08)}
 .appointment-panel{padding:clamp(34px,5vw,74px);display:flex;flex-direction:column;justify-content:center}
 .eyebrow{margin:0 0 18px;font:700 10px/1 var(--font-body);letter-spacing:.16em;color:#738096}
@@ -161,11 +228,16 @@ const faqs = [
 .pulse{position:absolute;border:1px solid rgba(255,255,255,.35);border-radius:50%;animation:pulse 2.8s ease-in-out infinite}.pulse--one{inset:12%;}.pulse--two{inset:0;animation-delay:.8s}@keyframes pulse{0%,100%{transform:scale(.9);opacity:.3}50%{transform:scale(1.05);opacity:.8}}
 .visual-caption{position:absolute;left:clamp(28px,5vw,70px);bottom:clamp(30px,5vw,70px);color:#fff;display:flex;flex-direction:column;gap:7px}.visual-caption strong{font:650 clamp(28px,3vw,44px)/.95 var(--font-display);letter-spacing:-.055em}.visual-caption span{font:400 12px/1.4 var(--font-body);color:rgba(255,255,255,.78)}
 .visual-stat{position:absolute;color:#fff;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(14px);padding:13px 16px;border-radius:14px;display:flex;flex-direction:column;font:700 17px var(--font-display)}.visual-stat small{margin-top:4px;font:400 8px var(--font-body);color:rgba(255,255,255,.72)}.visual-stat--top{top:45px;right:42px}.visual-stat--bottom{right:42px;bottom:48px}
-.faq-section{position:relative;padding:clamp(86px,10vw,150px) clamp(20px,5vw,80px) clamp(100px,12vw,170px);background:#fff;min-height:760px}
-.faq-heading{position:relative;z-index:2;width:min(1280px,100%);margin:0 auto}.faq-heading h2{margin:0;font:650 clamp(52px,7vw,110px)/.84 var(--font-display);letter-spacing:-.07em}.faq-heading h2 span{color:var(--color-brand)}.faq-intro{max-width:270px;margin:28px 0 8px;color:#7d8797;font:400 11px/1.5 var(--font-body)}.faq-heading>a{color:var(--color-brand);font:600 10px var(--font-body);text-decoration:none}
-.faq-title-marquee{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:max-content;white-space:nowrap;color:#4d82f7;font:400 clamp(70px,11vw,170px)/1 var(--font-display);letter-spacing:-.08em;opacity:.22;pointer-events:none}
-.faq-list{position:relative;z-index:3;width:min(520px,calc(100% - 20px));margin:50px max(0px,calc(50% - 300px)) 0 auto;display:grid;gap:10px}.faq-item{background:#fff;border:1px solid #e6eaf1;border-radius:18px;box-shadow:0 12px 38px rgba(34,58,102,.1);overflow:hidden}.faq-item summary{list-style:none;cursor:pointer;padding:19px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px;color:#263143;font:600 12px var(--font-body)}.faq-item summary::-webkit-details-marker{display:none}.faq-icon{width:25px;height:25px;display:grid;place-items:center;border-radius:50%;background:var(--color-brand);color:#fff;flex:none;font-size:17px;font-weight:400;transition:transform .25s}.faq-item[open] .faq-icon{transform:rotate(45deg)}.faq-item p{margin:0;padding:0 20px 20px;color:#7a8595;font:400 11px/1.55 var(--font-body)}
+.faq-section{--blue:#2878ed;--ink:#111a2b;--muted:#74839a;width:100%;height:100svh;min-height:680px;overflow:hidden;background:#edf2ff;color:var(--ink);font-family:var(--font-body)}
+.faq-stage{position:relative;width:100%;height:100%;overflow:hidden;border-radius:24px;box-sizing:border-box}
+.faq-heading{position:absolute;left:5.5%;top:17%;z-index:5;line-height:.88}.faq-heading p:first-child,.faq-heading h2{margin:0;font-family:var(--font-display);font-weight:500;letter-spacing:-.055em;font-size:clamp(30px,3.1vw,50px)}.faq-heading h2{font-weight:700;color:var(--blue)}.faq-intro{max-width:270px;margin:28px 0 8px;color:#74839a;font:400 11px/1.5 var(--font-body)}.faq-heading>a{color:var(--blue);font:600 10px var(--font-body);text-decoration:none}
+.ambient-word{position:absolute;top:43%;white-space:nowrap;color:#4c8df1;opacity:.9;font-family:var(--font-display);font-size:clamp(70px,8.5vw,150px);line-height:.8;letter-spacing:-.075em;font-weight:400;pointer-events:none}.ambient-word--left{left:3.5%}.ambient-word--right{right:3.5%}
+.featured-faq{position:absolute;z-index:10;top:15%;left:50%;transform:translateX(-50%);width:min(350px,31vw);min-height:360px;padding:18px;box-sizing:border-box;border-radius:14px;background:rgba(255,255,255,.97);box-shadow:0 24px 60px rgba(65,94,142,.16);border:1px solid rgba(255,255,255,.9)}
+.faq-topline{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.faq-number{font:700 13px var(--font-body);color:var(--blue)}.faq-mark{font-size:8px;color:#9aa6b8;letter-spacing:.08em}.faq-question{margin-top:28px;color:#1a2434;font-family:var(--font-display);font-size:clamp(18px,1.55vw,24px);font-weight:600;line-height:1.12;letter-spacing:-.025em}.faq-answer{margin:22px 0 0;color:#74839a;font:400 11px/1.55 var(--font-body)}
+.faq-footer{position:absolute;left:18px;right:18px;bottom:17px;display:flex;justify-content:space-between;align-items:center;color:#a1adbd;font-size:8px;text-transform:uppercase;letter-spacing:.1em}.faq-next{width:26px;height:26px;border:0;border-radius:50%;background:var(--blue);color:#fff;cursor:pointer;font-size:13px}
+.faq-orbit{position:absolute;z-index:3;border-radius:12px;background:rgba(255,255,255,.38);border:1px solid rgba(255,255,255,.55);color:#8ba1c0;font-size:9px;padding:9px 13px;filter:blur(.1px);opacity:.7}.faq-orbit--one{left:14%;bottom:23%;transform:rotate(-7deg)}.faq-orbit--two{right:13%;bottom:27%;transform:rotate(8deg)}.faq-orbit--three{left:23%;top:26%;transform:rotate(5deg);opacity:.45}
+.faq-dots{position:absolute;z-index:15;left:50%;bottom:11%;transform:translateX(-50%);display:flex;gap:7px}.faq-dot{width:6px;height:6px;padding:0;border:0;border-radius:50%;background:#b8c8df;cursor:pointer}.faq-dot.is-active{background:var(--blue);transform:scale(1.25)}
 .contact-info{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#dfe5ef;border-top:1px solid #dfe5ef}.info-card{min-height:180px;padding:34px clamp(20px,4vw,58px);box-sizing:border-box;background:#f6f8fc;display:flex;flex-direction:column;align-items:flex-start}.info-label{margin-bottom:18px;color:#8290a4;font:700 9px var(--font-body);letter-spacing:.16em}.info-card a,.info-card p{color:#1e2a3d;text-decoration:none;font:500 13px/1.55 var(--font-body);margin:0 0 4px}.info-card--cta{background:var(--color-brand);color:#fff}.info-card--cta .info-label{color:rgba(255,255,255,.7)}.info-card--cta strong{font:650 25px/.98 var(--font-display);letter-spacing:-.045em;margin-bottom:20px}.info-card--cta :global(.icon-slide-button){min-width:180px}
-@media(max-width:900px){.contact-hero__card{grid-template-columns:1fr}.contact-visual{min-height:390px}.contact-info{grid-template-columns:1fr 1fr}.faq-list{margin-right:0;margin-left:auto}}
-@media(max-width:620px){.contact-hero{padding:14px 12px 70px}.contact-hero__card{border-radius:20px}.appointment-panel{padding:30px 22px}.appointment-panel h1{font-size:48px}.appointment-form{grid-template-columns:1fr}.full-width{grid-column:auto}.form-actions{align-items:flex-start;flex-direction:column}.contact-visual{min-height:390px}.visual-stat--top{right:20px;top:20px}.visual-stat--bottom{right:20px;bottom:25px}.faq-section{padding:80px 20px 100px}.faq-heading h2{font-size:58px}.faq-title-marquee{top:43%;font-size:76px}.faq-list{width:100%;margin-top:48px}.contact-info{grid-template-columns:1fr}.info-card{min-height:150px}.info-card--cta{min-height:210px}}
+@media(max-width:900px){.contact-hero__card{grid-template-columns:1fr}.contact-visual{min-height:390px}.contact-info{grid-template-columns:1fr 1fr}.featured-faq{width:min(350px,42vw)}.faq-heading{top:12%;left:5%}.ambient-word{font-size:clamp(70px,12vw,125px)}}
+@media(max-width:640px){.contact-hero{padding:14px 12px 70px}.contact-hero__card{border-radius:20px}.appointment-panel{padding:30px 22px}.appointment-panel h1{font-size:48px}.appointment-form{grid-template-columns:1fr}.full-width{grid-column:auto}.form-actions{align-items:flex-start;flex-direction:column}.contact-visual{min-height:390px}.visual-stat--top{right:20px;top:20px}.visual-stat--bottom{right:20px;bottom:25px}.faq-section{min-height:620px}.faq-heading{top:9%}.faq-heading p:first-child,.faq-heading h2{font-size:29px}.featured-faq{top:25%;width:min(88vw,350px);min-height:350px}.ambient-word{top:50%;font-size:84px}.ambient-word--left{left:4%}.ambient-word--right{right:4%}.faq-orbit{display:none}.faq-dots{bottom:8%}.contact-info{grid-template-columns:1fr}.info-card{min-height:150px}.info-card--cta{min-height:210px}}
 </style>
