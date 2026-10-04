@@ -2,6 +2,10 @@ export const visualQaConfig = {
   // Add every important public route here as the site grows.
   routes: [
     { name: 'home', path: '/' },
+    { name: 'about', path: '/about/' },
+    { name: 'services', path: '/services/' },
+    { name: 'doctors', path: '/doctors/' },
+    { name: 'contact', path: '/contact/' },
   ],
 
   // These are the reference widths we use for responsive review.
