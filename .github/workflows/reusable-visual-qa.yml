@@ -64,6 +64,7 @@ jobs:
         run: ${{ inputs.test-command }}
         env:
           CI: true
+          VISUAL_QA_PREVIEW_COMMAND: ${{ inputs.preview-command }}
 
       - name: Upload visual QA artifacts
         if: ${{ !cancelled() }}
