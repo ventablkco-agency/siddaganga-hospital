@@ -1,10 +1,8 @@
 :root{--hero-gutter:clamp(20px,3.6vw,56px)}
 
-/* Responsive hero art direction.
-   Desktop keeps the existing HeroBody composition. Below 860px the hero is
-   treated as one scalable artboard so copy, hands, CTA and lower cards never
-   become independent layout blocks. */
-
+/* Responsive hero art direction. Desktop stays untouched; <=860px becomes a
+   single art-directed canvas so the title, technology copy, hands, CTA and
+   lower cards scale as one composition. */
 .hero .hero-body{min-height:inherit;overflow:hidden}
 .hero .hero-body__copy,.hero .hero-body__right-copy,.hero .care-panel,.hero .service-pills,.hero .feedback,.hero .hero-arrow{box-sizing:border-box}
 
@@ -21,30 +19,30 @@
   .hero{min-height:100svh!important;padding:8px!important}
   .hero .hero__frame{height:100%!important;min-height:calc(100svh - 16px)!important;border-radius:20px!important}
   .hero .hero-body{position:relative!important;display:block!important;width:100%!important;height:100%!important;min-height:calc(100svh - 16px)!important;overflow:hidden!important;isolation:isolate!important;background:linear-gradient(180deg,#3a78f7 0%,#246afe 100%)!important}
-  .hero .hero-body::before{content:''!important;display:block!important;position:absolute!important;z-index:1!important;inset:0!important;width:100%!important;height:100%!important;background:#fff!important;clip-path:ellipse(78% 72% at 0% 28%)!important;-webkit-clip-path:ellipse(78% 72% at 0% 28%)!important;pointer-events:none!important}
 
-  .hero .hero-body__copy{position:absolute!important;z-index:20!important;top:19%!important;left:8%!important;right:auto!important;width:58%!important;max-width:none!important;padding:0!important;margin:0!important;background:transparent!important;border-radius:0!important}
+  .hero .hero-body::before{content:''!important;display:block!important;position:absolute!important;z-index:1!important;inset:0!important;width:100%!important;height:100%!important;background:#fff!important;clip-path:ellipse(70% 70% at 0% 27%)!important;-webkit-clip-path:ellipse(70% 70% at 0% 27%)!important;pointer-events:none!important}
+
+  .hero .hero-body__copy{position:absolute!important;z-index:20!important;top:19%!important;left:8%!important;right:auto!important;width:59%!important;max-width:none!important;padding:0!important;margin:0!important;background:transparent!important;border-radius:0!important}
   .hero .eyebrow{margin:0 0 16px!important;color:#707780!important;font-size:clamp(9px,2.3vw,12px)!important;line-height:1.15!important;font-weight:500!important;letter-spacing:.14em!important;white-space:nowrap!important}
   .hero h1{width:100%!important;max-width:none!important;margin:0!important;color:#0b0a0a!important;font-size:clamp(46px,13.2vw,76px)!important;line-height:.89!important;letter-spacing:-.065em!important;font-weight:800!important}
   .hero h1>span:first-child{display:block!important;white-space:nowrap!important}
-  .hero h1>span:nth-child(2){display:block!important;font-size:0!important;white-space:nowrap!important}
-  .hero h1>span:nth-child(2) em,.hero h1>span:nth-child(2) strong{display:inline!important;font-family:inherit!important;font-style:normal!important;font-weight:800!important;line-height:inherit!important;white-space:nowrap!important}
-  .hero h1>span:nth-child(2) em{color:var(--color-brand)!important;font-size:clamp(46px,13.2vw,76px)!important}
+  .hero h1>span:nth-child(2){display:block!important;font-size:0!important;white-space:normal!important}
+  .hero h1>span:nth-child(2) em{display:block!important;color:var(--color-brand)!important;font-family:inherit!important;font-style:normal!important;font-weight:800!important;font-size:clamp(46px,13.2vw,76px)!important;line-height:inherit!important;white-space:nowrap!important}
   .hero h1>span:nth-child(2) em::after{content:','!important;color:var(--color-brand)!important}
-  .hero h1>span:nth-child(2) strong{color:#0b0a0a!important;font-size:clamp(46px,13.2vw,76px)!important}
+  .hero h1>span:nth-child(2) strong{display:block!important;color:#0b0a0a!important;font-family:inherit!important;font-weight:800!important;font-size:clamp(46px,13.2vw,76px)!important;line-height:inherit!important;white-space:nowrap!important}
   .hero h1>span:nth-child(2) strong::before{content:'in '!important;color:#0b0a0a!important}
   .hero .intro{width:100%!important;max-width:none!important;margin:19px 0 0!important;color:#737983!important;font-size:clamp(14px,3.7vw,17px)!important;line-height:1.42!important}
-  .hero .hero-body__copy .icon-slide-button,.hero .hero-body__copy>a{position:absolute!important;z-index:60!important;left:0!important;top:clamp(285px,44vw,355px)!important;width:auto!important;max-width:none!important}
+  .hero .hero-body__copy .icon-slide-button,.hero .hero-body__copy>a{position:absolute!important;z-index:60!important;left:0!important;top:clamp(300px,47vw,355px)!important;width:auto!important;max-width:none!important}
 
-  .hero .hero-body__right-copy{position:absolute!important;z-index:18!important;top:19.5%!important;left:63%!important;right:7%!important;width:auto!important;max-width:none!important;padding:0!important;margin:0!important;color:#fff!important}
-  .hero .hero-body__right-copy h2{margin:0 0 13px!important;color:#fff!important;font-family:var(--font-display)!important;font-size:clamp(25px,7vw,46px)!important;line-height:.92!important;letter-spacing:-.055em!important;font-weight:800!important}
-  .hero .hero-body__right-copy p{margin:0!important;max-width:none!important;color:#fff!important;font-size:clamp(12px,3.2vw,17px)!important;line-height:1.38!important}
+  .hero .hero-body__right-copy{position:absolute!important;z-index:18!important;top:18.5%!important;left:68%!important;right:5%!important;width:auto!important;max-width:none!important;padding:0!important;margin:0!important;color:#fff!important}
+  .hero .hero-body__right-copy h2{margin:0 0 13px!important;color:#fff!important;font-family:var(--font-display)!important;font-size:clamp(24px,6.8vw,44px)!important;line-height:.92!important;letter-spacing:-.055em!important;font-weight:800!important}
+  .hero .hero-body__right-copy p{margin:0!important;max-width:none!important;color:#fff!important;font-size:clamp(11px,3vw,16px)!important;line-height:1.38!important}
 
   .hero .hero-body__hands{position:absolute!important;z-index:30!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;margin:0!important;aspect-ratio:auto!important;pointer-events:none!important}
-  .hero .hero-body__hand-glow{position:absolute!important;left:51%!important;top:42%!important;width:44%!important;height:31%!important;z-index:0!important;background:radial-gradient(circle,rgba(255,255,255,.22) 0%,rgba(255,255,255,.08) 42%,transparent 75%)!important}
+  .hero .hero-body__hand-glow{position:absolute!important;left:50%!important;top:43%!important;width:45%!important;height:29%!important;z-index:0!important;background:radial-gradient(circle,rgba(255,255,255,.22) 0%,rgba(255,255,255,.08) 42%,transparent 75%)!important}
   .hero .hero-body__hands .hand{position:absolute!important;display:block!important;height:auto!important;max-width:none!important;object-fit:contain!important;animation:none!important;will-change:auto!important}
-  .hero .hero-body__hands .hand--clinician{width:78%!important;right:-18%!important;left:auto!important;top:51%!important;transform:none!important;z-index:4!important}
-  .hero .hero-body__hands .hand--patient{width:82%!important;left:-17%!important;right:auto!important;top:63%!important;transform:none!important;z-index:5!important}
+  .hero .hero-body__hands .hand--clinician{width:79%!important;right:-20%!important;left:auto!important;top:48%!important;transform:none!important;z-index:4!important}
+  .hero .hero-body__hands .hand--patient{width:84%!important;left:-20%!important;right:auto!important;top:58%!important;transform:none!important;z-index:5!important}
 
   .hero .care-panel{position:absolute!important;z-index:50!important;left:4.5%!important;right:4.5%!important;top:70%!important;bottom:auto!important;width:auto!important;max-width:none!important;min-height:0!important;height:15%!important;margin:0!important;padding:8px!important;gap:10px!important;border:1px solid rgba(11,10,10,.06)!important;border-radius:22px!important;background:#fff!important;box-shadow:0 14px 38px rgba(15,35,70,.16)!important}
   .hero .care-panel__media{flex:0 0 29%!important;width:auto!important;min-height:0!important;height:100%!important;border-radius:15px!important}
@@ -58,17 +56,17 @@
 
 @media (max-width:600px){
   .hero .hero__frame{height:clamp(780px,100svh,980px)!important;min-height:780px!important}.hero .hero-body{height:100%!important;min-height:780px!important}
-  .hero .hero-body::before{clip-path:ellipse(79% 67% at 0% 26%)!important;-webkit-clip-path:ellipse(79% 67% at 0% 26%)!important}
-  .hero .hero-body__copy{top:18.5%!important;left:8.5%!important;width:58.5%!important}.hero .eyebrow{margin-bottom:15px!important;font-size:10px!important;letter-spacing:.145em!important}.hero h1{font-size:clamp(42px,13vw,56px)!important;line-height:.9!important}.hero h1>span:nth-child(2) em,.hero h1>span:nth-child(2) strong{font-size:clamp(42px,13vw,56px)!important}.hero .intro{margin-top:18px!important;font-size:15px!important;line-height:1.42!important}
-  .hero .hero-body__copy .icon-slide-button,.hero .hero-body__copy>a{top:clamp(245px,43vw,315px)!important}
-  .hero .hero-body__right-copy{top:20%!important;left:64%!important;right:6%!important}.hero .hero-body__right-copy h2{font-size:clamp(25px,7.2vw,31px)!important;line-height:.91!important;margin-bottom:12px!important}.hero .hero-body__right-copy p{font-size:clamp(12px,3.4vw,15px)!important;line-height:1.38!important}
-  .hero .hero-body__hands .hand--clinician{width:79%!important;right:-22%!important;top:51%!important}.hero .hero-body__hands .hand--patient{width:84%!important;left:-20%!important;top:64%!important}
+  .hero .hero-body::before{clip-path:ellipse(70% 68% at 0% 27%)!important;-webkit-clip-path:ellipse(70% 68% at 0% 27%)!important}
+  .hero .hero-body__copy{top:18.5%!important;left:8.5%!important;width:59%!important}.hero .eyebrow{margin-bottom:15px!important;font-size:10px!important;letter-spacing:.145em!important}.hero h1{font-size:clamp(43px,13vw,56px)!important;line-height:.9!important}.hero h1>span:nth-child(2) em,.hero h1>span:nth-child(2) strong{font-size:clamp(43px,13vw,56px)!important}.hero .intro{margin-top:18px!important;font-size:15px!important;line-height:1.42!important}
+  .hero .hero-body__copy .icon-slide-button,.hero .hero-body__copy>a{top:clamp(285px,48vw,315px)!important}
+  .hero .hero-body__right-copy{top:18.5%!important;left:68%!important;right:5%!important}.hero .hero-body__right-copy h2{font-size:clamp(24px,7vw,31px)!important;line-height:.91!important;margin-bottom:12px!important}.hero .hero-body__right-copy p{font-size:clamp(11px,3.2vw,15px)!important;line-height:1.38!important}
+  .hero .hero-body__hands .hand--clinician{width:80%!important;right:-22%!important;top:48%!important}.hero .hero-body__hands .hand--patient{width:85%!important;left:-21%!important;top:58%!important}
   .hero .care-panel{top:70%!important;height:14.5%!important;left:4.5%!important;right:4.5%!important;padding:8px!important;border-radius:21px!important}.hero .care-panel__media{flex-basis:30%!important}.hero .care-panel__media strong{font-size:clamp(18px,5.2vw,25px)!important}.hero .care-panel__topline{font-size:10px!important;margin-bottom:10px!important}.hero .care-highlight strong{font-size:clamp(17px,5vw,23px)!important}.hero .care-highlight span{font-size:10px!important}
   .hero .service-pills{top:86.5%!important}.hero .service-pills span{min-height:48px!important;font-size:9px!important}.hero .feedback{bottom:1%!important;height:9%!important}.hero .feedback p{font-size:12px!important}
 }
 
 @media (max-width:380px){
-  .hero .hero__frame{height:780px!important;min-height:780px!important}.hero .hero-body{height:780px!important;min-height:780px!important}.hero .hero-body__copy{top:18%!important;left:8%!important;width:59%!important}.hero .eyebrow{font-size:9px!important;margin-bottom:14px!important}.hero h1{font-size:39px!important}.hero h1>span:nth-child(2) em,.hero h1>span:nth-child(2) strong{font-size:39px!important}.hero .intro{font-size:14px!important}.hero .hero-body__copy .icon-slide-button,.hero .hero-body__copy>a{top:235px!important}.hero .hero-body__right-copy{top:19.5%!important;left:64%!important;right:5%!important}.hero .hero-body__right-copy h2{font-size:24px!important}.hero .hero-body__right-copy p{font-size:11px!important}.hero .hero-body__hands .hand--clinician{width:82%!important;right:-25%!important;top:51%!important}.hero .hero-body__hands .hand--patient{width:87%!important;left:-24%!important;top:65%!important}.hero .care-panel{top:70%!important;height:15%!important;left:4%!important;right:4%!important}.hero .care-panel__media{flex-basis:29%!important}.hero .care-panel__media strong{font-size:19px!important}.hero .care-highlight strong{font-size:17px!important}.hero .care-highlight span{font-size:9px!important}.hero .service-pills{top:86.5%!important;left:4%!important;right:4%!important;gap:6px!important}.hero .service-pills span{font-size:8px!important;min-height:44px!important}.hero .feedback p{font-size:11px!important}
+  .hero .hero__frame{height:780px!important;min-height:780px!important}.hero .hero-body{height:780px!important;min-height:780px!important}.hero .hero-body__copy{top:18%!important;left:8%!important;width:59%!important}.hero .eyebrow{font-size:9px!important;margin-bottom:14px!important}.hero h1{font-size:43px!important}.hero h1>span:nth-child(2) em,.hero h1>span:nth-child(2) strong{font-size:43px!important}.hero .intro{font-size:14px!important}.hero .hero-body__copy .icon-slide-button,.hero .hero-body__copy>a{top:265px!important}.hero .hero-body__right-copy{top:18.5%!important;left:68%!important;right:5%!important}.hero .hero-body__right-copy h2{font-size:23px!important}.hero .hero-body__right-copy p{font-size:10px!important}.hero .hero-body__hands .hand--clinician{width:83%!important;right:-25%!important;top:48%!important}.hero .hero-body__hands .hand--patient{width:88%!important;left:-25%!important;top:58%!important}.hero .care-panel{top:70%!important;height:15%!important;left:4%!important;right:4%!important}.hero .care-panel__media{flex-basis:29%!important}.hero .care-panel__media strong{font-size:19px!important}.hero .care-highlight strong{font-size:17px!important}.hero .care-highlight span{font-size:9px!important}.hero .service-pills{top:86.5%!important;left:4%!important;right:4%!important;gap:6px!important}.hero .service-pills span{font-size:8px!important;min-height:44px!important}.hero .feedback p{font-size:11px!important}
 }
 
 @media (prefers-reduced-motion:reduce){.hero .hand{animation:none!important}}
