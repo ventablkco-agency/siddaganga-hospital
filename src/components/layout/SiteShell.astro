@@ -1,0 +1,16 @@
+---
+import Navbar from '../navigation/Navbar.astro';
+import MenuOverlay from '../navigation/MenuOverlay.astro';
+import Footer from '../Footer.astro';
+---
+<div class="site-shell">
+  <Navbar />
+  <MenuOverlay />
+  <main class="site-shell__main">
+    <slot />
+  </main>
+  <Footer />
+</div>
+<style>
+.site-shell{min-height:100vh;display:flex;flex-direction:column}.site-shell__main{flex:1;min-width:0}
+</style>

@@ -9,6 +9,8 @@ import HeroBody from './hero/HeroBody.astro';
 </section>
 
 <style>
+  /* The page background is the selected #EBF0FE. The frame below is the
+     single hero card; HeroBody fills it instead of creating another card. */
   .hero {
     min-height: 100svh;
     padding: clamp(8px, 1.15vw, 18px);
@@ -24,6 +26,20 @@ import HeroBody from './hero/HeroBody.astro';
     border-radius: clamp(22px, 2.1vw, 32px);
     background: var(--color-white);
     box-shadow: var(--shadow-sm);
+  }
+
+  /* Restore the split hero: palette.css globally forces .hero-body white,
+     which was unintentionally hiding the blue right-hand field. Keep the
+     left ellipse white while forcing the underlying hero field blue. */
+  :global(.hero) :global(.hero-body) {
+    background:
+      radial-gradient(ellipse at 72% 18%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.08) 28%, transparent 55%),
+      radial-gradient(ellipse at 90% 78%, rgba(255,255,255,.08), transparent 42%),
+      #246AFE !important;
+  }
+
+  :global(.hero) :global(.hero-body)::before {
+    background: #FFFFFF !important;
   }
 
   .hero__frame::before {

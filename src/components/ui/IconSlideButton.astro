@@ -1,4 +1,6 @@
 ---
+import { ArrowRight } from 'lucide-astro';
+
 interface Props {
   href?: string;
   label?: string;
@@ -22,13 +24,13 @@ const {
   smoothScroll = false,
   fontSize = 14,
   radius = 999,
-  background = '#1769D1',
-  backgroundHover = '#0D1015',
-  textColor = '#FFFFFF',
-  textHover = '#FFFFFF',
-  fillColor = '#FFFFFF',
-  iconColor = '#1769D1',
-  iconHoverFill = '#0D1015',
+  background = 'var(--color-brand)',
+  backgroundHover = 'var(--color-ink)',
+  textColor = 'var(--color-white)',
+  textHover = 'var(--color-white)',
+  fillColor = 'var(--color-white)',
+  iconColor = 'var(--color-brand)',
+  iconHoverFill = 'var(--color-ink)',
 } = Astro.props;
 
 const target = newTab ? '_blank' : undefined;
@@ -46,160 +48,26 @@ const classes = `icon-slide-button${smoothScroll ? ' icon-slide-button--smooth' 
 >
   <span class="icon-slide-button__text">{label}</span>
   <span class="icon-slide-button__icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M6 12H18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
-      <path d="M13 7L18 12L13 17" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
-    </svg>
+    <ArrowRight size={19} strokeWidth={1.7} />
   </span>
 </a>
 
 <style>
-  .icon-slide-button {
-    --ease: cubic-bezier(0.22, 1, 0.36, 1);
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 58px;
-    min-width: 194px;
-    padding: 7px 7px 7px 25px;
-    overflow: hidden;
-    border-radius: var(--button-radius);
-    background: var(--button-bg);
-    color: var(--button-text);
-    text-decoration: none;
-    isolation: isolate;
-    box-sizing: border-box;
-    transition: transform 0.45s var(--ease), background-color 0.45s var(--ease), color 0.3s ease;
-  }
-
-  .icon-slide-button::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background: var(--button-bg-hover);
-    transform: translateX(-102%);
-    transition: transform 0.6s var(--ease);
-  }
-
-  .icon-slide-button__text {
-    position: relative;
-    z-index: 2;
-    font-family: inherit;
-    font-size: var(--button-font-size);
-    font-weight: 600;
-    line-height: 1;
-    letter-spacing: -0.015em;
-    white-space: nowrap;
-    color: var(--button-text);
-    transition: color 0.3s ease, transform 0.55s var(--ease);
-  }
-
-  .icon-slide-button__icon {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    flex: 0 0 44px;
-    margin-left: 20px;
-    border-radius: 50%;
-    background: var(--button-fill);
-    color: var(--button-icon);
-    overflow: hidden;
-    transition: background-color 0.45s var(--ease), color 0.45s var(--ease), transform 0.55s var(--ease);
-  }
-
-  .icon-slide-button__icon::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: var(--button-icon-hover-fill);
-    transform: translateX(-105%);
-    transition: transform 0.5s var(--ease);
-  }
-
-  .icon-slide-button__icon svg {
-    position: relative;
-    z-index: 2;
-    width: 19px;
-    height: 19px;
-    transition: transform 0.55s var(--ease), color 0.35s ease;
-  }
-
-  .icon-slide-button:hover,
-  .icon-slide-button:focus-visible {
-    transform: translateY(-2px);
-  }
-
-  .icon-slide-button:hover::before,
-  .icon-slide-button:focus-visible::before {
-    transform: translateX(0);
-  }
-
-  .icon-slide-button:hover .icon-slide-button__text,
-  .icon-slide-button:focus-visible .icon-slide-button__text {
-    color: var(--button-text-hover);
-    transform: translateX(1px);
-  }
-
-  .icon-slide-button:hover .icon-slide-button__icon,
-  .icon-slide-button:focus-visible .icon-slide-button__icon {
-    color: var(--button-fill);
-    transform: translateX(-1px) scale(1.03);
-  }
-
-  .icon-slide-button:hover .icon-slide-button__icon::after,
-  .icon-slide-button:focus-visible .icon-slide-button__icon::after {
-    transform: translateX(0);
-  }
-
-  .icon-slide-button:hover .icon-slide-button__icon svg,
-  .icon-slide-button:focus-visible .icon-slide-button__icon svg {
-    color: var(--button-fill);
-    transform: translateX(2px);
-  }
-
-  .icon-slide-button:active {
-    transform: translateY(0) scale(0.97);
-  }
-
-  .icon-slide-button:focus-visible {
-    outline: 2px solid var(--button-bg);
-    outline-offset: 4px;
-  }
-
-  .icon-slide-button--smooth {
-    scroll-behavior: smooth;
-  }
-
-  @media (max-width: 760px) {
-    .icon-slide-button {
-      min-width: 176px;
-      min-height: 54px;
-      padding-left: 21px;
-    }
-
-    .icon-slide-button__icon {
-      width: 40px;
-      height: 40px;
-      flex-basis: 40px;
-      margin-left: 16px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .icon-slide-button,
-    .icon-slide-button::before,
-    .icon-slide-button__text,
-    .icon-slide-button__icon,
-    .icon-slide-button__icon::after,
-    .icon-slide-button__icon svg {
-      transition: none;
-    }
-  }
+  .icon-slide-button{--ease:cubic-bezier(.22,1,.36,1);position:relative;display:inline-flex;align-items:center;justify-content:space-between;min-height:58px;min-width:194px;padding:7px 7px 7px 25px;overflow:hidden;border-radius:999px !important;background:var(--button-bg);color:var(--button-text);text-decoration:none;isolation:isolate;box-sizing:border-box;transition:transform .45s var(--ease),background-color .45s var(--ease),color .3s ease}
+  .icon-slide-button::before{content:'';position:absolute;inset:0;z-index:-1;border-radius:999px;background:var(--button-bg-hover);transform:translateX(-102%);transition:transform .6s var(--ease)}
+  .icon-slide-button__text{position:relative;z-index:2;font-family:inherit;font-size:var(--button-font-size);font-weight:600;line-height:1;letter-spacing:-.015em;white-space:nowrap;color:var(--button-text);transition:color .3s ease,transform .55s var(--ease)}
+  .icon-slide-button__icon{position:relative;z-index:2;display:grid;place-items:center;width:44px;height:44px;flex:0 0 44px;margin-left:20px;border-radius:50%;background:var(--button-fill);color:var(--button-icon);overflow:hidden;transition:background-color .45s var(--ease),color .45s var(--ease),transform .55s var(--ease)}
+  .icon-slide-button__icon::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--button-icon-hover-fill);transform:translateX(-105%);transition:transform .5s var(--ease)}
+  .icon-slide-button__icon svg{position:relative;z-index:2;width:19px;height:19px;transition:transform .55s var(--ease),color .35s ease}
+  .icon-slide-button:hover,.icon-slide-button:focus-visible{transform:translateY(-2px)}
+  .icon-slide-button:hover::before,.icon-slide-button:focus-visible::before{transform:translateX(0)}
+  .icon-slide-button:hover .icon-slide-button__text,.icon-slide-button:focus-visible .icon-slide-button__text{color:var(--button-text-hover);transform:translateX(1px)}
+  .icon-slide-button:hover .icon-slide-button__icon,.icon-slide-button:focus-visible .icon-slide-button__icon{color:var(--button-fill);transform:translateX(-1px) scale(1.03)}
+  .icon-slide-button:hover .icon-slide-button__icon::after,.icon-slide-button:focus-visible .icon-slide-button__icon::after{transform:translateX(0)}
+  .icon-slide-button:hover .icon-slide-button__icon svg,.icon-slide-button:focus-visible .icon-slide-button__icon svg{color:var(--button-fill);transform:translateX(2px)}
+  .icon-slide-button:active{transform:translateY(0) scale(.97)}
+  .icon-slide-button:focus-visible{outline:2px solid var(--button-bg);outline-offset:4px}
+  .icon-slide-button--smooth{scroll-behavior:smooth}
+  @media(max-width:760px){.icon-slide-button{min-width:176px;min-height:54px;padding-left:21px}.icon-slide-button__icon{width:40px;height:40px;flex-basis:40px;margin-left:16px}}
+  @media(prefers-reduced-motion:reduce){.icon-slide-button,.icon-slide-button::before,.icon-slide-button__text,.icon-slide-button__icon,.icon-slide-button__icon::after,.icon-slide-button__icon svg{transition:none}}
 </style>

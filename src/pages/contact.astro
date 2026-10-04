@@ -1,0 +1,250 @@
+---
+import Layout from '../layouts/Layout.astro';
+import IconSlideButton from '../components/ui/IconSlideButton.astro';
+
+const appointmentUrl = 'https://wa.me/919591799099';
+const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=D.K.+Siddappa+Building,+Mruthyunjaya+Nagar,+Ranebennur,+Karnataka';
+
+const faqs = [
+  {
+    question: 'What should I bring for my first visit?',
+    answer: 'Please bring any previous prescriptions, reports, scan results and a list of current medicines. This helps our team understand your medical history quickly.',
+  },
+  {
+    question: 'How can I book an appointment?',
+    answer: 'Use the appointment button on this page or contact our hospital team directly on 95917 99099 or 96205 13688.',
+  },
+  {
+    question: 'Is Siddaganga Hospital open 24×7?',
+    answer: 'Yes. Siddaganga Hospital provides 24×7 emergency support in Ranebennur.',
+  },
+  {
+    question: 'What services are available?',
+    answer: 'Our core care includes General Medicine, Cardiology, Diabetology, diagnostics and emergency support, with facilities including laboratory services, Digital X-Ray and 2D Echo.',
+  },
+];
+---
+
+<Layout
+  title="Contact Siddaganga Hospital | Ranebennur"
+  description="Book an appointment, contact Siddaganga Hospital or find our hospital in Ranebennur."
+>
+  <main class="contact-page">
+    <section class="contact-hero" aria-labelledby="contact-title">
+      <div class="contact-hero__card">
+        <div class="appointment-panel">
+          <h1 id="contact-title">Are you ready to<br /><span>make an appointment?</span></h1>
+          <p class="hero-copy">Tell us a little about your visit and our team will help you take the next step.</p>
+
+          <form class="appointment-form" action={appointmentUrl} method="get" target="_blank">
+            <label>
+              <span>Name</span>
+              <input name="name" type="text" placeholder="Your full name" autocomplete="name" />
+            </label>
+            <label>
+              <span>Phone number</span>
+              <input name="phone" type="tel" placeholder="Your phone number" autocomplete="tel" />
+            </label>
+            <label>
+              <span>Preferred date/time</span>
+              <input name="date" type="text" placeholder="Preferred date & time" />
+            </label>
+            <label>
+              <span>Message (optional)</span>
+              <input name="message" type="text" placeholder="How can we help?" />
+            </label>
+            <label class="full-width">
+              <span>Service needed</span>
+              <select name="service">
+                <option value="General Medicine">General Medicine</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Diabetology">Diabetology</option>
+                <option value="Emergency">24×7 Emergency</option>
+                <option value="Diagnostics">Diagnostics</option>
+              </select>
+            </label>
+            <div class="form-actions full-width">
+              <IconSlideButton
+                href={appointmentUrl}
+                label="Book Appointment"
+                newTab={true}
+                background="var(--color-brand)"
+                backgroundHover="var(--color-ink)"
+                textColor="var(--color-white)"
+                textHover="var(--color-white)"
+                fillColor="var(--color-white)"
+                iconColor="var(--color-brand)"
+                iconHoverFill="var(--color-ink)"
+              />
+              <small>Or call 95917 99099 to book your visit.</small>
+            </div>
+          </form>
+        </div>
+
+        <div class="contact-visual" aria-hidden="true">
+          <div class="visual-glow"></div>
+          <div class="visual-orbit visual-orbit--one"></div>
+          <div class="visual-orbit visual-orbit--two"></div>
+          <div class="visual-heart">
+            <span class="pulse pulse--one"></span>
+            <span class="pulse pulse--two"></span>
+            <div class="heart-core">SGH</div>
+          </div>
+          <div class="visual-caption">
+            <strong>Experienced care.</strong>
+            <span>Advanced diagnostics.<br />One trusted hospital.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="faq-stage">
+        <div class="ambient-word ambient-word--left" aria-hidden="true">Questions /</div>
+        <div class="ambient-word ambient-word--right" aria-hidden="true">FAQs /</div>
+
+        <div class="faq-heading">
+          <p>Questions and</p>
+          <h2 id="faq-title">answers.</h2>
+          <p class="faq-intro">If you have any other questions, please contact our hospital team and we will be happy to help.</p>
+          <a href="tel:+919591799099">Contact us ↗</a>
+        </div>
+
+        <div class="faq-orbit faq-orbit--one" aria-hidden="true"><span>Need to know</span></div>
+        <div class="faq-orbit faq-orbit--two" aria-hidden="true"><span>We are here to help</span></div>
+        <div class="faq-orbit faq-orbit--three" aria-hidden="true"><span>24×7 support</span></div>
+
+        <article class="featured-faq" data-faq-card>
+          <div class="faq-topline">
+            <div class="faq-number">01</div>
+            <span class="faq-mark">SGH</span>
+          </div>
+          <div class="faq-question" data-faq-question>{faqs[0].question}</div>
+          <p class="faq-answer" data-faq-answer>{faqs[0].answer}</p>
+          <div class="faq-footer">
+            <span>Frequently asked question</span>
+            <button type="button" class="faq-next" aria-label="Next frequently asked question">→</button>
+          </div>
+        </article>
+
+        <div class="faq-dots" aria-label="Frequently asked questions">
+          {faqs.map((_, index) => (
+            <button type="button" class:list={['faq-dot', index === 0 && 'is-active']} aria-label={`Show question ${index + 1}`} data-faq-dot={index}></button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-info" aria-label="Hospital contact information">
+      <div class="info-card">
+        <span class="info-label">CALL</span>
+        <a href="tel:+919591799099">95917 99099</a>
+        <a href="tel:+919620513688">96205 13688</a>
+      </div>
+      <div class="info-card">
+        <span class="info-label">EMAIL</span>
+        <a href="mailto:siddagangahospitalrnr@gmail.com">siddagangahospitalrnr@gmail.com</a>
+      </div>
+      <div class="info-card">
+        <span class="info-label">VISIT</span>
+        <p>D.K. Siddappa Building,<br />Mruthyunjaya Nagar,<br />Ranebennur, Karnataka 581115</p>
+        <a href={mapsUrl} target="_blank" rel="noopener">Open in Maps ↗</a>
+      </div>
+      <div class="info-card info-card--cta">
+        <span class="info-label">24×7 SUPPORT</span>
+        <strong>Prompt help when<br />you need it most.</strong>
+        <IconSlideButton href={appointmentUrl} label="Book Appointment" newTab={true} />
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  const initFaq = () => {
+    const card = document.querySelector('[data-faq-card]');
+    const dots = Array.from(document.querySelectorAll('[data-faq-dot]'));
+    const next = document.querySelector('.faq-next');
+    if (!card || !dots.length || !next) return;
+
+    const faqs = [
+      {
+        question: 'What should I bring for my first visit?',
+        answer: 'Please bring any previous prescriptions, reports, scan results and a list of current medicines. This helps our team understand your medical history quickly.',
+      },
+      {
+        question: 'How can I book an appointment?',
+        answer: 'Use the appointment button on this page or contact our hospital team directly on 95917 99099 or 96205 13688.',
+      },
+      {
+        question: 'Is Siddaganga Hospital open 24×7?',
+        answer: 'Yes. Siddaganga Hospital provides 24×7 emergency support in Ranebennur.',
+      },
+      {
+        question: 'What services are available?',
+        answer: 'Our core care includes General Medicine, Cardiology, Diabetology, diagnostics and emergency support, with facilities including laboratory services, Digital X-Ray and 2D Echo.',
+      },
+    ];
+
+    let index = 0;
+    const render = () => {
+      const faq = faqs[index];
+      const number = card.querySelector('.faq-number');
+      const question = card.querySelector('[data-faq-question]');
+      const answer = card.querySelector('[data-faq-answer]');
+      if (!number || !question || !answer) return;
+      number.textContent = String(index + 1).padStart(2, '0');
+      question.textContent = faq.question;
+      answer.textContent = faq.answer;
+      dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === index));
+    };
+
+    next.addEventListener('click', () => {
+      index = (index + 1) % faqs.length;
+      render();
+    });
+    dots.forEach((dot, dotIndex) => dot.addEventListener('click', () => {
+      index = dotIndex;
+      render();
+    }));
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initFaq, { once: true });
+  else initFaq();
+</script>
+
+<style>
+.contact-page{background:#fff;color:var(--color-ink);overflow:hidden}
+/* Match the contact hero frame to the exact outer geometry of the home Hero. */
+.contact-hero{padding:clamp(8px,1.15vw,18px) clamp(8px,1.15vw,18px) clamp(70px,8vw,120px);background:var(--color-surface-soft)}
+.contact-hero__card{width:100%;min-height:calc(100svh - clamp(16px,2.3vw,36px));margin:0;border-radius:clamp(22px,2.1vw,32px);overflow:hidden;display:grid;grid-template-columns:1.05fr .95fr;background:#fff;box-shadow:0 22px 70px rgba(34,58,102,.08)}
+.appointment-panel{padding:clamp(34px,5vw,74px);display:flex;flex-direction:column;justify-content:center}
+.appointment-panel h1{margin:0;font:650 clamp(43px,5vw,76px)/.94 var(--font-display);letter-spacing:-.065em;color:var(--color-ink)}
+.appointment-panel h1 span{color:var(--color-brand)}
+.hero-copy{max-width:520px;margin:24px 0 30px;color:#697589;font:400 14px/1.55 var(--font-body)}
+.appointment-form{display:grid;grid-template-columns:1fr 1fr;gap:11px;max-width:650px}
+.appointment-form label{display:flex;flex-direction:column;gap:6px;min-width:0}
+.appointment-form label>span{font:600 9px/1 var(--font-body);color:#697589}
+.appointment-form input,.appointment-form select{height:48px;width:100%;box-sizing:border-box;border:1px solid #e0e6ef;border-radius:13px;background:#f8faff;color:#182131;padding:0 15px;outline:none;font:500 12px var(--font-body);transition:border-color .2s,box-shadow .2s}
+.appointment-form input::placeholder{color:#a0a9b8}.appointment-form input:focus,.appointment-form select:focus{border-color:#77a0ff;box-shadow:0 0 0 3px rgba(36,106,254,.08)}
+.full-width{grid-column:1/-1}
+.form-actions{display:flex;align-items:center;gap:14px;margin-top:4px}.form-actions small{font:400 9px/1.35 var(--font-body);color:#8792a3}
+.contact-visual{position:relative;min-height:520px;background:linear-gradient(145deg,#2875ff 0%,#1764f5 54%,#0e57e9 100%);overflow:hidden}
+.visual-glow{position:absolute;width:80%;aspect-ratio:1;border-radius:50%;left:8%;top:-20%;background:radial-gradient(circle,rgba(255,255,255,.35),rgba(255,255,255,0) 68%);filter:blur(4px)}
+.visual-orbit{position:absolute;border:1px solid rgba(255,255,255,.2);border-radius:50%;transform:rotate(-22deg)}.visual-orbit--one{width:82%;height:52%;right:-19%;top:21%}.visual-orbit--two{width:58%;height:35%;right:-7%;top:30%;border-color:rgba(255,255,255,.28)}
+.visual-heart{position:absolute;left:50%;top:48%;width:220px;height:220px;transform:translate(-50%,-50%) rotate(8deg);display:grid;place-items:center}
+.heart-core{width:116px;height:116px;border-radius:38% 62% 55% 45%;background:rgba(255,255,255,.94);color:var(--color-brand);display:grid;place-items:center;font:800 22px var(--font-display);box-shadow:0 20px 50px rgba(0,32,105,.22);transform:rotate(-8deg)}
+.pulse{position:absolute;border:1px solid rgba(255,255,255,.35);border-radius:50%;animation:pulse 2.8s ease-in-out infinite}.pulse--one{inset:12%;}.pulse--two{inset:0;animation-delay:.8s}@keyframes pulse{0%,100%{transform:scale(.9);opacity:.3}50%{transform:scale(1.05);opacity:.8}}
+.visual-caption{position:absolute;left:clamp(28px,5vw,70px);bottom:clamp(30px,5vw,70px);color:#fff;display:flex;flex-direction:column;gap:7px}.visual-caption strong{font:650 clamp(28px,3vw,44px)/.95 var(--font-display);letter-spacing:-.055em}.visual-caption span{font:400 12px/1.4 var(--font-body);color:rgba(255,255,255,.78)}
+.faq-section{--blue:#2878ed;--ink:#111a2b;--muted:#74839a;width:100%;height:100svh;min-height:680px;overflow:hidden;background:#edf2ff;color:var(--ink);font-family:var(--font-body)}
+.faq-stage{position:relative;width:100%;height:100%;overflow:hidden;border-radius:24px;box-sizing:border-box}
+.faq-heading{position:absolute;left:5.5%;top:17%;z-index:5;line-height:.88}.faq-heading p:first-child,.faq-heading h2{margin:0;font-family:var(--font-display);font-weight:500;letter-spacing:-.055em;font-size:clamp(30px,3.1vw,50px)}.faq-heading h2{font-weight:700;color:var(--blue)}.faq-intro{max-width:270px;margin:28px 0 8px;color:#74839a;font:400 11px/1.5 var(--font-body)}.faq-heading>a{color:var(--blue);font:600 10px var(--font-body);text-decoration:none}
+.ambient-word{position:absolute;top:43%;white-space:nowrap;color:#4c8df1;opacity:.9;font-family:var(--font-display);font-size:clamp(70px,8.5vw,150px);line-height:.8;letter-spacing:-.075em;font-weight:400;pointer-events:none}.ambient-word--left{left:3.5%}.ambient-word--right{right:3.5%}
+.featured-faq{position:absolute;z-index:10;top:15%;left:50%;transform:translateX(-50%);width:min(350px,31vw);min-height:360px;padding:18px;box-sizing:border-box;border-radius:14px;background:rgba(255,255,255,.97);box-shadow:0 24px 60px rgba(65,94,142,.16);border:1px solid rgba(255,255,255,.9)}
+.faq-topline{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.faq-number{font:700 13px var(--font-body);color:var(--blue)}.faq-mark{font-size:8px;color:#9aa6b8;letter-spacing:.08em}.faq-question{margin-top:28px;color:#1a2434;font-family:var(--font-display);font-size:clamp(18px,1.55vw,24px);font-weight:600;line-height:1.12;letter-spacing:-.025em}.faq-answer{margin:22px 0 0;color:#74839a;font:400 11px/1.55 var(--font-body)}
+.faq-footer{position:absolute;left:18px;right:18px;bottom:17px;display:flex;justify-content:space-between;align-items:center;color:#a1adbd;font-size:8px;text-transform:uppercase;letter-spacing:.1em}.faq-next{width:26px;height:26px;border:0;border-radius:50%;background:var(--blue);color:#fff;cursor:pointer;font-size:13px}
+.faq-orbit{position:absolute;z-index:3;border-radius:12px;background:rgba(255,255,255,.38);border:1px solid rgba(255,255,255,.55);color:#8ba1c0;font-size:9px;padding:9px 13px;filter:blur(.1px);opacity:.7}.faq-orbit--one{left:14%;bottom:23%;transform:rotate(-7deg)}.faq-orbit--two{right:13%;bottom:27%;transform:rotate(8deg)}.faq-orbit--three{left:23%;top:26%;transform:rotate(5deg);opacity:.45}
+.faq-dots{position:absolute;z-index:15;left:50%;bottom:11%;transform:translateX(-50%);display:flex;gap:7px}.faq-dot{width:6px;height:6px;padding:0;border:0;border-radius:50%;background:#b8c8df;cursor:pointer}.faq-dot.is-active{background:var(--blue);transform:scale(1.25)}
+.contact-info{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#dfe5ef;border-top:1px solid #dfe5ef}.info-card{min-height:180px;padding:34px clamp(20px,4vw,58px);box-sizing:border-box;background:#f6f8fc;display:flex;flex-direction:column;align-items:flex-start}.info-label{margin-bottom:18px;color:#8290a4;font:700 9px var(--font-body);letter-spacing:.16em}.info-card a,.info-card p{color:#1e2a3d;text-decoration:none;font:500 13px/1.55 var(--font-body);margin:0 0 4px}.info-card--cta{background:var(--color-brand);color:#fff}.info-card--cta .info-label{color:rgba(255,255,255,.7)}.info-card--cta strong{font:650 25px/.98 var(--font-display);letter-spacing:-.045em;margin-bottom:20px}.info-card--cta :global(.icon-slide-button){min-width:180px}
+@media(max-width:900px){.contact-hero__card{grid-template-columns:1fr}.contact-visual{min-height:390px}.contact-info{grid-template-columns:1fr 1fr}.featured-faq{width:min(350px,42vw)}.faq-heading{top:12%;left:5%}.ambient-word{font-size:clamp(70px,12vw,125px)}}
+@media(max-width:640px){.contact-hero{padding:14px 12px 70px}.contact-hero__card{min-height:calc(100svh - 28px);border-radius:20px}.appointment-panel{padding:30px 22px}.appointment-panel h1{font-size:48px}.appointment-form{grid-template-columns:1fr}.full-width{grid-column:auto}.form-actions{align-items:flex-start;flex-direction:column}.contact-visual{min-height:390px}.faq-section{min-height:620px}.faq-heading{top:9%}.faq-heading p:first-child,.faq-heading h2{font-size:29px}.featured-faq{top:25%;width:min(88vw,350px);min-height:350px}.ambient-word{top:50%;font-size:84px}.ambient-word--left{left:4%}.ambient-word--right{right:4%}.faq-orbit{display:none}.faq-dots{bottom:8%}.contact-info{grid-template-columns:1fr}.info-card{min-height:150px}.info-card--cta{min-height:210px}}
+</style>

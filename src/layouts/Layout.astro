@@ -1,14 +1,13 @@
 ---
 import '../styles/tokens.css';
 import '../styles/typography.css';
-import '../styles/palette.css'; // temporary override layer; removed section-by-section in the migration step
-import Header from '../components/navigation/Header.astro';
-import MenuOverlay from '../components/navigation/MenuOverlay.astro';
+import '../styles/palette.css';
+import SiteShell from '../components/layout/SiteShell.astro';
 
 interface Props {
   title?: string;
   description?: string;
-  image?: string; // absolute URL, 1200x630. Needed for WhatsApp/Google link previews.
+  image?: string;
 }
 
 const {
@@ -25,10 +24,8 @@ const {
     <meta name="theme-color" content="#EBF0FE" />
     <title>{title}</title>
     <meta name="description" content={description} />
-
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
-
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Siddaganga Hospital" />
     <meta property="og:locale" content="en_IN" />
@@ -36,17 +33,13 @@ const {
     <meta property="og:description" content={description} />
     {image && <meta property="og:image" content={image} />}
     <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=Manrope:wght@400..800&family=Noto+Sans+Kannada:wght@400..700&display=swap"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=Manrope:wght@400..800&family=Noto+Sans+Kannada:wght@400..700&display=swap" />
   </head>
   <body>
-    <Header />
-    <MenuOverlay />
-    <slot />
+    <SiteShell>
+      <slot />
+    </SiteShell>
   </body>
 </html>
