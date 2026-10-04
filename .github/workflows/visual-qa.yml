@@ -1,0 +1,79 @@
+name: Visual QA
+
+on:
+  push:
+    branches:
+      - hero-fluid
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-qa:
+    name: Render responsive screenshots
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Install Playwright Chromium
+        run: npx playwright@latest install --with-deps chromium
+
+      - name: Start Astro preview server
+        run: |
+          npm run preview -- --host 0.0.0.0 --port 4321 > /tmp/astro-preview.log 2>&1 &
+          for i in {1..30}; do
+            if curl --fail --silent --show-error http://127.0.0.1:4321/ > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/astro-preview.log
+          exit 1
+
+      - name: Capture responsive screenshots
+        run: |
+          set -e
+          mkdir -p visual-qa
+
+          npx playwright@latest screenshot --browser=chromium --viewport-size="320x844" http://127.0.0.1:4321/ visual-qa/home-320x844.png
+          npx playwright@latest screenshot --browser=chromium --viewport-size="375x812" http://127.0.0.1:4321/ visual-qa/home-375x812.png
+          npx playwright@latest screenshot --browser=chromium --viewport-size="390x844" http://127.0.0.1:4321/ visual-qa/home-390x844.png
+          npx playwright@latest screenshot --browser=chromium --viewport-size="430x932" http://127.0.0.1:4321/ visual-qa/home-430x932.png
+          npx playwright@latest screenshot --browser=chromium --viewport-size="768x1024" http://127.0.0.1:4321/ visual-qa/home-768x1024.png
+          npx playwright@latest screenshot --browser=chromium --viewport-size="1024x900" http://127.0.0.1:4321/ visual-qa/home-1024x900.png
+          npx playwright@latest screenshot --browser=chromium --viewport-size="1440x900" http://127.0.0.1:4321/ visual-qa/home-1440x900.png
+
+          npx playwright@latest screenshot --browser=chromium --viewport-size="375x812" --full-page http://127.0.0.1:4321/ visual-qa/home-full-375x812.png
+          npx playwright@latest screenshot --browser=chromium --viewport-size="1440x900" --full-page http://127.0.0.1:4321/ visual-qa/home-full-1440x900.png
+
+      - name: Upload visual QA screenshots
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v5
+        with:
+          name: siddaganga-visual-qa-${{ github.sha }}
+          path: visual-qa/
+          retention-days: 14
+
+      - name: Upload Astro preview log on failure
+        if: failure()
+        uses: actions/upload-artifact@v5
+        with:
+          name: astro-preview-log-${{ github.sha }}
+          path: /tmp/astro-preview.log
+          retention-days: 7
