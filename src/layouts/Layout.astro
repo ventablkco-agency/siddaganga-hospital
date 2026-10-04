@@ -2,7 +2,7 @@
 import '../styles/tokens.css';
 import '../styles/typography.css';
 import '../styles/palette.css'; // temporary override layer; removed section-by-section in the migration step
-import Header from '../components/navigation/Header.astro';
+import Navbar from '../components/navigation/Navbar.astro';
 import MenuOverlay from '../components/navigation/MenuOverlay.astro';
 
 interface Props {
@@ -45,7 +45,7 @@ const {
     />
   </head>
   <body>
-    <Header />
+    <Navbar />
     <MenuOverlay />
     <slot />
   </body>
