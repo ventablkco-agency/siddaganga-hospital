@@ -86,4 +86,403 @@ import HeroBody from './hero/HeroBody.astro';
       border-radius: 22px;
     }
   }
+
+  /* ================================================================
+     MOBILE / TABLET HERO COMPOSITION
+
+     This is deliberately a separate composition from desktop.
+     The desktop HeroBody is left untouched at >=1024px. Below that
+     breakpoint the hero becomes a controlled art-directed canvas:
+     white ellipse + blue field + two hand layers + fixed content zones.
+
+     The hands are positioned from one shared stage so their fingertip
+     relationship scales together instead of being independently moved by
+     document flow. All major coordinates use viewport/container-relative
+     values, with small-phone corrections only where the available width
+     genuinely changes the composition.
+     ================================================================ */
+  @media (max-width: 1023px) {
+    .hero__frame {
+      min-height: 840px;
+      min-height: clamp(840px, 122svh, 980px);
+      border-radius: clamp(20px, 4vw, 28px);
+    }
+
+    :global(.hero .hero__frame .hero-body) {
+      position: relative !important;
+      display: block !important;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: inherit !important;
+      margin: 0 !important;
+      overflow: hidden !important;
+      isolation: isolate !important;
+      background:
+        radial-gradient(circle at 78% 48%, rgba(255,255,255,.16), transparent 34%),
+        linear-gradient(180deg, #2f70f7 0%, #246AFE 100%) !important;
+    }
+
+    /* The white field is a single continuous ellipse. It is NOT a second
+       content box, so text and CTA can sit independently on top of it. */
+    :global(.hero .hero__frame .hero-body)::before {
+      display: block !important;
+      content: '' !important;
+      position: absolute !important;
+      z-index: 1 !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: #fff !important;
+      clip-path: ellipse(72% 66% at 0% 48%) !important;
+      -webkit-clip-path: ellipse(72% 66% at 0% 48%) !important;
+      pointer-events: none !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__copy) {
+      position: absolute !important;
+      z-index: 12 !important;
+      inset: 145px auto auto 7% !important;
+      width: 58% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      background: transparent !important;
+      border-radius: 0 !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__copy .eyebrow) {
+      margin: 0 0 clamp(15px, 4vw, 20px) !important;
+      color: #6f7480 !important;
+      font-size: clamp(9px, 2.25vw, 11px) !important;
+      line-height: 1 !important;
+      letter-spacing: .16em !important;
+      white-space: nowrap !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__copy h1) {
+      margin: 0 !important;
+      color: #090a0d !important;
+      font-size: clamp(44px, 13.2vw, 62px) !important;
+      line-height: .91 !important;
+      letter-spacing: -.065em !important;
+      font-weight: 800 !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__copy h1 span) {
+      display: block !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__copy h1 em) {
+      color: var(--color-brand) !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__copy .intro) {
+      max-width: 100% !important;
+      margin: clamp(17px, 4vw, 24px) 0 0 !important;
+      color: #6f7480 !important;
+      font-size: clamp(15px, 3.9vw, 18px) !important;
+      line-height: 1.48 !important;
+    }
+
+    /* Keep the CTA entirely inside the white side. Its width is deliberately
+       independent from the heading so it never crosses the blue field. */
+    :global(.hero .hero__frame .hero-body__copy > a) {
+      position: absolute !important;
+      left: 0 !important;
+      top: clamp(310px, 42vw, 350px) !important;
+      width: min(82vw, 355px) !important;
+      max-width: calc(100vw - 42px) !important;
+      z-index: 30 !important;
+    }
+
+    /* Specialist technology belongs to the blue half, not in normal flow. */
+    :global(.hero .hero__frame .hero-body__right-copy) {
+      position: absolute !important;
+      z-index: 18 !important;
+      top: clamp(255px, 36vw, 325px) !important;
+      right: 5.5% !important;
+      width: 38% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      color: #fff !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__right-copy h2) {
+      margin: 0 0 clamp(12px, 3vw, 18px) !important;
+      color: #fff !important;
+      font-size: clamp(27px, 7.5vw, 40px) !important;
+      line-height: .92 !important;
+      letter-spacing: -.055em !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__right-copy p) {
+      margin: 0 !important;
+      color: #fff !important;
+      font-size: clamp(13px, 3.2vw, 16px) !important;
+      line-height: 1.48 !important;
+    }
+
+    /* One shared hand stage. The two images never participate in document
+       flow, so changing width cannot push the copy, CTA or card around. */
+    :global(.hero .hero__frame .hero-body__hands) {
+      position: absolute !important;
+      z-index: 24 !important;
+      left: 0 !important;
+      top: clamp(330px, 47vw, 430px) !important;
+      width: 100% !important;
+      max-width: none !important;
+      height: clamp(245px, 38vw, 330px) !important;
+      margin: 0 !important;
+      aspect-ratio: auto !important;
+      pointer-events: none !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__hand-glow) {
+      left: 28% !important;
+      top: 4% !important;
+      width: 50% !important;
+      height: 92% !important;
+      background: radial-gradient(circle, rgba(255,255,255,.18) 0%, rgba(255,255,255,.08) 42%, transparent 74%) !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__hands .hand) {
+      position: absolute !important;
+      display: block !important;
+      height: auto !important;
+      max-width: none !important;
+      object-fit: contain !important;
+      animation: none !important;
+      will-change: auto !important;
+    }
+
+    /* These are the only two hand-position controls. If the reference needs
+       a tiny visual adjustment later, change these values together here. */
+    :global(.hero .hero__frame .hero-body__hands .hand--patient) {
+      width: 76% !important;
+      left: -9% !important;
+      top: 38% !important;
+      right: auto !important;
+      transform: none !important;
+      z-index: 3 !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__hands .hand--clinician) {
+      width: 78% !important;
+      right: -10% !important;
+      top: 0 !important;
+      left: auto !important;
+      transform: none !important;
+      z-index: 4 !important;
+    }
+
+    /* Care card sits above the lower hand area, exactly once. */
+    :global(.hero .hero__frame .care-panel) {
+      position: absolute !important;
+      z-index: 45 !important;
+      left: 3.5% !important;
+      right: 3.5% !important;
+      bottom: 145px !important;
+      width: auto !important;
+      min-height: 108px !important;
+      margin: 0 !important;
+      padding: 8px !important;
+      gap: 10px !important;
+      border-radius: 22px !important;
+      background: #fff !important;
+      box-shadow: 0 14px 38px rgba(15,35,70,.16) !important;
+    }
+
+    :global(.hero .hero__frame .care-panel__media) {
+      display: block !important;
+      flex: 0 0 clamp(84px, 23vw, 118px) !important;
+      min-height: 92px !important;
+      border-radius: 14px !important;
+    }
+
+    :global(.hero .hero__frame .care-panel__image-slot) {
+      padding: 10px !important;
+    }
+
+    :global(.hero .hero__frame .care-panel__media-kicker),
+    :global(.hero .hero__frame .care-panel__media-meta) {
+      font-size: clamp(7px, 1.8vw, 9px) !important;
+    }
+
+    :global(.hero .hero__frame .care-panel__media strong) {
+      font-size: clamp(18px, 5.2vw, 27px) !important;
+    }
+
+    :global(.hero .hero__frame .care-panel__content) {
+      padding: 0 3px 0 0 !important;
+    }
+
+    :global(.hero .hero__frame .care-panel__topline) {
+      margin-bottom: 12px !important;
+      font-size: 10px !important;
+    }
+
+    :global(.hero .hero__frame .care-highlights) {
+      gap: clamp(9px, 3vw, 18px) !important;
+    }
+
+    :global(.hero .hero__frame .care-highlight strong) {
+      font-size: clamp(18px, 5.3vw, 28px) !important;
+    }
+
+    :global(.hero .hero__frame .care-highlight span) {
+      font-size: clamp(8px, 2.1vw, 10px) !important;
+    }
+
+    /* Service pills form one compact row below the card. */
+    :global(.hero .hero__frame .service-pills) {
+      position: absolute !important;
+      z-index: 46 !important;
+      left: 3.5% !important;
+      right: 3.5% !important;
+      bottom: 68px !important;
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+      gap: 7px !important;
+      padding: 0 !important;
+    }
+
+    :global(.hero .hero__frame .service-pills span) {
+      justify-content: center !important;
+      gap: 5px !important;
+      min-width: 0 !important;
+      min-height: 46px !important;
+      padding: 8px 5px !important;
+      border: 1px solid rgba(255,255,255,.42) !important;
+      border-radius: 999px !important;
+      background: rgba(255,255,255,.88) !important;
+      color: var(--color-brand) !important;
+      font-size: clamp(8px, 2.1vw, 10px) !important;
+      line-height: 1.05 !important;
+      white-space: normal !important;
+      text-align: center !important;
+      backdrop-filter: blur(12px) !important;
+    }
+
+    :global(.hero .hero__frame .service-pills svg) {
+      width: 14px !important;
+      height: 14px !important;
+      flex: 0 0 auto !important;
+    }
+
+    /* The feedback strip is intentionally kept as a final blue band rather
+       than allowing it to collide with the service pills. */
+    :global(.hero .hero__frame .feedback) {
+      position: absolute !important;
+      z-index: 12 !important;
+      left: 7% !important;
+      right: 7% !important;
+      bottom: 12px !important;
+      display: flex !important;
+      align-items: flex-end !important;
+      justify-content: space-between !important;
+      gap: 12px !important;
+      color: #fff !important;
+      text-align: left !important;
+    }
+
+    :global(.hero .hero__frame .feedback p) {
+      margin: 0 !important;
+      font-size: clamp(9px, 2.5vw, 12px) !important;
+      line-height: 1.28 !important;
+    }
+
+    :global(.hero .hero__frame .feedback__avatars) {
+      flex: 0 0 auto !important;
+    }
+
+    :global(.hero .hero__frame .feedback__avatars span) {
+      width: 30px !important;
+      height: 30px !important;
+    }
+
+    :global(.hero .hero__frame .hero-arrow) {
+      display: none !important;
+    }
+  }
+
+  /* Small-phone correction: keep the entire composition inside a 320px
+     viewport without allowing the care card or specialist copy to clip. */
+  @media (max-width: 360px) {
+    .hero__frame {
+      min-height: 860px;
+    }
+
+    :global(.hero .hero__frame .hero-body__copy) {
+      left: 7% !important;
+      width: 57% !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__copy h1) {
+      font-size: 43px !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__copy .intro) {
+      font-size: 14px !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__copy > a) {
+      top: 300px !important;
+      width: 250px !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__right-copy) {
+      right: 4% !important;
+      width: 37% !important;
+      top: 245px !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__right-copy h2) {
+      font-size: 27px !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__right-copy p) {
+      font-size: 12px !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__hands) {
+      top: 330px !important;
+      height: 265px !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__hands .hand--patient) {
+      width: 79% !important;
+      left: -14% !important;
+      top: 41% !important;
+    }
+
+    :global(.hero .hero__frame .hero-body__hands .hand--clinician) {
+      width: 82% !important;
+      right: -14% !important;
+    }
+
+    :global(.hero .hero__frame .care-panel) {
+      bottom: 145px !important;
+      left: 3% !important;
+      right: 3% !important;
+    }
+
+    :global(.hero .hero__frame .care-panel__media) {
+      flex-basis: 80px !important;
+    }
+
+    :global(.hero .hero__frame .care-panel__media strong) {
+      font-size: 18px !important;
+    }
+
+    :global(.hero .hero__frame .care-highlight strong) {
+      font-size: 17px !important;
+    }
+
+    :global(.hero .hero__frame .care-highlight span) {
+      font-size: 8px !important;
+    }
+
+    :global(.hero .hero__frame .service-pills) {
+      bottom: 67px !important;
+    }
+  }
 </style>
