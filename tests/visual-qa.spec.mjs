@@ -1,47 +1,76 @@
 import { test, expect } from '@playwright/test';
+import { visualQaConfig } from '../visual-qa.config.mjs';
 
-const viewports = [
-  { name: '320x844', width: 320, height: 844 },
-  { name: '375x812', width: 375, height: 812 },
-  { name: '390x844', width: 390, height: 844 },
-  { name: '430x932', width: 430, height: 932 },
-  { name: '768x1024', width: 768, height: 1024 },
-  { name: '1024x900', width: 1024, height: 900 },
-  { name: '1440x900', width: 1440, height: 900 },
-];
+const baseURL = process.env.VISUAL_QA_BASE_URL ?? 'http://127.0.0.1:4321';
 
-for (const viewport of viewports) {
-  test(`responsive visual QA — ${viewport.name}`, async ({ page }, testInfo) => {
-    await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    await page.goto('/', { waitUntil: 'networkidle' });
-    await page.evaluate(() => document.fonts?.ready);
-    await page.waitForTimeout(250);
+for (const route of visualQaConfig.routes) {
+  for (const viewport of visualQaConfig.viewports) {
+    test(`responsive visual QA — ${route.name} — ${viewport.name}`, async ({ page }, testInfo) => {
+      const pageErrors = [];
+      page.on('pageerror', (error) => pageErrors.push(error.message));
 
-    const layout = await page.evaluate(() => ({
-      viewportWidth: window.innerWidth,
-      documentWidth: document.documentElement.scrollWidth,
-      bodyWidth: document.body.scrollWidth,
-      overflowX: getComputedStyle(document.documentElement).overflowX,
-    }));
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.goto(new URL(route.path, baseURL).toString(), { waitUntil: 'networkidle' });
+      await page.evaluate(() => document.fonts?.ready);
+      await page.waitForTimeout(250);
 
-    expect(layout.documentWidth, 'page must not horizontally overflow').toBeLessThanOrEqual(layout.viewportWidth + 1);
-    expect(layout.bodyWidth, 'body must not horizontally overflow').toBeLessThanOrEqual(layout.viewportWidth + 1);
-    expect(layout.overflowX, 'root overflow-x should not be forced to scroll').not.toBe('scroll');
+      const layout = await page.evaluate(() => ({
+        viewportWidth: window.innerWidth,
+        documentWidth: document.documentElement.scrollWidth,
+        bodyWidth: document.body.scrollWidth,
+        viewportMeta: document.querySelector('meta[name="viewport"]')?.getAttribute('content') ?? null,
+        htmlLang: document.documentElement.getAttribute('lang') ?? null,
+        title: document.title,
+      }));
 
-    await page.screenshot({
-      path: testInfo.outputPath(`homepage-${viewport.name}.png`),
-      fullPage: false,
-      animations: 'disabled',
-      scale: 'css',
-    });
+      expect(pageErrors, 'page must not throw runtime errors').toEqual([]);
+      expect(layout.documentWidth, 'page must not horizontally overflow').toBeLessThanOrEqual(layout.viewportWidth + 1);
+      expect(layout.bodyWidth, 'body must not horizontally overflow').toBeLessThanOrEqual(layout.viewportWidth + 1);
+      expect(layout.viewportMeta, 'page must define a responsive viewport').toBeTruthy();
+      expect(layout.htmlLang, 'html must define a language').toBeTruthy();
+      expect(layout.title, 'page must define a document title').toBeTruthy();
 
-    if (viewport.name === '375x812' || viewport.name === '1440x900') {
+      const brokenImages = await page.locator('img').evaluateAll((images) =>
+        images
+          .filter((image) => image.getAttribute('src') && !image.complete)
+          .map((image) => image.getAttribute('src')),
+      );
+      expect(brokenImages, 'images must finish loading').toEqual([]);
+
+      const screenshotName = `${route.name}-${viewport.name}.png`;
       await page.screenshot({
-        path: testInfo.outputPath(`homepage-full-${viewport.name}.png`),
-        fullPage: true,
+        path: testInfo.outputPath(screenshotName),
+        fullPage: false,
         animations: 'disabled',
         scale: 'css',
       });
-    }
-  });
+
+      if (visualQaConfig.fullPageViewports.has(viewport.name)) {
+        await page.screenshot({
+          path: testInfo.outputPath(`${route.name}-full-${viewport.name}.png`),
+          fullPage: true,
+          animations: 'disabled',
+          scale: 'css',
+        });
+      }
+
+      for (const focus of visualQaConfig.focusSelectors) {
+        const locator = page.locator(focus.selector).first();
+        await expect(locator, `${focus.name} must exist`).toBeVisible();
+        await locator.screenshot({
+          path: testInfo.outputPath(`${route.name}-${focus.name}-${viewport.name}.png`),
+          animations: 'disabled',
+          scale: 'css',
+        });
+      }
+
+      if (visualQaConfig.visualRegression) {
+        await expect(page).toHaveScreenshot(screenshotName, {
+          fullPage: false,
+          animations: 'disabled',
+          scale: 'css',
+        });
+      }
+    });
+  }
 }
