@@ -33,7 +33,6 @@ const faqs = [
     <section class="contact-hero" aria-labelledby="contact-title">
       <div class="contact-hero__card">
         <div class="appointment-panel">
-          <p class="eyebrow">SIDDAGANGA HOSPITAL · RANEBENNUR</p>
           <h1 id="contact-title">Are you ready to<br /><span>make an appointment?</span></h1>
           <p class="hero-copy">Tell us a little about your visit and our team will help you take the next step.</p>
 
@@ -65,7 +64,18 @@ const faqs = [
               </select>
             </label>
             <div class="form-actions full-width">
-              <button type="submit">Make an appointment <span>↗</span></button>
+              <IconSlideButton
+                href={appointmentUrl}
+                label="Book Appointment"
+                newTab={true}
+                background="var(--color-brand)"
+                backgroundHover="var(--color-ink)"
+                textColor="var(--color-white)"
+                textHover="var(--color-white)"
+                fillColor="var(--color-white)"
+                iconColor="var(--color-brand)"
+                iconHoverFill="var(--color-ink)"
+              />
               <small>Or call 95917 99099 to book your visit.</small>
             </div>
           </form>
@@ -84,8 +94,6 @@ const faqs = [
             <strong>Experienced care.</strong>
             <span>Advanced diagnostics.<br />One trusted hospital.</span>
           </div>
-          <div class="visual-stat visual-stat--top">24×7 <small>Emergency</small></div>
-          <div class="visual-stat visual-stat--bottom">2D Echo <small>Cardiac diagnostics</small></div>
         </div>
       </div>
     </section>
@@ -210,7 +218,6 @@ const faqs = [
 .contact-hero{padding:clamp(8px,1.15vw,18px) clamp(8px,1.15vw,18px) clamp(70px,8vw,120px);background:var(--color-surface-soft)}
 .contact-hero__card{width:100%;min-height:calc(100svh - clamp(16px,2.3vw,36px));margin:0;border-radius:clamp(22px,2.1vw,32px);overflow:hidden;display:grid;grid-template-columns:1.05fr .95fr;background:#fff;box-shadow:0 22px 70px rgba(34,58,102,.08)}
 .appointment-panel{padding:clamp(34px,5vw,74px);display:flex;flex-direction:column;justify-content:center}
-.eyebrow{margin:0 0 18px;font:700 10px/1 var(--font-body);letter-spacing:.16em;color:#738096}
 .appointment-panel h1{margin:0;font:650 clamp(43px,5vw,76px)/.94 var(--font-display);letter-spacing:-.065em;color:var(--color-ink)}
 .appointment-panel h1 span{color:var(--color-brand)}
 .hero-copy{max-width:520px;margin:24px 0 30px;color:#697589;font:400 14px/1.55 var(--font-body)}
@@ -220,7 +227,7 @@ const faqs = [
 .appointment-form input,.appointment-form select{height:48px;width:100%;box-sizing:border-box;border:1px solid #e0e6ef;border-radius:13px;background:#f8faff;color:#182131;padding:0 15px;outline:none;font:500 12px var(--font-body);transition:border-color .2s,box-shadow .2s}
 .appointment-form input::placeholder{color:#a0a9b8}.appointment-form input:focus,.appointment-form select:focus{border-color:#77a0ff;box-shadow:0 0 0 3px rgba(36,106,254,.08)}
 .full-width{grid-column:1/-1}
-.form-actions{display:flex;align-items:center;gap:14px;margin-top:4px}.form-actions button{border:0;border-radius:999px;background:var(--color-brand);color:#fff;min-height:52px;padding:7px 8px 7px 22px;display:inline-flex;align-items:center;gap:20px;font:650 12px var(--font-body);cursor:pointer}.form-actions button span{width:38px;height:38px;border-radius:50%;background:#fff;color:var(--color-brand);display:grid;place-items:center;font-size:18px}.form-actions small{font:400 9px/1.35 var(--font-body);color:#8792a3}
+.form-actions{display:flex;align-items:center;gap:14px;margin-top:4px}.form-actions small{font:400 9px/1.35 var(--font-body);color:#8792a3}
 .contact-visual{position:relative;min-height:520px;background:linear-gradient(145deg,#2875ff 0%,#1764f5 54%,#0e57e9 100%);overflow:hidden}
 .visual-glow{position:absolute;width:80%;aspect-ratio:1;border-radius:50%;left:8%;top:-20%;background:radial-gradient(circle,rgba(255,255,255,.35),rgba(255,255,255,0) 68%);filter:blur(4px)}
 .visual-orbit{position:absolute;border:1px solid rgba(255,255,255,.2);border-radius:50%;transform:rotate(-22deg)}.visual-orbit--one{width:82%;height:52%;right:-19%;top:21%}.visual-orbit--two{width:58%;height:35%;right:-7%;top:30%;border-color:rgba(255,255,255,.28)}
@@ -228,7 +235,6 @@ const faqs = [
 .heart-core{width:116px;height:116px;border-radius:38% 62% 55% 45%;background:rgba(255,255,255,.94);color:var(--color-brand);display:grid;place-items:center;font:800 22px var(--font-display);box-shadow:0 20px 50px rgba(0,32,105,.22);transform:rotate(-8deg)}
 .pulse{position:absolute;border:1px solid rgba(255,255,255,.35);border-radius:50%;animation:pulse 2.8s ease-in-out infinite}.pulse--one{inset:12%;}.pulse--two{inset:0;animation-delay:.8s}@keyframes pulse{0%,100%{transform:scale(.9);opacity:.3}50%{transform:scale(1.05);opacity:.8}}
 .visual-caption{position:absolute;left:clamp(28px,5vw,70px);bottom:clamp(30px,5vw,70px);color:#fff;display:flex;flex-direction:column;gap:7px}.visual-caption strong{font:650 clamp(28px,3vw,44px)/.95 var(--font-display);letter-spacing:-.055em}.visual-caption span{font:400 12px/1.4 var(--font-body);color:rgba(255,255,255,.78)}
-.visual-stat{position:absolute;color:#fff;background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(14px);padding:13px 16px;border-radius:14px;display:flex;flex-direction:column;font:700 17px var(--font-display)}.visual-stat small{margin-top:4px;font:400 8px var(--font-body);color:rgba(255,255,255,.72)}.visual-stat--top{top:45px;right:42px}.visual-stat--bottom{right:42px;bottom:48px}
 .faq-section{--blue:#2878ed;--ink:#111a2b;--muted:#74839a;width:100%;height:100svh;min-height:680px;overflow:hidden;background:#edf2ff;color:var(--ink);font-family:var(--font-body)}
 .faq-stage{position:relative;width:100%;height:100%;overflow:hidden;border-radius:24px;box-sizing:border-box}
 .faq-heading{position:absolute;left:5.5%;top:17%;z-index:5;line-height:.88}.faq-heading p:first-child,.faq-heading h2{margin:0;font-family:var(--font-display);font-weight:500;letter-spacing:-.055em;font-size:clamp(30px,3.1vw,50px)}.faq-heading h2{font-weight:700;color:var(--blue)}.faq-intro{max-width:270px;margin:28px 0 8px;color:#74839a;font:400 11px/1.5 var(--font-body)}.faq-heading>a{color:var(--blue);font:600 10px var(--font-body);text-decoration:none}
@@ -240,5 +246,5 @@ const faqs = [
 .faq-dots{position:absolute;z-index:15;left:50%;bottom:11%;transform:translateX(-50%);display:flex;gap:7px}.faq-dot{width:6px;height:6px;padding:0;border:0;border-radius:50%;background:#b8c8df;cursor:pointer}.faq-dot.is-active{background:var(--blue);transform:scale(1.25)}
 .contact-info{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#dfe5ef;border-top:1px solid #dfe5ef}.info-card{min-height:180px;padding:34px clamp(20px,4vw,58px);box-sizing:border-box;background:#f6f8fc;display:flex;flex-direction:column;align-items:flex-start}.info-label{margin-bottom:18px;color:#8290a4;font:700 9px var(--font-body);letter-spacing:.16em}.info-card a,.info-card p{color:#1e2a3d;text-decoration:none;font:500 13px/1.55 var(--font-body);margin:0 0 4px}.info-card--cta{background:var(--color-brand);color:#fff}.info-card--cta .info-label{color:rgba(255,255,255,.7)}.info-card--cta strong{font:650 25px/.98 var(--font-display);letter-spacing:-.045em;margin-bottom:20px}.info-card--cta :global(.icon-slide-button){min-width:180px}
 @media(max-width:900px){.contact-hero__card{grid-template-columns:1fr}.contact-visual{min-height:390px}.contact-info{grid-template-columns:1fr 1fr}.featured-faq{width:min(350px,42vw)}.faq-heading{top:12%;left:5%}.ambient-word{font-size:clamp(70px,12vw,125px)}}
-@media(max-width:640px){.contact-hero{padding:14px 12px 70px}.contact-hero__card{min-height:calc(100svh - 28px);border-radius:20px}.appointment-panel{padding:30px 22px}.appointment-panel h1{font-size:48px}.appointment-form{grid-template-columns:1fr}.full-width{grid-column:auto}.form-actions{align-items:flex-start;flex-direction:column}.contact-visual{min-height:390px}.visual-stat--top{right:20px;top:20px}.visual-stat--bottom{right:20px;bottom:25px}.faq-section{min-height:620px}.faq-heading{top:9%}.faq-heading p:first-child,.faq-heading h2{font-size:29px}.featured-faq{top:25%;width:min(88vw,350px);min-height:350px}.ambient-word{top:50%;font-size:84px}.ambient-word--left{left:4%}.ambient-word--right{right:4%}.faq-orbit{display:none}.faq-dots{bottom:8%}.contact-info{grid-template-columns:1fr}.info-card{min-height:150px}.info-card--cta{min-height:210px}}
+@media(max-width:640px){.contact-hero{padding:14px 12px 70px}.contact-hero__card{min-height:calc(100svh - 28px);border-radius:20px}.appointment-panel{padding:30px 22px}.appointment-panel h1{font-size:48px}.appointment-form{grid-template-columns:1fr}.full-width{grid-column:auto}.form-actions{align-items:flex-start;flex-direction:column}.contact-visual{min-height:390px}.faq-section{min-height:620px}.faq-heading{top:9%}.faq-heading p:first-child,.faq-heading h2{font-size:29px}.featured-faq{top:25%;width:min(88vw,350px);min-height:350px}.ambient-word{top:50%;font-size:84px}.ambient-word--left{left:4%}.ambient-word--right{right:4%}.faq-orbit{display:none}.faq-dots{bottom:8%}.contact-info{grid-template-columns:1fr}.info-card{min-height:150px}.info-card--cta{min-height:210px}}
 </style>
