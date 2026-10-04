@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - hero-fluid
+  pull_request:
+    branches:
+      - hero-fluid
   workflow_dispatch:
 
 permissions:
@@ -11,41 +14,11 @@ permissions:
 
 jobs:
   visual-qa:
-    name: Render responsive screenshots
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install project dependencies
-        run: npm ci
-
-      - name: Install Playwright Test for CI
-        run: npm install --no-save @playwright/test@latest
-
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
-
-      - name: Build site
-        run: npm run build
-
-      - name: Run responsive visual QA
-        run: npx playwright test tests/visual-qa.spec.mjs
-
-      - name: Upload screenshots and Playwright report
-        if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v5
-        with:
-          name: siddaganga-visual-qa-${{ github.sha }}
-          path: |
-            test-results/
-            playwright-report/
-          retention-days: 14
+    name: Responsive Visual QA
+    uses: ./.github/workflows/reusable-visual-qa.yml
+    with:
+      node-version: '22'
+      build-command: 'npm run build'
+      preview-command: 'npm run preview -- --host 127.0.0.1 --port 4321'
+      test-command: 'npx playwright test'
+      playwright-version: '1.63.0'
