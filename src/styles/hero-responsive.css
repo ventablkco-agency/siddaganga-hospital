@@ -1,9 +1,10 @@
 :root{--hero-gutter:clamp(20px,3.6vw,56px)}
 
-/* Hero responsive QA layer. The component owns the base desktop composition;
-   this file owns the viewport-specific layout. The narrow rules intentionally
-   use !important because HeroBody.astro contains scoped component CSS that
-   otherwise wins the cascade and makes the responsive fixes appear inert. */
+/* Responsive hero art direction.
+   Desktop keeps the existing HeroBody composition. Below 860px the hero is
+   treated as one scalable artboard so copy, hands, CTA and lower cards never
+   become independent layout blocks. */
+
 .hero .hero-body{min-height:inherit;overflow:hidden}
 .hero .hero-body__copy,.hero .hero-body__right-copy,.hero .care-panel,.hero .service-pills,.hero .feedback,.hero .hero-arrow{box-sizing:border-box}
 
@@ -16,102 +17,58 @@
   .hero .service-pills{right:16%;bottom:clamp(52px,5vw,70px);transform:none}
 }
 
-/* --------------------------------------------------------------------------
-   MOBILE / TABLET HERO
-   Do not squeeze the desktop composition. The hero becomes a deliberately
-   staged vertical composition at <=860px:
-   1. brand + headline + intro
-   2. appointment CTA
-   3. hands / specialist message
-   4. care highlights docked to the bottom
-   -------------------------------------------------------------------------- */
 @media (max-width:860px){
-  .hero{min-height:100svh!important}
-  .hero .hero__frame{min-height:calc(100svh - 16px)!important;height:calc(100svh - 16px)!important}
-  .hero .hero-body{height:100%!important;min-height:calc(100svh - 16px)!important;background:var(--color-brand)!important;overflow:hidden!important}
+  .hero{min-height:100svh!important;padding:8px!important}
+  .hero .hero__frame{height:100%!important;min-height:calc(100svh - 16px)!important;border-radius:20px!important}
+  .hero .hero-body{position:relative!important;display:block!important;width:100%!important;height:100%!important;min-height:calc(100svh - 16px)!important;overflow:hidden!important;isolation:isolate!important;background:linear-gradient(180deg,#3a78f7 0%,#246afe 100%)!important}
+  .hero .hero-body::before{content:''!important;display:block!important;position:absolute!important;z-index:1!important;inset:0!important;width:100%!important;height:100%!important;background:#fff!important;clip-path:ellipse(78% 72% at 0% 28%)!important;-webkit-clip-path:ellipse(78% 72% at 0% 28%)!important;pointer-events:none!important}
 
-  .hero .hero-body::before{width:100%!important;height:60%!important;inset:0 0 auto 0!important;background:var(--color-white)!important;clip-path:ellipse(110% 92% at 0% 0%)!important}
+  .hero .hero-body__copy{position:absolute!important;z-index:20!important;top:19%!important;left:8%!important;right:auto!important;width:58%!important;max-width:none!important;padding:0!important;margin:0!important;background:transparent!important;border-radius:0!important}
+  .hero .eyebrow{margin:0 0 16px!important;color:#707780!important;font-size:clamp(9px,2.3vw,12px)!important;line-height:1.15!important;font-weight:500!important;letter-spacing:.14em!important;white-space:nowrap!important}
+  .hero h1{width:100%!important;max-width:none!important;margin:0!important;color:#0b0a0a!important;font-size:clamp(46px,13.2vw,76px)!important;line-height:.89!important;letter-spacing:-.065em!important;font-weight:800!important}
+  .hero h1>span:first-child{display:block!important;white-space:nowrap!important}
+  .hero h1>span:nth-child(2){display:block!important;font-size:0!important;white-space:nowrap!important}
+  .hero h1>span:nth-child(2) em,.hero h1>span:nth-child(2) strong{display:inline!important;font-family:inherit!important;font-style:normal!important;font-weight:800!important;line-height:inherit!important;white-space:nowrap!important}
+  .hero h1>span:nth-child(2) em{color:var(--color-brand)!important;font-size:clamp(46px,13.2vw,76px)!important}
+  .hero h1>span:nth-child(2) em::after{content:','!important;color:var(--color-brand)!important}
+  .hero h1>span:nth-child(2) strong{color:#0b0a0a!important;font-size:clamp(46px,13.2vw,76px)!important}
+  .hero h1>span:nth-child(2) strong::before{content:'in '!important;color:#0b0a0a!important}
+  .hero .intro{width:100%!important;max-width:none!important;margin:19px 0 0!important;color:#737983!important;font-size:clamp(14px,3.7vw,17px)!important;line-height:1.42!important}
+  .hero .hero-body__copy .icon-slide-button,.hero .hero-body__copy>a{position:absolute!important;z-index:60!important;left:0!important;top:clamp(285px,44vw,355px)!important;width:auto!important;max-width:none!important}
 
-  .hero .hero-body__copy{position:absolute!important;left:var(--hero-gutter)!important;right:var(--hero-gutter)!important;top:clamp(92px,13vh,118px)!important;width:auto!important;max-width:680px!important}
-  .hero .eyebrow{font-size:12px!important;line-height:1.25!important;margin:0 0 15px!important;letter-spacing:.14em!important}
-  .hero h1{max-width:650px!important;font-size:clamp(42px,8vw,68px)!important;line-height:.92!important;letter-spacing:-.055em!important}
-  .hero .intro{max-width:430px!important;margin:20px 0 0!important;font-size:16px!important;line-height:1.45!important}
+  .hero .hero-body__right-copy{position:absolute!important;z-index:18!important;top:19.5%!important;left:63%!important;right:7%!important;width:auto!important;max-width:none!important;padding:0!important;margin:0!important;color:#fff!important}
+  .hero .hero-body__right-copy h2{margin:0 0 13px!important;color:#fff!important;font-family:var(--font-display)!important;font-size:clamp(25px,7vw,46px)!important;line-height:.92!important;letter-spacing:-.055em!important;font-weight:800!important}
+  .hero .hero-body__right-copy p{margin:0!important;max-width:none!important;color:#fff!important;font-size:clamp(12px,3.2vw,17px)!important;line-height:1.38!important}
 
-  /* Pull the CTA out of the copy flow. It has its own slot and therefore
-     cannot collide with the technology statement below it. */
-  .hero .hero-body__copy .icon-slide-button{position:absolute!important;left:0!important;top:clamp(250px,37vh,285px)!important;z-index:40!important}
+  .hero .hero-body__hands{position:absolute!important;z-index:30!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;margin:0!important;aspect-ratio:auto!important;pointer-events:none!important}
+  .hero .hero-body__hand-glow{position:absolute!important;left:51%!important;top:42%!important;width:44%!important;height:31%!important;z-index:0!important;background:radial-gradient(circle,rgba(255,255,255,.22) 0%,rgba(255,255,255,.08) 42%,transparent 75%)!important}
+  .hero .hero-body__hands .hand{position:absolute!important;display:block!important;height:auto!important;max-width:none!important;object-fit:contain!important;animation:none!important;will-change:auto!important}
+  .hero .hero-body__hands .hand--clinician{width:78%!important;right:-18%!important;left:auto!important;top:51%!important;transform:none!important;z-index:4!important}
+  .hero .hero-body__hands .hand--patient{width:82%!important;left:-17%!important;right:auto!important;top:63%!important;transform:none!important;z-index:5!important}
 
-  /* Technology copy gets a fixed lower zone rather than bottom:36%, which
-     changes unpredictably with hero height and was the source of overlap. */
-  .hero .hero-body__right-copy{position:absolute!important;left:var(--hero-gutter)!important;right:var(--hero-gutter)!important;top:62%!important;bottom:auto!important;width:auto!important;max-width:520px!important;z-index:25!important}
-  .hero .hero-body__right-copy h2{font-size:clamp(30px,5vw,42px)!important;line-height:.94!important;margin:0 0 9px!important}
-  .hero .hero-body__right-copy p{font-size:15px!important;line-height:1.35!important;max-width:480px!important}
+  .hero .care-panel{position:absolute!important;z-index:50!important;left:4.5%!important;right:4.5%!important;top:70%!important;bottom:auto!important;width:auto!important;max-width:none!important;min-height:0!important;height:15%!important;margin:0!important;padding:8px!important;gap:10px!important;border:1px solid rgba(11,10,10,.06)!important;border-radius:22px!important;background:#fff!important;box-shadow:0 14px 38px rgba(15,35,70,.16)!important}
+  .hero .care-panel__media{flex:0 0 29%!important;width:auto!important;min-height:0!important;height:100%!important;border-radius:15px!important}
+  .hero .care-panel__image-slot{padding:9px!important}.hero .care-panel__image-slot img{top:9px!important;right:9px!important;width:34%!important}.hero .care-panel__media-kicker,.hero .care-panel__media-meta{font-size:clamp(6px,1.8vw,9px)!important}.hero .care-panel__media strong{font-size:clamp(19px,5vw,31px)!important}.hero .care-panel__media-mark{right:8px!important;bottom:8px!important}.hero .care-panel__content{padding:0 2px 0 0!important}.hero .care-panel__topline{margin-bottom:clamp(9px,2.4vw,15px)!important;font-size:clamp(9px,2.2vw,12px)!important}.hero .care-panel__topline i{width:30px!important;height:6px!important}.hero .care-panel__topline i::after{width:15px!important;height:6px!important}.hero .care-highlights{gap:clamp(7px,2vw,16px)!important}.hero .care-highlight strong{font-size:clamp(18px,5vw,31px)!important;margin-bottom:4px!important}.hero .care-highlight span{font-size:clamp(8px,2vw,11px)!important;line-height:1.2!important}.hero .care-highlight:not(:first-child)::before{height:44px!important}
 
-  /* Hands are visual layers, never layout layers. */
-  .hero .hero-body__hands{position:absolute!important;inset:0!important;z-index:7!important;pointer-events:none!important}
-  .hero .hand--clinician{width:68%!important;right:-12%!important;top:34%!important;opacity:.98!important}
-  .hero .hand--patient{width:74%!important;left:-20%!important;top:47%!important;opacity:.98!important}
+  .hero .service-pills{position:absolute!important;z-index:45!important;left:4.5%!important;right:4.5%!important;top:87%!important;bottom:auto!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;padding:0!important;margin:0!important;transform:none!important}
+  .hero .service-pills span{display:flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;min-width:0!important;min-height:52px!important;padding:8px 4px!important;border:1px solid rgba(255,255,255,.62)!important;border-radius:999px!important;background:rgba(255,255,255,.92)!important;color:var(--color-brand)!important;font-size:clamp(8px,2.2vw,11px)!important;line-height:1.05!important;white-space:normal!important;text-align:center!important;backdrop-filter:blur(12px)!important}.hero .service-pills svg{width:14px!important;height:14px!important;flex:0 0 auto!important}
 
-  .hero .care-panel{position:absolute!important;left:var(--hero-gutter)!important;right:var(--hero-gutter)!important;bottom:16px!important;width:auto!important;max-width:none!important;min-height:124px!important;padding:10px!important;gap:14px!important;border-radius:18px!important}
-  .hero .care-panel__media{width:112px!important;min-height:102px!important}
-  .hero .care-panel__media-kicker,.hero .care-panel__media-meta{font-size:10px!important}
-  .hero .care-panel__topline{font-size:13px!important;margin-bottom:14px!important}
-  .hero .care-highlight strong{font-size:22px!important}
-  .hero .care-highlight span{font-size:13px!important;line-height:1.25!important}
-  .hero .service-pills,.hero .feedback,.hero .hero-arrow{display:none!important}
+  .hero .feedback{display:flex!important;position:absolute!important;z-index:12!important;left:8%!important;right:8%!important;bottom:1.5%!important;height:9%!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;color:#fff!important}.hero .feedback p{margin:0!important;max-width:60%!important;font-size:clamp(11px,3vw,16px)!important;line-height:1.25!important}.hero .feedback__avatars{display:flex!important;justify-content:flex-end!important;align-items:center!important}.hero .feedback__avatars span{width:clamp(34px,9vw,54px)!important;height:clamp(34px,9vw,54px)!important;margin-left:-8px!important;border-width:2px!important}.hero .hero-arrow{display:grid!important;position:absolute!important;z-index:12!important;left:8%!important;bottom:1%!important;place-items:center!important;color:#fff!important}
 }
 
-/* Phones: use explicit vertical coordinates rather than percentage-based
-   bottom positioning. This keeps 375/425px layouts visually stable. */
 @media (max-width:600px){
-  .hero{padding:8px!important}
-  .hero .hero__frame{min-height:calc(100svh - 16px)!important;height:calc(100svh - 16px)!important;border-radius:20px!important}
-  .hero .hero-body{height:100%!important;min-height:calc(100svh - 16px)!important}
-  .hero .hero-body::before{height:57%!important;clip-path:ellipse(120% 90% at 0% 0%)!important}
-
-  .hero .hero-body__copy{left:20px!important;right:20px!important;top:78px!important;width:auto!important;max-width:none!important}
-  .hero .eyebrow{font-size:11px!important;letter-spacing:.13em!important;margin-bottom:14px!important}
-  .hero h1{max-width:340px!important;font-size:clamp(40px,11.8vw,54px)!important;line-height:.91!important;letter-spacing:-.055em!important}
-  .hero .intro{max-width:340px!important;margin:18px 0 0!important;font-size:15px!important;line-height:1.42!important}
-
-  .hero .hero-body__copy .icon-slide-button{top:270px!important;left:0!important}
-
-  .hero .hero-body__right-copy{left:20px!important;right:20px!important;top:61%!important;max-width:335px!important}
-  .hero .hero-body__right-copy h2{font-size:31px!important;line-height:.95!important;margin-bottom:9px!important}
-  .hero .hero-body__right-copy p{font-size:14px!important;line-height:1.35!important}
-
-  .hero .hand--clinician{width:79%!important;right:-25%!important;top:34%!important}
-  .hero .hand--patient{width:86%!important;left:-31%!important;top:48%!important}
-
-  .hero .care-panel{left:14px!important;right:14px!important;bottom:14px!important;min-height:116px!important;padding:8px!important;gap:10px!important;border-radius:16px!important}
-  .hero .care-panel__media{width:92px!important;min-height:98px!important;border-radius:12px!important}
-  .hero .care-panel__image-slot{padding:10px!important}
-  .hero .care-panel__media strong{font-size:22px!important}
-  .hero .care-panel__media-kicker,.hero .care-panel__media-meta{font-size:8px!important}
-  .hero .care-panel__media-meta{line-height:1.15!important}
-  .hero .care-panel__content{padding-right:2px!important}
-  .hero .care-panel__topline{font-size:11px!important;margin-bottom:11px!important}
-  .hero .care-highlights{gap:8px!important}
-  .hero .care-highlight:not(:first-child)::before{left:-5px!important;height:42px!important}
-  .hero .care-highlight strong{font-size:18px!important;margin-bottom:4px!important}
-  .hero .care-highlight span{font-size:11px!important;line-height:1.2!important}
+  .hero .hero__frame{height:clamp(780px,100svh,980px)!important;min-height:780px!important}.hero .hero-body{height:100%!important;min-height:780px!important}
+  .hero .hero-body::before{clip-path:ellipse(79% 67% at 0% 26%)!important;-webkit-clip-path:ellipse(79% 67% at 0% 26%)!important}
+  .hero .hero-body__copy{top:18.5%!important;left:8.5%!important;width:58.5%!important}.hero .eyebrow{margin-bottom:15px!important;font-size:10px!important;letter-spacing:.145em!important}.hero h1{font-size:clamp(42px,13vw,56px)!important;line-height:.9!important}.hero h1>span:nth-child(2) em,.hero h1>span:nth-child(2) strong{font-size:clamp(42px,13vw,56px)!important}.hero .intro{margin-top:18px!important;font-size:15px!important;line-height:1.42!important}
+  .hero .hero-body__copy .icon-slide-button,.hero .hero-body__copy>a{top:clamp(245px,43vw,315px)!important}
+  .hero .hero-body__right-copy{top:20%!important;left:64%!important;right:6%!important}.hero .hero-body__right-copy h2{font-size:clamp(25px,7.2vw,31px)!important;line-height:.91!important;margin-bottom:12px!important}.hero .hero-body__right-copy p{font-size:clamp(12px,3.4vw,15px)!important;line-height:1.38!important}
+  .hero .hero-body__hands .hand--clinician{width:79%!important;right:-22%!important;top:51%!important}.hero .hero-body__hands .hand--patient{width:84%!important;left:-20%!important;top:64%!important}
+  .hero .care-panel{top:70%!important;height:14.5%!important;left:4.5%!important;right:4.5%!important;padding:8px!important;border-radius:21px!important}.hero .care-panel__media{flex-basis:30%!important}.hero .care-panel__media strong{font-size:clamp(18px,5.2vw,25px)!important}.hero .care-panel__topline{font-size:10px!important;margin-bottom:10px!important}.hero .care-highlight strong{font-size:clamp(17px,5vw,23px)!important}.hero .care-highlight span{font-size:10px!important}
+  .hero .service-pills{top:86.5%!important}.hero .service-pills span{min-height:48px!important;font-size:9px!important}.hero .feedback{bottom:1%!important;height:9%!important}.hero .feedback p{font-size:12px!important}
 }
 
-/* Smallest phones: reduce the upper composition slightly, but keep the same
-   sequence and never allow the CTA to move into the technology block. */
 @media (max-width:380px){
-  .hero .hero-body__copy{top:72px!important}
-  .hero h1{max-width:300px!important;font-size:36px!important}
-  .hero .intro{font-size:14px!important;max-width:300px!important}
-  .hero .hero-body__copy .icon-slide-button{top:258px!important}
-  .hero .hero-body__right-copy{top:60%!important;max-width:300px!important}
-  .hero .hero-body__right-copy h2{font-size:28px!important}
-  .hero .hero-body__right-copy p{font-size:13px!important}
-  .hero .care-panel__media{width:82px!important}
-  .hero .care-highlight strong{font-size:16px!important}
-  .hero .care-highlight span{font-size:10px!important}
+  .hero .hero__frame{height:780px!important;min-height:780px!important}.hero .hero-body{height:780px!important;min-height:780px!important}.hero .hero-body__copy{top:18%!important;left:8%!important;width:59%!important}.hero .eyebrow{font-size:9px!important;margin-bottom:14px!important}.hero h1{font-size:39px!important}.hero h1>span:nth-child(2) em,.hero h1>span:nth-child(2) strong{font-size:39px!important}.hero .intro{font-size:14px!important}.hero .hero-body__copy .icon-slide-button,.hero .hero-body__copy>a{top:235px!important}.hero .hero-body__right-copy{top:19.5%!important;left:64%!important;right:5%!important}.hero .hero-body__right-copy h2{font-size:24px!important}.hero .hero-body__right-copy p{font-size:11px!important}.hero .hero-body__hands .hand--clinician{width:82%!important;right:-25%!important;top:51%!important}.hero .hero-body__hands .hand--patient{width:87%!important;left:-24%!important;top:65%!important}.hero .care-panel{top:70%!important;height:15%!important;left:4%!important;right:4%!important}.hero .care-panel__media{flex-basis:29%!important}.hero .care-panel__media strong{font-size:19px!important}.hero .care-highlight strong{font-size:17px!important}.hero .care-highlight span{font-size:9px!important}.hero .service-pills{top:86.5%!important;left:4%!important;right:4%!important;gap:6px!important}.hero .service-pills span{font-size:8px!important;min-height:44px!important}.hero .feedback p{font-size:11px!important}
 }
 
-@media (prefers-reduced-motion:reduce){
-  .hero .hand{animation:none!important}
-}
+@media (prefers-reduced-motion:reduce){.hero .hand{animation:none!important}}
