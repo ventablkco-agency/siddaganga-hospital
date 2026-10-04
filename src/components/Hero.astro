@@ -28,9 +28,8 @@ import HeroBody from './hero/HeroBody.astro';
     box-shadow: var(--shadow-sm);
   }
 
-  /* Restore the split hero: palette.css globally forces .hero-body white,
-     which was unintentionally hiding the blue right-hand field. Keep the
-     left ellipse white while forcing the underlying hero field blue. */
+  /* Desktop split-field correction. HeroBody owns the actual responsive
+     composition; this only establishes the approved desktop colour field. */
   :global(.hero) :global(.hero-body) {
     background:
       radial-gradient(ellipse at 72% 18%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.08) 28%, transparent 55%),
@@ -42,8 +41,8 @@ import HeroBody from './hero/HeroBody.astro';
     background: #FFFFFF !important;
   }
 
-  /* Hero-only appointment button: keep the circular container white on hover.
-     The button still changes background; only the arrow switches to white. */
+  /* Hero-only appointment button: the button changes surface on hover,
+     while its circular icon area stays white and only the arrow becomes white. */
   :global(.hero) a[href^="https://wa.me/"] .icon-slide-button__icon::after {
     display: none;
   }
@@ -70,193 +69,16 @@ import HeroBody from './hero/HeroBody.astro';
   }
 
   /*
-   * HERO RESPONSIVE COMPOSITION
+   * Responsive layout is intentionally NOT overridden here.
    *
-   * The original mobile rules only scaled/repositioned the desktop absolute
-   * layers. That leaves the CTA, secondary headline, and hands competing for
-   * the same vertical space. These overrides create explicit vertical zones:
-   * copy -> CTA -> blue technology area -> care panel.
+   * HeroBody.astro is now mobile-first and owns the responsive composition:
+   * copy/CTA -> hands -> specialist technology -> pills -> care panel.
    *
-   * Decorative hands remain absolutely positioned, but content is given its
-   * own z-index and vertical band so it cannot be painted through the copy.
+   * Previously this wrapper re-positioned those same elements with absolute
+   * top/left values at 860px, 600px and 380px. That defeated the flow layout
+   * and was the reason the CTA, blue field, hands and specialist copy kept
+   * colliding on mobile. Keep this wrapper concerned only with the frame.
    */
-  @media (max-width: 860px) {
-    :global(.hero) :global(.hero-body)::before {
-      width: 125% !important;
-      clip-path: ellipse(86% 48% at 0% 38%) !important;
-    }
-
-    :global(.hero) :global(.hero-body) {
-      min-height: inherit;
-    }
-
-    :global(.hero) :global(.hero-body__copy) {
-      top: clamp(94px, 15vh, 132px) !important;
-      left: 24px !important;
-      width: calc(100% - 48px) !important;
-      z-index: 20 !important;
-    }
-
-    :global(.hero) :global(.hero-body__copy) .eyebrow {
-      margin-bottom: 12px;
-      font-size: 10px;
-      line-height: 1.2;
-    }
-
-    :global(.hero) :global(.hero-body__copy) h1 {
-      max-width: 12ch;
-      font-size: clamp(3rem, 9vw, 4.5rem);
-      line-height: .9;
-    }
-
-    :global(.hero) :global(.hero-body__copy) .intro {
-      max-width: 470px;
-      margin-top: 16px;
-      margin-bottom: 18px;
-      font-size: clamp(14px, 2vw, 16px);
-      line-height: 1.45;
-    }
-
-    :global(.hero) :global(.hero-body__right-copy) {
-      top: clamp(455px, 65vh, 560px) !important;
-      bottom: auto !important;
-      left: 24px !important;
-      width: calc(100% - 48px) !important;
-      max-width: 470px !important;
-      z-index: 20 !important;
-    }
-
-    :global(.hero) :global(.hero-body__right-copy) h2 {
-      margin-bottom: 12px;
-      font-size: clamp(2rem, 7vw, 3rem);
-      line-height: .92;
-    }
-
-    :global(.hero) :global(.hero-body__right-copy) p {
-      max-width: 470px;
-      font-size: clamp(14px, 2vw, 16px);
-      line-height: 1.35;
-    }
-
-    :global(.hero) :global(.hero-body__hands) {
-      z-index: 7 !important;
-    }
-
-    :global(.hero) :global(.hand--clinician) {
-      width: 100% !important;
-      right: -28% !important;
-      top: 43% !important;
-    }
-
-    :global(.hero) :global(.hand--patient) {
-      width: 108% !important;
-      left: -38% !important;
-      top: 55% !important;
-    }
-
-    :global(.hero) :global(.care-panel) {
-      left: 12px !important;
-      right: 12px !important;
-      bottom: 12px !important;
-      width: auto !important;
-      z-index: 30 !important;
-    }
-
-    :global(.hero) :global(.service-pills),
-    :global(.hero) :global(.feedback),
-    :global(.hero) :global(.hero-arrow) {
-      display: none !important;
-    }
-  }
-
-  @media (max-width: 600px) {
-    :global(.hero) :global(.hero-body)::before {
-      clip-path: ellipse(88% 46% at 0% 36%) !important;
-    }
-
-    :global(.hero) :global(.hero-body__copy) {
-      top: 100px !important;
-      left: 22px !important;
-      width: calc(100% - 44px) !important;
-    }
-
-    :global(.hero) :global(.hero-body__copy) h1 {
-      max-width: 10.5ch;
-      font-size: clamp(2.8rem, 12vw, 3.7rem);
-      line-height: .9;
-    }
-
-    :global(.hero) :global(.hero-body__copy) .intro {
-      max-width: 340px;
-      margin-top: 16px;
-      margin-bottom: 18px;
-      font-size: 15px;
-      line-height: 1.45;
-    }
-
-    :global(.hero) :global(.hero-body__right-copy) {
-      top: 62% !important;
-      left: 22px !important;
-      width: calc(100% - 44px) !important;
-      max-width: 340px !important;
-    }
-
-    :global(.hero) :global(.hero-body__right-copy) h2 {
-      margin-bottom: 10px;
-      font-size: clamp(1.9rem, 9vw, 2.6rem);
-    }
-
-    :global(.hero) :global(.hero-body__right-copy) p {
-      max-width: 335px;
-      font-size: 14px;
-      line-height: 1.35;
-    }
-
-    :global(.hero) :global(.hand--clinician) {
-      width: 104% !important;
-      right: -32% !important;
-      top: 43% !important;
-    }
-
-    :global(.hero) :global(.hand--patient) {
-      width: 112% !important;
-      left: -42% !important;
-      top: 55% !important;
-    }
-
-    :global(.hero) :global(.care-panel) {
-      left: 12px !important;
-      right: 12px !important;
-      bottom: 12px !important;
-      min-height: 112px !important;
-      padding: 8px !important;
-      gap: 10px !important;
-      border-radius: 16px !important;
-    }
-  }
-
-  @media (max-width: 380px) {
-    :global(.hero) :global(.hero-body__copy) h1 {
-      font-size: 2.65rem;
-    }
-
-    :global(.hero) :global(.hero-body__copy) .intro {
-      max-width: 315px;
-      font-size: 14px;
-    }
-
-    :global(.hero) :global(.hero-body__right-copy) {
-      top: 61% !important;
-    }
-
-    :global(.hero) :global(.hero-body__right-copy) h2 {
-      font-size: 1.8rem;
-    }
-
-    :global(.hero) :global(.hero-body__right-copy) p {
-      font-size: 13px;
-    }
-  }
 
   @media (max-width: 760px) {
     .hero__frame {
