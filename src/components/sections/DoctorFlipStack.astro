@@ -54,44 +54,78 @@ const safeDoctors = doctors.length ? doctors : [];
 .doctor-stack__intro{width:min(1180px,calc(100% - 40px));margin:0 auto clamp(70px,9vw,120px);display:grid;grid-template-columns:1fr 1.65fr .9fr;gap:clamp(28px,5vw,90px);align-items:end}
 .eyebrow,.doctor-card__eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:11px;font-weight:700;color:#2567ee;margin:0}
 .doctor-stack__intro h2{margin:0;font-size:clamp(42px,6vw,88px);line-height:.92;letter-spacing:-.065em;font-weight:600}.doctor-stack__intro h2 span{color:#2869f3}.intro-copy{margin:0;max-width:340px;color:#667085;font-size:14px;line-height:1.65}
-.doctor-stack__scroll{height:calc(var(--doctor-count) * 92vh + 65vh);position:relative}.doctor-stack__sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:clamp(18px,4vw,64px);box-sizing:border-box}
+/* One full viewport of scroll is reserved for each card. The final extra viewport lets the last card complete its exit while the stack remains sticky. */
+.doctor-stack__scroll{height:calc((var(--doctor-count) + 1) * 100vh);position:relative}
+.doctor-stack__sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:clamp(18px,4vw,64px);box-sizing:border-box}
 .doctor-stack__cards{position:relative;width:min(1180px,100%);height:min(680px,78vh);margin:0 auto;perspective:1100px}
 .doctor-card{position:absolute;inset:0;display:grid;grid-template-columns:1.06fr .94fr;border-radius:clamp(22px,2.5vw,36px);overflow:hidden;background:var(--card-bg);color:var(--card-fg);box-shadow:0 28px 80px rgba(20,37,70,.18);transform-origin:50% 50%;backface-visibility:hidden;will-change:transform,opacity}
 .doctor-card__content{padding:clamp(26px,4vw,58px);display:flex;flex-direction:column;min-width:0}.doctor-card__number{font-size:clamp(26px,3vw,42px);line-height:1;font-weight:600;letter-spacing:-.05em}.doctor-card__copy{margin-top:auto;max-width:600px}.doctor-card__eyebrow{color:inherit;opacity:.68;margin-bottom:14px}.doctor-card h3{font-size:clamp(36px,5vw,72px);line-height:.92;letter-spacing:-.065em;margin:0 0 16px;font-weight:600}.doctor-card__specialties{font-size:clamp(14px,1.2vw,18px);font-weight:600;margin:0 0 20px;opacity:.9}.doctor-card__description{font-size:clamp(13px,1.05vw,16px);line-height:1.55;max-width:560px;margin:0;opacity:.76}.doctor-card__availability{display:inline-flex;width:max-content;margin-top:28px;padding:9px 13px;border:1px solid currentColor;border-radius:999px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;opacity:.7}
 .doctor-card__image-wrap{position:relative;margin:clamp(10px,1.2vw,18px);overflow:hidden;border-radius:clamp(16px,1.7vw,26px);min-height:280px}.doctor-card__image-wrap img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.92)}.doctor-card__image-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.06),transparent 50%,rgba(255,255,255,.12))}
 .doctor-stack__progress{position:absolute;bottom:clamp(20px,4vw,58px);left:50%;transform:translateX(-50%);width:min(1180px,calc(100% - 40px));height:2px;background:rgba(10,13,20,.12);overflow:hidden;border-radius:999px}.doctor-stack__progress span{display:block;width:0;height:100%;background:#2567ee;transform-origin:left center}
-@media(max-width:760px){.doctor-stack__intro{grid-template-columns:1fr;gap:20px}.doctor-stack__intro h2{font-size:clamp(48px,14vw,70px)}.doctor-stack__scroll{height:calc(var(--doctor-count) * 88vh + 55vh)}.doctor-stack__sticky{padding:18px}.doctor-stack__cards{height:78vh}.doctor-card{grid-template-columns:1fr;grid-template-rows:1fr 42%}.doctor-card__content{padding:24px}.doctor-card__copy{margin-top:30px}.doctor-card h3{font-size:clamp(38px,11vw,56px)}.doctor-card__image-wrap{margin:0 12px 12px;min-height:0}.doctor-stack__progress{width:calc(100% - 36px)}}
+@media(max-width:760px){.doctor-stack__intro{grid-template-columns:1fr;gap:20px}.doctor-stack__intro h2{font-size:clamp(48px,14vw,70px)}.doctor-stack__scroll{height:calc((var(--doctor-count) + 1) * 100vh)}.doctor-stack__sticky{padding:18px}.doctor-stack__cards{height:78vh}.doctor-card{grid-template-columns:1fr;grid-template-rows:1fr 42%}.doctor-card__content{padding:24px}.doctor-card__copy{margin-top:30px}.doctor-card h3{font-size:clamp(38px,11vw,56px)}.doctor-card__image-wrap{margin:0 12px 12px;min-height:0}.doctor-stack__progress{width:calc(100% - 36px)}}
 </style>
 
 <script>
   const stack = document.querySelector('[data-doctor-stack]');
+
   if (stack) {
     const cards = Array.from(stack.querySelectorAll('[data-doctor-card]'));
     const progressBar = stack.querySelector('[data-doctor-progress]');
     let ticking = false;
+
+    const clamp = (value, min = 0, max = 1) => Math.min(Math.max(value, min), max);
+
     const update = () => {
       const rect = stack.getBoundingClientRect();
-      const max = Math.max(rect.height - window.innerHeight, 1);
-      const progress = Math.min(Math.max(-rect.top / max, 0), 1);
+      const scrollableDistance = Math.max(rect.height - window.innerHeight, 1);
+      const progress = clamp(-rect.top / scrollableDistance);
       const total = Math.max(cards.length, 1);
+      const segment = 1 / total;
+      const stackGap = Math.min(24, 72 / Math.max(total - 1, 1));
+
       cards.forEach((card, index) => {
-        const start = index / total;
-        const end = (index + 1) / total;
-        const local = Math.min(Math.max((progress - start) / Math.max(end - start, 0.001), 0), 1);
-        const entry = index === 0 ? 1 : Math.min(Math.max((progress - Math.max(0, start - 1 / total)) / (.7 / total), 0), 1);
+        const start = index * segment;
+        const end = Math.min(start + segment, 1);
+
+        // Each card gets its own complete viewport-sized scroll segment.
+        // Before its turn it sits underneath the active card. During its turn
+        // it folds upward and exits. It never starts moving out with the first card.
+        const exitProgress = clamp((progress - start) / Math.max(end - start, 0.0001));
+
+        // Bring the next cards neatly into the stack while the current card exits.
+        const entryStart = Math.max(0, start - segment);
+        const entryEnd = Math.min(start, entryStart + segment * 0.7);
+        const entryProgress = index === 0
+          ? 1
+          : clamp((progress - entryStart) / Math.max(entryEnd - entryStart, 0.0001));
+
         const restingY = Math.min(index * 12, 34);
-        const restingScale = 1 - Math.min(index * .012, .035);
-        const y = local > 0 ? -118 * local + index * Math.min(24, 72 / Math.max(total - 1, 1)) * local : restingY * (1 - entry);
-        const scale = local > 0 ? 1 : restingScale + (1 - restingScale) * entry;
-        const rotate = local > 0 ? 22 * local : 0;
+        const restingScale = 1 - Math.min(index * 0.012, 0.035);
+
+        const exitY = -118 * exitProgress + stackGap * index * exitProgress;
+        const entryY = index === 0 ? 0 : restingY * (1 - entryProgress);
+        const y = exitProgress > 0 ? exitY : entryY;
+        const scale = exitProgress > 0
+          ? 1
+          : restingScale + (1 - restingScale) * entryProgress;
+        const rotate = 22 * exitProgress;
+
         card.style.transform = `translateY(${y}%) scale(${scale}) rotateX(${rotate}deg)`;
         card.style.zIndex = String(total - index);
-        card.style.opacity = local > .98 ? '0' : '1';
+        card.style.opacity = exitProgress >= 1 ? '0' : '1';
       });
+
       if (progressBar) progressBar.style.width = `${progress * 100}%`;
       ticking = false;
     };
-    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', update);
     update();
