@@ -8,6 +8,11 @@ on:
         required: false
         type: string
         default: '22'
+      install-command:
+        description: Dependency installation command for the project
+        required: false
+        type: string
+        default: 'npm ci'
       build-command:
         description: Command that creates the production build
         required: false
@@ -46,10 +51,9 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: ${{ inputs.node-version }}
-          cache: npm
 
       - name: Install project dependencies
-        run: npm ci
+        run: ${{ inputs.install-command }}
 
       - name: Install Playwright Test
         run: npm install --no-save @playwright/test@${{ inputs.playwright-version }}
