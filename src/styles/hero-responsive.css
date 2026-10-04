@@ -15,23 +15,33 @@
   .hero .service-pills{right:16%;bottom:clamp(52px,5vw,70px);transform:none}
 }
 
+/* Tablet/mobile: stop treating the desktop composition as a shrinking canvas.
+   The copy, CTA, secondary message, hands and care panel each get a defined
+   vertical zone so they cannot collide at intermediate widths. */
 @media (max-width:860px){
   .hero{min-height:100svh}
   .hero .hero__frame{min-height:calc(100svh - 16px);height:auto}
-  .hero .hero-body{min-height:calc(100svh - 16px);height:auto;background:var(--color-brand)!important}
+  .hero .hero-body{min-height:calc(100svh - 16px);height:auto;background:var(--color-brand)!important;overflow:hidden}
   .hero .hero-body::before{width:100%;height:61%;inset:0 0 auto 0;background:var(--color-white)!important;clip-path:ellipse(105% 92% at 0% 0%)}
 
-  .hero .hero-body__copy{position:absolute;left:var(--hero-gutter);top:clamp(92px,13vh,138px);width:min(76%,620px)}
+  .hero .hero-body__copy{left:var(--hero-gutter);top:clamp(92px,13vh,138px);width:calc(100% - (var(--hero-gutter) * 2));max-width:680px}
   .hero .eyebrow{font-size:13px;line-height:1.25;margin-bottom:16px}
-  .hero h1{font-size:clamp(42px,8vw,68px);line-height:.92}
-  .hero .intro{max-width:430px;margin:22px 0 24px;font-size:16px;line-height:1.45}
+  .hero h1{max-width:650px;font-size:clamp(42px,8vw,68px);line-height:.92}
+  .hero .intro{max-width:430px;margin:22px 0 0;font-size:16px;line-height:1.45}
 
-  .hero .hero-body__right-copy{position:absolute;left:var(--hero-gutter);top:auto;bottom:clamp(220px,30vh,280px);width:min(52%,520px)}
-  .hero .hero-body__right-copy h2{font-size:clamp(30px,5vw,48px);line-height:.94;margin-bottom:14px}
-  .hero .hero-body__right-copy p{font-size:15px;line-height:1.35;max-width:440px}
+  /* The CTA is deliberately removed from the normal copy flow on narrow
+     screens. This prevents its natural position from colliding with the
+     secondary technology message. */
+  .hero .hero-body__copy .icon-slide-button{position:absolute;left:0;top:clamp(270px,38vh,330px);z-index:30}
 
-  .hero .hand--clinician{width:66%;right:-10%;top:26%;opacity:.98}
-  .hero .hand--patient{width:72%;left:-18%;top:36%;opacity:.98}
+  /* Secondary message starts below the CTA. Hands remain behind it. */
+  .hero .hero-body__right-copy{left:var(--hero-gutter);right:var(--hero-gutter);top:58%;bottom:auto;width:auto;max-width:520px;z-index:25}
+  .hero .hero-body__right-copy h2{font-size:clamp(28px,5vw,40px);line-height:.94;margin:0 0 10px}
+  .hero .hero-body__right-copy p{font-size:15px;line-height:1.35;max-width:480px}
+
+  .hero .hero-body__hands{z-index:7}
+  .hero .hand--clinician{width:66%;right:-10%;top:29%;opacity:.98}
+  .hero .hand--patient{width:72%;left:-18%;top:39%;opacity:.98}
 
   .hero .care-panel{left:var(--hero-gutter);right:var(--hero-gutter);bottom:18px;width:auto;max-width:none;min-height:124px;padding:10px;gap:14px;border-radius:18px}
   .hero .care-panel__media{width:112px;min-height:102px}
@@ -48,12 +58,13 @@
   .hero .hero-body{min-height:calc(100svh - 16px);height:auto}
   .hero .hero-body::before{height:57%;clip-path:ellipse(118% 90% at 0% 0%)}
 
-  .hero .hero-body__copy{left:20px;right:20px;top:82px;width:auto}
+  .hero .hero-body__copy{left:20px;right:20px;top:82px;width:auto;max-width:none}
   .hero .eyebrow{font-size:12px;letter-spacing:.13em;margin-bottom:14px}
-  .hero h1{font-size:clamp(39px,11.8vw,58px);line-height:.91;letter-spacing:-.055em}
-  .hero .intro{max-width:330px;margin:18px 0 20px;font-size:15px;line-height:1.42}
+  .hero h1{max-width:340px;font-size:clamp(39px,11.8vw,58px);line-height:.91;letter-spacing:-.055em}
+  .hero .intro{max-width:330px;margin:18px 0 0;font-size:15px;line-height:1.42}
+  .hero .hero-body__copy .icon-slide-button{top:clamp(275px,39vh,325px)}
 
-  .hero .hero-body__right-copy{left:20px;right:20px;bottom:184px;width:auto;max-width:330px}
+  .hero .hero-body__right-copy{left:20px;right:20px;top:58%;bottom:auto;width:auto;max-width:330px}
   .hero .hero-body__right-copy h2{font-size:31px;line-height:.95;margin-bottom:10px}
   .hero .hero-body__right-copy p{font-size:14px;line-height:1.35}
 
@@ -76,9 +87,10 @@
 
 @media (max-width:380px){
   .hero .hero-body__copy{top:76px}
-  .hero h1{font-size:36px}
+  .hero h1{max-width:300px;font-size:36px}
   .hero .intro{font-size:14px;max-width:300px}
-  .hero .hero-body__right-copy{bottom:178px;max-width:300px}
+  .hero .hero-body__copy .icon-slide-button{top:255px}
+  .hero .hero-body__right-copy{top:57%;max-width:300px}
   .hero .hero-body__right-copy h2{font-size:28px}
   .hero .hero-body__right-copy p{font-size:13px}
   .hero .care-panel__media{width:82px}
