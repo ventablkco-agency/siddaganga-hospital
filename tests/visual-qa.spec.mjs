@@ -32,10 +32,10 @@ for (const route of visualQaConfig.routes) {
 
       const brokenImages = await page.locator('img').evaluateAll((images) =>
         images
-          .filter((image) => image.getAttribute('src') && !image.complete)
+          .filter((image) => image.getAttribute('src') && (!image.complete || image.naturalWidth === 0))
           .map((image) => image.getAttribute('src')),
       );
-      expect(brokenImages, 'images must finish loading').toEqual([]);
+      expect(brokenImages, 'images must finish loading successfully').toEqual([]);
 
       const screenshotName = `${route.name}-${viewport.name}.png`;
       await page.screenshot({
