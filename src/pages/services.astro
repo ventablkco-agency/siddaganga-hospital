@@ -1,0 +1,156 @@
+---
+import Layout from '../layouts/Layout.astro';
+import IconSlideButton from '../components/ui/IconSlideButton.astro';
+
+const appointmentUrl = 'https://wa.me/919591799099';
+
+const services = [
+  {
+    number: '01',
+    title: 'General Medicine',
+    description: 'Comprehensive evaluation and treatment for everyday health concerns, chronic conditions and complex medical needs.',
+    tags: ['Adult care', 'Chronic care'],
+  },
+  {
+    number: '02',
+    title: 'Cardiology',
+    description: 'Focused cardiac assessment, prevention and ongoing care supported by ECG, 2D Echo and related diagnostics.',
+    tags: ['Heart care', 'Diagnostics'],
+  },
+  {
+    number: '03',
+    title: 'Diabetology',
+    description: 'Personalized diabetes management with attention to glucose control, complications, lifestyle and long-term health.',
+    tags: ['Diabetes care', 'Monitoring'],
+  },
+  {
+    number: '04',
+    title: 'Pediatrics',
+    description: 'Dedicated medical care for children, with a calm, family-focused approach to assessment and treatment.',
+    tags: ['Child care', 'Family support'],
+  },
+  {
+    number: '05',
+    title: 'Orthopedics',
+    description: 'Evaluation and treatment for musculoskeletal conditions, injuries, mobility concerns and orthopedic needs.',
+    tags: ['Mobility', 'Musculoskeletal'],
+  },
+];
+
+const facilities = [
+  ['24×7', 'Emergency care'],
+  ['01', 'On-site laboratory'],
+  ['02D', '2D Echo / ECG'],
+  ['X', 'Digital X-Ray'],
+  ['RX', 'Pharmacy'],
+  ['24', 'Ambulance facility'],
+];
+---
+
+<Layout
+  title="Medical Services | Siddaganga Hospital · Ranebennur"
+  description="Explore specialist medical services, diagnostic support and 24×7 emergency care at Siddaganga Hospital in Ranebennur."
+>
+  <main class="services-page">
+    <section class="services-hero" aria-labelledby="services-title">
+      <div class="services-hero__inner">
+        <div class="services-hero__copy">
+          <p class="eyebrow">SIDDAGANGA HOSPITAL · SERVICES</p>
+          <h1 id="services-title">Specialist care,<br /><span>connected under one roof.</span></h1>
+          <p class="hero-copy">From everyday medical care to heart and diabetes management, our services bring experienced specialists and essential diagnostics together in one place.</p>
+          <div class="hero-actions">
+            <IconSlideButton href={appointmentUrl} label="Book Appointment" newTab={true} />
+          </div>
+        </div>
+        <div class="services-hero__visual" aria-hidden="true">
+          <div class="orbit orbit--one"></div>
+          <div class="orbit orbit--two"></div>
+          <div class="hero-core">
+            <span class="core-label">CARE</span>
+            <strong>05</strong>
+            <span>specialist<br />services</span>
+          </div>
+          <div class="hero-chip hero-chip--top">CARDIOLOGY</div>
+          <div class="hero-chip hero-chip--right">DIABETOLOGY</div>
+          <div class="hero-chip hero-chip--bottom">GENERAL MEDICINE</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-list" aria-labelledby="service-list-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">OUR SPECIALTIES</p>
+          <h2 id="service-list-title">Care designed around<br /><span>what you need.</span></h2>
+        </div>
+        <p class="section-heading__copy">Every service is part of the same care experience: clear communication, appropriate diagnostics and treatment focused on the patient.</p>
+      </div>
+
+      <div class="service-grid">
+        {services.map((service) => (
+          <article class="service-card">
+            <div class="service-card__top">
+              <span class="service-number">{service.number}</span>
+              <span class="service-arrow">↗</span>
+            </div>
+            <div>
+              <h3>{service.title}</h3>
+              <p>{service.description}</p>
+            </div>
+            <div class="service-tags">
+              {service.tags.map((tag) => <span>{tag}</span>)}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="facilities" aria-labelledby="facilities-title">
+      <div class="facilities__intro">
+        <p class="eyebrow">DIAGNOSTICS &amp; SUPPORT</p>
+        <h2 id="facilities-title">The essentials,<br /><span>close at hand.</span></h2>
+        <p>Alongside specialist consultations, Siddaganga Hospital provides diagnostic and support facilities that help patients move from assessment to care with less friction.</p>
+      </div>
+      <div class="facility-grid">
+        {facilities.map(([value, label], index) => (
+          <article class:list={{ 'facility-card': true, 'facility-card--accent': index === 0 }}>
+            <strong>{value}</strong>
+            <span>{label}</span>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="services-cta" aria-labelledby="services-cta-title">
+      <div>
+        <p class="eyebrow">NEED CARE?</p>
+        <h2 id="services-cta-title">Start with a conversation.<br /><span>We will guide you from there.</span></h2>
+      </div>
+      <div class="services-cta__action">
+        <p>For appointments and specialist consultations, contact our team directly.</p>
+        <IconSlideButton href={appointmentUrl} label="Book Appointment" newTab={true} />
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+.services-page{background:#fff;color:var(--color-ink)}
+.services-hero{min-height:82vh;padding:150px clamp(24px,6vw,96px) 90px;box-sizing:border-box;background:linear-gradient(135deg,#f6f9ff 0%,#fff 55%,#edf4ff 100%);overflow:hidden}
+.services-hero__inner{width:min(1320px,100%);min-height:calc(82vh - 240px);margin:auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(380px,.9fr);gap:60px;align-items:center}
+.eyebrow{margin:0 0 24px;color:var(--color-brand);font:700 11px/1 var(--font-body);letter-spacing:.16em}
+h1,h2,h3{font-family:var(--font-display);letter-spacing:-.055em;color:var(--color-ink)}
+h1{margin:0;font-size:clamp(58px,7.7vw,112px);line-height:.91;font-weight:650}h1 span,h2 span{color:var(--color-brand)}
+.hero-copy{max-width:620px;margin:34px 0 30px;color:var(--color-text-secondary);font:400 clamp(16px,1.4vw,20px)/1.55 var(--font-body)}
+.hero-actions{display:flex;align-items:center}
+.services-hero__visual{position:relative;min-height:510px;display:grid;place-items:center}
+.orbit{position:absolute;border:1px solid rgba(38,108,245,.17);border-radius:50%;transform:rotate(-18deg)}.orbit--one{width:min(470px,80%);aspect-ratio:1}.orbit--two{width:min(330px,58%);aspect-ratio:1;border-color:rgba(38,108,245,.25);transform:rotate(28deg)}
+.hero-core{position:relative;width:210px;height:210px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#276df5;color:#fff;box-shadow:0 30px 80px rgba(39,109,245,.24)}.hero-core .core-label{font-size:10px;letter-spacing:.18em;opacity:.75}.hero-core strong{font:700 72px/.9 var(--font-display);letter-spacing:-.07em;margin:8px 0}.hero-core>span:last-child{font:500 12px/1.3 var(--font-body);opacity:.9}
+.hero-chip{position:absolute;padding:12px 17px;border:1px solid rgba(18,39,72,.08);border-radius:999px;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);box-shadow:0 14px 35px rgba(34,69,117,.09);color:#26354a;font:650 10px/1 var(--font-body);letter-spacing:.04em}.hero-chip--top{top:10%;left:14%}.hero-chip--right{right:4%;top:47%}.hero-chip--bottom{bottom:8%;left:20%}
+.service-list{padding:clamp(100px,10vw,150px) clamp(24px,6vw,96px);background:#fff}.section-heading{width:min(1280px,100%);margin:0 auto 65px;display:grid;grid-template-columns:1.15fr .85fr;gap:80px;align-items:end}.section-heading h2,.facilities h2,.services-cta h2{margin:0;font-size:clamp(44px,5.2vw,76px);line-height:.98;font-weight:600}.section-heading__copy{max-width:470px;margin:0;color:var(--color-text-secondary);font:400 16px/1.65 var(--font-body)}
+.service-grid{width:min(1280px,100%);margin:auto;display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.service-card{min-height:330px;padding:30px;box-sizing:border-box;border:1px solid rgba(18,39,72,.09);border-radius:28px;background:#f8faff;display:flex;flex-direction:column;justify-content:space-between;transition:transform .35s cubic-bezier(.22,1,.36,1),background .35s ease,color .35s ease,border-color .35s ease}.service-card:last-child{grid-column:1/-1;min-height:280px}.service-card:hover{transform:translateY(-6px);background:var(--color-brand);color:#fff;border-color:var(--color-brand)}.service-card__top{display:flex;justify-content:space-between;align-items:center}.service-number{font:600 12px/1 var(--font-body);letter-spacing:.1em;color:var(--color-brand)}.service-arrow{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:#fff;color:var(--color-brand);font-size:18px}.service-card:hover .service-number,.service-card:hover h3,.service-card:hover p{color:#fff}.service-card h3{margin:0 0 15px;font-size:clamp(30px,3vw,46px);line-height:1}.service-card p{max-width:600px;margin:0;color:var(--color-text-secondary);font:400 15px/1.6 var(--font-body)}.service-tags{display:flex;gap:8px;flex-wrap:wrap}.service-tags span{padding:8px 11px;border-radius:999px;background:#fff;border:1px solid rgba(18,39,72,.08);color:#647186;font:600 9px/1 var(--font-body)}
+.facilities{padding:clamp(100px,10vw,150px) clamp(24px,6vw,96px);background:#f2f6ff;display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(50px,8vw,130px);align-items:start}.facilities__intro{max-width:650px}.facilities__intro>p:last-child{max-width:520px;margin:30px 0 0;color:var(--color-text-secondary);font:400 16px/1.65 var(--font-body)}.facility-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.facility-card{min-height:160px;padding:24px;border-radius:22px;background:#fff;border:1px solid rgba(18,39,72,.07);display:flex;flex-direction:column;justify-content:space-between}.facility-card strong{font:650 38px/1 var(--font-display);letter-spacing:-.05em;color:var(--color-brand)}.facility-card span{font:600 13px/1.3 var(--font-body);color:#526176}.facility-card--accent{background:var(--color-brand)}.facility-card--accent strong,.facility-card--accent span{color:#fff}
+.services-cta{padding:clamp(90px,9vw,130px) clamp(24px,6vw,96px);display:flex;justify-content:space-between;align-items:flex-end;gap:60px;background:#fff}.services-cta__action{max-width:360px}.services-cta__action p{margin:0 0 24px;color:var(--color-text-secondary);font:400 15px/1.6 var(--font-body)}
+@media(max-width:900px){.services-hero{padding-top:120px}.services-hero__inner{grid-template-columns:1fr;min-height:auto}.services-hero__visual{min-height:420px}.section-heading,.facilities{grid-template-columns:1fr;gap:30px}.services-cta{flex-direction:column;align-items:flex-start}.service-grid{grid-template-columns:1fr}.service-card:last-child{grid-column:auto}}
+@media(max-width:560px){.services-hero{padding:105px 20px 70px}.services-hero__visual{min-height:330px}.hero-core{width:155px;height:155px}.hero-core strong{font-size:54px}.hero-chip{font-size:8px;padding:10px 12px}.service-list,.facilities,.services-cta{padding-left:20px;padding-right:20px}.service-card{min-height:290px;padding:24px}.facility-grid{grid-template-columns:1fr}.facility-card{min-height:130px}}
+</style>
