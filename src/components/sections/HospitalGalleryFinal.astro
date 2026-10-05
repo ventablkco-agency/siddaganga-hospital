@@ -12,11 +12,10 @@ const items = [
   { src:'/assets/gallery/10-laboratory.webp', alt:'Modern clinical laboratory at Siddaganga Hospital', title:'Laboratory', subtitle:'Accurate diagnosis, better decisions' },
 ];
 const count = items.length;
-const cardWidth = 300;
-const cardHeight = 225;
-const gap = 24;
-const pitch = cardWidth + gap;
-const radius = Math.max(430, pitch / (2 * Math.sin(Math.PI / count)));
+const cardWidth = 320;
+const cardHeight = 240;
+const gap = 28;
+const radius = 540;
 ---
 
 <section class="gallery-section" id="gallery" aria-labelledby="gallery-title">
@@ -27,38 +26,24 @@ const radius = Math.max(430, pitch / (2 * Math.sin(Math.PI / count)));
       <p class="gallery-description">Step inside our spaces, people, and details<br class="desktop-break" /> that make every visit feel considered.</p>
     </div>
 
-    <div
-      class="circular-carousel"
-      data-gallery-carousel
-      data-radius={radius}
-      role="region"
-      aria-roledescription="carousel"
-      aria-label="Siddaganga Hospital gallery"
-      tabindex="0"
-    >
-      <div class="carousel-view">
-        <div class="carousel-stage">
-          <div class="carousel-camera">
-            <div class="carousel-ring">
-              {items.map((item, index) => (
-                <article
-                  class="carousel-card"
-                  data-card-index={index}
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label={`${item.title}, ${index + 1} of ${count}`}
-                >
-                  <button class="carousel-card-button" type="button" aria-label={`Focus ${item.title}`}>
-                    <span class="carousel-frame">
-                      <img src={item.src} alt={item.alt} loading={index < 3 ? 'eager' : 'lazy'} decoding="async" draggable="false" />
-                    </span>
-                  </button>
-                </article>
-              ))}
-            </div>
+    <div class="panorama" data-panorama tabindex="0" role="region" aria-roledescription="carousel" aria-label="Siddaganga Hospital gallery">
+      <div class="panorama-viewport">
+        <div class="panorama-world">
+          <div class="panorama-ring">
+            {items.map((item, index) => (
+              <article class="panorama-card" data-index={index}>
+                <button class="panorama-card-button" type="button" aria-label={`Focus ${item.title}`}>
+                  <span class="panorama-frame">
+                    <img src={item.src} alt={item.alt} loading={index < 4 ? 'eager' : 'lazy'} decoding="async" draggable="false" />
+                  </span>
+                </button>
+              </article>
+            ))}
           </div>
         </div>
       </div>
+
+      <p class="panorama-hint">DRAG TO EXPLORE · CLICK A FRAME TO FOCUS</p>
 
       <div class="gallery-caption" aria-live="polite">
         <span class="gallery-caption__title" data-title>{items[0].title}</span>
@@ -70,281 +55,195 @@ const radius = Math.max(430, pitch / (2 * Math.sin(Math.PI / count)));
         <button type="button" data-prev aria-label="Previous gallery image">←</button>
         <button type="button" data-next aria-label="Next gallery image">→</button>
       </div>
-
-      <p class="gallery-hint">Drag to explore · Click a frame to focus</p>
     </div>
 
     <div class="gallery-meta" aria-hidden="true">
       <span>SGH / 01</span>
-      <span>Spaces · People · Care</span>
+      <span>SPACES · PEOPLE · CARE</span>
     </div>
   </div>
 </section>
 
 <script>
-  const initGallery = () => {
-    const root = document.querySelector('[data-gallery-carousel]');
-    if (!root || root.dataset.initialized) return;
-    root.dataset.initialized = 'true';
+  const initPanorama = () => {
+    const root = document.querySelector('[data-panorama]');
+    if (!root || root.dataset.readyInit) return;
+    root.dataset.readyInit = 'true';
 
-    const cards = [...root.querySelectorAll('[data-card-index]')];
-    const ring = root.querySelector('.carousel-ring');
-    const stage = root.querySelector('.carousel-stage');
-    const camera = root.querySelector('.carousel-camera');
-    const current = root.querySelector('[data-current]');
+    const ring = root.querySelector('.panorama-ring');
+    const cards = [...root.querySelectorAll('.panorama-card')];
     const title = root.querySelector('[data-title]');
     const subtitle = root.querySelector('[data-subtitle]');
-    const radius = Number(root.dataset.radius);
+    const current = root.querySelector('[data-current]');
     const step = 360 / cards.length;
-    const data = [
-      ['Main entrance','A welcoming first impression'],
-      ['Hospital exterior','Built for better health'],
-      ['Siddaganga','A place for better care'],
-      ['Reception','Care starts here'],
-      ['Patient experience','Calm. Clear. Considered.'],
-      ['Patient rooms','Comfort built into care'],
-      ['Emergency care','Ready when it matters'],
-      ['Ambulance','Care beyond the doors'],
-      ['Imaging','Technology with precision'],
-      ['Laboratory','Accurate diagnosis, better decisions']
-    ];
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const state = { angle: 0, target: null, velocity: 0, active: 0, dragging: false, pointerId: null, startX: 0, startAngle: 0, lastX: 0, lastTime: 0, hover: false, raf: 0, lastFrame: 0 };
 
-    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-    const state = { angle: 0, velocity: 0, target: null, drag: false, press: null, raf: 0, last: 0, active: 0, fit: 1, hover: false, hold: 0, pointer: { inside:false, x:0, y:0 } };
-    const clamp = (v,min,max) => Math.min(max, Math.max(min,v));
-    const wrap = v => ((v + 180) % 360 + 360) % 360 - 180;
-
-    const measure = () => {
-      const rect = root.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      const mobile = window.matchMedia('(max-width: 760px)').matches;
-      const maxW = mobile ? rect.width * 0.82 : rect.width * 0.68;
-      const maxH = mobile ? rect.height * 0.48 : rect.height * 0.62;
-      state.fit = Math.min(1, maxW / (radius * 2.05), maxH / cardHeight);
-      stage.style.transform = `scale(${state.fit})`;
-      stage.style.perspective = '1600px';
+    const wrap = value => ((value + 180) % 360 + 360) % 360 - 180;
+    const focus = index => {
+      const desired = -index * step;
+      state.target = desired + 360 * Math.round((state.angle - desired) / 360);
+      wake();
     };
 
     const render = () => {
-      const yaw = state.pointer.inside ? state.pointer.x * 3 : 0;
-      const pitch = state.pointer.inside ? -state.pointer.y * 2 : 0;
-      camera.style.transform = `rotateX(${pitch}deg) rotateY(${yaw}deg)`;
       ring.style.transform = `rotateY(${state.angle}deg)`;
-
-      cards.forEach((card,index) => {
-        const base = index * step;
-        const relative = wrap(base + state.angle);
-        const facing = Math.cos(relative * Math.PI / 180);
-        card.style.transform = `rotateY(${base}deg) translateZ(${radius}px)`;
-        card.style.zIndex = String(Math.round((facing + 1) * 100));
-        card.style.setProperty('--fade', (0.34 * Math.pow((1 - facing) / 2, 1.35)).toFixed(3));
-      });
-
       const active = ((Math.round(-state.angle / step) % cards.length) + cards.length) % cards.length;
       if (active !== state.active) {
         state.active = active;
-        current.textContent = String(active + 1).padStart(2,'0');
-        title.textContent = data[active][0];
-        subtitle.textContent = data[active][1];
+        current.textContent = String(active + 1).padStart(2, '0');
+        title.textContent = cards[active].querySelector('img').alt.replace(/^Modern |^Bright |^Wide view of |^Siddaganga Hospital /, '').replace(/ entrance.*$/i, ' entrance');
+        const subtitles = [
+          'A welcoming first impression','Built for better health','A place for better care','Care starts here','Calm. Clear. Considered.',
+          'Comfort built into care','Ready when it matters','Care beyond the doors','Technology with precision','Accurate diagnosis, better decisions'
+        ];
+        subtitle.textContent = subtitles[active];
       }
-      root.dataset.ready = '';
+    };
+
+    const tick = now => {
+      state.raf = 0;
+      const dt = state.lastFrame ? Math.min((now - state.lastFrame) / 1000, 0.05) : 1 / 60;
+      state.lastFrame = now;
+
+      if (state.target !== null) {
+        const difference = state.target - state.angle;
+        state.velocity += (difference * 95 - state.velocity * 16) * dt;
+        state.angle += state.velocity * dt;
+        if (Math.abs(difference) < 0.05 && Math.abs(state.velocity) < 0.08) {
+          state.angle = state.target;
+          state.target = null;
+          state.velocity = 0;
+        }
+      } else if (!state.dragging && !state.hover && !reduced) {
+        state.angle -= 3.2 * dt;
+      } else if (!state.dragging) {
+        state.velocity *= Math.exp(-8 * dt);
+        state.angle += state.velocity * dt;
+      }
+
+      render();
+      if (state.target !== null || state.dragging || (!state.hover && !reduced)) wake();
+      else state.lastFrame = 0;
     };
 
     const wake = () => {
-      if (!state.raf && !document.hidden) state.raf = requestAnimationFrame(frame);
+      if (!state.raf) state.raf = requestAnimationFrame(tick);
     };
 
-    const focus = index => {
-      const target = -index * step;
-      state.target = target + 360 * Math.round((state.angle - target) / 360);
-      state.hold = performance.now() + 2600;
-      wake();
-    };
-
-    const stepBy = direction => {
-      focus((state.active + direction + cards.length) % cards.length);
-    };
-
-    const advance = (dt, now) => {
-      if (state.target !== null) {
-        const diff = state.target - state.angle;
-        state.velocity += (diff * 105 - state.velocity * 18) * dt;
-        state.angle += state.velocity * dt;
-        if (Math.abs(diff) < 0.04 && Math.abs(state.velocity) < 0.08) {
-          state.angle = state.target;
-          state.velocity = 0;
-          state.target = null;
-        }
-        return true;
-      }
-
-      const paused = state.hover || state.drag || now < state.hold;
-      if (!paused && !reduced) {
-        const cruise = -8;
-        state.velocity += (cruise - state.velocity) * (1 - Math.exp(-dt / 1.8));
-        state.angle += state.velocity * dt;
-        return true;
-      }
-      return Math.abs(state.velocity) > 0.01;
-    };
-
-    const frame = now => {
-      state.raf = 0;
-      const dt = state.last ? Math.min((now - state.last) / 1000, 0.05) : 1 / 60;
-      state.last = now;
-      const busy = advance(dt, now);
-      render();
-      if (busy && !document.hidden) state.raf = requestAnimationFrame(frame);
-      else state.last = 0;
-    };
-
-    const updatePointer = event => {
-      const rect = root.getBoundingClientRect();
-      state.pointer.x = clamp(((event.clientX - rect.left) / rect.width) * 2 - 1, -1, 1);
-      state.pointer.y = clamp(((event.clientY - rect.top) / rect.height) * 2 - 1, -1, 1);
-    };
-
-    root.addEventListener('pointerenter', event => {
-      if (event.pointerType === 'mouse') state.hover = true;
-    });
-
-    root.addEventListener('pointerleave', event => {
-      if (event.pointerType === 'mouse') {
-        state.hover = false;
-        state.pointer.inside = false;
-        wake();
-      }
-    });
+    root.addEventListener('mouseenter', () => { state.hover = true; });
+    root.addEventListener('mouseleave', () => { state.hover = false; wake(); });
 
     root.addEventListener('pointerdown', event => {
       if (event.button !== 0) return;
-      state.press = { id:event.pointerId, x:event.clientX, angle:state.angle, moved:false };
+      state.dragging = true;
+      state.pointerId = event.pointerId;
+      state.startX = event.clientX;
+      state.lastX = event.clientX;
+      state.startAngle = state.angle;
+      state.lastTime = performance.now();
+      state.target = null;
+      root.setPointerCapture(event.pointerId);
+      wake();
     });
 
     root.addEventListener('pointermove', event => {
-      if (event.pointerType === 'mouse') {
-        state.pointer.inside = true;
-        updatePointer(event);
-      }
-      const press = state.press;
-      if (!press || press.id !== event.pointerId) return;
-      const dx = event.clientX - press.x;
-      if (!press.moved) {
-        if (Math.abs(dx) < 5) return;
-        press.moved = true;
-        state.drag = true;
-        state.target = null;
-        try { root.setPointerCapture(event.pointerId); } catch {}
-      }
-      state.angle = press.angle - dx * (180 / (Math.PI * radius * state.fit));
+      if (!state.dragging || event.pointerId !== state.pointerId) return;
+      const now = performance.now();
+      const dx = event.clientX - state.startX;
+      const scale = 180 / (Math.PI * radius);
+      state.angle = state.startAngle + dx * scale;
+      state.velocity = (event.clientX - state.lastX) * scale / Math.max((now - state.lastTime) / 1000, 0.016);
+      state.lastX = event.clientX;
+      state.lastTime = now;
+      render();
+    });
+
+    const release = event => {
+      if (!state.dragging || event.pointerId !== state.pointerId) return;
+      state.dragging = false;
+      state.pointerId = null;
+      state.target = Math.round((state.angle + state.velocity * 0.08) / step) * step;
       wake();
+    };
+
+    root.addEventListener('pointerup', release);
+    root.addEventListener('pointercancel', release);
+
+    cards.forEach((card, index) => {
+      card.querySelector('button').addEventListener('click', event => {
+        event.stopPropagation();
+        if (Math.abs(state.velocity) > 0.5) return;
+        focus(index);
+      });
     });
 
-    root.addEventListener('pointerup', event => {
-      const press = state.press;
-      if (!press || press.id !== event.pointerId) return;
-      state.press = null;
-      if (!press.moved) return;
-      state.drag = false;
-      state.target = Math.round(state.angle / step) * step;
-      state.hold = performance.now() + 1600;
-      wake();
-    });
-
-    root.addEventListener('pointercancel', () => {
-      state.press = null;
-      state.drag = false;
-    });
-
-    root.addEventListener('click', event => {
-      const card = event.target.closest('[data-card-index]');
-      if (card && !state.drag) focus(Number(card.dataset.cardIndex));
-    });
+    root.querySelector('[data-prev]').addEventListener('click', () => focus((state.active - 1 + cards.length) % cards.length));
+    root.querySelector('[data-next]').addEventListener('click', () => focus((state.active + 1) % cards.length));
 
     root.addEventListener('keydown', event => {
-      if (event.key === 'ArrowRight') stepBy(1);
-      else if (event.key === 'ArrowLeft') stepBy(-1);
-      else if (event.key === 'Home') focus(0);
-      else if (event.key === 'End') focus(cards.length - 1);
-      else return;
-      event.preventDefault();
+      if (event.key === 'ArrowLeft') { event.preventDefault(); focus((state.active - 1 + cards.length) % cards.length); }
+      if (event.key === 'ArrowRight') { event.preventDefault(); focus((state.active + 1) % cards.length); }
     });
 
-    root.querySelector('[data-prev]')?.addEventListener('click', () => stepBy(-1));
-    root.querySelector('[data-next]')?.addEventListener('click', () => stepBy(1));
-
-    new ResizeObserver(() => { measure(); wake(); }).observe(root);
-    new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) wake();
-      else {
-        cancelAnimationFrame(state.raf);
-        state.raf = 0;
-        state.last = 0;
-      }
-    }).observe(root);
-
-    measure();
     render();
     wake();
   };
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initGallery, { once:true });
-  else initGallery();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initPanorama, { once: true });
+  else initPanorama();
 </script>
 
 <style>
-  .gallery-section{--blue:#2878ed;--ink:#111a2b;--muted:#74839a;width:100%;height:100svh;min-height:680px;overflow:hidden;background:#edf2ff;color:var(--ink);font-family:var(--font-body)}
+  .gallery-section{--ink:#111a2b;--muted:#74839a;width:100%;height:100svh;min-height:680px;overflow:hidden;background:#edf2ff;color:var(--ink);font-family:var(--font-body)}
   .gallery-inner{position:relative;width:100%;height:100%;overflow:hidden;border-radius:24px;box-sizing:border-box}
-  .gallery-heading{position:absolute;left:5.5%;top:12%;z-index:20}
+  .gallery-heading{position:absolute;left:5.5%;top:12%;z-index:30}
   .gallery-eyebrow{margin:0 0 15px;color:#8ca0bb;font-size:11px;letter-spacing:.03em}
   .gallery-heading h2{margin:0;font-family:var(--font-display);font-size:clamp(38px,4.4vw,66px);line-height:.9;letter-spacing:-.065em;font-weight:400}
   .gallery-heading h2 strong{font-weight:700}
   .gallery-description{margin:22px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
 
-  .circular-carousel{position:absolute;inset:4% 2.5% 5% 27%;overflow:hidden;outline:none;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab}
-  .circular-carousel:active{cursor:grabbing}
-  .circular-carousel:focus-visible{box-shadow:inset 0 0 0 2px rgba(40,120,237,.35);border-radius:24px}
-  .carousel-view{position:absolute;inset:0}
-  .carousel-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform-origin:center;opacity:0;transition:opacity .45s ease}
-  .circular-carousel[data-ready] .carousel-stage{opacity:1}
-  .carousel-camera,.carousel-ring{position:relative;width:0;height:0;transform-style:preserve-3d}
-  .carousel-card{position:absolute;left:-150px;top:-112.5px;width:300px;height:225px;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-  .carousel-card-button{display:block;width:100%;height:100%;padding:0;border:0;background:none;cursor:pointer;transform-style:preserve-3d}
-  .carousel-frame{display:block;position:relative;width:300px;height:225px;overflow:hidden;border-radius:16px;background:#dceaff;box-shadow:0 22px 60px rgba(25,54,95,.12);transform:translateZ(0)}
-  .carousel-frame::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.42);border-radius:inherit;pointer-events:none}
-  .carousel-frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;user-select:none;-webkit-user-drag:none}
-  .carousel-frame::before{content:"";position:absolute;inset:0;background:#edf2ff;opacity:var(--fade,0);z-index:2;pointer-events:none;transition:opacity .2s ease}
+  .panorama{position:absolute;inset:4% 2.5% 5% 27%;overflow:hidden;outline:none;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+  .panorama-viewport{position:absolute;inset:7% 0 22%;display:flex;align-items:center;justify-content:center;perspective:1050px;perspective-origin:50% 50%;overflow:hidden}
+  .panorama-world{position:relative;width:0;height:0;transform-style:preserve-3d}
+  .panorama-ring{position:relative;width:0;height:0;transform-style:preserve-3d;will-change:transform}
+  .panorama-card{position:absolute;left:-160px;top:-120px;width:320px;height:240px;transform:rotateY(0deg) translateZ(540px);transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .panorama-card-button{display:block;width:100%;height:100%;padding:0;border:0;background:none;cursor:pointer;transform-style:preserve-3d}
+  .panorama-frame{display:block;width:320px;height:240px;overflow:hidden;border-radius:16px;background:#dbe8f7;box-shadow:0 24px 70px rgba(26,57,100,.15);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .panorama-frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;border:0;pointer-events:none;user-select:none;-webkit-user-drag:none}
+  .panorama-frame::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.48);border-radius:16px;pointer-events:none}
+  .panorama-hint{position:absolute;right:4%;top:7%;margin:0;color:#91a2ba;font-size:10px;letter-spacing:.08em;z-index:10}
+  .gallery-caption{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:20;white-space:nowrap}
+  .gallery-caption__title{font-size:22px;letter-spacing:-.04em;color:#111a2b}
+  .gallery-caption__subtitle{font-size:11px;color:#8a9ab0}
+  .gallery-caption__count{font-size:10px;color:#9aa9bd;letter-spacing:.1em}
+  .gallery-caption__count i{font-style:normal;margin:0 7px}
+  .gallery-controls{position:absolute;right:7%;bottom:5.5%;display:flex;gap:12px;z-index:30}
+  .gallery-controls button{width:40px;height:40px;border-radius:50%;border:1px solid #2878ed;background:transparent;color:#2878ed;font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center}
+  .gallery-controls button:last-child{background:#2878ed;color:#fff}
+  .gallery-meta{position:absolute;left:5.5%;right:5.5%;bottom:5.5%;display:flex;justify-content:space-between;color:#a0aec0;font-size:9px;letter-spacing:.12em;z-index:20}
 
-  .gallery-caption{position:absolute;left:50%;bottom:10%;transform:translateX(-50%);z-index:30;display:grid;justify-items:center;gap:4px;min-width:190px;text-align:center;pointer-events:none}
-  .gallery-caption__title{font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:-.035em}
-  .gallery-caption__subtitle{color:#8190a6;font-size:9px}
-  .gallery-caption__count{display:inline-flex;gap:5px;margin-top:5px;color:#9aa7ba;font-size:9px;letter-spacing:.08em}
-  .gallery-caption__count i{font-style:normal;opacity:.55}
-  .gallery-controls{position:absolute;right:6%;bottom:10%;z-index:40;display:flex;gap:10px}
-  .gallery-controls button{width:34px;height:34px;padding:0;border-radius:50%;border:1px solid var(--blue);display:grid;place-items:center;cursor:pointer;font:inherit;font-size:15px}
-  .gallery-controls button:first-child{background:transparent;color:var(--blue)}
-  .gallery-controls button:last-child{background:var(--blue);color:#fff}
-  .gallery-hint{position:absolute;right:5.8%;top:12%;margin:0;color:#9aa8bb;font-size:9px;letter-spacing:.08em;text-transform:uppercase}
-  .gallery-meta{position:absolute;left:5.5%;right:5.5%;bottom:4.5%;display:flex;justify-content:space-between;color:#a5b1c2;font-size:8px;letter-spacing:.12em;text-transform:uppercase}
-
-  @media (max-width:1100px){
-    .gallery-heading{left:5%;top:10%}
-    .circular-carousel{inset:4% 1% 5% 29%}
-    .gallery-hint{right:4%}
+  @media(max-width:900px){
+    .gallery-section{min-height:760px}
+    .gallery-heading{left:7%;top:8%}
+    .panorama{inset:25% 3% 8% 3%}
+    .panorama-hint{top:2%;right:4%}
+    .panorama-viewport{inset:5% 0 25%;perspective:850px}
+    .panorama-card{left:-135px;top:-101px;width:270px;height:202px}
+    .panorama-frame{width:270px;height:202px}
+    .gallery-caption{bottom:7%}
+    .gallery-meta{left:7%;right:7%}
   }
 
-  @media (max-width:760px){
-    .gallery-section{height:auto;min-height:0;overflow:hidden}
-    .gallery-inner{height:760px;min-height:760px;border-radius:0}
-    .gallery-heading{position:absolute;left:24px;right:24px;top:42px}
-    .gallery-eyebrow{margin-bottom:16px;font-size:10px}
-    .gallery-heading h2{font-size:clamp(42px,13vw,62px);line-height:.9;letter-spacing:-.07em}
-    .gallery-description{margin-top:18px;max-width:330px;font-size:12px;line-height:1.45}
-    .desktop-break{display:none}
-    .circular-carousel{inset:190px 0 125px 0}
-    .gallery-caption{bottom:72px}
-    .gallery-controls{right:24px;bottom:28px}
-    .gallery-hint{right:24px;top:160px;font-size:8px}
-    .gallery-meta{left:24px;right:24px;bottom:14px}
+  @media(max-width:600px){
+    .gallery-heading h2{font-size:48px}
+    .gallery-description{font-size:11px}
+    .panorama{inset:26% 0 7% 0}
+    .panorama-viewport{perspective:700px}
+    .panorama-card{left:-115px;top:-86px;width:230px;height:172px}
+    .panorama-frame{width:230px;height:172px;border-radius:13px}
+    .gallery-caption__title{font-size:18px}
+    .gallery-controls{right:7%;bottom:4%}
+    .gallery-controls button{width:36px;height:36px}
   }
 </style>
