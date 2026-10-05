@@ -1,6 +1,7 @@
 ---
 import Icon from '../icons/Icon.astro';
 
+const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Siddaganga+Hospital+Ranebennur+Karnataka';
 const reviews = [
   { name: 'Praveen H', meta: 'Local Guide · 2 years ago', text: 'Overall experience is Good, only need to take care for more hygiene. Dr Nagraj S K is very patient and listen patient concerns carefully. Recommended for value for money treatment on general health issues.' },
   { name: 'Kirankumar Patil', meta: 'Local Guide · 3 months ago', text: 'Very good response from doctor and good fecility hospital' },
@@ -17,7 +18,11 @@ const featured = reviews[0];
     <div class="ambient-word ambient-word--left" aria-hidden="true">Review /</div>
     <div class="ambient-word ambient-word--right" aria-hidden="true">Patient /</div>
 
-    <div class="reviews-heading"><p>What our</p><h2 id="reviews-title">patients say</h2></div>
+    <div class="reviews-heading">
+      <p>What our</p>
+      <h2 id="reviews-title">patients say</h2>
+      <div class="reviews-proof"><strong>4.5 / 5</strong><span>Google rating</span><a href={mapsUrl} target="_blank" rel="noreferrer">View listing ↗</a></div>
+    </div>
 
     <div class="review-orbit review-orbit--one" aria-hidden="true"><span>Good hospital good staff</span></div>
     <div class="review-orbit review-orbit--two" aria-hidden="true"><span>Very good service</span></div>
@@ -26,59 +31,37 @@ const featured = reviews[0];
     <article class="featured-review" data-review-card>
       <div class="review-topline">
         <div class="review-person"><span class="avatar" aria-hidden="true">P</span><div><strong>{featured.name}</strong><span>{featured.meta}</span></div></div>
-        <span class="google-mark" aria-label="Google review">Google</span>
+        <span class="google-mark">Google review</span>
       </div>
-      <div class="review-stars" aria-label="5 out of 5 stars">
-        {Array.from({ length: 5 }).map(() => <Icon name="star" size={13} strokeWidth={1.6} />)}
-      </div>
+      <div class="review-stars" aria-label="5 out of 5 stars">{Array.from({length:5}).map(() => <Icon name="star" size={13} strokeWidth={1.6} />)}</div>
       <p class="review-copy">“{featured.text}”</p>
       <div class="review-footer"><span class="review-label"><Icon name="quote" size={13} strokeWidth={1.7} /> Patient review</span><button type="button" class="review-next" aria-label="Next patient review"><Icon name="arrow-right" size={14} strokeWidth={1.8} /></button></div>
     </article>
 
-    <div class="review-dots" aria-label="Patient reviews">
-      {reviews.map((_, index) => <button type="button" class:list={['review-dot', index === 0 && 'is-active']} aria-label={`Show review ${index + 1}`} data-dot={index}></button>)}
-    </div>
+    <div class="review-dots" aria-label="Patient reviews">{reviews.map((_,index) => <button type="button" class:list={['review-dot',index===0&&'is-active']} aria-label={`Show review ${index+1}`} data-dot={index}></button>)}</div>
   </div>
 </section>
 
 <script>
   const initReviews = () => {
-    const card = document.querySelector('[data-review-card]');
-    const dots = Array.from(document.querySelectorAll('[data-dot]'));
-    const next = document.querySelector('.review-next');
-    if (!card || !dots.length || !next) return;
-    const reviews = [
-      { name: 'Praveen H', meta: 'Local Guide · 2 years ago', text: 'Overall experience is Good, only need to take care for more hygiene. Dr Nagraj S K is very patient and listen patient concerns carefully. Recommended for value for money treatment on general health issues.' },
-      { name: 'Kirankumar Patil', meta: 'Local Guide · 3 months ago', text: 'Very good response from doctor and good fecility hospital' },
-      { name: 'Shreenivas V B', meta: '4 reviews · 3 years ago', text: 'Gud services and co-ordination with patients z really awesome and careful....💐🤝' },
-      { name: 'Harish S M', meta: '2 reviews · 5 months ago', text: 'Good hospital good staff' },
-      { name: 'dk siddappa', meta: '1 review · 4 years ago', text: 'Good service clinic / heart problem cured' },
-      { name: 'Mahalinga B', meta: '1 review · a year ago', text: 'Worth hospital for all people' },
+    const card=document.querySelector('[data-review-card]'); const dots=Array.from(document.querySelectorAll('[data-dot]')); const next=document.querySelector('.review-next');
+    if(!card||!dots.length||!next)return;
+    const reviews=[
+      {name:'Praveen H',meta:'Local Guide · 2 years ago',text:'Overall experience is Good, only need to take care for more hygiene. Dr Nagraj S K is very patient and listen patient concerns carefully. Recommended for value for money treatment on general health issues.'},
+      {name:'Kirankumar Patil',meta:'Local Guide · 3 months ago',text:'Very good response from doctor and good fecility hospital'},
+      {name:'Shreenivas V B',meta:'4 reviews · 3 years ago',text:'Gud services and co-ordination with patients z really awesome and careful....💐🤝'},
+      {name:'Harish S M',meta:'2 reviews · 5 months ago',text:'Good hospital good staff'},
+      {name:'dk siddappa',meta:'1 review · 4 years ago',text:'Good service clinic / heart problem cured'},
+      {name:'Mahalinga B',meta:'1 review · a year ago',text:'Worth hospital for all people'}
     ];
-    let index = 0;
-    const render = () => {
-      const review = reviews[index];
-      const person = card.querySelector('.review-person');
-      if (!person) return;
-      person.querySelector('.avatar').textContent = review.name.charAt(0).toUpperCase();
-      person.querySelector('strong').textContent = review.name;
-      person.querySelector('span:last-child').textContent = review.meta;
-      card.querySelector('.review-copy').textContent = `“${review.text}”`;
-      dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === index));
-    };
-    next.addEventListener('click', () => { index = (index + 1) % reviews.length; render(); });
-    dots.forEach((dot, dotIndex) => dot.addEventListener('click', () => { index = dotIndex; render(); }));
+    let index=0;
+    const render=()=>{const review=reviews[index];const person=card.querySelector('.review-person');if(!person)return;person.querySelector('.avatar').textContent=review.name.charAt(0).toUpperCase();person.querySelector('strong').textContent=review.name;person.querySelector('span:last-child').textContent=review.meta;card.querySelector('.review-copy').textContent=`“${review.text}”`;dots.forEach((dot,dotIndex)=>dot.classList.toggle('is-active',dotIndex===index));};
+    next.addEventListener('click',()=>{index=(index+1)%reviews.length;render();}); dots.forEach((dot,dotIndex)=>dot.addEventListener('click',()=>{index=dotIndex;render();}));
   };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initReviews, { once: true }); else initReviews();
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initReviews,{once:true});else initReviews();
 </script>
 
 <style>
-  .reviews-section{--blue:#2878ed;--ink:#111a2b;--muted:#74839a;width:100%;height:100svh;min-height:680px;overflow:hidden;background:#edf2ff;color:var(--ink);font-family:var(--font-body)}
-  .reviews-stage{position:relative;width:100%;height:100%;overflow:hidden;border-radius:24px}
-  .reviews-heading{position:absolute;left:5.5%;top:17%;z-index:5;line-height:.88}.reviews-heading p,.reviews-heading h2{margin:0;font-family:var(--font-display);font-weight:500;letter-spacing:-.055em;font-size:clamp(30px,3.1vw,50px)}.reviews-heading h2{font-weight:700}
-  .ambient-word{position:absolute;top:43%;white-space:nowrap;color:#4c8df1;opacity:.9;font-family:var(--font-display);font-size:clamp(70px,8.5vw,150px);line-height:.8;letter-spacing:-.075em;font-weight:400;pointer-events:none}.ambient-word--left{left:3.5%}.ambient-word--right{right:3.5%}
-  .featured-review{position:absolute;z-index:10;top:15%;left:50%;transform:translateX(-50%);width:min(350px,31vw);min-height:360px;padding:18px;box-sizing:border-box;border-radius:14px;background:rgba(255,255,255,.97);box-shadow:0 24px 60px rgba(65,94,142,.16);border:1px solid rgba(255,255,255,.9)}
-  .review-topline{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.review-person{display:flex;align-items:center;gap:9px;min-width:0}.avatar{width:34px;height:34px;flex:0 0 34px;border-radius:50%;display:grid;place-items:center;background:#dceaff;color:var(--blue);font-size:13px;font-weight:700}.review-person div{display:grid;gap:3px}.review-person strong{font-size:11px;color:#1a2434}.review-person span:last-child{font-size:8px;color:#9aa6b8}.google-mark{font-size:8px;color:#9aa6b8;letter-spacing:.02em}.review-stars{display:flex;gap:2px;margin-top:13px;color:#f4b400}.review-copy{margin:22px 0 0;color:#273449;font-family:var(--font-display);font-size:clamp(18px,1.55vw,24px);line-height:1.22;letter-spacing:-.025em}.review-footer{position:absolute;left:18px;right:18px;bottom:17px;display:flex;justify-content:space-between;align-items:center;color:#a1adbd;font-size:8px;text-transform:uppercase;letter-spacing:.1em}.review-label{display:flex;align-items:center;gap:6px}.review-next{width:32px;height:32px;border:0;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;cursor:pointer}.review-orbit{position:absolute;z-index:3;border-radius:12px;background:rgba(255,255,255,.38);border:1px solid rgba(255,255,255,.55);color:#8ba1c0;font-size:9px;padding:9px 13px;filter:blur(.1px);opacity:.7}.review-orbit--one{left:14%;bottom:23%;transform:rotate(-7deg)}.review-orbit--two{right:13%;bottom:27%;transform:rotate(8deg)}.review-orbit--three{left:23%;top:26%;transform:rotate(5deg);opacity:.45}.review-dots{position:absolute;z-index:15;left:50%;bottom:11%;transform:translateX(-50%);display:flex;gap:7px}.review-dot{width:6px;height:6px;padding:0;border:0;border-radius:50%;background:#b8c8df;cursor:pointer}.review-dot.is-active{background:var(--blue);transform:scale(1.25)}
-  @media(max-width:900px){.reviews-heading{top:12%;left:5%}.featured-review{width:min(350px,42vw)}.ambient-word{font-size:clamp(70px,12vw,125px)}}
-  @media(max-width:640px){.reviews-section{min-height:760px}.reviews-stage{border-radius:0}.reviews-heading{top:9%;left:6%;right:6%}.reviews-heading p,.reviews-heading h2{font-size:29px}.featured-review{top:25%;width:min(88vw,350px);min-height:350px}.ambient-word{top:auto;font-size:54px;line-height:.8;opacity:.28}.ambient-word--left{left:5%;bottom:14%}.ambient-word--right{right:5%;bottom:20%}.review-orbit{display:none}.review-dots{bottom:7%;gap:8px}}
+.reviews-section{--blue:#2878ed;--ink:#111a2b;--muted:#74839a;width:100%;min-height:88svh;height:88svh;overflow:hidden;background:#edf2ff;color:var(--ink);font-family:var(--font-body)}.reviews-stage{position:relative;width:100%;height:100%;overflow:hidden;border-radius:24px}.reviews-heading{position:absolute;left:5.5%;top:14%;z-index:5;line-height:.88}.reviews-heading p,.reviews-heading h2{margin:0;font-family:var(--font-display);font-weight:500;letter-spacing:-.055em;font-size:clamp(32px,3.1vw,50px)}.reviews-heading h2{font-weight:700}.reviews-proof{display:flex;align-items:center;gap:9px;margin-top:18px;padding:8px 11px;width:max-content;border:1px solid rgba(40,120,237,.13);border-radius:999px;background:rgba(255,255,255,.72);color:#8290a5;font-size:11px}.reviews-proof strong{color:#18253b;font-family:var(--font-display);font-size:15px}.reviews-proof a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}.ambient-word{position:absolute;top:43%;white-space:nowrap;color:#4c8df1;opacity:.9;font-family:var(--font-display);font-size:clamp(70px,8.5vw,150px);line-height:.8;letter-spacing:-.075em;font-weight:400;pointer-events:none}.ambient-word--left{left:3.5%}.ambient-word--right{right:3.5%}.featured-review{position:absolute;z-index:10;top:13%;left:50%;transform:translateX(-50%);width:min(350px,31vw);min-height:360px;padding:18px;box-sizing:border-box;border-radius:14px;background:rgba(255,255,255,.97);box-shadow:0 24px 60px rgba(65,94,142,.16);border:1px solid rgba(255,255,255,.9)}.review-topline{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.review-person{display:flex;align-items:center;gap:9px;min-width:0}.avatar{width:34px;height:34px;flex:0 0 34px;border-radius:50%;display:grid;place-items:center;background:#dceaff;color:var(--blue);font-size:13px;font-weight:700}.review-person div{display:grid;gap:3px}.review-person strong{font-size:13px;color:#1a2434}.review-person span:last-child{font-size:11px;color:#9aa6b8}.google-mark{font-size:11px;color:#9aa6b8}.review-stars{display:flex;gap:2px;margin-top:13px;color:#f4b400}.review-copy{margin:22px 0 0;color:#273449;font-family:var(--font-display);font-size:clamp(18px,1.55vw,24px);line-height:1.22;letter-spacing:-.025em}.review-footer{position:absolute;left:18px;right:18px;bottom:17px;display:flex;justify-content:space-between;align-items:center;color:#a1adbd;font-size:11px;text-transform:uppercase;letter-spacing:.1em}.review-label{display:flex;align-items:center;gap:6px}.review-next{width:32px;height:32px;border:0;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;cursor:pointer}.review-orbit{position:absolute;z-index:3;border-radius:12px;background:rgba(255,255,255,.38);border:1px solid rgba(255,255,255,.55);color:#8ba1c0;font-size:13px;padding:9px 13px;opacity:.7}.review-orbit--one{left:14%;bottom:23%;transform:rotate(-7deg)}.review-orbit--two{right:13%;bottom:27%;transform:rotate(8deg)}.review-orbit--three{left:23%;top:26%;transform:rotate(5deg);opacity:.45}.review-dots{position:absolute;z-index:15;left:50%;bottom:9%;transform:translateX(-50%);display:flex;gap:7px}.review-dot{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:#b8c8df;cursor:pointer}.review-dot.is-active{background:var(--blue);transform:scale(1.25)}
+@media(max-width:900px){.reviews-heading{top:10%;left:5%}.featured-review{width:min(350px,42vw)}.ambient-word{font-size:clamp(70px,12vw,125px)}}@media(max-width:640px){.reviews-section{min-height:760px;height:auto}.reviews-stage{min-height:760px;border-radius:0}.reviews-heading{top:8%;left:6%;right:6%}.reviews-heading p,.reviews-heading h2{font-size:29px}.reviews-proof{font-size:10px}.featured-review{top:25%;width:min(88vw,350px);min-height:350px}.ambient-word{top:auto;font-size:54px;line-height:.8;opacity:.28}.ambient-word--left{left:5%;bottom:14%}.ambient-word--right{right:5%;bottom:20%}.review-orbit{display:none}.review-dots{bottom:7%;gap:8px}}
 </style>
