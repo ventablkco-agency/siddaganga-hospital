@@ -8,6 +8,7 @@ import '../styles/home-typography.css';
 import '../styles/hero-typography-qa.css';
 import '../styles/services-qa.css';
 import '../styles/doctors-qa.css';
+import '../styles/gallery-qa.css';
 import SiteShell from '../components/layout/SiteShell.astro';
 
 interface Props {
@@ -39,6 +40,7 @@ const {
     <meta property="og:description" content={description} />
     {image && <meta property="og:image" content={image} />}
     <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=Manrope:wght@400..800&family=Noto+Sans+Kannada:wght@400..700&display=swap" />
