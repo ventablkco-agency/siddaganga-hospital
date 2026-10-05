@@ -1,6 +1,5 @@
 ---
 import IconSlideButton from '../ui/IconSlideButton.astro';
-import DepthDoctorCarousel from '../ui/DepthDoctorCarousel.astro';
 
 const appointmentUrl = 'https://wa.me/919591799099';
 
@@ -57,12 +56,75 @@ const doctors = [
           Our team brings together expertise, empathy, and a<br class="desktop-break" />
           deep passion for helping others.
         </p>
+
+        <div class="carousel-controls" aria-label="Doctor carousel controls">
+          <button class="carousel-button carousel-button--prev" type="button" aria-label="Previous doctors">
+            <span>←</span>
+          </button>
+          <button class="carousel-button carousel-button--next" type="button" aria-label="Next doctors">
+            <span>→</span>
+          </button>
+        </div>
       </div>
 
-      <DepthDoctorCarousel items={doctors} />
+      <div class="doctor-carousel" data-carousel>
+        {doctors.map((doctor, index) => (
+          <article class:list={['doctor-card', index === 0 && 'is-active']} data-card data-index={index}>
+            <div class="doctor-image" aria-label={`${doctor.name} image placeholder`}>
+              <span>Image</span>
+              {index === 0 && <span class="experience-badge">SGH<br /><strong>Doctor</strong></span>}
+            </div>
+            <div class="doctor-info">
+              <h3>{doctor.name}</h3>
+              <p>{doctor.role}</p>
+              <small>{doctor.qualification}</small>
+              <span class="card-arrow" aria-hidden="true">→</span>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  const initDoctorCarousel = () => {
+    const carousel = document.querySelector('[data-carousel]');
+    if (!carousel) return;
+
+    const cards = Array.from(carousel.querySelectorAll('[data-card]'));
+    const previous = document.querySelector('.carousel-button--prev');
+    const next = document.querySelector('.carousel-button--next');
+    let activeIndex = 0;
+
+    const render = () => {
+      cards.forEach((card, index) => {
+        const offset = (index - activeIndex + cards.length) % cards.length;
+        card.classList.toggle('is-active', offset === 0);
+        card.classList.toggle('is-right-one', offset === 1);
+        card.classList.toggle('is-right-two', offset === 2);
+      });
+    };
+
+    previous?.addEventListener('click', () => {
+      activeIndex = (activeIndex - 1 + cards.length) % cards.length;
+      render();
+    });
+
+    next?.addEventListener('click', () => {
+      activeIndex = (activeIndex + 1) % cards.length;
+      render();
+    });
+
+    render();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDoctorCarousel, { once: true });
+  } else {
+    initDoctorCarousel();
+  }
+</script>
 
 <style>
   .doctors-section {
@@ -175,7 +237,7 @@ const doctors = [
     bottom: 8.5%;
     height: 43%;
     display: grid;
-    grid-template-columns: 36% 64%;
+    grid-template-columns: 31% 69%;
     align-items: center;
   }
 
@@ -203,12 +265,119 @@ const doctors = [
 
   .people-description { margin: 24px 0 0; color: #71839d; font-size: 12px; line-height: 1.45; }
 
+  .carousel-controls { display: flex; gap: 13px; margin-top: 58px; }
+
+  .carousel-button {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid var(--blue);
+    display: grid;
+    place-items: center;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    transition: transform .25s ease, background .25s ease, color .25s ease;
+  }
+
+  .carousel-button--prev { background: transparent; color: var(--blue); }
+  .carousel-button--next { background: var(--blue); color: white; }
+  .carousel-button:hover { transform: translateY(-2px); }
+
+  .doctor-carousel { position: relative; height: 100%; overflow: visible; }
+
+  .doctor-card {
+    position: absolute;
+    top: 0;
+    width: 29.5%;
+    height: 100%;
+    border-radius: 13px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(255,255,255,.8);
+    box-shadow: 0 8px 28px rgba(66,91,129,.06);
+    transition: left .55s cubic-bezier(.22,1,.36,1), background .45s ease, color .35s ease, transform .55s cubic-bezier(.22,1,.36,1);
+  }
+
+  .doctor-card.is-active { left: 0; background: linear-gradient(160deg, #2778f1 0%, #1f68df 100%); color: white; z-index: 3; }
+  .doctor-card.is-right-one { left: 31.5%; z-index: 2; }
+  .doctor-card.is-right-two { left: 63%; z-index: 1; }
+
+  .doctor-image {
+    position: absolute;
+    inset: 0 0 25% 0;
+    display: grid;
+    place-items: center;
+    color: rgba(91,108,132,.35);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    background: rgba(255,255,255,.48);
+  }
+
+  .is-active .doctor-image {
+    background: radial-gradient(circle at 70% 20%, rgba(255,255,255,.2), transparent 34%), linear-gradient(160deg, rgba(255,255,255,.08), rgba(0,54,170,.12));
+    color: rgba(255,255,255,.55);
+  }
+
+  .experience-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 39px;
+    height: 39px;
+    border-radius: 7px;
+    background: rgba(255,255,255,.9);
+    color: #26344b;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font-size: 7px;
+    line-height: 1.05;
+  }
+
+  .experience-badge strong { font-size: 8px; }
+
+  .doctor-info {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    min-height: 26%;
+    border-radius: 10px;
+    background: rgba(255,255,255,.96);
+    color: #18243a;
+    padding: 12px 36px 9px 12px;
+    box-sizing: border-box;
+  }
+
+  .doctor-info h3 { margin: 0 0 3px; font-family: var(--font-display); font-size: clamp(14px, 1.2vw, 18px); line-height: 1.05; letter-spacing: -.035em; }
+  .doctor-info p, .doctor-info small { display: block; margin: 0; color: #65758d; font-size: 8px; line-height: 1.25; }
+  .doctor-info small { margin-top: 2px; }
+
+  .card-arrow {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    background: white;
+    color: var(--blue);
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+  }
+
   @media (max-width: 900px) {
     .trust-area { height: 43%; }
     .trust-message { font-size: clamp(28px, 5vw, 44px); }
     .trust-image { right: 12%; }
-    .people-area { grid-template-columns: 36% 64%; bottom: 7%; height: 45%; }
+    .people-area { grid-template-columns: 34% 66%; bottom: 7%; height: 45%; }
     .people-copy h2 { font-size: clamp(34px, 5.3vw, 52px); }
+    .doctor-card { width: 30%; }
+    .doctor-card.is-right-one { left: 34%; }
+    .doctor-card.is-right-two { left: 68%; }
     .people-description { font-size: 11px; }
   }
 
@@ -220,21 +389,19 @@ const doctors = [
     .trust-image { width: 76px; height: 58px; right: 8%; top: 49%; }
     .trust-appointment { top: 73%; gap: 10px; }
     .trust-brand { display: none; }
-    .people-area {
-      position: relative;
-      inset: auto;
-      height: auto;
-      min-height: 570px;
-      padding: 0 6% 28px;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      box-sizing: border-box;
-    }
-    .people-copy { height: auto; padding-top: 4%; flex: 0 0 auto; }
-    .people-copy h2 { font-size: clamp(38px, 12vw, 58px); line-height: .92; }
-    .people-description { margin-top: 14px; max-width: 330px; }
-    .desktop-break { display: none; }
-    .depth-carousel { height: 330px; min-height: 330px; margin-top: 18px; }
+    .people-area { position: relative; inset: auto; height: 57svh; min-height: 420px; padding: 0 6%; display: block; }
+    .people-copy { height: 35%; padding-top: 4%; }
+    .people-copy h2 { font-size: clamp(38px, 12vw, 58px); }
+    .people-description { margin-top: 14px; }
+    .carousel-controls { margin-top: 18px; }
+    .doctor-carousel { position: absolute; left: 6%; right: 6%; bottom: 6%; height: 58%; }
+    .doctor-card { width: 58%; height: 100%; }
+    .doctor-card.is-active { left: 0; }
+    .doctor-card.is-right-one { left: 62%; }
+    .doctor-card.is-right-two { left: 124%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .doctor-card, .carousel-button { transition: none; }
   }
 </style>
