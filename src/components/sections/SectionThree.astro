@@ -1,23 +1,25 @@
 ---
+import Icon from '../icons/Icon.astro';
+
 const appointmentUrl = 'https://wa.me/919591799099';
 
 const services = [
-  { number: '01', title: 'Cardiology', description: 'Heart-focused diagnosis and treatment, supported by 2D Echo and TMT facilities.', icon: 'heart' },
-  { number: '02', title: 'Diabetology & General Medicine', description: 'Specialist care for diabetes, blood pressure and related medical conditions.', icon: 'pulse', featured: true },
-  { number: '03', title: 'Obstetrics & Gynaecology', description: 'Pregnancy, reproductive health, high-risk care, infertility and gynaecological services.', icon: 'women' },
+  { number: '01', title: 'Cardiology', description: 'Heart-focused diagnosis and treatment, supported by 2D Echo and TMT facilities.', icon: 'cardiology' },
+  { number: '02', title: 'Diabetology & General Medicine', description: 'Specialist care for diabetes, blood pressure and related medical conditions.', icon: 'diabetes', featured: true },
+  { number: '03', title: 'Obstetrics & Gynaecology', description: 'Pregnancy, reproductive health, high-risk care, infertility and gynaecological services.', icon: 'baby' },
   { number: '04', title: 'General Surgery', description: 'Surgical care for conditions requiring specialist evaluation and treatment.', icon: 'surgery' },
   { number: '05', title: 'ENT', description: 'Evaluation and treatment for ear, nose and throat conditions.', icon: 'ent' },
-  { number: '06', title: 'Diagnostics & Laboratory', description: 'Laboratory testing and diagnostic support for accurate clinical evaluation.', icon: 'lab' },
+  { number: '06', title: 'Diagnostics & Laboratory', description: 'Laboratory testing and diagnostic support for accurate clinical evaluation.', icon: 'laboratory' },
 ];
 
-const icons = {
-  heart: '<path d="M20.8 8.8c0 5.1-8.8 10.2-8.8 10.2S3.2 13.9 3.2 8.8A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/><path d="M7.7 11h2l1.2-2.2 2.1 4.2 1.3-2H17"/>',
-  pulse: '<path d="M3 12h4l2-5 4 10 2-5h6"/><circle cx="12" cy="12" r="9" opacity=".18"/>',
-  women: '<circle cx="11" cy="8" r="3.2"/><path d="M11 11.2v8M8.2 15h5.6M17.5 7.5v5M15 10h5"/>',
-  surgery: '<path d="M6 4v8M4 6h4M8 12l8 8M12 16l4-4M16 20l4-4"/><path d="M14 4l6 6"/>',
-  ent: '<path d="M9 4.5a4.5 4.5 0 0 1 8.2 2.6c0 2.7-1.7 4-3.3 5.1-1.3.9-2.4 1.6-2.4 3.3a2.5 2.5 0 0 0 4.7 1.2"/><path d="M9.5 17.5a2.5 2.5 0 1 0 5 0"/>',
-  lab: '<path d="M9 3v6l-4.2 7.3A2.5 2.5 0 0 0 7 20h10a2.5 2.5 0 0 0 2.2-3.7L15 9V3"/><path d="M7 13h10M9 3h6"/>',
-};
+const essentialServices = [
+  { icon: 'emergency', title: '24 × 7', detail: 'Emergency' },
+  { icon: 'laboratory', title: 'Laboratory', detail: 'Services' },
+  { icon: 'pharmacy', title: 'Pharmacy', detail: 'On-site support' },
+  { icon: 'ambulance', title: 'Ambulance', detail: 'Facility' },
+  { icon: 'xray', title: 'Digital X-Ray', detail: 'Diagnostics' },
+  { icon: 'cardiology', title: '2D Echo / TMT', detail: 'Cardiac diagnostics' },
+];
 ---
 
 <section id="services" class="services-section" aria-labelledby="services-title">
@@ -38,7 +40,7 @@ const icons = {
         <article class:list={['service-card', { 'service-card--featured': service.featured }]}>
           <div class="service-topline">
             <span class="service-number">{service.number}</span>
-            <span class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={icons[service.icon]} /></span>
+            <span class="service-icon" aria-hidden="true"><Icon name={service.icon} size={22} strokeWidth={1.7} /></span>
           </div>
           <div class="service-copy">
             <h3>{service.title}</h3>
@@ -52,12 +54,12 @@ const icons = {
     <div class="essential-services" aria-label="24 by 7 essential hospital services">
       <div class="essential-intro"><span>ALSO AVAILABLE</span><strong>24 × 7 Essential Services</strong></div>
       <div class="essential-items">
-        <div class="essential-item"><span class="essential-icon">⌁</span><span><strong>24 × 7</strong><small>Emergency</small></span></div>
-        <div class="essential-item"><span class="essential-icon">⌬</span><span><strong>Laboratory</strong><small>Services</small></span></div>
-        <div class="essential-item"><span class="essential-icon">◉</span><span><strong>Pharmacy</strong><small>On-site support</small></span></div>
-        <div class="essential-item"><span class="essential-icon">✚</span><span><strong>Ambulance</strong><small>Facility</small></span></div>
-        <div class="essential-item"><span class="essential-icon">▣</span><span><strong>Digital X-Ray</strong><small>Diagnostics</small></span></div>
-        <div class="essential-item"><span class="essential-icon">♡</span><span><strong>2D Echo / TMT</strong><small>Cardiac diagnostics</small></span></div>
+        {essentialServices.map((service) => (
+          <div class="essential-item">
+            <span class="essential-icon" aria-hidden="true"><Icon name={service.icon} size={23} strokeWidth={1.7} /></span>
+            <span><strong>{service.title}</strong><small>{service.detail}</small></span>
+          </div>
+        ))}
       </div>
     </div>
   </div>
@@ -76,7 +78,7 @@ const icons = {
 .service-topline{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.service-number{color:#cfe0f8;font-family:var(--font-display);font-size:clamp(42px,3.7vw,56px);font-weight:500;letter-spacing:-.08em;line-height:.8}.service-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:#edf4ff;color:#2878ee;flex:0 0 auto}.service-card--featured .service-icon,.service-card:hover .service-icon{background:rgba(255,255,255,.16);color:#fff}.service-icon svg{width:22px;height:22px}
 .service-copy{margin-top:auto;padding-top:24px;max-width:330px}.service-copy h3{margin:0 0 7px;color:inherit;font-family:var(--font-display);font-size:clamp(18px,1.45vw,23px);font-weight:600;letter-spacing:-.045em;line-height:1.05}.service-copy p{margin:0;color:#687991;font-size:10.5px;line-height:1.48}.service-card--featured .service-copy p,.service-card:hover .service-copy p{color:rgba(255,255,255,.82)}
 .service-link{margin-top:18px;align-self:flex-end;color:#2878ee;font-size:9px;font-weight:650;text-decoration:underline;text-underline-offset:3px}.service-card--featured .service-link,.service-card:hover .service-link{color:#fff}
-.essential-services{margin-top:10px;display:grid;grid-template-columns:260px minmax(0,1fr);align-items:stretch;border:1px solid rgba(67,105,156,.10);border-radius:17px;background:rgba(255,255,255,.82);box-shadow:0 8px 28px rgba(47,82,129,.035);overflow:hidden;position:relative;z-index:1}.essential-intro{display:flex;flex-direction:column;justify-content:center;padding:17px 22px;border-right:1px solid rgba(67,105,156,.10)}.essential-intro span{color:#9aa8b8;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px}.essential-intro strong{color:#172b4d;font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:-.035em}.essential-items{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}.essential-item{min-width:0;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 10px;border-right:1px solid rgba(67,105,156,.10);color:#2878ee}.essential-item:last-child{border-right:0}.essential-icon{width:28px;height:28px;display:grid;place-items:center;font-size:22px;font-weight:300}.essential-item>span:last-child{display:flex;flex-direction:column;min-width:0}.essential-item strong{color:#293750;font-size:9px;font-weight:600;line-height:1.2}.essential-item small{color:#71809a;font-size:8px;line-height:1.25;margin-top:2px}
+.essential-services{margin-top:10px;display:grid;grid-template-columns:260px minmax(0,1fr);align-items:stretch;border:1px solid rgba(67,105,156,.10);border-radius:17px;background:rgba(255,255,255,.82);box-shadow:0 8px 28px rgba(47,82,129,.035);overflow:hidden;position:relative;z-index:1}.essential-intro{display:flex;flex-direction:column;justify-content:center;padding:17px 22px;border-right:1px solid rgba(67,105,156,.10)}.essential-intro span{color:#9aa8b8;font-size:8px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px}.essential-intro strong{color:#172b4d;font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:-.035em}.essential-items{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}.essential-item{min-width:0;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 10px;border-right:1px solid rgba(67,105,156,.10);color:#2878ee}.essential-item:last-child{border-right:0}.essential-icon{width:28px;height:28px;display:grid;place-items:center;flex:0 0 auto}.essential-item>span:last-child{display:flex;flex-direction:column;min-width:0}.essential-item strong{color:#293750;font-size:9px;font-weight:600;line-height:1.2}.essential-item small{color:#71809a;font-size:8px;line-height:1.25;margin-top:2px}
 @media(max-width:1000px){.services-header{grid-template-columns:1fr;gap:14px}.services-header-side{justify-self:start;max-width:480px}.services-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.essential-services{grid-template-columns:1fr}.essential-intro{border-right:0;border-bottom:1px solid rgba(67,105,156,.10)}.essential-items{grid-template-columns:repeat(3,minmax(0,1fr))}.essential-item:nth-child(3){border-right:0}.essential-item:nth-child(-n+3){border-bottom:1px solid rgba(67,105,156,.10)}}
 @media(max-width:620px){.services-section{padding-inline:8px}.services-shell{padding:23px 14px;border-radius:23px}.services-header{margin-bottom:22px}.services-header h2{font-size:clamp(34px,10vw,48px);line-height:1.1}.services-grid{grid-template-columns:1fr;gap:9px}.service-card{min-height:205px;padding:16px}.service-copy{padding-top:20px}.service-copy h3{font-size:20px}.service-copy p{font-size:11px}.essential-items{grid-template-columns:repeat(2,minmax(0,1fr))}.essential-item:nth-child(3){border-right:1px solid rgba(67,105,156,.10)}.essential-item:nth-child(odd){border-right:1px solid rgba(67,105,156,.10)}.essential-item:nth-child(-n+4){border-bottom:1px solid rgba(67,105,156,.10)}.essential-item:nth-child(5),.essential-item:nth-child(6){border-bottom:0}.essential-intro{padding:15px 17px}.essential-item{justify-content:flex-start;padding:12px 10px}}
 @media(prefers-reduced-motion:reduce){.service-card{transition:none}}
