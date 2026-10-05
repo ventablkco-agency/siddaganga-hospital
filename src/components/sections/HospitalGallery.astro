@@ -1,41 +1,16 @@
 ---
-const galleryItems = [
-  { src: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1200&q=82&auto=format&fit=crop', alt: 'Bright hospital corridor with clean modern interiors', title: 'Care spaces', subtitle: 'Designed around comfort' },
-  { src: 'https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=1200&q=82&auto=format&fit=crop', alt: 'Modern hospital room prepared for patient care', title: 'Patient rooms', subtitle: 'Calm. Clean. Considered.' },
-  { src: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=82&auto=format&fit=crop', alt: 'Healthcare professional working in a clinical setting', title: 'Clinical care', subtitle: 'Experience meets precision' },
-  { src: 'https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=1200&q=82&auto=format&fit=crop', alt: 'Medical team preparing for clinical work', title: 'Our team', subtitle: 'People behind the care' },
-  { src: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=1200&q=82&auto=format&fit=crop', alt: 'Contemporary hospital exterior', title: 'Siddaganga', subtitle: 'A place for better health' },
-  { src: 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=1200&q=82&auto=format&fit=crop', alt: 'Doctor consulting with a patient', title: 'Consultation', subtitle: 'Listening comes first' },
-  { src: 'https://images.unsplash.com/photo-1516841273335-e39b37888115?w=1200&q=82&auto=format&fit=crop', alt: 'Hospital treatment environment', title: 'Technology', subtitle: 'Built for better decisions' },
-  { src: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=1200&q=82&auto=format&fit=crop', alt: 'Healthcare equipment in a clinical environment', title: 'Precision', subtitle: 'Every detail matters' },
-  { src: 'https://images.unsplash.com/photo-1580281658628-3c5b7c0a4c8a?w=1200&q=82&auto=format&fit=crop', alt: 'Healthcare professional in a hospital', title: 'Expertise', subtitle: 'Care with confidence' },
-  { src: 'https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?w=1200&q=82&auto=format&fit=crop', alt: 'Modern clinical equipment', title: 'Inside SGH', subtitle: 'A closer look' },
+const items = [
+  { src:'/assets/gallery/01-entrance.webp', alt:'Modern Siddaganga Hospital entrance', title:'Main entrance', subtitle:'A welcoming first impression' },
+  { src:'/assets/gallery/02-entrance-side.webp', alt:'Siddaganga Hospital exterior from the side', title:'Hospital exterior', subtitle:'Built for better health' },
+  { src:'/assets/gallery/03-entrance-wide.webp', alt:'Wide view of Siddaganga Hospital entrance', title:'Siddaganga', subtitle:'A place for better care' },
+  { src:'/assets/gallery/04-reception.webp', alt:'Siddaganga Hospital reception lobby', title:'Reception', subtitle:'Care starts here' },
+  { src:'/assets/gallery/05-reception-detail.webp', alt:'Modern Siddaganga Hospital reception area', title:'Patient experience', subtitle:'Calm. Clear. Considered.' },
+  { src:'/assets/gallery/06-patient-room.webp', alt:'Bright modern Siddaganga Hospital patient room', title:'Patient rooms', subtitle:'Comfort built into care' },
+  { src:'/assets/gallery/07-emergency.webp', alt:'Modern Siddaganga Hospital emergency ward', title:'Emergency care', subtitle:'Ready when it matters' },
+  { src:'/assets/gallery/08-ambulance.webp', alt:'Siddaganga Hospital entrance with ambulance', title:'Ambulance', subtitle:'Care beyond the doors' },
+  { src:'/assets/gallery/09-imaging.webp', alt:'Modern hospital imaging suite', title:'Imaging', subtitle:'Technology with precision' },
+  { src:'/assets/gallery/10-laboratory.webp', alt:'Modern clinical laboratory at Siddaganga Hospital', title:'Laboratory', subtitle:'Accurate diagnosis, better decisions' },
 ];
-
-const cardWidth = 210;
-const aspectRatio = 0.78;
-const gap = 14;
-const curve = 1;
-const count = galleryItems.length;
-const step = 360 / count;
-const cardHeight = cardWidth / aspectRatio;
-const pitch = cardWidth + gap;
-const chord = pitch / (2 * Math.sin(Math.PI / Math.max(count, 3)));
-const arc = (count * pitch) / (2 * Math.PI);
-const radius = Math.max(chord + (arc - chord) * curve, cardWidth * 0.6);
-const tileCount = 8;
-const tileLength = cardWidth / tileCount;
-const bend = radius / curve;
-const tiles = Array.from({ length: tileCount }, (_, index) => {
-  const start = index * tileLength - (index > 0 ? 1.25 : 0);
-  const end = (index + 1) * tileLength + (index < tileCount - 1 ? 1.25 : 0);
-  const center = (start + end) / 2 - cardWidth / 2;
-  const alpha = center / bend;
-  const shift = bend * Math.sin(alpha);
-  const sink = bend * (1 - Math.cos(alpha));
-  const move = `translate3d(${shift}px, 0px, ${sink}px) rotateY(${(alpha * 180) / Math.PI}deg)`;
-  return { index, start, end, size: end - start, move };
-});
 ---
 
 <section class="gallery-section" id="gallery" aria-labelledby="gallery-title">
@@ -46,446 +21,123 @@ const tiles = Array.from({ length: tileCount }, (_, index) => {
       <p class="gallery-description">Step inside our spaces, people, and details<br class="desktop-break" /> that make every visit feel considered.</p>
     </div>
 
-    <div
-      class="circular-carousel"
-      data-gallery-carousel
-      role="region"
-      aria-roledescription="carousel"
-      aria-label="Siddaganga Hospital gallery"
-      tabindex="0"
-      data-axis="y"
-      data-shape="panorama"
-      data-draggable
-    >
-      <div class="circular-carousel__view">
-        <div class="circular-carousel__stage">
-          <div class="circular-carousel__camera">
-            <div class="circular-carousel__ring">
-              {galleryItems.map((item, itemIndex) => (
-                <div
-                  class="circular-carousel__card"
-                  data-cc-index={itemIndex}
-                  role="group"
-                  aria-roledescription="slide"
-                  aria-label={`${item.title}, ${itemIndex + 1} of ${count}`}
-                >
-                  {tiles.map((tile) => (
-                    <div
-                      class="circular-carousel__tile"
-                      style={`left:${-tile.size / 2}px;top:${-cardHeight / 2}px;width:${tile.size}px;height:${cardHeight}px;transform:${tile.move};`}
-                      aria-hidden="true"
-                    >
-                      <div
-                        class="circular-carousel__frame"
-                        style={`height:${cardHeight}px;border-radius:${tile.index === 0 ? '14px 0 0 14px' : tile.index === tileCount - 1 ? '0 14px 14px 0' : '0'};`}
-                      >
-                        <img class="circular-carousel__photo" src={item.src} alt="" loading="lazy" decoding="async" draggable="false" />
-                        <div class="circular-carousel__shade"></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
+    <div class="panorama" data-panorama tabindex="0" role="region" aria-roledescription="carousel" aria-label="Siddaganga Hospital gallery">
+      <div class="panorama-viewport">
+        <div class="panorama-stage">
+          {items.map((item, index) => (
+            <article class="panorama-card" data-card={index} aria-label={`${item.title}, ${index + 1} of ${items.length}`}>
+              <button class="panorama-card-button" type="button" aria-label={`Focus ${item.title}`}>
+                <span class="panorama-frame">
+                  <img src={item.src} alt={item.alt} width="4" height="3" loading={index < 4 ? 'eager' : 'lazy'} decoding="async" draggable="false" />
+                </span>
+              </button>
+            </article>
+          ))}
         </div>
       </div>
 
+      <p class="panorama-hint">DRAG TO EXPLORE · CLICK A FRAME TO FOCUS</p>
+
       <div class="gallery-caption" aria-live="polite">
-        <span class="gallery-caption__title" data-gallery-title>{galleryItems[0].title}</span>
-        <span class="gallery-caption__subtitle" data-gallery-subtitle>{galleryItems[0].subtitle}</span>
-        <span class="gallery-caption__count"><span data-gallery-current>01</span><i>/</i>{String(count).padStart(2, '0')}</span>
+        <span class="gallery-caption__title" data-title>{items[0].title}</span>
+        <span class="gallery-caption__subtitle" data-subtitle>{items[0].subtitle}</span>
+        <span class="gallery-caption__count"><span data-current>01</span><i>/</i>{String(items.length).padStart(2,'0')}</span>
       </div>
 
-      <div class="gallery-controls" aria-label="Hospital gallery controls">
-        <button type="button" class="gallery-control gallery-control--prev" data-gallery-prev aria-label="Previous gallery image">←</button>
-        <button type="button" class="gallery-control gallery-control--next" data-gallery-next aria-label="Next gallery image">→</button>
+      <div class="gallery-controls" aria-label="Gallery controls">
+        <button type="button" data-prev aria-label="Previous gallery image">←</button>
+        <button type="button" data-next aria-label="Next gallery image">→</button>
       </div>
-
-      <p class="gallery-hint">Drag to explore · Click a frame to focus</p>
     </div>
 
     <div class="gallery-meta" aria-hidden="true">
       <span>SGH / 01</span>
-      <span>Spaces · People · Care</span>
+      <span>SPACES · PEOPLE · CARE</span>
     </div>
   </div>
 </section>
 
-<script>
-  const initHospitalGallery = () => {
-    const root = document.querySelector('[data-gallery-carousel]');
-    if (!root || root.dataset.initialized) return;
-    root.dataset.initialized = 'true';
-
-    const cards = Array.from(root.querySelectorAll('[data-cc-index]'));
-    const ring = root.querySelector('.circular-carousel__ring');
-    const stage = root.querySelector('.circular-carousel__stage');
-    const camera = root.querySelector('.circular-carousel__camera');
-    const current = root.querySelector('[data-gallery-current]');
-    const title = root.querySelector('[data-gallery-title]');
-    const subtitle = root.querySelector('[data-gallery-subtitle]');
-    const previous = root.querySelector('[data-gallery-prev]');
-    const next = root.querySelector('[data-gallery-next]');
-    const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-    const items = [
-      { title: 'Care spaces', subtitle: 'Designed around comfort' },
-      { title: 'Patient rooms', subtitle: 'Calm. Clean. Considered.' },
-      { title: 'Clinical care', subtitle: 'Experience meets precision' },
-      { title: 'Our team', subtitle: 'People behind the care' },
-      { title: 'Siddaganga', subtitle: 'A place for better health' },
-      { title: 'Consultation', subtitle: 'Listening comes first' },
-      { title: 'Technology', subtitle: 'Built for better decisions' },
-      { title: 'Precision', subtitle: 'Every detail matters' },
-      { title: 'Expertise', subtitle: 'Care with confidence' },
-      { title: 'Inside SGH', subtitle: 'A closer look' },
-    ];
-
-    const state = {
-      angle: 0,
-      velocity: 0,
-      target: null,
-      hover: false,
-      dragging: false,
-      press: null,
-      pointer: { inside: false, x: 0, y: 0 },
-      fit: 1,
-      shift: 0,
-      last: 0,
-      raf: 0,
-      holdUntil: 0,
-      active: 0,
-    };
-
-    const STEP = 360 / cards.length;
-    const RADIUS = ${radius};
-    const CARD_WIDTH = ${cardWidth};
-    const PERSPECTIVE = 0;
-    const SPEED = reduced ? 0 : 14;
-    const PARALLAX = reduced ? 0 : 0.21;
-    const MOMENTUM = 1;
-    const SPRING = 118;
-
-    const wrap = (degrees) => ((((degrees + 180) % 360) + 360) % 360) - 180;
-    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-    const easeOut = (value) => 1 - Math.pow(1 - value, 4);
-
-    const measure = () => {
-      const rect = root.getBoundingClientRect();
-      if (!rect.width || !rect.height) return;
-      const width = rect.width * 0.94;
-      const height = rect.height * 0.9;
-      const spanX = Math.max(width, 1);
-      const spanY = Math.max(${cardHeight}, 1);
-      state.fit = Math.min(1, width / spanX, height / spanY);
-      state.shift = 0;
-      stage.style.perspective = `${PERSPECTIVE}px`;
-      stage.style.transform = `translate3d(0, ${state.shift}px, 0) scale(${state.fit})`;
-    };
-
-    const render = (now) => {
-      const angle = state.angle;
-      camera.style.transform = `translate3d(0, 0, ${-RADIUS}px) rotateX(${state.pointer.inside ? -state.pointer.y * PARALLAX * 6 : 0}deg) rotateY(${state.pointer.inside ? state.pointer.x * PARALLAX * 9 : 0}deg)`;
-      ring.style.transform = `rotateY(${angle}deg)`;
-
-      cards.forEach((card, index) => {
-        const base = index * STEP;
-        card.style.transform = `rotateY(${base}deg) translateZ(${-RADIUS}px)`;
-        const world = wrap(base + angle);
-        const facing = Math.cos((world * Math.PI) / 180);
-        const fade = 0.55 * Math.pow((1 - facing) / 2, 1.25);
-        card.style.setProperty('--cc-depth', fade.toFixed(3));
-        card.style.zIndex = String(Math.round((1 + facing) * 100));
-      });
-
-      const active = ((Math.round(-angle / STEP) % cards.length) + cards.length) % cards.length;
-      if (active !== state.active) {
-        state.active = active;
-        current.textContent = String(active + 1).padStart(2, '0');
-        title.textContent = items[active].title;
-        subtitle.textContent = items[active].subtitle;
-      }
-
-      if (now) root.dataset.ready = '';
-    };
-
-    const focusIndex = (index) => {
-      const target = -index * STEP;
-      state.target = target + 360 * Math.round((state.angle - target) / 360);
-      state.holdUntil = performance.now() + 2800;
-      wake();
-    };
-
-    const stepBy = (delta) => focusIndex((state.active + delta + cards.length) % cards.length);
-
-    const advance = (dt, now) => {
-      const paused = state.hover || state.dragging || now < state.holdUntil;
-      if (state.target !== null) {
-        const damping = 2 * Math.sqrt(SPRING);
-        state.velocity += (SPRING * (state.target - state.angle) - damping * state.velocity) * dt;
-        state.angle += state.velocity * dt;
-        if (Math.abs(state.target - state.angle) < 0.004 && Math.abs(state.velocity) < 0.03) {
-          state.angle = state.target;
-          state.velocity = 0;
-          state.target = null;
+<script define:vars={{ items }}>
+  const initPanorama = () => {
+    document.querySelectorAll('[data-panorama]').forEach((root) => {
+      if (root.dataset.initialized === 'true') return;
+      root.dataset.initialized = 'true';
+      const cards = Array.from(root.querySelectorAll('[data-card]'));
+      const title = root.querySelector('[data-title]');
+      const subtitle = root.querySelector('[data-subtitle]');
+      const current = root.querySelector('[data-current]');
+      const count = cards.length;
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const state = { position:0, velocity:0, target:null, dragging:false, pointerId:null, startX:0, startPosition:0, lastX:0, lastTime:0, hover:false, raf:0, lastFrame:0 };
+      const wrap = value => ((value % count) + count) % count;
+      const shortestOffset = (index, position) => { let offset = index - position; if (offset > count / 2) offset -= count; if (offset < -count / 2) offset += count; return offset; };
+      const updateCaption = index => { const item = items[index]; if (!item) return; if (title) title.textContent = item.title; if (subtitle) subtitle.textContent = item.subtitle; if (current) current.textContent = String(index + 1).padStart(2,'0'); };
+      const render = () => {
+        const active = wrap(Math.round(state.position));
+        const fractional = state.position - Math.round(state.position);
+        cards.forEach((card,index) => {
+          const offset = shortestOffset(index,active) - fractional;
+          const abs = Math.abs(offset);
+          const visible = abs <= 4.5;
+          const x = offset * Math.min(330,Math.max(250,root.clientWidth * .23));
+          const y = Math.min(abs * abs * 3.2,38);
+          const rotate = offset * -8.5;
+          const z = -abs * 72;
+          const scale = 1 - Math.min(abs * .055,.2);
+          const opacity = 1 - Math.min(abs * .15,.66);
+          card.style.transform = `translate3d(calc(-50% + ${x}px),calc(-50% + ${y}px),${z}px) rotateY(${rotate}deg) scale(${scale})`;
+          card.style.opacity = visible ? String(opacity) : '0';
+          card.style.pointerEvents = visible ? 'auto' : 'none';
+          card.style.zIndex = String(100 - Math.round(abs * 10));
+        });
+        updateCaption(active);
+      };
+      const wake = () => { if (!state.raf) state.raf = requestAnimationFrame(tick); };
+      const snapTo = index => { const active = wrap(Math.round(state.position)); let delta = index - active; if (delta > count/2) delta -= count; if (delta < -count/2) delta += count; state.target = state.position + delta; state.velocity = 0; wake(); };
+      const stepBy = direction => snapTo(wrap(Math.round(state.position) + direction));
+      const tick = now => {
+        state.raf = 0;
+        const dt = state.lastFrame ? Math.min((now-state.lastFrame)/1000,.05) : 1/60;
+        state.lastFrame = now;
+        if (state.target !== null) {
+          const diff = state.target - state.position;
+          state.velocity += (diff * 74 - state.velocity * 14) * dt;
+          state.position += state.velocity * dt;
+          if (Math.abs(diff) < .002 && Math.abs(state.velocity) < .01) { state.position = state.target; state.target = null; state.velocity = 0; }
+        } else if (!state.dragging && !state.hover && !reduced) {
+          const cruise = -.09;
+          state.velocity += (cruise-state.velocity) * (1-Math.exp(-dt/1.5));
+          state.position += state.velocity * dt;
+        } else if (!state.dragging) {
+          state.velocity *= Math.exp(-8*dt);
+          state.position += state.velocity * dt;
         }
-        return true;
-      }
-      if (!paused && SPEED) {
-        const cruise = -SPEED;
-        const tau = 0.18 + MOMENTUM * 1.5;
-        state.velocity += (cruise - state.velocity) * (1 - Math.exp(-dt / tau));
-        state.angle += state.velocity * dt;
-        return true;
-      }
-      return Math.abs(state.velocity) > 0.01;
-    };
-
-    const frame = (now) => {
-      state.raf = 0;
-      const dt = state.last ? Math.min((now - state.last) / 1000, 0.05) : 1 / 60;
-      state.last = now;
-      const busy = advance(dt, now);
-      render(now);
-      if (busy && !document.hidden) state.raf = requestAnimationFrame(frame);
-      else state.last = 0;
-    };
-
-    function wake() {
-      if (!state.raf && !document.hidden) state.raf = requestAnimationFrame(frame);
-    }
-
-    const updatePointer = (event) => {
-      const rect = root.getBoundingClientRect();
-      state.pointer.x = clamp(((event.clientX - rect.left) / rect.width) * 2 - 1, -1, 1);
-      state.pointer.y = clamp(((event.clientY - rect.top) / rect.height) * 2 - 1, -1, 1);
-    };
-
-    const pointerDown = (event) => {
-      if (event.button !== 0) return;
-      state.press = { id: event.pointerId, x: event.clientX, angle: state.angle, moved: false, samples: [{ time: performance.now(), angle: state.angle }] };
-    };
-
-    const pointerMove = (event) => {
-      if (event.pointerType === 'mouse') {
-        state.pointer.inside = true;
-        updatePointer(event);
-      }
-      const press = state.press;
-      if (!press || press.id !== event.pointerId) return wake();
-      const delta = event.clientX - press.x;
-      if (!press.moved) {
-        if (Math.abs(delta) < 5) return;
-        press.moved = true;
-        state.dragging = true;
-        state.target = null;
-        try { root.setPointerCapture(event.pointerId); } catch {}
-      }
-      const perPixel = 180 / (Math.PI * RADIUS * state.fit);
-      state.angle = press.angle - delta * perPixel;
-      const now = performance.now();
-      press.samples.push({ time: now, angle: state.angle });
-      while (press.samples.length > 2 && now - press.samples[0].time > 110) press.samples.shift();
-      wake();
-    };
-
-    const pointerUp = (event) => {
-      const press = state.press;
-      if (!press || press.id !== event.pointerId) return;
-      state.press = null;
-      if (!press.moved) return;
-      state.dragging = false;
-      const first = press.samples[0];
-      const last = press.samples[press.samples.length - 1];
-      const span = Math.max((last.time - first.time) / 1000, 0.008);
-      state.velocity = clamp((last.angle - first.angle) / span, -1400, 1400);
-      const tau = 0.18 + MOMENTUM * 1.5;
-      state.target = Math.round((state.angle + state.velocity * tau * 0.55) / STEP) * STEP;
-      state.holdUntil = performance.now() + 1800;
-      wake();
-    };
-
-    root.addEventListener('pointerdown', pointerDown);
-    root.addEventListener('pointermove', pointerMove);
-    root.addEventListener('pointerup', pointerUp);
-    root.addEventListener('pointercancel', pointerUp);
-    root.addEventListener('pointerenter', (event) => { if (event.pointerType === 'mouse') { state.hover = true; state.pointer.inside = true; wake(); } });
-    root.addEventListener('pointerleave', (event) => { if (event.pointerType === 'mouse') { state.hover = false; state.pointer.inside = false; wake(); } });
-    root.addEventListener('click', (event) => {
-      if (state.dragging) return;
-      const card = event.target.closest?.('[data-cc-index]');
-      if (card) focusIndex(Number(card.dataset.ccIndex));
+        render();
+        if (state.target !== null || state.dragging || (!state.hover && !reduced)) state.raf = requestAnimationFrame(tick); else state.lastFrame = 0;
+      };
+      root.addEventListener('pointerenter', event => { if (event.pointerType === 'mouse') state.hover = true; });
+      root.addEventListener('pointerleave', event => { if (event.pointerType === 'mouse') { state.hover = false; wake(); } });
+      root.addEventListener('pointerdown', event => { if (event.button !== 0) return; state.dragging = true; state.pointerId = event.pointerId; state.startX = event.clientX; state.lastX = event.clientX; state.startPosition = state.position; state.lastTime = performance.now(); state.target = null; root.setPointerCapture(event.pointerId); wake(); });
+      root.addEventListener('pointermove', event => { if (!state.dragging || event.pointerId !== state.pointerId) return; const now = performance.now(); const dx = event.clientX-state.startX; const spacing = Math.min(330,Math.max(250,root.clientWidth*.23)); state.position = state.startPosition - dx/spacing; state.velocity = -(event.clientX-state.lastX)/spacing/Math.max((now-state.lastTime)/1000,.016); state.lastX = event.clientX; state.lastTime = now; render(); });
+      const release = event => { if (!state.dragging || event.pointerId !== state.pointerId) return; state.dragging = false; state.pointerId = null; state.target = Math.round(state.position + state.velocity*.08); wake(); };
+      root.addEventListener('pointerup',release); root.addEventListener('pointercancel',release);
+      cards.forEach((card,index) => card.querySelector('button')?.addEventListener('click',event => { event.stopPropagation(); snapTo(index); }));
+      root.querySelector('[data-prev]')?.addEventListener('click',event => { event.stopPropagation(); stepBy(-1); });
+      root.querySelector('[data-next]')?.addEventListener('click',event => { event.stopPropagation(); stepBy(1); });
+      root.addEventListener('keydown',event => { if (event.key==='ArrowLeft') { event.preventDefault(); stepBy(-1); } else if (event.key==='ArrowRight') { event.preventDefault(); stepBy(1); } else if (event.key==='Home') { event.preventDefault(); snapTo(0); } else if (event.key==='End') { event.preventDefault(); snapTo(count-1); } });
+      render(); wake();
     });
-    root.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowRight') stepBy(1);
-      else if (event.key === 'ArrowLeft') stepBy(-1);
-      else if (event.key === 'Home') focusIndex(0);
-      else if (event.key === 'End') focusIndex(cards.length - 1);
-      else return;
-      event.preventDefault();
-    });
-    previous?.addEventListener('click', () => stepBy(-1));
-    next?.addEventListener('click', () => stepBy(1));
-
-    const resize = new ResizeObserver(() => { measure(); wake(); });
-    resize.observe(root);
-    const intersection = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) wake();
-      else { cancelAnimationFrame(state.raf); state.raf = 0; state.last = 0; }
-    });
-    intersection.observe(root);
-
-    measure();
-    render(performance.now());
-    wake();
-
-    window.addEventListener('beforeunload', () => {
-      resize.disconnect();
-      intersection.disconnect();
-      cancelAnimationFrame(state.raf);
-    }, { once: true });
   };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHospitalGallery, { once: true });
-  } else {
-    initHospitalGallery();
-  }
+  if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',initPanorama,{once:true}); else initPanorama();
 </script>
 
 <style>
-  .gallery-section {
-    --blue: #2878ed;
-    --ink: #111a2b;
-    --muted: #74839a;
-    width: 100%;
-    min-height: 100svh;
-    height: 100svh;
-    overflow: hidden;
-    background: #edf2ff;
-    color: var(--ink);
-    font-family: var(--font-body);
-  }
-
-  .gallery-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
-    border-radius: 24px;
-  }
-
-  .gallery-heading {
-    position: absolute;
-    left: 5.5%;
-    top: 12%;
-    z-index: 20;
-  }
-
-  .gallery-eyebrow {
-    margin: 0 0 15px;
-    color: #8ca0bb;
-    font-size: 11px;
-    letter-spacing: .03em;
-  }
-
-  .gallery-heading h2 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: clamp(38px, 4.4vw, 66px);
-    line-height: .9;
-    letter-spacing: -.065em;
-    font-weight: 400;
-  }
-
-  .gallery-heading h2 strong { font-weight: 700; }
-
-  .gallery-description {
-    margin: 22px 0 0;
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.45;
-  }
-
-  .circular-carousel {
-    --cc-fade: #edf2ff;
-    --cc-radius: 14px;
-    --cc-inner: .25;
-    position: absolute;
-    inset: 4% 2.5% 5% 27%;
-    overflow: hidden;
-    outline: none;
-    touch-action: pan-y;
-    user-select: none;
-    -webkit-user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    cursor: grab;
-  }
-
-  .circular-carousel[data-dragging] { cursor: grabbing; }
-  .circular-carousel:focus-visible { box-shadow: inset 0 0 0 2px rgba(40,120,237,.35); border-radius: 24px; }
-
-  .circular-carousel__view { position: absolute; inset: 0; }
-  .circular-carousel__stage { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .45s ease; }
-  .circular-carousel[data-ready] .circular-carousel__stage { opacity: 1; }
-  .circular-carousel__camera, .circular-carousel__ring, .circular-carousel__card { width: 0; height: 0; transform-style: preserve-3d; }
-  .circular-carousel__camera { position: relative; }
-  .circular-carousel__ring, .circular-carousel__card { position: absolute; left: 0; top: 0; }
-  .circular-carousel__tile { position: absolute; outline: 1px solid transparent; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-  .circular-carousel__frame { position: absolute; left: 0; top: 0; width: 100%; overflow: hidden; background: #dceaff; }
-  .circular-carousel__photo { position: absolute; left: 0; top: 0; width: ${cardWidth}px; height: ${cardHeight}px; max-width: none; object-fit: cover; display: block; pointer-events: none; user-select: none; -webkit-user-drag: none; }
-  .circular-carousel__shade { position: absolute; inset: 0; pointer-events: none; background: var(--cc-fade); opacity: var(--cc-depth, 0); transition: opacity .18s ease; }
-
-  .gallery-caption {
-    position: absolute;
-    left: 50%;
-    bottom: 10%;
-    transform: translateX(-50%);
-    z-index: 30;
-    display: grid;
-    justify-items: center;
-    gap: 4px;
-    min-width: 170px;
-    text-align: center;
-    pointer-events: none;
-  }
-
-  .gallery-caption__title { font-family: var(--font-display); font-size: 18px; font-weight: 600; letter-spacing: -.035em; }
-  .gallery-caption__subtitle { color: #8190a6; font-size: 9px; }
-  .gallery-caption__count { display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; color: #9aa7ba; font-size: 9px; font-variant-numeric: tabular-nums; letter-spacing: .08em; }
-  .gallery-caption__count i { font-style: normal; opacity: .55; }
-
-  .gallery-controls { position: absolute; right: 6%; bottom: 10%; z-index: 40; display: flex; gap: 10px; }
-  .gallery-control { width: 34px; height: 34px; padding: 0; border-radius: 50%; border: 1px solid var(--blue); display: grid; place-items: center; cursor: pointer; font: inherit; font-size: 15px; transition: transform .25s ease, background .25s ease, color .25s ease; }
-  .gallery-control--prev { background: transparent; color: var(--blue); }
-  .gallery-control--next { background: var(--blue); color: white; }
-  .gallery-control:hover { transform: translateY(-2px); }
-
-  .gallery-hint { position: absolute; right: 5.8%; top: 12%; margin: 0; color: #9aa8bb; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; z-index: 20; }
-  .gallery-meta { position: absolute; left: 5.5%; right: 5.5%; bottom: 4.5%; z-index: 10; display: flex; justify-content: space-between; color: #a5b1c2; font-size: 8px; letter-spacing: .12em; text-transform: uppercase; }
-
-  @media (max-width: 900px) {
-    .gallery-heading { top: 9%; left: 5%; }
-    .gallery-heading h2 { font-size: clamp(36px, 5.4vw, 54px); }
-    .circular-carousel { inset: 5% 0 7% 24%; }
-    .gallery-hint { right: 5%; top: 9%; }
-  }
-
-  @media (max-width: 640px) {
-    .gallery-section { height: 100svh; min-height: 700px; }
-    .gallery-inner { border-radius: 0; }
-    .gallery-heading { top: 8%; left: 6%; }
-    .gallery-heading h2 { font-size: clamp(39px, 12vw, 58px); }
-    .gallery-description { margin-top: 15px; font-size: 11px; }
-    .circular-carousel { inset: 26% -8% 16% -8%; }
-    .gallery-caption { bottom: 10%; }
-    .gallery-controls { left: 50%; right: auto; bottom: 4.5%; transform: translateX(-50%); }
-    .gallery-hint { right: auto; left: 6%; top: 23%; }
-    .gallery-meta { left: 6%; right: 6%; bottom: 1.7%; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .circular-carousel__stage, .circular-carousel__shade, .gallery-control { transition: none; }
-  }
+.gallery-section{--ink:#111a2b;--muted:#74839a;position:relative;width:100%;min-height:88svh;background:#edf2ff;color:var(--ink);font-family:var(--font-body);overflow:hidden}
+.gallery-inner{position:relative;width:100%;min-height:88svh;overflow:hidden;border-radius:24px;box-sizing:border-box}
+.gallery-heading{position:absolute;left:5.5%;top:12%;z-index:20}.gallery-eyebrow{margin:0 0 15px;color:#8ca0bb;font-size:13px;letter-spacing:.03em}.gallery-heading h2{margin:0;font-family:var(--font-display);font-size:clamp(42px,4.4vw,66px);line-height:.9;letter-spacing:-.065em;font-weight:400}.gallery-heading h2 strong{font-weight:700}.gallery-description{margin:22px 0 0;color:var(--muted);font-size:15px;line-height:1.45}
+.panorama{position:absolute;inset:3% 2.5% 4% 27%;overflow:hidden;outline:none;touch-action:pan-y;user-select:none;-webkit-user-select:none}.panorama:focus-visible{outline:2px solid rgba(40,120,237,.45);outline-offset:-2px;border-radius:24px}.panorama-viewport{position:absolute;inset:15% 0 20%;display:flex;align-items:center;justify-content:center;perspective:1500px;perspective-origin:50% 50%;overflow:hidden}.panorama-stage{position:relative;width:100%;height:100%;transform-style:preserve-3d;will-change:transform}.panorama-card{position:absolute;left:50%;top:50%;width:clamp(250px,25vw,380px);aspect-ratio:4/3;transform-origin:center center;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform,opacity}.panorama-card-button{display:block;width:100%;height:100%;padding:0;border:0;background:none;cursor:pointer;transform-style:preserve-3d}.panorama-frame{display:block;position:relative;width:100%;height:100%;overflow:hidden;border-radius:18px;background:#dce8f7;border:1px solid rgba(255,255,255,.82);box-shadow:0 24px 60px rgba(30,63,108,.16);transform:translateZ(0)}.panorama-frame::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.42);border-radius:inherit;pointer-events:none}.panorama-frame img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;background:#e5eefb;border:0;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.panorama-hint{position:absolute;right:4%;top:7%;margin:0;color:#91a2ba;font-size:11px;letter-spacing:.08em;z-index:30}.gallery-caption{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:30;white-space:nowrap;pointer-events:none}.gallery-caption__title{font-family:var(--font-display);font-size:22px;letter-spacing:-.04em;color:#111a2b}.gallery-caption__subtitle{font-size:13px;color:#8a9ab0}.gallery-caption__count{font-size:11px;color:#9aa9bd;letter-spacing:.1em}.gallery-caption__count i{font-style:normal;margin:0 7px}.gallery-controls{position:absolute;right:7%;bottom:6%;display:flex;gap:12px;z-index:40}.gallery-controls button{width:42px;height:42px;border-radius:50%;border:1px solid #2878ed;background:transparent;color:#2878ed;font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center}.gallery-controls button:last-child{background:#2878ed;color:#fff}.gallery-meta{position:absolute;left:5.5%;right:5.5%;bottom:4%;display:flex;justify-content:space-between;color:#a0aec0;font-size:11px;letter-spacing:.12em;z-index:30}
+@media(max-width:1100px){.panorama{inset-left:23%}.panorama-card{width:clamp(235px,27vw,320px)}}
+@media(max-width:820px){.gallery-section,.gallery-inner{min-height:820px}.gallery-heading{left:7%;top:8%}.gallery-description{font-size:14px}.panorama{inset:27% 3% 9% 3%}.panorama-viewport{inset:4% 0 24%}.panorama-card{width:min(72vw,330px)}.panorama-hint{top:0;right:3%;font-size:9px}.gallery-caption{bottom:7%}.gallery-controls{right:5%;bottom:6%}.gallery-meta{left:7%;right:7%;bottom:2.5%}}
+@media(max-width:560px){.gallery-heading h2{font-size:clamp(39px,12vw,52px)}.gallery-description{max-width:330px;font-size:13px}.panorama{inset:29% 0 12%}.panorama-viewport{inset:3% 0 25%}.panorama-card{width:min(76vw,300px)}.panorama-hint{display:none}.gallery-caption__title{font-size:20px}.gallery-caption__subtitle{font-size:12px}.gallery-controls button{width:40px;height:40px}.gallery-meta{font-size:9px}}
 </style>
