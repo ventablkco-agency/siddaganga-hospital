@@ -6,108 +6,149 @@ const services = [
     number: '01',
     title: 'Cardiology',
     description: 'Heart-focused diagnosis and treatment, supported by 2D Echo and TMT facilities.',
+    icon: 'heart',
   },
   {
     number: '02',
     title: 'Diabetology & General Medicine',
     description: 'Specialist care for diabetes, blood pressure and related medical conditions.',
+    icon: 'pulse',
+    featured: true,
   },
   {
     number: '03',
-    title: 'General Surgery',
-    description: 'Surgical care for conditions requiring specialist evaluation and treatment.',
+    title: 'Obstetrics & Gynaecology',
+    description: 'Pregnancy, reproductive health, high-risk care, infertility and gynaecological services.',
+    icon: 'women',
   },
   {
     number: '04',
-    title: 'Obstetrics',
-    description: 'Specialist obstetric care with experienced medical support for women.',
+    title: 'General Surgery',
+    description: 'Surgical care for conditions requiring specialist evaluation and treatment.',
+    icon: 'surgery',
   },
   {
     number: '05',
     title: 'ENT',
     description: 'Evaluation and treatment for ear, nose and throat conditions.',
+    icon: 'ent',
   },
   {
     number: '06',
     title: 'Diagnostics & Laboratory',
-    description: 'Complete laboratory testing and advanced diagnostic support for accurate evaluation.',
+    description: 'Laboratory testing and diagnostic support for accurate clinical evaluation.',
+    icon: 'lab',
   },
 ];
+
+const icons = {
+  heart: '<path d="M20.8 8.8c0 5.1-8.8 10.2-8.8 10.2S3.2 13.9 3.2 8.8A4.8 4.8 0 0 1 12 6.1a4.8 4.8 0 0 1 8.8 2.7Z"/><path d="M7.7 11h2l1.2-2.2 2.1 4.2 1.3-2H17"/>',
+  pulse: '<path d="M3 12h4l2-5 4 10 2-5h6"/><circle cx="12" cy="12" r="9" opacity=".18"/>',
+  women: '<circle cx="11" cy="8" r="3.2"/><path d="M11 11.2v8M8.2 15h5.6M17.5 7.5v5M15 10h5"/>',
+  surgery: '<path d="M6 4v8M4 6h4M8 12l8 8M12 16l4-4M16 20l4-4"/><path d="M14 4l6 6"/>',
+  ent: '<path d="M9 4.5a4.5 4.5 0 0 1 8.2 2.6c0 2.7-1.7 4-3.3 5.1-1.3.9-2.4 1.6-2.4 3.3a2.5 2.5 0 0 0 4.7 1.2"/><path d="M9.5 17.5a2.5 2.5 0 1 0 5 0"/>',
+  lab: '<path d="M9 3v6l-4.2 7.3A2.5 2.5 0 0 0 7 20h10a2.5 2.5 0 0 0 2.2-3.7L15 9V3"/><path d="M7 13h10M9 3h6"/>',
+};
 ---
 
 <section id="services" class="services-section" aria-labelledby="services-title">
   <div class="services-shell">
     <header class="services-header">
-      <div>
+      <div class="services-heading">
         <p class="services-eyebrow">OUR MEDICAL SERVICES <span>(What you get)</span></p>
-        <h2 id="services-title">Care that covers <strong>what matters most.</strong></h2>
+        <h2 id="services-title">Care that covers<br /><strong>what matters most.</strong></h2>
       </div>
-      <p class="services-intro">
-        Specialist care, diagnostics and essential hospital services — under one roof.
-      </p>
+      <div class="services-header-side">
+        <p>From consultation to diagnosis and treatment, we provide essential medical care under one roof.</p>
+        <a href="#services-grid" class="services-view-link">See all services <span aria-hidden="true">↗</span></a>
+      </div>
     </header>
 
-    <div class="services-grid">
+    <div class="services-grid" id="services-grid">
       {services.map((service) => (
-        <article class="service-card">
-          <div class="service-number">{service.number}</div>
+        <article class:list={['service-card', { 'service-card--featured': service.featured }]}>
+          <div class="service-topline">
+            <span class="service-number">{service.number}</span>
+            <span class="service-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={icons[service.icon]} />
+            </span>
+          </div>
+
           <div class="service-copy">
             <h3>{service.title}</h3>
             <p>{service.description}</p>
           </div>
+
           <a class="service-link" href={appointmentUrl} target="_blank" rel="noreferrer" aria-label={`Make an appointment for ${service.title}`}>
             <span>Make an appointment</span>
-            <span class="service-arrow" aria-hidden="true">↗</span>
+            <span class="service-link-arrow" aria-hidden="true">↗</span>
           </a>
         </article>
       ))}
+
+      <div class="service-image-slot" aria-label="Hospital image placeholder">
+        <div class="service-image-slot__wash"></div>
+        <div class="service-image-slot__content">
+          <span class="service-image-slot__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="3" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <path d="m21 15-5-5L5 21" />
+            </svg>
+          </span>
+          <span>Hospital image</span>
+          <small>Replace with the final Siddaganga photograph</small>
+        </div>
+      </div>
     </div>
 
-    <div class="services-footer">
+    <footer class="services-footer">
       <span>24×7 emergency · laboratory · pharmacy · ambulance · digital X-ray · 2D Echo · TMT</span>
-      <a href={appointmentUrl} target="_blank" rel="noreferrer">Book an appointment ↗</a>
-    </div>
+      <a href={appointmentUrl} target="_blank" rel="noreferrer">Book an appointment <span aria-hidden="true">↗</span></a>
+    </footer>
   </div>
 </section>
 
 <style>
   .services-section {
-    padding: clamp(20px, 2.2vw, 34px) clamp(16px, 2.4vw, 38px) clamp(34px, 4vw, 58px);
-    background: #eef4ff;
+    padding: clamp(18px, 2vw, 30px) clamp(12px, 2vw, 30px) clamp(30px, 3.5vw, 52px);
+    background: #eef7ff;
   }
 
   .services-shell {
     width: min(100%, 1696px);
     margin: 0 auto;
-    padding: clamp(28px, 3vw, 46px);
+    padding: clamp(24px, 2.8vw, 42px);
+    border: 1px solid rgba(49, 104, 178, .09);
     border-radius: 30px;
     background: #f8fbff;
-    border: 1px solid rgba(88, 137, 215, 0.1);
-    box-shadow: 0 22px 65px rgba(44, 91, 150, 0.08);
+    box-shadow: 0 22px 65px rgba(44, 91, 150, .075);
     overflow: hidden;
     position: relative;
+    isolation: isolate;
   }
 
   .services-shell::before,
   .services-shell::after {
     content: '';
     position: absolute;
-    width: 260px;
-    height: 260px;
-    border: 1px solid rgba(52, 116, 226, 0.08);
+    width: 280px;
+    height: 280px;
+    border: 1px solid rgba(40, 120, 238, .07);
     clip-path: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0 50%);
     pointer-events: none;
+    z-index: -1;
   }
 
-  .services-shell::before { top: -105px; left: -105px; }
-  .services-shell::after { right: -105px; bottom: -120px; }
+  .services-shell::before { top: -120px; left: -110px; }
+  .services-shell::after { right: -120px; bottom: -135px; }
 
   .services-header {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(250px, 360px);
+    grid-template-columns: minmax(0, 1fr) minmax(250px, 390px);
     align-items: end;
-    gap: 40px;
-    margin-bottom: clamp(24px, 3vw, 38px);
+    gap: 48px;
+    margin-bottom: clamp(24px, 2.6vw, 36px);
     position: relative;
     z-index: 1;
   }
@@ -115,91 +156,150 @@ const services = [
   .services-eyebrow {
     margin: 0 0 10px;
     color: #71809a;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: .14em;
+    letter-spacing: .15em;
+    text-transform: uppercase;
   }
 
   .services-eyebrow span {
     color: #9aa8bd;
     font-weight: 500;
     letter-spacing: 0;
-    margin-left: 5px;
+    text-transform: none;
+    margin-left: 4px;
   }
 
   .services-header h2 {
     margin: 0;
-    max-width: 780px;
+    max-width: 760px;
     color: #172b4d;
     font-family: var(--font-display);
-    font-size: clamp(32px, 4.2vw, 62px);
+    font-size: clamp(34px, 4vw, 60px);
     font-weight: 500;
     letter-spacing: -.055em;
     line-height: .98;
   }
 
   .services-header h2 strong {
-    color: #2374eb;
+    color: #2878ee;
     font-weight: 600;
   }
 
-  .services-intro {
-    margin: 0 0 2px;
-    color: #687991;
-    font-size: 13px;
-    line-height: 1.6;
-    max-width: 330px;
+  .services-header-side {
     justify-self: end;
+    max-width: 350px;
+    padding-bottom: 2px;
   }
+
+  .services-header-side p {
+    margin: 0 0 12px;
+    color: #687991;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .services-view-link,
+  .services-footer a {
+    color: #2878ee;
+    font-size: 10px;
+    font-weight: 650;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .services-view-link span,
+  .services-footer a span { margin-left: 4px; text-decoration: none; }
 
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
+    gap: 10px;
     position: relative;
     z-index: 1;
   }
 
   .service-card {
-    min-height: 245px;
-    padding: 18px 19px 17px;
+    min-height: 224px;
+    padding: 17px 18px 16px;
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(67, 105, 156, .11);
+    border: 1px solid rgba(67, 105, 156, .10);
     border-radius: 17px;
-    background: #fff;
+    background: rgba(255,255,255,.94);
     color: #172b4d;
-    box-shadow: 0 10px 30px rgba(47, 82, 129, .055);
-    transition: background .3s ease, color .3s ease, border-color .3s ease, transform .3s ease, box-shadow .3s ease;
+    box-shadow: 0 8px 28px rgba(47, 82, 129, .045);
+    transition: transform .3s ease, box-shadow .3s ease, background .3s ease, color .3s ease, border-color .3s ease;
   }
 
   .service-card:hover {
+    transform: translateY(-3px);
+    border-color: #2878ee;
     background: #2878ee;
     color: #fff;
+    box-shadow: 0 20px 42px rgba(40,120,238,.18);
+  }
+
+  .service-card--featured {
+    background: linear-gradient(145deg, #2878ee 0%, #1767dc 100%);
     border-color: #2878ee;
-    transform: translateY(-4px);
-    box-shadow: 0 22px 45px rgba(40, 120, 238, .2);
+    color: #fff;
+    box-shadow: 0 20px 42px rgba(40,120,238,.18);
+  }
+
+  .service-card--featured::after {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    right: -60px;
+    top: -55px;
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 50%;
+    box-shadow: 0 0 0 25px rgba(255,255,255,.035), 0 0 0 50px rgba(255,255,255,.025);
+    pointer-events: none;
+  }
+
+  .service-topline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
   }
 
   .service-number {
-    color: #dbe6f8;
+    color: #d9e5f7;
     font-family: var(--font-display);
-    font-size: clamp(42px, 4vw, 58px);
+    font-size: clamp(42px, 3.7vw, 56px);
     font-weight: 500;
     letter-spacing: -.08em;
-    line-height: .85;
+    line-height: .8;
     transition: color .3s ease;
   }
 
-  .service-card:hover .service-number { color: rgba(255,255,255,.34); }
+  .service-icon {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    color: #2878ee;
+    flex: 0 0 auto;
+    transition: color .3s ease, transform .3s ease;
+  }
 
-  .service-copy { margin-top: auto; padding-top: 22px; }
+  .service-icon svg { width: 22px; height: 22px; }
+
+  .service-copy {
+    margin-top: auto;
+    padding-top: 24px;
+    max-width: 330px;
+  }
 
   .service-copy h3 {
-    margin: 0 0 8px;
+    margin: 0 0 7px;
     color: inherit;
     font-family: var(--font-display);
-    font-size: clamp(19px, 1.55vw, 25px);
+    font-size: clamp(18px, 1.45vw, 23px);
     font-weight: 600;
     letter-spacing: -.045em;
     line-height: 1.05;
@@ -207,85 +307,158 @@ const services = [
 
   .service-copy p {
     margin: 0;
-    max-width: 310px;
     color: #687991;
-    font-size: 11px;
-    line-height: 1.5;
+    font-size: 10.5px;
+    line-height: 1.48;
     transition: color .3s ease;
   }
-
-  .service-card:hover .service-copy p { color: rgba(255,255,255,.82); }
 
   .service-link {
     margin-top: 18px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    justify-content: flex-end;
+    gap: 8px;
     color: #2878ee;
-    font-size: 10px;
-    font-weight: 600;
-    transition: color .3s ease;
+    font-size: 9px;
+    font-weight: 650;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color .3s ease, transform .3s ease;
   }
 
-  .service-card:hover .service-link { color: #fff; }
+  .service-link-arrow {
+    font-size: 12px;
+    line-height: 1;
+    text-decoration: none;
+    transition: transform .3s ease;
+  }
 
-  .service-arrow {
-    display: inline-grid;
-    place-items: center;
-    width: 26px;
-    height: 26px;
-    border: 1px solid currentColor;
+  .service-card:hover .service-number,
+  .service-card--featured .service-number { color: rgba(255,255,255,.36); }
+
+  .service-card:hover .service-icon,
+  .service-card--featured .service-icon { color: #fff; }
+
+  .service-card:hover .service-copy p,
+  .service-card--featured .service-copy p { color: rgba(255,255,255,.82); }
+
+  .service-card:hover .service-link,
+  .service-card--featured .service-link { color: #fff; }
+
+  .service-card:hover .service-link-arrow { transform: translate(2px, -2px); }
+
+  .service-image-slot {
+    min-height: 224px;
+    grid-column: span 2;
+    position: relative;
+    overflow: hidden;
+    border-radius: 17px;
+    border: 1px solid rgba(67, 105, 156, .10);
+    background: linear-gradient(135deg, #dbeaff 0%, #edf5ff 55%, #d7e8fb 100%);
+    box-shadow: 0 8px 28px rgba(47, 82, 129, .045);
+  }
+
+  .service-image-slot__wash {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 76% 22%, rgba(40,120,238,.18), transparent 26%),
+      linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
+  }
+
+  .service-image-slot::before,
+  .service-image-slot::after {
+    content: '';
+    position: absolute;
+    border: 1px solid rgba(40,120,238,.10);
     border-radius: 50%;
-    font-size: 13px;
-    transition: transform .3s ease, background .3s ease, color .3s ease;
   }
 
-  .service-card:hover .service-arrow {
-    transform: translate(2px, -2px);
-    background: #fff;
-    color: #2878ee;
+  .service-image-slot::before { width: 310px; height: 310px; right: -80px; top: -130px; }
+  .service-image-slot::after { width: 190px; height: 190px; left: -65px; bottom: -110px; }
+
+  .service-image-slot__content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 7px;
+    color: #3d6593;
+    text-align: center;
+  }
+
+  .service-image-slot__icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(40,120,238,.16);
+    border-radius: 13px;
+    background: rgba(255,255,255,.58);
+  }
+
+  .service-image-slot__icon svg { width: 22px; height: 22px; }
+
+  .service-image-slot__content > span:not(.service-image-slot__icon) {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -.035em;
+    color: #254b77;
+  }
+
+  .service-image-slot__content small {
+    color: #6e84a0;
+    font-size: 9px;
   }
 
   .services-footer {
-    margin-top: 14px;
+    margin-top: 13px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
+    color: #71809a;
+    font-size: 9px;
+    line-height: 1.5;
     position: relative;
     z-index: 1;
-    color: #71809a;
-    font-size: 10px;
   }
 
-  .services-footer a {
-    color: #2878ee;
-    font-weight: 600;
-    white-space: nowrap;
-  }
+  .services-footer a { white-space: nowrap; text-decoration: none; }
 
   @media (max-width: 900px) {
     .services-header { grid-template-columns: 1fr; gap: 14px; }
-    .services-intro { justify-self: start; }
+    .services-header-side { justify-self: start; max-width: 420px; }
     .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .service-image-slot { grid-column: span 2; }
   }
 
   @media (max-width: 620px) {
-    .services-shell { padding: 24px 16px; border-radius: 23px; }
-    .services-grid { grid-template-columns: 1fr; gap: 10px; }
-    .service-card { min-height: 220px; }
+    .services-section { padding-inline: 8px; }
+    .services-shell { padding: 23px 14px; border-radius: 23px; }
+    .services-header { margin-bottom: 22px; }
+    .services-header h2 { font-size: clamp(34px, 11vw, 48px); line-height: .98; }
+    .services-grid { grid-template-columns: 1fr; gap: 9px; }
+    .service-card { min-height: 205px; padding: 16px; }
+    .service-image-slot { grid-column: auto; min-height: 220px; }
+    .service-copy { padding-top: 20px; }
+    .service-copy h3 { font-size: 20px; }
+    .service-copy p { font-size: 11px; }
     .services-footer { align-items: flex-start; flex-direction: column; gap: 10px; }
-    .services-footer span { line-height: 1.5; }
   }
 
   @media (hover: none) {
-    .service-card:active {
-      background: #2878ee;
-      color: #fff;
-    }
-    .service-card:active .service-number { color: rgba(255,255,255,.34); }
-    .service-card:active .service-copy p,
-    .service-card:active .service-link { color: rgba(255,255,255,.82); }
+    .service-card:active { transform: translateY(-2px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card,
+    .service-icon,
+    .service-link,
+    .service-link-arrow { transition: none; }
   }
 </style>
