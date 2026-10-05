@@ -1,0 +1,106 @@
+/* Section 06 — Hospital Gallery QA */
+.gallery-section .gallery-eyebrow {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.gallery-section .gallery-heading h2 {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 4.7vw, 72px);
+  line-height: .9;
+  letter-spacing: -.065em;
+}
+
+.gallery-section .gallery-description {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.gallery-section .gallery-caption__title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2vw, 28px);
+  line-height: 1.05;
+  font-weight: 600;
+}
+
+.gallery-section .gallery-caption__subtitle {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.gallery-section .gallery-caption__count,
+.gallery-section .gallery-hint,
+.gallery-section .gallery-meta {
+  font-family: var(--font-body);
+}
+
+/* Give the desktop gallery a little more horizontal breathing room while
+   keeping the established panorama composition intact. */
+@media (min-width: 1001px) {
+  .gallery-section .panorama-carousel {
+    margin-left: 27%;
+    width: 73%;
+  }
+
+  .gallery-section .panorama-stage {
+    top: 1%;
+    bottom: 28%;
+  }
+
+  .gallery-section .panorama-rail {
+    width: min(100%, 720px);
+    height: min(55vw, 480px);
+  }
+
+  .gallery-section .panorama-card {
+    width: min(29vw, 390px);
+  }
+
+  .gallery-section .gallery-caption {
+    bottom: 4%;
+  }
+
+  .gallery-section .gallery-controls {
+    bottom: 4%;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1000px) {
+  .gallery-section .gallery-description {
+    font-size: 15px;
+  }
+
+  .gallery-section .panorama-stage {
+    bottom: 26%;
+  }
+
+  .gallery-section .panorama-card {
+    width: min(36vw, 360px);
+  }
+
+  .gallery-section .gallery-caption {
+    bottom: 4%;
+  }
+
+  .gallery-section .gallery-controls {
+    bottom: 4%;
+  }
+}
+
+@media (max-width: 760px) {
+  .gallery-section .gallery-eyebrow {
+    font-size: 11px;
+  }
+
+  .gallery-section .gallery-description {
+    font-size: 15px;
+  }
+
+  .gallery-section .gallery-caption__subtitle {
+    font-size: 11px;
+  }
+}
