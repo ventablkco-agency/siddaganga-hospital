@@ -1,12 +1,14 @@
 ---
+import Icon from '../icons/Icon.astro';
+
 const items = [
-  'CARDIOLOGY',
-  'DIABETOLOGY',
-  'GENERAL MEDICINE',
-  '24×7 EMERGENCY',
-  'ADVANCED DIAGNOSTICS',
-  'PERSONALIZED CARE',
-  'PATIENT FIRST',
+  { label: 'CARDIOLOGY', icon: 'cardiology' },
+  { label: 'DIABETOLOGY', icon: 'diabetes' },
+  { label: 'GENERAL MEDICINE', icon: 'medicine' },
+  { label: '24×7 EMERGENCY', icon: 'emergency' },
+  { label: 'ADVANCED DIAGNOSTICS', icon: 'diagnostics' },
+  { label: 'PERSONALIZED CARE', icon: 'users' },
+  { label: 'PATIENT FIRST', icon: 'check-circle' },
 ];
 ---
 
@@ -14,70 +16,20 @@ const items = [
   <div class="medical-ticker__track">
     {[...items, ...items].map((item, index) => (
       <span class="medical-ticker__item" aria-hidden={index >= items.length ? 'true' : undefined}>
-        <span>{item}</span>
-        <b aria-hidden="true">✦</b>
+        <Icon name={item.icon} size={15} strokeWidth={1.7} />
+        <span>{item.label}</span>
+        <span class="medical-ticker__separator" aria-hidden="true"></span>
       </span>
     ))}
   </div>
 </div>
 
 <style>
-  .medical-ticker {
-    position: relative;
-    z-index: 2;
-    flex: 0 0 clamp(72px, 5.6vw, 88px);
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    border-top: 1px solid rgba(20, 71, 119, 0.08);
-    border-bottom: 1px solid rgba(20, 71, 119, 0.08);
-    background: #f8fbff;
-  }
-
-  .medical-ticker__track {
-    display: flex;
-    width: max-content;
-    align-items: center;
-    animation: ticker-scroll 34s linear infinite;
-    will-change: transform;
-  }
-
-  .medical-ticker__item {
-    display: inline-flex;
-    align-items: center;
-    gap: clamp(28px, 2.6vw, 42px);
-    padding-right: clamp(28px, 2.6vw, 42px);
-    white-space: nowrap;
-    color: #49627f;
-    font-family: var(--font-body);
-    font-size: clamp(12px, 0.8vw, 14px);
-    font-weight: 600;
-    letter-spacing: 0.18em;
-  }
-
-  .medical-ticker__item b {
-    color: #2477e8;
-    font-size: 12px;
-    font-weight: 600;
-  }
-
-  @keyframes ticker-scroll {
-    from { transform: translate3d(0, 0, 0); }
-    to { transform: translate3d(-50%, 0, 0); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .medical-ticker__track { animation: none; }
-  }
-
-  @media (max-width: 760px) {
-    .medical-ticker { flex-basis: 64px; }
-    .medical-ticker__item {
-      gap: 22px;
-      padding-right: 22px;
-      font-size: 10px;
-      letter-spacing: 0.13em;
-    }
-  }
+  .medical-ticker {position:relative;z-index:2;flex:0 0 clamp(72px,5.6vw,88px);width:100%;overflow:hidden;display:flex;align-items:center;border-top:1px solid rgba(20,71,119,.08);border-bottom:1px solid rgba(20,71,119,.08);background:#f8fbff}
+  .medical-ticker__track{display:flex;width:max-content;align-items:center;animation:ticker-scroll 34s linear infinite;will-change:transform}
+  .medical-ticker__item{display:inline-flex;align-items:center;gap:12px;padding-right:clamp(28px,2.6vw,42px);white-space:nowrap;color:#49627f;font-family:var(--font-body);font-size:clamp(12px,.8vw,14px);font-weight:600;letter-spacing:.18em}
+  .medical-ticker__item svg{color:#2477e8;flex:0 0 auto}.medical-ticker__separator{width:4px;height:4px;border-radius:50%;background:#9fc5fb;display:inline-block;margin-left:16px}
+  @keyframes ticker-scroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+  @media(prefers-reduced-motion:reduce){.medical-ticker__track{animation:none}}
+  @media(max-width:760px){.medical-ticker{flex-basis:64px}.medical-ticker__item{gap:9px;padding-right:22px;font-size:10px;letter-spacing:.13em}.medical-ticker__separator{margin-left:9px}}
 </style>
