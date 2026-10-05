@@ -6,11 +6,15 @@ import Footer from '../Footer.astro';
 <div class="site-shell">
   <Navbar />
   <MenuOverlay />
-  <main class="site-shell__main">
-    <slot />
-  </main>
+  <main class="site-shell__main"><slot /></main>
+  <div class="quick-actions" aria-label="Quick hospital actions">
+    <a class="quick-action quick-action--emergency" href="tel:+919591799099"><span class="quick-action__label">Emergency</span><span class="quick-action__icon" aria-hidden="true">↗</span></a>
+    <a class="quick-action quick-action--appointment" href="https://wa.me/919591799099" target="_blank" rel="noreferrer"><span class="quick-action__label">Book appointment</span><span class="quick-action__icon" aria-hidden="true">→</span></a>
+  </div>
   <Footer />
 </div>
 <style>
-.site-shell{min-height:100vh;display:flex;flex-direction:column}.site-shell__main{flex:1;min-width:0}
+.site-shell{min-height:100vh;display:flex;flex-direction:column}.site-shell__main{flex:1;min-width:0}.quick-actions{position:fixed;right:22px;bottom:22px;z-index:1400;display:flex;align-items:center;gap:8px;padding:6px;border:1px solid rgba(21,48,84,.09);border-radius:999px;background:rgba(255,255,255,.78);backdrop-filter:blur(18px);box-shadow:0 14px 40px rgba(33,65,108,.13)}.quick-action{display:inline-flex;align-items:center;gap:9px;padding:8px 8px 8px 13px;border-radius:999px;text-decoration:none;font-size:12px;font-weight:650;line-height:1;transition:transform .25s ease,background .25s ease}.quick-action:hover{transform:translateY(-2px)}.quick-action__icon{width:30px;height:30px;border-radius:50%;display:grid;place-items:center}.quick-action--emergency{color:#c23b3b}.quick-action--emergency .quick-action__icon{background:#fff0f0}.quick-action--appointment{color:#fff;background:#2878ed}.quick-action--appointment .quick-action__icon{background:rgba(255,255,255,.18)}
+@media(max-width:760px){.quick-actions{left:12px;right:12px;bottom:12px;justify-content:stretch;padding:5px}.quick-action{flex:1;justify-content:center;padding:8px 7px;font-size:11px}.quick-action__icon{width:28px;height:28px}}
+@media(prefers-reduced-motion:reduce){.quick-action{transition:none}}
 </style>
