@@ -1,0 +1,89 @@
+---
+import {
+  Activity,
+  Ambulance,
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Baby,
+  CalendarDays,
+  CheckCircle2,
+  Clock3,
+  Droplet,
+  Ear,
+  FlaskConical,
+  GraduationCap,
+  HeartPulse,
+  Mail,
+  MapPin,
+  Menu,
+  Microscope,
+  MousePointer2,
+  Pill,
+  Phone,
+  Quote,
+  ScanLine,
+  Scissors,
+  Siren,
+  Star,
+  Stethoscope,
+  Users,
+  X,
+} from 'lucide-astro';
+
+interface Props {
+  name: string;
+  size?: number | string;
+  strokeWidth?: number;
+  label?: string;
+  class?: string;
+}
+
+const {
+  name,
+  size = 20,
+  strokeWidth = 1.8,
+  label,
+  class: className,
+} = Astro.props;
+
+const common = {
+  size,
+  strokeWidth,
+  class: className,
+  'aria-hidden': label ? undefined : true,
+  'aria-label': label,
+};
+---
+
+{ name === 'activity' && <Activity {...common} /> }
+{ name === 'ambulance' && <Ambulance {...common} /> }
+{ name === 'arrow-down' && <ArrowDown {...common} /> }
+{ name === 'arrow-left' && <ArrowLeft {...common} /> }
+{ name === 'arrow-right' && <ArrowRight {...common} /> }
+{ name === 'external-link' && <ArrowUpRight {...common} /> }
+{ name === 'baby' && <Baby {...common} /> }
+{ name === 'calendar' && <CalendarDays {...common} /> }
+{ name === 'check-circle' && <CheckCircle2 {...common} /> }
+{ name === 'clock' && <Clock3 {...common} /> }
+{ name === 'diabetes' && <Droplet {...common} /> }
+{ name === 'ent' && <Ear {...common} /> }
+{ name === 'laboratory' && <FlaskConical {...common} /> }
+{ name === 'qualification' && <GraduationCap {...common} /> }
+{ name === 'cardiology' && <HeartPulse {...common} /> }
+{ name === 'email' && <Mail {...common} /> }
+{ name === 'location' && <MapPin {...common} /> }
+{ name === 'menu' && <Menu {...common} /> }
+{ name === 'diagnostics' && <Microscope {...common} /> }
+{ name === 'drag' && <MousePointer2 {...common} /> }
+{ name === 'pharmacy' && <Pill {...common} /> }
+{ name === 'phone' && <Phone {...common} /> }
+{ name === 'quote' && <Quote {...common} /> }
+{ name === 'xray' && <ScanLine {...common} /> }
+{ name === 'surgery' && <Scissors {...common} /> }
+{ name === 'emergency' && <Siren {...common} /> }
+{ name === 'star' && <Star {...common} /> }
+{ name === 'medicine' && <Stethoscope {...common} /> }
+{ name === 'users' && <Users {...common} /> }
+{ name === 'close' && <X {...common} /> }
