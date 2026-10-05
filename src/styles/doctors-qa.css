@@ -1,0 +1,182 @@
+/* Section 05 — Doctors QA pass */
+
+/* Desktop: keep the card elegant without letting it dominate the section. */
+.depth-stage {
+  min-width: 0;
+  overflow: visible;
+}
+
+.depth-rail {
+  width: min(100%, 590px);
+  right: 0;
+}
+
+.depth-card {
+  --card-w: clamp(240px, 19vw, 290px);
+  --card-h: clamp(310px, 30vw, 370px);
+}
+
+/* Typography: one consistent hierarchy for the doctor cards. */
+.people-copy .eyebrow {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.2;
+  letter-spacing: .04em;
+}
+
+.people-copy h2 {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 4.2vw, 60px);
+  line-height: .92;
+  letter-spacing: -.06em;
+}
+
+.people-description {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.scroll-progress-label,
+.scroll-hint,
+.depth-hint {
+  font-family: var(--font-body);
+}
+
+.depth-card-info h3 {
+  font-family: var(--font-display);
+  font-size: clamp(17px, 1.35vw, 20px);
+  line-height: 1.12;
+  letter-spacing: -.035em;
+}
+
+.depth-card-number {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1;
+  color: #2878ed;
+}
+
+.depth-card-info p,
+.depth-card-info small {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.doctor-availability {
+  font-family: var(--font-body);
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.photo-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+}
+
+/* Laptop/tablet: give the carousel enough width for the active card and its depth stack. */
+@media (max-width: 1100px) and (min-width: 761px) {
+  .people-area {
+    grid-template-columns: 37% 63%;
+  }
+
+  .depth-stage {
+    min-width: 0;
+  }
+
+  .depth-rail {
+    width: 100%;
+    right: 0;
+  }
+
+  .depth-card {
+    --card-w: clamp(225px, 25vw, 270px);
+    --card-h: clamp(295px, 31vw, 340px);
+  }
+
+  .depth-card[data-position="1"] { --x: 64px; }
+  .depth-card[data-position="2"] { --x: 118px; }
+  .depth-card[data-position="3"] { --x: 158px; }
+
+  .depth-card-info h3 { font-size: 18px; }
+  .depth-card-info p,
+  .depth-card-info small { font-size: 12px; }
+}
+
+/* Smaller tablets: prevent the card stack from colliding with the copy column. */
+@media (max-width: 900px) and (min-width: 761px) {
+  .people-area {
+    left: 3.5%;
+    right: 3.5%;
+    grid-template-columns: 34% 66%;
+  }
+
+  .people-copy { padding: 7% 6%; }
+
+  .people-copy h2 {
+    font-size: clamp(36px, 5vw, 48px);
+  }
+
+  .people-description {
+    font-size: 14px;
+  }
+
+  .depth-card {
+    --card-w: clamp(215px, 27vw, 250px);
+    --card-h: clamp(285px, 34vw, 320px);
+  }
+}
+
+/* Mobile: one card remains fully readable and the stack becomes a compact depth effect. */
+@media (max-width: 760px) {
+  .depth-stage {
+    width: 100%;
+    min-height: 340px;
+    overflow: visible;
+  }
+
+  .depth-rail {
+    width: 100%;
+    right: 0;
+  }
+
+  .depth-card {
+    --card-w: min(72vw, 290px);
+    --card-h: clamp(300px, 88vw, 360px);
+  }
+
+  .depth-card[data-position="1"] { --x: 42px; --z: -150px; --scale: .90; }
+  .depth-card[data-position="2"] { --x: 76px; --z: -300px; --scale: .81; }
+  .depth-card[data-position="3"] { --x: 102px; --z: -450px; --scale: .73; }
+
+  .people-copy h2 {
+    font-size: clamp(38px, 10vw, 48px);
+  }
+
+  .people-description {
+    font-size: 15px;
+  }
+
+  .depth-card-info h3 { font-size: 18px; }
+  .depth-card-info p,
+  .depth-card-info small { font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+  .depth-card {
+    --card-w: min(78vw, 280px);
+    --card-h: clamp(290px, 90vw, 335px);
+  }
+
+  .depth-card[data-position="1"] { --x: 32px; }
+  .depth-card[data-position="2"] { --x: 58px; }
+  .depth-card[data-position="3"] { --x: 78px; }
+
+  .depth-card-info {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    padding: 10px 12px;
+  }
+}
