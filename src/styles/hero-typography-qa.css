@@ -1,0 +1,41 @@
+/* Hero typography QA: one readable type floor, preserving the existing composition. */
+
+.hero-body .eyebrow {
+  font-size: 12px !important;
+}
+
+.hero-body .intro,
+.hero-body__right-copy p {
+  font-size: 16px !important;
+}
+
+.care-panel__media-kicker,
+.care-panel__media-meta {
+  font-size: 12px !important;
+}
+
+.care-highlight span,
+.service-pills span {
+  font-size: 13px !important;
+}
+
+.feedback p {
+  font-size: 12px !important;
+}
+
+@media (min-width: 761px) and (max-width: 1023px) {
+  .hero-body h1 {
+    font-size: clamp(60px, 8.2vw, 82px) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero-body .eyebrow { font-size: 11px !important; }
+  .hero-body .intro,
+  .hero-body__right-copy p { font-size: 15px !important; }
+  .care-panel__media-kicker,
+  .care-panel__media-meta,
+  .care-highlight span,
+  .service-pills span { font-size: 11px !important; }
+  .feedback p { font-size: 13px !important; }
+}
