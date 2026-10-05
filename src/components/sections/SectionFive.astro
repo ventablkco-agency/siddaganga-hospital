@@ -8,16 +8,19 @@ const doctors = [
     name: 'Dr. Nagaraj S K',
     role: 'General Medicine · Cardiac & Diabetes Specialist',
     qualification: 'MBBS, MD (Gen Med), FDM (UK)',
+    tone: 'doctor-tone-one',
   },
   {
     name: 'Dr. Santosh V. Motagi',
     role: 'General Surgery',
     qualification: 'MBBS, MS (General Surgery)',
+    tone: 'doctor-tone-two',
   },
   {
     name: 'Dr. Basavaraj Kallihal',
     role: 'Obstetrics',
     qualification: 'MBBS, DGO',
+    tone: 'doctor-tone-three',
   },
 ];
 ---
@@ -58,71 +61,124 @@ const doctors = [
         </p>
 
         <div class="carousel-controls" aria-label="Doctor carousel controls">
-          <button class="carousel-button carousel-button--prev" type="button" aria-label="Previous doctors">
+          <button class="carousel-button carousel-button--prev" type="button" aria-label="Previous doctor">
             <span>←</span>
           </button>
-          <button class="carousel-button carousel-button--next" type="button" aria-label="Next doctors">
+          <span class="carousel-index" aria-live="polite">01 / 03</span>
+          <button class="carousel-button carousel-button--next" type="button" aria-label="Next doctor">
             <span>→</span>
           </button>
         </div>
       </div>
 
-      <div class="doctor-carousel" data-carousel>
-        {doctors.map((doctor, index) => (
-          <article class:list={['doctor-card', index === 0 && 'is-active']} data-card data-index={index}>
-            <div class="doctor-image" aria-label={`${doctor.name} image placeholder`}>
-              <span>Image</span>
-              {index === 0 && <span class="experience-badge">SGH<br /><strong>Doctor</strong></span>}
-            </div>
-            <div class="doctor-info">
-              <h3>{doctor.name}</h3>
-              <p>{doctor.role}</p>
-              <small>{doctor.qualification}</small>
-              <span class="card-arrow" aria-hidden="true">→</span>
-            </div>
-          </article>
-        ))}
+      <div class="depth-stage" data-depth-carousel tabindex="0" aria-label="Our doctors carousel">
+        <div class="depth-rail">
+          {doctors.map((doctor, index) => (
+            <article
+              class:list={['depth-card', doctor.tone, index === 0 && 'is-active']}
+              data-depth-card
+              data-index={index}
+              aria-hidden={index !== 0}
+            >
+              <div class="depth-photo" aria-label={`${doctor.name} portrait placeholder`}>
+                <div class="portrait-placeholder" aria-hidden="true">
+                  <span class="portrait-head"></span>
+                  <span class="portrait-body"></span>
+                </div>
+                <span class="photo-label">SGH · Doctor portrait</span>
+              </div>
+
+              <div class="depth-card-info">
+                <span class="depth-card-number">0{index + 1}</span>
+                <h3>{doctor.name}</h3>
+                <p>{doctor.role}</p>
+                <small>{doctor.qualification}</small>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="depth-hint" aria-hidden="true">Drag to explore</div>
       </div>
     </div>
   </div>
 </section>
 
 <script>
-  const initDoctorCarousel = () => {
-    const carousel = document.querySelector('[data-carousel]');
-    if (!carousel) return;
+  const initDepthDoctorCarousel = () => {
+    document.querySelectorAll('[data-depth-carousel]').forEach((stage) => {
+      if (stage.dataset.ready === 'true') return;
+      stage.dataset.ready = 'true';
 
-    const cards = Array.from(carousel.querySelectorAll('[data-card]'));
-    const previous = document.querySelector('.carousel-button--prev');
-    const next = document.querySelector('.carousel-button--next');
-    let activeIndex = 0;
+      const cards = Array.from(stage.querySelectorAll('[data-depth-card]'));
+      const section = stage.closest('.doctors-section');
+      const previous = section?.querySelector('.carousel-button--prev');
+      const next = section?.querySelector('.carousel-button--next');
+      const indexLabel = section?.querySelector('.carousel-index');
+      let activeIndex = 0;
+      let pointerStartX = 0;
+      let pointerStartY = 0;
 
-    const render = () => {
-      cards.forEach((card, index) => {
-        const offset = (index - activeIndex + cards.length) % cards.length;
-        card.classList.toggle('is-active', offset === 0);
-        card.classList.toggle('is-right-one', offset === 1);
-        card.classList.toggle('is-right-two', offset === 2);
+      const render = () => {
+        cards.forEach((card, index) => {
+          const offset = (index - activeIndex + cards.length) % cards.length;
+          card.dataset.position = String(offset);
+          card.classList.toggle('is-active', offset === 0);
+          card.setAttribute('aria-hidden', offset === 0 ? 'false' : 'true');
+        });
+
+        if (indexLabel) indexLabel.textContent = `${String(activeIndex + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')}`;
+      };
+
+      const go = (direction) => {
+        activeIndex = (activeIndex + direction + cards.length) % cards.length;
+        render();
+      };
+
+      previous?.addEventListener('click', () => go(-1));
+      next?.addEventListener('click', () => go(1));
+
+      stage.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          go(-1);
+        }
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          go(1);
+        }
       });
-    };
 
-    previous?.addEventListener('click', () => {
-      activeIndex = (activeIndex - 1 + cards.length) % cards.length;
+      stage.addEventListener('pointerdown', (event) => {
+        pointerStartX = event.clientX;
+        pointerStartY = event.clientY;
+        stage.setPointerCapture?.(event.pointerId);
+      });
+
+      stage.addEventListener('pointerup', (event) => {
+        const dx = event.clientX - pointerStartX;
+        const dy = event.clientY - pointerStartY;
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1);
+      });
+
+      cards.forEach((card, index) => {
+        card.addEventListener('click', () => {
+          const offset = (index - activeIndex + cards.length) % cards.length;
+          if (offset !== 0) {
+            activeIndex = index;
+            render();
+          }
+        });
+      });
+
       render();
     });
-
-    next?.addEventListener('click', () => {
-      activeIndex = (activeIndex + 1) % cards.length;
-      render();
-    });
-
-    render();
   };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initDoctorCarousel, { once: true });
+    document.addEventListener('DOMContentLoaded', initDepthDoctorCarousel, { once: true });
   } else {
-    initDoctorCarousel();
+    initDepthDoctorCarousel();
   }
 </script>
 
@@ -169,14 +225,7 @@ const doctors = [
 
   .trust-message strong { color: #111820; font-weight: 700; }
 
-  .decor {
-    position: absolute;
-    width: 44px;
-    height: 44px;
-    border-radius: 11px;
-    background: rgba(255,255,255,.6);
-  }
-
+  .decor { position: absolute; width: 44px; height: 44px; border-radius: 11px; background: rgba(255,255,255,.6); }
   .decor-left { left: 4.7%; top: 25%; }
   .decor-right { right: 4.7%; top: 30%; }
 
@@ -209,26 +258,8 @@ const doctors = [
     z-index: 3;
   }
 
-  .trust-brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: #a0adbf;
-    font-size: 10px;
-    letter-spacing: .12em;
-    white-space: nowrap;
-  }
-
-  .trust-brand span {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: var(--blue);
-    color: white;
-    font-size: 9px;
-  }
+  .trust-brand { display: inline-flex; align-items: center; gap: 6px; color: #a0adbf; font-size: 10px; letter-spacing: .12em; white-space: nowrap; }
+  .trust-brand span { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: white; font-size: 9px; }
 
   .people-area {
     position: absolute;
@@ -237,14 +268,14 @@ const doctors = [
     bottom: 8.5%;
     height: 43%;
     display: grid;
-    grid-template-columns: 31% 69%;
+    grid-template-columns: 34% 66%;
     align-items: center;
   }
 
   .people-copy {
     position: relative;
     height: 100%;
-    padding-top: 10%;
+    padding-top: 9%;
     box-sizing: border-box;
     z-index: 5;
   }
@@ -262,16 +293,15 @@ const doctors = [
   }
 
   .people-copy h2 strong { font-weight: 700; }
-
   .people-description { margin: 24px 0 0; color: #71839d; font-size: 12px; line-height: 1.45; }
 
-  .carousel-controls { display: flex; gap: 13px; margin-top: 58px; }
+  .carousel-controls { display: flex; align-items: center; gap: 12px; margin-top: 48px; }
 
   .carousel-button {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    border: 1px solid var(--blue);
+    border: 1px solid rgba(40,120,237,.45);
     display: grid;
     place-items: center;
     padding: 0;
@@ -280,128 +310,173 @@ const doctors = [
     transition: transform .25s ease, background .25s ease, color .25s ease;
   }
 
-  .carousel-button--prev { background: transparent; color: var(--blue); }
+  .carousel-button--prev { background: rgba(255,255,255,.65); color: var(--blue); }
   .carousel-button--next { background: var(--blue); color: white; }
   .carousel-button:hover { transform: translateY(-2px); }
 
-  .doctor-carousel { position: relative; height: 100%; overflow: visible; }
+  .carousel-index { color: #8a9bb1; font-size: 10px; letter-spacing: .12em; min-width: 48px; text-align: center; }
 
-  .doctor-card {
+  .depth-stage {
+    position: relative;
+    height: 100%;
+    min-width: 0;
+    perspective: 1400px;
+    outline: none;
+    touch-action: pan-y;
+    cursor: grab;
+  }
+
+  .depth-stage:active { cursor: grabbing; }
+
+  .depth-rail {
     position: absolute;
     top: 0;
-    width: 29.5%;
+    right: 1%;
+    width: min(100%, 620px);
     height: 100%;
-    border-radius: 13px;
+    transform-style: preserve-3d;
+  }
+
+  .depth-card {
+    --card-w: clamp(220px, 20vw, 300px);
+    --card-h: clamp(290px, 31vw, 380px);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: var(--card-w);
+    height: var(--card-h);
+    border-radius: 18px;
     overflow: hidden;
-    background: #fff;
-    border: 1px solid rgba(255,255,255,.8);
-    box-shadow: 0 8px 28px rgba(66,91,129,.06);
-    transition: left .55s cubic-bezier(.22,1,.36,1), background .45s ease, color .35s ease, transform .55s cubic-bezier(.22,1,.36,1);
-  }
-
-  .doctor-card.is-active { left: 0; background: linear-gradient(160deg, #2778f1 0%, #1f68df 100%); color: white; z-index: 3; }
-  .doctor-card.is-right-one { left: 31.5%; z-index: 2; }
-  .doctor-card.is-right-two { left: 63%; z-index: 1; }
-
-  .doctor-image {
-    position: absolute;
-    inset: 0 0 25% 0;
-    display: grid;
-    place-items: center;
-    color: rgba(91,108,132,.35);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-    background: rgba(255,255,255,.48);
-  }
-
-  .is-active .doctor-image {
-    background: radial-gradient(circle at 70% 20%, rgba(255,255,255,.2), transparent 34%), linear-gradient(160deg, rgba(255,255,255,.08), rgba(0,54,170,.12));
-    color: rgba(255,255,255,.55);
-  }
-
-  .experience-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 39px;
-    height: 39px;
-    border-radius: 7px;
-    background: rgba(255,255,255,.9);
-    color: #26344b;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    font-size: 7px;
-    line-height: 1.05;
-  }
-
-  .experience-badge strong { font-size: 8px; }
-
-  .doctor-info {
-    position: absolute;
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    min-height: 26%;
-    border-radius: 10px;
-    background: rgba(255,255,255,.96);
-    color: #18243a;
-    padding: 12px 36px 9px 12px;
-    box-sizing: border-box;
-  }
-
-  .doctor-info h3 { margin: 0 0 3px; font-family: var(--font-display); font-size: clamp(14px, 1.2vw, 18px); line-height: 1.05; letter-spacing: -.035em; }
-  .doctor-info p, .doctor-info small { display: block; margin: 0; color: #65758d; font-size: 8px; line-height: 1.25; }
-  .doctor-info small { margin-top: 2px; }
-
-  .card-arrow {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    width: 23px;
-    height: 23px;
-    border-radius: 50%;
+    transform-origin: 50% 50%;
     background: white;
-    color: var(--blue);
+    border: 1px solid rgba(255,255,255,.95);
+    box-shadow: 0 24px 55px rgba(55,79,116,.16);
+    transform: translate3d(var(--x, 0px), -50%, var(--z, 0px)) rotateY(var(--ry, 0deg)) scale(var(--scale, 1));
+    opacity: var(--opacity, 1);
+    filter: blur(var(--blur, 0px));
+    transition: transform .7s cubic-bezier(.22,1,.36,1), opacity .7s ease, filter .7s ease, box-shadow .7s ease;
+    transform-style: preserve-3d;
+    cursor: pointer;
+  }
+
+  .depth-card[data-position="0"] { --x: 0px; --z: 0px; --ry: 0deg; --scale: 1; --opacity: 1; --blur: 0px; z-index: 5; }
+  .depth-card[data-position="1"] { --x: 82px; --z: -220px; --ry: 22deg; --scale: .91; --opacity: .82; --blur: 1px; z-index: 4; }
+  .depth-card[data-position="2"] { --x: 154px; --z: -440px; --ry: 22deg; --scale: .82; --opacity: .58; --blur: 3px; z-index: 3; }
+  .depth-card[data-position="3"] { --x: 210px; --z: -660px; --ry: 22deg; --scale: .74; --opacity: .28; --blur: 6px; z-index: 2; }
+
+  .depth-card:not([data-position]) { opacity: 0; }
+
+  .depth-card.is-active { box-shadow: 0 28px 65px rgba(45,77,132,.2); }
+
+  .depth-photo {
+    position: absolute;
+    inset: 0 0 31% 0;
     display: grid;
     place-items: center;
-    font-size: 13px;
+    overflow: hidden;
+    background: linear-gradient(145deg, #e6efff 0%, #f9fbff 52%, #d9e7fb 100%);
   }
 
-  @media (max-width: 900px) {
-    .trust-area { height: 43%; }
-    .trust-message { font-size: clamp(28px, 5vw, 44px); }
-    .trust-image { right: 12%; }
-    .people-area { grid-template-columns: 34% 66%; bottom: 7%; height: 45%; }
-    .people-copy h2 { font-size: clamp(34px, 5.3vw, 52px); }
-    .doctor-card { width: 30%; }
-    .doctor-card.is-right-one { left: 34%; }
-    .doctor-card.is-right-two { left: 68%; }
-    .people-description { font-size: 11px; }
+  .doctor-tone-two .depth-photo { background: linear-gradient(145deg, #edf4ff 0%, #e4edfb 50%, #cfdff6 100%); }
+  .doctor-tone-three .depth-photo { background: linear-gradient(145deg, #f2f7ff 0%, #e5efff 48%, #d5e4f8 100%); }
+
+  .portrait-placeholder { position: relative; width: 66%; height: 86%; opacity: .72; }
+  .portrait-head { position: absolute; width: 31%; aspect-ratio: 1; left: 35%; top: 9%; border-radius: 50%; background: linear-gradient(145deg,#aabbd0,#8095af); }
+  .portrait-body { position: absolute; left: 20%; right: 20%; bottom: 0; height: 68%; border-radius: 45% 45% 14% 14%; background: linear-gradient(145deg,#f7fbff,#d6e4f5); box-shadow: inset 0 0 0 1px rgba(76,111,151,.08); }
+  .portrait-body::before { content: ''; position: absolute; left: 44%; top: 7%; width: 1px; height: 85%; background: rgba(50,92,140,.16); }
+
+  .photo-label { position: absolute; left: 14px; top: 14px; padding: 7px 9px; border-radius: 999px; background: rgba(255,255,255,.7); backdrop-filter: blur(10px); color: #72839a; font-size: 7px; letter-spacing: .12em; text-transform: uppercase; }
+
+  .depth-card-info {
+    position: absolute;
+    left: 9px;
+    right: 9px;
+    bottom: 9px;
+    min-height: 27%;
+    padding: 11px 13px;
+    box-sizing: border-box;
+    border-radius: 11px;
+    background: rgba(255,255,255,.97);
   }
 
-  @media (max-width: 640px) {
-    .doctors-section { min-height: 100svh; height: auto; overflow: hidden; }
-    .trust-area { height: 43svh; min-height: 330px; }
-    .trust-message { font-size: clamp(25px, 7.5vw, 36px); }
+  .depth-card-number { display: block; color: #9bbff9; font-size: 9px; letter-spacing: .1em; margin-bottom: 4px; }
+  .depth-card-info h3 { margin: 0 0 4px; color: #142035; font-family: var(--font-display); font-size: clamp(15px, 1.3vw, 19px); line-height: 1.05; letter-spacing: -.035em; }
+  .depth-card-info p, .depth-card-info small { display: block; margin: 0; color: #6d7d94; font-size: 8px; line-height: 1.3; }
+  .depth-card-info small { margin-top: 3px; color: #8a99ac; }
+
+  .depth-hint { position: absolute; right: 2%; bottom: -1px; color: #9aabc0; font-size: 8px; letter-spacing: .1em; text-transform: uppercase; opacity: .8; }
+
+  @media (max-width: 1100px) {
+    .people-area { grid-template-columns: 38% 62%; }
+    .depth-rail { right: 0; }
+    .depth-card { --card-w: clamp(210px, 21vw, 280px); --card-h: clamp(275px, 30vw, 350px); }
+    .depth-card[data-position="1"] { --x: 68px; }
+    .depth-card[data-position="2"] { --x: 125px; }
+    .depth-card[data-position="3"] { --x: 170px; }
+  }
+
+  @media (max-width: 760px) {
+    .doctors-section { min-height: auto; height: auto; overflow: hidden; }
+    .trust-area { height: 42svh; min-height: 320px; }
+    .trust-message { font-size: clamp(25px, 7.5vw, 36px); padding: 0 8%; }
     .trust-message br { display: none; }
     .trust-image { width: 76px; height: 58px; right: 8%; top: 49%; }
-    .trust-appointment { top: 73%; gap: 10px; }
+    .trust-appointment { top: 72%; gap: 10px; }
     .trust-brand { display: none; }
-    .people-area { position: relative; inset: auto; height: 57svh; min-height: 420px; padding: 0 6%; display: block; }
-    .people-copy { height: 35%; padding-top: 4%; }
-    .people-copy h2 { font-size: clamp(38px, 12vw, 58px); }
-    .people-description { margin-top: 14px; }
-    .carousel-controls { margin-top: 18px; }
-    .doctor-carousel { position: absolute; left: 6%; right: 6%; bottom: 6%; height: 58%; }
-    .doctor-card { width: 58%; height: 100%; }
-    .doctor-card.is-active { left: 0; }
-    .doctor-card.is-right-one { left: 62%; }
-    .doctor-card.is-right-two { left: 124%; }
+
+    .people-area {
+      position: relative;
+      inset: auto;
+      height: auto;
+      min-height: 680px;
+      padding: 58px 6% 72px;
+      display: block;
+      box-sizing: border-box;
+    }
+
+    .people-copy { height: auto; padding-top: 0; }
+    .people-copy h2 { font-size: clamp(42px, 12vw, 62px); line-height: .92; }
+    .people-description { margin-top: 17px; max-width: 330px; }
+    .desktop-break { display: none; }
+    .carousel-controls { margin-top: 22px; }
+
+    .depth-stage {
+      height: 410px;
+      margin-top: 28px;
+      width: 100%;
+      overflow: visible;
+    }
+
+    .depth-rail {
+      left: 0;
+      right: auto;
+      width: 100%;
+      height: 100%;
+    }
+
+    .depth-card {
+      --card-w: min(66vw, 280px);
+      --card-h: min(86vw, 360px);
+      left: 8%;
+      top: 50%;
+    }
+
+    .depth-card[data-position="1"] { --x: 72px; --z: -170px; --ry: 20deg; --scale: .9; }
+    .depth-card[data-position="2"] { --x: 125px; --z: -330px; --ry: 20deg; --scale: .8; }
+    .depth-card[data-position="3"] { --x: 165px; --z: -490px; --ry: 20deg; --scale: .72; }
+    .depth-hint { right: 5%; bottom: 0; }
+  }
+
+  @media (max-width: 430px) {
+    .people-area { min-height: 635px; padding-top: 48px; }
+    .depth-stage { height: 375px; margin-top: 24px; }
+    .depth-card { --card-w: min(69vw, 265px); --card-h: min(91vw, 345px); left: 5%; }
+    .depth-card[data-position="1"] { --x: 55px; --z: -145px; }
+    .depth-card[data-position="2"] { --x: 100px; --z: -285px; }
+    .depth-card[data-position="3"] { --x: 135px; --z: -425px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .doctor-card, .carousel-button { transition: none; }
+    .depth-card, .carousel-button { transition: none; }
   }
 </style>
