@@ -17,7 +17,6 @@
   --type-hero-desktop: 80px;
 }
 
-/* Global reading defaults */
 body,
 button,
 input,
@@ -68,7 +67,7 @@ select { font-family: var(--font-body) !important; }
 /* SECTION 2 — hospital introduction */
 .section-two__text-reveal h2 {
   font-family: var(--font-display) !important;
-  font-size: clamp(36px, 3.5vw, 56px) !important;
+  font-size: clamp(36px, 3.5vw, var(--type-section-desktop)) !important;
   font-weight: 500 !important;
   line-height: 1.12 !important;
   letter-spacing: -.045em !important;
