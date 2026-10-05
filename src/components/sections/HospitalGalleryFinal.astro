@@ -12,10 +12,6 @@ const items = [
   { src:'/assets/gallery/10-laboratory.webp', alt:'Modern clinical laboratory at Siddaganga Hospital', title:'Laboratory', subtitle:'Accurate diagnosis, better decisions' },
 ];
 const count = items.length;
-const cardWidth = 320;
-const cardHeight = 240;
-const gap = 28;
-const radius = 540;
 ---
 
 <section class="gallery-section" id="gallery" aria-labelledby="gallery-title">
@@ -28,18 +24,16 @@ const radius = 540;
 
     <div class="panorama" data-panorama tabindex="0" role="region" aria-roledescription="carousel" aria-label="Siddaganga Hospital gallery">
       <div class="panorama-viewport">
-        <div class="panorama-world">
-          <div class="panorama-ring">
-            {items.map((item, index) => (
-              <article class="panorama-card" data-index={index}>
-                <button class="panorama-card-button" type="button" aria-label={`Focus ${item.title}`}>
-                  <span class="panorama-frame">
-                    <img src={item.src} alt={item.alt} loading={index < 4 ? 'eager' : 'lazy'} decoding="async" draggable="false" />
-                  </span>
-                </button>
-              </article>
-            ))}
-          </div>
+        <div class="panorama-track">
+          {items.map((item, index) => (
+            <article class="panorama-card" data-index={index}>
+              <button class="panorama-card-button" type="button" aria-label={`Focus ${item.title}`}>
+                <span class="panorama-frame">
+                  <img src={item.src} alt={item.alt} loading={index < 5 ? 'eager' : 'lazy'} decoding="async" draggable="false" />
+                </span>
+              </button>
+            </article>
+          ))}
         </div>
       </div>
 
@@ -67,39 +61,83 @@ const radius = 540;
 <script>
   const initPanorama = () => {
     const root = document.querySelector('[data-panorama]');
-    if (!root || root.dataset.readyInit) return;
-    root.dataset.readyInit = 'true';
+    if (!root || root.dataset.initialized) return;
+    root.dataset.initialized = 'true';
 
-    const ring = root.querySelector('.panorama-ring');
+    const track = root.querySelector('.panorama-track');
     const cards = [...root.querySelectorAll('.panorama-card')];
     const title = root.querySelector('[data-title]');
     const subtitle = root.querySelector('[data-subtitle]');
     const current = root.querySelector('[data-current]');
-    const step = 360 / cards.length;
+    const count = cards.length;
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const state = { angle: 0, target: null, velocity: 0, active: 0, dragging: false, pointerId: null, startX: 0, startAngle: 0, lastX: 0, lastTime: 0, hover: false, raf: 0, lastFrame: 0 };
 
-    const wrap = value => ((value + 180) % 360 + 360) % 360 - 180;
-    const focus = index => {
-      const desired = -index * step;
-      state.target = desired + 360 * Math.round((state.angle - desired) / 360);
-      wake();
+    const state = {
+      active: 0,
+      position: 0,
+      velocity: 0,
+      target: null,
+      dragging: false,
+      pointerId: null,
+      startX: 0,
+      startPosition: 0,
+      lastX: 0,
+      lastTime: 0,
+      hover: false,
+      raf: 0,
+      lastFrame: 0
+    };
+
+    const wrapIndex = index => ((index % count) + count) % count;
+    const shortestOffset = (index, active) => {
+      let offset = index - active;
+      if (offset > count / 2) offset -= count;
+      if (offset < -count / 2) offset += count;
+      return offset;
+    };
+
+    const updateCaption = index => {
+      const item = cards[index];
+      title.textContent = item.dataset.title || item.querySelector('img').alt;
+      subtitle.textContent = item.dataset.subtitle || '';
+      current.textContent = String(index + 1).padStart(2, '0');
     };
 
     const render = () => {
-      ring.style.transform = `rotateY(${state.angle}deg)`;
-      const active = ((Math.round(-state.angle / step) % cards.length) + cards.length) % cards.length;
-      if (active !== state.active) {
-        state.active = active;
-        current.textContent = String(active + 1).padStart(2, '0');
-        title.textContent = cards[active].querySelector('img').alt.replace(/^Modern |^Bright |^Wide view of |^Siddaganga Hospital /, '').replace(/ entrance.*$/i, ' entrance');
-        const subtitles = [
-          'A welcoming first impression','Built for better health','A place for better care','Care starts here','Calm. Clear. Considered.',
-          'Comfort built into care','Ready when it matters','Care beyond the doors','Technology with precision','Accurate diagnosis, better decisions'
-        ];
-        subtitle.textContent = subtitles[active];
-      }
+      const nearest = Math.round(state.position);
+      state.active = wrapIndex(nearest);
+
+      cards.forEach((card, index) => {
+        const offset = shortestOffset(index, state.active) - (state.position - nearest);
+        const abs = Math.abs(offset);
+        const visible = abs <= 4.25;
+        const x = offset * 300;
+        const y = Math.min(abs * abs * 2.1, 34);
+        const rotate = offset * -9;
+        const z = -abs * 48;
+        const scale = 1 - Math.min(abs * 0.055, 0.22);
+        const opacity = 1 - Math.min(abs * 0.14, 0.62);
+
+        card.style.transform = `translate3d(calc(-50% + ${x}px), calc(-50% + ${y}px), ${z}px) rotateY(${rotate}deg) scale(${scale})`;
+        card.style.opacity = visible ? String(opacity) : '0';
+        card.style.pointerEvents = visible ? 'auto' : 'none';
+        card.style.zIndex = String(100 - Math.round(abs * 10));
+      });
+
+      updateCaption(state.active);
     };
+
+    const snapTo = index => {
+      const currentIndex = wrapIndex(Math.round(state.position));
+      let delta = index - currentIndex;
+      if (delta > count / 2) delta -= count;
+      if (delta < -count / 2) delta += count;
+      state.target = state.position + delta;
+      state.velocity = 0;
+      wake();
+    };
+
+    const stepBy = direction => snapTo(wrapIndex(state.active + direction));
 
     const tick = now => {
       state.raf = 0;
@@ -107,32 +145,44 @@ const radius = 540;
       state.lastFrame = now;
 
       if (state.target !== null) {
-        const difference = state.target - state.angle;
-        state.velocity += (difference * 95 - state.velocity * 16) * dt;
-        state.angle += state.velocity * dt;
-        if (Math.abs(difference) < 0.05 && Math.abs(state.velocity) < 0.08) {
-          state.angle = state.target;
+        const diff = state.target - state.position;
+        state.velocity += (diff * 75 - state.velocity * 15) * dt;
+        state.position += state.velocity * dt;
+
+        if (Math.abs(diff) < 0.002 && Math.abs(state.velocity) < 0.01) {
+          state.position = state.target;
           state.target = null;
           state.velocity = 0;
         }
       } else if (!state.dragging && !state.hover && !reduced) {
-        state.angle -= 3.2 * dt;
+        state.velocity += (-0.055 - state.velocity) * (1 - Math.exp(-dt / 1.8));
+        state.position += state.velocity * dt;
       } else if (!state.dragging) {
         state.velocity *= Math.exp(-8 * dt);
-        state.angle += state.velocity * dt;
+        state.position += state.velocity * dt;
       }
 
       render();
-      if (state.target !== null || state.dragging || (!state.hover && !reduced)) wake();
-      else state.lastFrame = 0;
+
+      if (state.target !== null || state.dragging || (!state.hover && !reduced)) {
+        state.raf = requestAnimationFrame(tick);
+      } else {
+        state.lastFrame = 0;
+      }
     };
 
     const wake = () => {
       if (!state.raf) state.raf = requestAnimationFrame(tick);
     };
 
-    root.addEventListener('mouseenter', () => { state.hover = true; });
-    root.addEventListener('mouseleave', () => { state.hover = false; wake(); });
+    root.addEventListener('mouseenter', () => {
+      state.hover = true;
+    });
+
+    root.addEventListener('mouseleave', () => {
+      state.hover = false;
+      wake();
+    });
 
     root.addEventListener('pointerdown', event => {
       if (event.button !== 0) return;
@@ -140,7 +190,7 @@ const radius = 540;
       state.pointerId = event.pointerId;
       state.startX = event.clientX;
       state.lastX = event.clientX;
-      state.startAngle = state.angle;
+      state.startPosition = state.position;
       state.lastTime = performance.now();
       state.target = null;
       root.setPointerCapture(event.pointerId);
@@ -151,9 +201,8 @@ const radius = 540;
       if (!state.dragging || event.pointerId !== state.pointerId) return;
       const now = performance.now();
       const dx = event.clientX - state.startX;
-      const scale = 180 / (Math.PI * radius);
-      state.angle = state.startAngle + dx * scale;
-      state.velocity = (event.clientX - state.lastX) * scale / Math.max((now - state.lastTime) / 1000, 0.016);
+      state.position = state.startPosition - dx / 300;
+      state.velocity = -(event.clientX - state.lastX) / 300 / Math.max((now - state.lastTime) / 1000, 0.016);
       state.lastX = event.clientX;
       state.lastTime = now;
       render();
@@ -163,7 +212,7 @@ const radius = 540;
       if (!state.dragging || event.pointerId !== state.pointerId) return;
       state.dragging = false;
       state.pointerId = null;
-      state.target = Math.round((state.angle + state.velocity * 0.08) / step) * step;
+      state.target = Math.round(state.position + state.velocity * 0.08);
       wake();
     };
 
@@ -171,19 +220,35 @@ const radius = 540;
     root.addEventListener('pointercancel', release);
 
     cards.forEach((card, index) => {
+      card.dataset.title = card.querySelector('button').getAttribute('aria-label')?.replace(/^Focus /, '') || '';
+      card.dataset.subtitle = [
+        'A welcoming first impression','Built for better health','A place for better care','Care starts here','Calm. Clear. Considered.',
+        'Comfort built into care','Ready when it matters','Care beyond the doors','Technology with precision','Accurate diagnosis, better decisions'
+      ][index];
+
       card.querySelector('button').addEventListener('click', event => {
         event.stopPropagation();
-        if (Math.abs(state.velocity) > 0.5) return;
-        focus(index);
+        snapTo(index);
       });
     });
 
-    root.querySelector('[data-prev]').addEventListener('click', () => focus((state.active - 1 + cards.length) % cards.length));
-    root.querySelector('[data-next]').addEventListener('click', () => focus((state.active + 1) % cards.length));
+    root.querySelector('[data-prev]')?.addEventListener('click', () => stepBy(-1));
+    root.querySelector('[data-next]')?.addEventListener('click', () => stepBy(1));
 
     root.addEventListener('keydown', event => {
-      if (event.key === 'ArrowLeft') { event.preventDefault(); focus((state.active - 1 + cards.length) % cards.length); }
-      if (event.key === 'ArrowRight') { event.preventDefault(); focus((state.active + 1) % cards.length); }
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        stepBy(-1);
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        stepBy(1);
+      } else if (event.key === 'Home') {
+        event.preventDefault();
+        snapTo(0);
+      } else if (event.key === 'End') {
+        event.preventDefault();
+        snapTo(count - 1);
+      }
     });
 
     render();
@@ -204,32 +269,39 @@ const radius = 540;
   .gallery-description{margin:22px 0 0;color:var(--muted);font-size:12px;line-height:1.45}
 
   .panorama{position:absolute;inset:4% 2.5% 5% 27%;overflow:hidden;outline:none;touch-action:pan-y;user-select:none;-webkit-user-select:none}
-  .panorama-viewport{position:absolute;inset:7% 0 22%;display:flex;align-items:center;justify-content:center;perspective:1050px;perspective-origin:50% 50%;overflow:hidden}
-  .panorama-world{position:relative;width:0;height:0;transform-style:preserve-3d}
-  .panorama-ring{position:relative;width:0;height:0;transform-style:preserve-3d;will-change:transform}
-  .panorama-card{position:absolute;left:-160px;top:-120px;width:320px;height:240px;transform:rotateY(0deg) translateZ(540px);transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .panorama-viewport{position:absolute;inset:14% 0 23%;display:flex;align-items:center;justify-content:center;perspective:1400px;perspective-origin:50% 48%;overflow:hidden}
+  .panorama-track{position:relative;width:100%;height:100%;transform-style:preserve-3d;will-change:transform}
+
+  .panorama-card{position:absolute;left:50%;top:50%;width:320px;height:240px;transform-origin:center center;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform,opacity}
   .panorama-card-button{display:block;width:100%;height:100%;padding:0;border:0;background:none;cursor:pointer;transform-style:preserve-3d}
-  .panorama-frame{display:block;width:320px;height:240px;overflow:hidden;border-radius:16px;background:#dbe8f7;box-shadow:0 24px 70px rgba(26,57,100,.15);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .panorama-frame{display:block;position:relative;width:320px;height:240px;overflow:hidden;border-radius:16px;background:#dbe8f7;box-shadow:0 22px 55px rgba(26,57,100,.14);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+  .panorama-frame::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.55);border-radius:inherit;pointer-events:none}
   .panorama-frame img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;border:0;pointer-events:none;user-select:none;-webkit-user-drag:none}
-  .panorama-frame::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.48);border-radius:16px;pointer-events:none}
-  .panorama-hint{position:absolute;right:4%;top:7%;margin:0;color:#91a2ba;font-size:10px;letter-spacing:.08em;z-index:10}
-  .gallery-caption{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:20;white-space:nowrap}
+
+  .panorama-hint{position:absolute;right:4%;top:7%;margin:0;color:#91a2ba;font-size:10px;letter-spacing:.08em;z-index:30}
+  .gallery-caption{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:30;white-space:nowrap}
   .gallery-caption__title{font-size:22px;letter-spacing:-.04em;color:#111a2b}
   .gallery-caption__subtitle{font-size:11px;color:#8a9ab0}
   .gallery-caption__count{font-size:10px;color:#9aa9bd;letter-spacing:.1em}
   .gallery-caption__count i{font-style:normal;margin:0 7px}
-  .gallery-controls{position:absolute;right:7%;bottom:5.5%;display:flex;gap:12px;z-index:30}
+  .gallery-controls{position:absolute;right:7%;bottom:5.5%;display:flex;gap:12px;z-index:40}
   .gallery-controls button{width:40px;height:40px;border-radius:50%;border:1px solid #2878ed;background:transparent;color:#2878ed;font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center}
   .gallery-controls button:last-child{background:#2878ed;color:#fff}
-  .gallery-meta{position:absolute;left:5.5%;right:5.5%;bottom:5.5%;display:flex;justify-content:space-between;color:#a0aec0;font-size:9px;letter-spacing:.12em;z-index:20}
+  .gallery-meta{position:absolute;left:5.5%;right:5.5%;bottom:5.5%;display:flex;justify-content:space-between;color:#a0aec0;font-size:9px;letter-spacing:.12em;z-index:30}
+
+  @media(max-width:1100px){
+    .panorama{inset-left:24%}
+    .panorama-card{width:280px;height:210px}
+    .panorama-frame{width:280px;height:210px}
+  }
 
   @media(max-width:900px){
     .gallery-section{min-height:760px}
     .gallery-heading{left:7%;top:8%}
     .panorama{inset:25% 3% 8% 3%}
     .panorama-hint{top:2%;right:4%}
-    .panorama-viewport{inset:5% 0 25%;perspective:850px}
-    .panorama-card{left:-135px;top:-101px;width:270px;height:202px}
+    .panorama-viewport{inset:5% 0 25%;perspective:1000px}
+    .panorama-card{width:270px;height:202px}
     .panorama-frame{width:270px;height:202px}
     .gallery-caption{bottom:7%}
     .gallery-meta{left:7%;right:7%}
@@ -239,8 +311,8 @@ const radius = 540;
     .gallery-heading h2{font-size:48px}
     .gallery-description{font-size:11px}
     .panorama{inset:26% 0 7% 0}
-    .panorama-viewport{perspective:700px}
-    .panorama-card{left:-115px;top:-86px;width:230px;height:172px}
+    .panorama-viewport{perspective:800px}
+    .panorama-card{width:230px;height:172px}
     .panorama-frame{width:230px;height:172px;border-radius:13px}
     .gallery-caption__title{font-size:18px}
     .gallery-controls{right:7%;bottom:4%}
