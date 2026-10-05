@@ -1,0 +1,74 @@
+---
+interface Props {
+  className?: string;
+  angle?: number;
+  cellSize?: number;
+  opacity?: number;
+  lightLineColor?: string;
+  darkLineColor?: string;
+}
+
+const {
+  className = '',
+  angle = 65,
+  cellSize = 60,
+  opacity = 0.5,
+  lightLineColor = 'rgba(23, 100, 245, 0.16)',
+  darkLineColor = 'rgba(255, 255, 255, 0.14)',
+} = Astro.props;
+
+const encodedLight = encodeURIComponent(lightLineColor);
+const encodedDark = encodeURIComponent(darkLineColor);
+---
+<div
+  class={`retro-grid ${className}`}
+  aria-hidden="true"
+  style={`--retro-angle:${angle}deg;--retro-cell:${cellSize}px;--retro-opacity:${opacity};--retro-light:${encodedLight};--retro-dark:${encodedDark};`}
+>
+  <div class="retro-grid__plane"></div>
+</div>
+
+<style>
+  .retro-grid {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: var(--retro-opacity);
+    z-index: 0;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%);
+  }
+
+  .retro-grid__plane {
+    position: absolute;
+    left: -25%;
+    top: 12%;
+    width: 150%;
+    height: 125%;
+    transform: perspective(700px) rotateX(var(--retro-angle)) scale(1.25);
+    transform-origin: 50% 0;
+    background-image:
+      linear-gradient(to right, var(--retro-light) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--retro-light) 1px, transparent 1px);
+    background-size: var(--retro-cell) var(--retro-cell);
+    animation: retro-grid-drift 10s linear infinite;
+  }
+
+  @keyframes retro-grid-drift {
+    from { background-position: 0 0, 0 0; }
+    to { background-position: 0 var(--retro-cell), 0 var(--retro-cell); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .retro-grid__plane { animation: none; }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .retro-grid__plane {
+      background-image:
+        linear-gradient(to right, var(--retro-dark) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--retro-dark) 1px, transparent 1px);
+    }
+  }
+</style>
