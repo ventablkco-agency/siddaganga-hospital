@@ -101,8 +101,9 @@ const essentialServices = [
 .services-header h2{margin:0;max-width:900px;color:#152944;font-family:var(--font-display);font-size:clamp(38px,3.5vw,60px);font-weight:500;line-height:1.16;letter-spacing:-.047em}.services-header h2 strong{color:#1973e8;font-weight:600}
 .services-header-side{justify-self:end;max-width:370px;padding-bottom:3px}.services-header-side p{margin:0 0 14px;color:#687991;font-size:13px;line-height:1.55}.services-view-link{color:#2878ee;font-size:11px;font-weight:650;text-decoration:underline;text-underline-offset:3px}
 .services-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;position:relative;z-index:1}
-.service-card{min-height:236px;padding:17px 18px 16px;display:flex;flex-direction:column;border:1px solid rgba(67,105,156,.10);border-radius:17px;background:#fff;color:#172b4d;box-shadow:0 8px 28px rgba(47,82,129,.045);transition:transform .3s ease,box-shadow .3s ease,background .3s ease,color .3s ease,border-color .3s ease;position:relative;overflow:hidden}
-.service-card:hover{transform:translateY(-3px);border-color:#2878ee;background:#fff;color:#172b4d;box-shadow:0 20px 42px rgba(40,120,238,.18)}
+.service-card{min-height:236px;padding:17px 18px 16px;display:flex;flex-direction:column;border:1px solid rgba(67,105,156,.10);border-radius:17px;background:#fff !important;background-image:none !important;color:#172b4d !important;box-shadow:0 8px 28px rgba(47,82,129,.045);transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;position:relative;overflow:hidden}
+.service-card:hover,.service-card:focus-within{transform:translateY(-3px);border-color:#2878ee;background:#fff !important;background-image:none !important;color:#172b4d !important;box-shadow:0 20px 42px rgba(40,120,238,.14)}
+.service-card::before,.service-card::after{content:none !important;display:none !important}
 .service-image-wrap{position:absolute;z-index:0;right:0;top:0;width:58%;height:100%;overflow:hidden;border-radius:0 16px 16px 0;pointer-events:none}
 .service-image-wrap:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.96) 6%,rgba(255,255,255,.66) 20%,rgba(255,255,255,.16) 45%,rgba(255,255,255,0) 72%)}
 .service-image{width:100%;height:100%;display:block;object-fit:cover;object-position:center;image-rendering:auto}
