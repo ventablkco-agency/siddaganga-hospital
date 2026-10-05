@@ -16,14 +16,12 @@ const {
   lightLineColor = 'rgba(23, 100, 245, 0.16)',
   darkLineColor = 'rgba(255, 255, 255, 0.14)',
 } = Astro.props;
-
-const encodedLight = encodeURIComponent(lightLineColor);
-const encodedDark = encodeURIComponent(darkLineColor);
 ---
 <div
   class={`retro-grid ${className}`}
   aria-hidden="true"
-  style={`--retro-angle:${angle}deg;--retro-cell:${cellSize}px;--retro-opacity:${opacity};--retro-light:${encodedLight};--retro-dark:${encodedDark};`}
+  data-dark-line-color={darkLineColor}
+  style={`--retro-angle:${angle}deg;--retro-cell:${cellSize}px;--retro-opacity:${opacity};--retro-light:${lightLineColor};--retro-dark:${darkLineColor};`}
 >
   <div class="retro-grid__plane"></div>
 </div>
@@ -36,16 +34,17 @@ const encodedDark = encodeURIComponent(darkLineColor);
     pointer-events: none;
     opacity: var(--retro-opacity);
     z-index: 0;
-    mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%);
+    isolation: isolate;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 78%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 78%, transparent 100%);
   }
 
   .retro-grid__plane {
     position: absolute;
     left: -25%;
-    top: 12%;
+    top: 10%;
     width: 150%;
-    height: 125%;
+    height: 135%;
     transform: perspective(700px) rotateX(var(--retro-angle)) scale(1.25);
     transform-origin: 50% 0;
     background-image:
@@ -53,6 +52,7 @@ const encodedDark = encodeURIComponent(darkLineColor);
       linear-gradient(to bottom, var(--retro-light) 1px, transparent 1px);
     background-size: var(--retro-cell) var(--retro-cell);
     animation: retro-grid-drift 10s linear infinite;
+    will-change: background-position;
   }
 
   @keyframes retro-grid-drift {
@@ -61,14 +61,16 @@ const encodedDark = encodeURIComponent(darkLineColor);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .retro-grid__plane { animation: none; }
+    .retro-grid__plane {
+      animation: none;
+    }
   }
 
-  @media (prefers-color-scheme: dark) {
-    .retro-grid__plane {
-      background-image:
-        linear-gradient(to right, var(--retro-dark) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--retro-dark) 1px, transparent 1px);
-    }
+  /* The hospital site is intentionally light-theme. Dark colors are opt-in
+     through an explicit theme attribute instead of the user's OS preference. */
+  [data-theme='dark'] .retro-grid__plane {
+    background-image:
+      linear-gradient(to right, var(--retro-dark) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--retro-dark) 1px, transparent 1px);
   }
 </style>
