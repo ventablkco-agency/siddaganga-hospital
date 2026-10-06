@@ -1,0 +1,144 @@
+/* Homepage responsive system — final pass
+   Preserve desktop compositions; make tablet/mobile intrinsic where content
+   can grow, and prevent accidental horizontal overflow. */
+
+:where(.site-shell__main, .site-shell__main > main, .site-shell__main section) {
+  min-width: 0;
+}
+
+.site-shell__main > main {
+  width: 100%;
+  overflow-x: clip;
+}
+
+@media (max-width: 760px) {
+  .section-two-flow .section-two {
+    min-height: clamp(620px, 88svh, 760px);
+    height: auto !important;
+  }
+
+  .section-two-flow .section-two__card {
+    min-height: 100%;
+  }
+
+  .services-section,
+  .why-section {
+    padding-left: max(8px, env(safe-area-inset-left));
+    padding-right: max(8px, env(safe-area-inset-right));
+  }
+
+  .services-shell,
+  .why-card {
+    width: 100%;
+    max-width: none;
+  }
+
+  .people-area,
+  .depth-stage,
+  .depth-rail,
+  .panorama-carousel,
+  .panorama-stage,
+  .panorama-rail {
+    max-width: 100%;
+  }
+
+  .gallery-section,
+  .gallery-inner,
+  .reviews-section,
+  .reviews-stage {
+    width: 100%;
+    max-width: 100%;
+    min-height: max(720px, 100svh);
+  }
+
+  .featured-review {
+    max-width: calc(100% - 32px);
+  }
+}
+
+@media (max-width: 390px) {
+  .services-shell {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .service-copy { max-width: 60% !important; }
+  .service-image-wrap { width: 50% !important; }
+
+  .essential-item {
+    gap: 7px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+
+  .essential-item strong { font-size: 12px !important; }
+
+  .people-area {
+    padding-left: 4% !important;
+    padding-right: 4% !important;
+  }
+
+  .depth-card { --card-w: min(78vw, 280px) !important; }
+
+  .gallery-inner {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .gallery-heading h2 { font-size: clamp(44px, 14vw, 60px) !important; }
+
+  .reviews-heading {
+    left: 5% !important;
+    right: 5% !important;
+  }
+
+  .reviews-heading p,
+  .reviews-heading h2 { font-size: 28px !important; }
+}
+
+@media (max-width: 340px) {
+  .hero .service-pills { gap: 5px !important; }
+  .hero .service-pills span {
+    min-height: 42px !important;
+    font-size: 10px !important;
+  }
+  .hero .care-panel { gap: 7px !important; }
+  .hero .care-panel__media { flex-basis: 28% !important; }
+}
+
+@media (orientation: landscape) and (max-width: 860px) {
+  .hero .hero__frame {
+    height: clamp(540px, 100svh, 680px) !important;
+    min-height: clamp(540px, 100svh, 680px) !important;
+  }
+
+  .hero .hero-body__copy {
+    top: 74px !important;
+    width: 55% !important;
+  }
+
+  .hero .hero-body__hands .hand--clinician,
+  .hero .hero-body__hands .hand--patient {
+    top: auto !important;
+  }
+
+  .hero .hero-body__hands .hand--clinician { bottom: 30% !important; }
+  .hero .hero-body__hands .hand--patient { bottom: 14% !important; }
+
+  .hero .care-panel {
+    bottom: 64px !important;
+    height: 106px !important;
+  }
+
+  .hero .service-pills { bottom: 10px !important; }
+  .hero .feedback { display: none !important; }
+}
+
+@media (min-width: 761px) and (max-width: 1180px) {
+  .services-section { padding-inline: clamp(14px, 2vw, 24px); }
+  .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .why-card { grid-template-columns: minmax(320px, 40%) minmax(0, 60%); }
+  .gallery-heading { width: min(31vw, 320px); }
+  .panorama-card { width: min(36vw, 360px); }
+  .doctors-section { min-height: 760px; height: auto; }
+}

@@ -15,8 +15,5 @@
     "astro": "^7.3.5",
     "gsap": "^3.13.0",
     "lucide-astro": "^0.556.0"
-  },
-  "allowScripts": {
-    "esbuild": true
   }
 }

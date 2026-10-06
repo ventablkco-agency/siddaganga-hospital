@@ -66,3 +66,49 @@
 }
 
 @media (prefers-reduced-motion:reduce){.hero .hand{animation:none!important}}
+
+/* Final responsive stabilization pass. Desktop geometry is left intact. */
+
+@media (max-width: 860px) {
+  .hero .hero__frame { height: clamp(700px, 100svh, 920px) !important; min-height: clamp(700px, 100svh, 920px) !important; }
+  .hero .hero-body { height: 100% !important; min-height: 0 !important; }
+  .hero .hero-body__copy { top: clamp(92px, 18svh, 154px) !important; left: clamp(24px, 8vw, 42px) !important; width: min(58%, 520px) !important; display:flex !important; flex-direction:column !important; align-items:flex-start !important; }
+  .hero .hero-body__copy .icon-slide-button,
+  .hero .hero-body__copy > a { position:relative !important; top:auto !important; left:auto !important; margin-top:clamp(20px,4vw,30px) !important; }
+  .hero .hero-body__right-copy { top:clamp(92px,18svh,154px) !important; left:65% !important; right:clamp(18px,4vw,40px) !important; width:auto !important; }
+  .hero .hero-body__hands { height:100% !important; }
+  .hero .hero-body__hands .hand--clinician { width:clamp(270px,79vw,660px) !important; right:clamp(-180px,-20vw,-70px) !important; top:clamp(330px,43svh,470px) !important; }
+  .hero .hero-body__hands .hand--patient { width:clamp(285px,84vw,700px) !important; left:clamp(-180px,-20vw,-72px) !important; top:clamp(390px,54svh,575px) !important; }
+  .hero .care-panel { top:auto !important; bottom:clamp(118px,16svh,170px) !important; height:clamp(118px,15%,150px) !important; }
+  .hero .service-pills { top:auto !important; bottom:clamp(48px,7svh,72px) !important; }
+  .hero .feedback { height:auto !important; bottom:10px !important; }
+}
+
+@media (max-width: 600px) {
+  .hero .hero__frame { height:clamp(680px,100svh,900px) !important; min-height:clamp(680px,100svh,900px) !important; }
+  .hero .hero-body__copy { top:clamp(84px,16svh,132px) !important; left:7.5% !important; width:60% !important; }
+  .hero h1, .hero h1 > span:nth-child(2) em, .hero h1 > span:nth-child(2) strong { font-size:clamp(40px,12.2vw,54px) !important; }
+  .hero .hero-body__copy .icon-slide-button,
+  .hero .hero-body__copy > a { margin-top:clamp(18px,5vw,28px) !important; }
+  .hero .hero-body__right-copy { top:clamp(84px,16svh,132px) !important; left:67% !important; right:4% !important; }
+  .hero .hero-body__hands .hand--clinician { width:clamp(255px,81vw,620px) !important; right:clamp(-170px,-23vw,-75px) !important; top:44svh !important; }
+  .hero .hero-body__hands .hand--patient { width:clamp(270px,86vw,650px) !important; left:clamp(-175px,-24vw,-78px) !important; top:54svh !important; }
+  .hero .care-panel { left:4% !important; right:4% !important; bottom:clamp(112px,15svh,150px) !important; height:clamp(116px,14.5%,138px) !important; padding:8px !important; }
+  .hero .service-pills { left:4% !important; right:4% !important; bottom:clamp(48px,7svh,66px) !important; }
+  .hero .service-pills span { min-height:46px !important; padding-inline:4px !important; font-size:11px !important; }
+  .hero .feedback { left:7.5% !important; right:7.5% !important; bottom:8px !important; }
+  .hero .feedback p { max-width:62% !important; font-size:13px !important; }
+}
+
+@media (max-width: 380px) {
+  .hero .hero__frame { height:clamp(680px,100svh,820px) !important; min-height:clamp(680px,100svh,820px) !important; }
+  .hero .hero-body__copy { top:84px !important; left:7% !important; width:60% !important; }
+  .hero h1, .hero h1 > span:nth-child(2) em, .hero h1 > span:nth-child(2) strong { font-size:40px !important; }
+  .hero .hero-body__right-copy { left:66% !important; right:3% !important; }
+  .hero .hero-body__right-copy h2 { font-size:20px !important; }
+  .hero .hero-body__right-copy p { font-size:13px !important; }
+  .hero .hero-body__hands .hand--clinician { width:84vw !important; right:-27vw !important; top:43svh !important; }
+  .hero .hero-body__hands .hand--patient { width:89vw !important; left:-28vw !important; top:54svh !important; }
+  .hero .care-panel { bottom:112px !important; height:122px !important; }
+  .hero .service-pills span { min-height:44px !important; font-size:11px !important; }
+}
