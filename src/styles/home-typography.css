@@ -1,0 +1,264 @@
+/* Siddaganga Hospital — Homepage Typography System
+   Font pair: Manrope (display) + Inter (body/UI).
+   This file is intentionally typography-only: no layout, colour or spacing changes.
+*/
+
+:root {
+  --type-body: 16px;
+  --type-small: 13px;
+  --type-ui: 14px;
+  --type-lead: 18px;
+  --type-card: 20px;
+  --type-section-mobile: 36px;
+  --type-section-tablet: 44px;
+  --type-section-desktop: 56px;
+  --type-hero-mobile: 48px;
+  --type-hero-tablet: 60px;
+  --type-hero-desktop: 80px;
+}
+
+body,
+button,
+input,
+textarea,
+select { font-family: var(--font-body) !important; }
+
+/* HERO */
+.hero-body h1 {
+  font-family: var(--font-display) !important;
+  font-size: clamp(var(--type-hero-mobile), 5.4vw, var(--type-hero-desktop)) !important;
+  font-weight: 700 !important;
+  line-height: .94 !important;
+  letter-spacing: -.055em !important;
+}
+.hero-body .eyebrow {
+  font-family: var(--font-body) !important;
+  font-size: var(--type-small) !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+  letter-spacing: .12em !important;
+}
+.hero-body .intro,
+.hero-body__right-copy p {
+  font-family: var(--font-body) !important;
+  font-size: var(--type-body) !important;
+  line-height: 1.6 !important;
+}
+.hero-body__right-copy h2 {
+  font-family: var(--font-display) !important;
+  font-size: clamp(32px, 3.5vw, 52px) !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  letter-spacing: -.045em !important;
+}
+.service-pills span,
+.care-panel__topline,
+.care-highlight span,
+.care-panel__media-kicker,
+.care-panel__media-meta,
+.feedback p {
+  font-family: var(--font-body) !important;
+  font-size: var(--type-small) !important;
+  line-height: 1.35 !important;
+}
+.care-panel__media strong,
+.care-highlight strong { font-family: var(--font-display) !important; }
+
+/* SECTION 2 — hospital introduction */
+.section-two__text-reveal h2 {
+  font-family: var(--font-display) !important;
+  font-size: clamp(36px, 3.5vw, var(--type-section-desktop)) !important;
+  font-weight: 500 !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.045em !important;
+}
+.section-two__description {
+  font-family: var(--font-body) !important;
+  font-size: var(--type-lead) !important;
+  line-height: 1.55 !important;
+}
+.section-two__cta { font-family: var(--font-body) !important; }
+
+/* SERVICES */
+.services-eyebrow,
+.services-eyebrow span {
+  font-family: var(--font-body) !important;
+  font-size: var(--type-small) !important;
+  line-height: 1.25 !important;
+}
+.services-header h2 {
+  font-family: var(--font-display) !important;
+  font-size: clamp(var(--type-section-mobile), 3.5vw, var(--type-section-desktop)) !important;
+  font-weight: 500 !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.045em !important;
+}
+.services-header-side p,
+.service-copy p {
+  font-family: var(--font-body) !important;
+  font-size: var(--type-body) !important;
+  line-height: 1.55 !important;
+}
+.services-view-link,
+.service-link {
+  font-family: var(--font-body) !important;
+  font-size: var(--type-ui) !important;
+  font-weight: 600 !important;
+}
+.service-copy h3 {
+  font-family: var(--font-display) !important;
+  font-size: var(--type-card) !important;
+  font-weight: 600 !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.035em !important;
+}
+.service-number { font-family: var(--font-display) !important; }
+.essential-intro span,
+.essential-item small,
+.essential-item strong,
+.essential-item { font-family: var(--font-body) !important; }
+.essential-intro strong {
+  font-family: var(--font-display) !important;
+  font-size: var(--type-card) !important;
+}
+
+/* WHY SIDDAGANGA */
+.visual-kicker,
+.visual-note,
+.visual-tag,
+.eyebrow-row,
+.trust-line,
+.stat h3,
+.stat p {
+  font-family: var(--font-body) !important;
+}
+.visual-kicker { font-size: var(--type-small) !important; font-weight: 600 !important; }
+.visual-copy h2 {
+  font-family: var(--font-display) !important;
+  font-size: clamp(40px, 4vw, 60px) !important;
+  line-height: .92 !important;
+  letter-spacing: -.055em !important;
+}
+.visual-note,
+.stat p,
+.trust-line { font-size: var(--type-body) !important; line-height: 1.5 !important; }
+.eyebrow-row,
+.visual-tag { font-size: var(--type-small) !important; }
+.stat-number { font-family: var(--font-display) !important; }
+.stat h3 { font-size: var(--type-ui) !important; font-weight: 600 !important; }
+
+/* DOCTORS */
+.trust-message,
+.people-copy h2,
+.depth-card-info h3 {
+  font-family: var(--font-display) !important;
+}
+.trust-message {
+  font-size: clamp(34px, 4vw, 58px) !important;
+  line-height: .98 !important;
+  letter-spacing: -.055em !important;
+}
+.trust-brand,
+.people-copy .eyebrow,
+.people-description,
+.scroll-progress-label,
+.scroll-hint,
+.photo-label,
+.depth-card-number,
+.depth-card-info p,
+.depth-card-info small,
+.doctor-availability,
+.depth-hint {
+  font-family: var(--font-body) !important;
+}
+.people-copy h2 { font-size: clamp(38px, 4.4vw, 64px) !important; line-height: .92 !important; }
+.people-description { font-size: var(--type-body) !important; line-height: 1.55 !important; }
+.people-copy .eyebrow,
+.scroll-progress-label,
+.scroll-hint,
+.photo-label,
+.depth-card-number,
+.doctor-availability,
+.depth-hint { font-size: var(--type-small) !important; }
+.depth-card-info h3 { font-size: var(--type-card) !important; line-height: 1.1 !important; }
+.depth-card-info p,
+.depth-card-info small { font-size: var(--type-small) !important; line-height: 1.35 !important; }
+
+/* GALLERY */
+.gallery-eyebrow,
+.gallery-description,
+.gallery-caption__subtitle,
+.gallery-caption__count,
+.gallery-hint,
+.gallery-meta {
+  font-family: var(--font-body) !important;
+}
+.gallery-heading h2,
+.gallery-caption__title { font-family: var(--font-display) !important; }
+.gallery-heading h2 {
+  font-size: clamp(46px, 5vw, 76px) !important;
+  line-height: .9 !important;
+  letter-spacing: -.06em !important;
+}
+.gallery-eyebrow { font-size: var(--type-small) !important; }
+.gallery-description { font-size: var(--type-body) !important; line-height: 1.55 !important; }
+.gallery-caption__title { font-size: clamp(24px, 2vw, 30px) !important; line-height: 1.1 !important; }
+.gallery-caption__subtitle { font-size: var(--type-small) !important; }
+.gallery-caption__count,
+.gallery-hint,
+.gallery-meta { font-size: var(--type-small) !important; }
+
+/* REVIEWS */
+.reviews-heading p,
+.reviews-heading h2,
+.review-copy,
+.review-proof,
+.ambient-word { font-family: var(--font-display) !important; }
+.reviews-heading p,
+.reviews-heading h2 {
+  font-size: clamp(34px, 3.1vw, 50px) !important;
+  line-height: .92 !important;
+}
+.review-copy { font-size: clamp(18px, 1.55vw, 24px) !important; line-height: 1.3 !important; }
+.reviews-proof,
+.review-person strong,
+.review-person span:last-child,
+.google-mark,
+.review-footer,
+.review-stars,
+.review-orbit { font-family: var(--font-body) !important; }
+.reviews-proof { font-size: var(--type-small) !important; }
+.review-person strong { font-size: var(--type-ui) !important; font-weight: 600 !important; }
+.review-person span:last-child,
+.google-mark,
+.review-footer,
+.review-orbit { font-size: var(--type-small) !important; }
+
+/* Buttons / interactive UI */
+.icon-slide-button,
+.gallery-control,
+.review-next { font-family: var(--font-body) !important; }
+
+/* Never let normal patient-facing copy fall below 13px. */
+.services-section p,
+.why-section p,
+.doctors-section p,
+.gallery-section p,
+.reviews-section p { text-wrap: pretty; }
+
+@media (max-width: 760px) {
+  .hero-body h1 { font-size: clamp(44px, 12vw, 56px) !important; }
+  .section-two__text-reveal h2 { font-size: clamp(32px, 8.2vw, 42px) !important; }
+  .services-header h2 { font-size: clamp(34px, 10vw, 48px) !important; }
+  .gallery-heading h2 { font-size: clamp(46px, 15vw, 68px) !important; }
+  .people-copy h2 { font-size: clamp(38px, 11vw, 52px) !important; }
+  .trust-message { font-size: clamp(32px, 8vw, 44px) !important; }
+  .section-two__description,
+  .services-header-side p,
+  .service-copy p,
+  .people-description,
+  .gallery-description,
+  .visual-note,
+  .stat p,
+  .trust-line { font-size: 15px !important; }
+}

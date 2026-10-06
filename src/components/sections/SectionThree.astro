@@ -1,291 +1,133 @@
 ---
+import Icon from '../icons/Icon.astro';
+
 const appointmentUrl = 'https://wa.me/919591799099';
 
 const services = [
-  {
-    number: '01',
-    title: 'Cardiology',
-    description: 'Heart-focused diagnosis and treatment, supported by 2D Echo and TMT facilities.',
-  },
-  {
-    number: '02',
-    title: 'Diabetology & General Medicine',
-    description: 'Specialist care for diabetes, blood pressure and related medical conditions.',
-  },
-  {
-    number: '03',
-    title: 'General Surgery',
-    description: 'Surgical care for conditions requiring specialist evaluation and treatment.',
-  },
-  {
-    number: '04',
-    title: 'Obstetrics',
-    description: 'Specialist obstetric care with experienced medical support for women.',
-  },
-  {
-    number: '05',
-    title: 'ENT',
-    description: 'Evaluation and treatment for ear, nose and throat conditions.',
-  },
-  {
-    number: '06',
-    title: 'Diagnostics & Laboratory',
-    description: 'Complete laboratory testing and advanced diagnostic support for accurate evaluation.',
-  },
+  { number: '01', title: 'Cardiology', description: 'Heart-focused diagnosis and treatment, supported by 2D Echo and TMT facilities.', icon: 'cardiology', image: '/assets/services/cardiology.webp', imageAlt: '3D anatomical heart with ECG monitoring for cardiology care' },
+  { number: '02', title: 'Diabetology & General Medicine', description: 'Specialist care for diabetes, blood pressure and related medical conditions.', icon: 'diabetes', image: '/assets/services/diabetology-general-medicine.webp', imageAlt: 'Modern blood glucose monitor for diabetology care' },
+  { number: '03', title: 'Obstetrics & Gynaecology', description: 'Pregnancy, reproductive health, high-risk care, infertility and gynaecological services.', icon: 'baby', image: '/assets/services/obstetrics-gynaecology.webp', imageAlt: 'Pregnancy ultrasound care in a modern clinical setting' },
+  { number: '04', title: 'General Surgery', description: 'Surgical care for conditions requiring specialist evaluation and treatment.', icon: 'surgery', image: '/assets/services/general-surgery.webp', imageAlt: 'Modern surgical operating room and surgical equipment' },
+  { number: '05', title: 'ENT', description: 'Evaluation and treatment for ear, nose and throat conditions.', icon: 'ent', image: '/assets/services/ent.webp', imageAlt: 'Modern otoscope for ear, nose and throat examination' },
+  { number: '06', title: 'Diagnostics & Laboratory', description: 'Laboratory testing and diagnostic support for accurate clinical evaluation.', icon: 'laboratory', image: '/assets/services/diagnostics-laboratory.webp', imageAlt: 'Modern medical laboratory with microscope and test tubes' },
+];
+
+const essentialServices = [
+  { icon: 'emergency', title: '24 × 7', detail: 'Emergency' },
+  { icon: 'laboratory', title: 'Laboratory', detail: 'Services' },
+  { icon: 'pharmacy', title: 'Pharmacy', detail: 'On-site support' },
+  { icon: 'ambulance', title: 'Ambulance', detail: 'Facility' },
+  { icon: 'xray', title: 'Digital X-Ray', detail: 'Diagnostics' },
+  { icon: 'cardiology', title: '2D Echo / TMT', detail: 'Cardiac diagnostics' },
 ];
 ---
 
 <section id="services" class="services-section" aria-labelledby="services-title">
   <div class="services-shell">
     <header class="services-header">
-      <div>
+      <div class="services-heading">
         <p class="services-eyebrow">OUR MEDICAL SERVICES <span>(What you get)</span></p>
-        <h2 id="services-title">Care that covers <strong>what matters most.</strong></h2>
+        <h2 id="services-title">Complete care <strong>for every need.</strong></h2>
       </div>
-      <p class="services-intro">
-        Specialist care, diagnostics and essential hospital services — under one roof.
-      </p>
+      <div class="services-header-side">
+        <p>Specialist care, diagnostics and essential hospital services — all under one roof. Combining advanced technology with a patient-first approach.</p>
+        <a href="#services-grid" class="services-view-link">See all services</a>
+      </div>
     </header>
 
-    <div class="services-grid">
+    <div class="services-grid" id="services-grid">
       {services.map((service) => (
-        <article class="service-card">
-          <div class="service-number">{service.number}</div>
+        <article class="service-card" aria-labelledby={`service-${service.number}-title`}>
+          <div class="service-image-wrap" aria-hidden="true">
+            <img
+              class="service-image"
+              src={service.image}
+              alt={service.imageAlt}
+              width="1254"
+              height="1254"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+
+          <div class="service-topline">
+            <div class="service-index-group">
+              <span class="service-number">{service.number}</span>
+              <span class="service-icon" aria-hidden="true">
+                <Icon name={service.icon} size={22} strokeWidth={1.8} />
+              </span>
+            </div>
+          </div>
+
           <div class="service-copy">
-            <h3>{service.title}</h3>
+            <h3 id={`service-${service.number}-title`}>{service.title}</h3>
             <p>{service.description}</p>
           </div>
-          <a class="service-link" href={appointmentUrl} target="_blank" rel="noreferrer" aria-label={`Make an appointment for ${service.title}`}>
+
+          <a
+            class="service-link"
+            href={appointmentUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Make an appointment for ${service.title}`}
+          >
             <span>Make an appointment</span>
-            <span class="service-arrow" aria-hidden="true">↗</span>
+            <span class="service-link-arrow" aria-hidden="true">→</span>
           </a>
         </article>
       ))}
     </div>
 
-    <div class="services-footer">
-      <span>24×7 emergency · laboratory · pharmacy · ambulance · digital X-ray · 2D Echo · TMT</span>
-      <a href={appointmentUrl} target="_blank" rel="noreferrer">Book an appointment ↗</a>
+    <div class="essential-services" aria-label="24 by 7 essential hospital services">
+      <div class="essential-intro"><span>ALSO AVAILABLE</span><strong>24 × 7 Essential Services</strong></div>
+      <div class="essential-items">
+        {essentialServices.map((service) => (
+          <div class="essential-item">
+            <span class="essential-icon" aria-hidden="true"><Icon name={service.icon} size={23} strokeWidth={1.7} /></span>
+            <span><strong>{service.title}</strong><small>{service.detail}</small></span>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .services-section {
-    padding: clamp(20px, 2.2vw, 34px) clamp(16px, 2.4vw, 38px) clamp(34px, 4vw, 58px);
-    background: #eef4ff;
-  }
-
-  .services-shell {
-    width: min(100%, 1696px);
-    margin: 0 auto;
-    padding: clamp(28px, 3vw, 46px);
-    border-radius: 30px;
-    background: #f8fbff;
-    border: 1px solid rgba(88, 137, 215, 0.1);
-    box-shadow: 0 22px 65px rgba(44, 91, 150, 0.08);
-    overflow: hidden;
-    position: relative;
-  }
-
-  .services-shell::before,
-  .services-shell::after {
-    content: '';
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    border: 1px solid rgba(52, 116, 226, 0.08);
-    clip-path: polygon(25% 3%, 75% 3%, 100% 50%, 75% 97%, 25% 97%, 0 50%);
-    pointer-events: none;
-  }
-
-  .services-shell::before { top: -105px; left: -105px; }
-  .services-shell::after { right: -105px; bottom: -120px; }
-
-  .services-header {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(250px, 360px);
-    align-items: end;
-    gap: 40px;
-    margin-bottom: clamp(24px, 3vw, 38px);
-    position: relative;
-    z-index: 1;
-  }
-
-  .services-eyebrow {
-    margin: 0 0 10px;
-    color: #71809a;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .14em;
-  }
-
-  .services-eyebrow span {
-    color: #9aa8bd;
-    font-weight: 500;
-    letter-spacing: 0;
-    margin-left: 5px;
-  }
-
-  .services-header h2 {
-    margin: 0;
-    max-width: 780px;
-    color: #172b4d;
-    font-family: var(--font-display);
-    font-size: clamp(32px, 4.2vw, 62px);
-    font-weight: 500;
-    letter-spacing: -.055em;
-    line-height: .98;
-  }
-
-  .services-header h2 strong {
-    color: #2374eb;
-    font-weight: 600;
-  }
-
-  .services-intro {
-    margin: 0 0 2px;
-    color: #687991;
-    font-size: 13px;
-    line-height: 1.6;
-    max-width: 330px;
-    justify-self: end;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .service-card {
-    min-height: 245px;
-    padding: 18px 19px 17px;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(67, 105, 156, .11);
-    border-radius: 17px;
-    background: #fff;
-    color: #172b4d;
-    box-shadow: 0 10px 30px rgba(47, 82, 129, .055);
-    transition: background .3s ease, color .3s ease, border-color .3s ease, transform .3s ease, box-shadow .3s ease;
-  }
-
-  .service-card:hover {
-    background: #2878ee;
-    color: #fff;
-    border-color: #2878ee;
-    transform: translateY(-4px);
-    box-shadow: 0 22px 45px rgba(40, 120, 238, .2);
-  }
-
-  .service-number {
-    color: #dbe6f8;
-    font-family: var(--font-display);
-    font-size: clamp(42px, 4vw, 58px);
-    font-weight: 500;
-    letter-spacing: -.08em;
-    line-height: .85;
-    transition: color .3s ease;
-  }
-
-  .service-card:hover .service-number { color: rgba(255,255,255,.34); }
-
-  .service-copy { margin-top: auto; padding-top: 22px; }
-
-  .service-copy h3 {
-    margin: 0 0 8px;
-    color: inherit;
-    font-family: var(--font-display);
-    font-size: clamp(19px, 1.55vw, 25px);
-    font-weight: 600;
-    letter-spacing: -.045em;
-    line-height: 1.05;
-  }
-
-  .service-copy p {
-    margin: 0;
-    max-width: 310px;
-    color: #687991;
-    font-size: 11px;
-    line-height: 1.5;
-    transition: color .3s ease;
-  }
-
-  .service-card:hover .service-copy p { color: rgba(255,255,255,.82); }
-
-  .service-link {
-    margin-top: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    color: #2878ee;
-    font-size: 10px;
-    font-weight: 600;
-    transition: color .3s ease;
-  }
-
-  .service-card:hover .service-link { color: #fff; }
-
-  .service-arrow {
-    display: inline-grid;
-    place-items: center;
-    width: 26px;
-    height: 26px;
-    border: 1px solid currentColor;
-    border-radius: 50%;
-    font-size: 13px;
-    transition: transform .3s ease, background .3s ease, color .3s ease;
-  }
-
-  .service-card:hover .service-arrow {
-    transform: translate(2px, -2px);
-    background: #fff;
-    color: #2878ee;
-  }
-
-  .services-footer {
-    margin-top: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    position: relative;
-    z-index: 1;
-    color: #71809a;
-    font-size: 10px;
-  }
-
-  .services-footer a {
-    color: #2878ee;
-    font-weight: 600;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 900px) {
-    .services-header { grid-template-columns: 1fr; gap: 14px; }
-    .services-intro { justify-self: start; }
-    .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
-
-  @media (max-width: 620px) {
-    .services-shell { padding: 24px 16px; border-radius: 23px; }
-    .services-grid { grid-template-columns: 1fr; gap: 10px; }
-    .service-card { min-height: 220px; }
-    .services-footer { align-items: flex-start; flex-direction: column; gap: 10px; }
-    .services-footer span { line-height: 1.5; }
-  }
-
-  @media (hover: none) {
-    .service-card:active {
-      background: #2878ee;
-      color: #fff;
-    }
-    .service-card:active .service-number { color: rgba(255,255,255,.34); }
-    .service-card:active .service-copy p,
-    .service-card:active .service-link { color: rgba(255,255,255,.82); }
-  }
+.services-section{padding:clamp(18px,2vw,30px) clamp(12px,2vw,30px) clamp(30px,3.5vw,52px);background:#eef7ff}
+.services-shell{width:min(100%,1696px);margin:0 auto;padding:clamp(24px,2.8vw,42px);border:1px solid rgba(49,104,178,.09);border-radius:30px;background:#f8fbff;box-shadow:0 22px 65px rgba(44,91,150,.075);overflow:hidden;position:relative;isolation:isolate}
+.services-shell:before,.services-shell:after{content:'';position:absolute;width:280px;height:280px;border:1px solid rgba(40,120,238,.07);clip-path:polygon(25% 3%,75% 3%,100% 50%,75% 97%,25% 97%,0 50%);pointer-events:none;z-index:-1}.services-shell:before{top:-120px;left:-110px}.services-shell:after{right:-120px;bottom:-135px}
+.services-header{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,390px);align-items:end;gap:48px;margin-bottom:clamp(24px,2.6vw,36px);position:relative;z-index:1}
+.services-eyebrow{margin:0 0 12px;color:#71809a;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}.services-eyebrow span{color:#9aa8bd;font-weight:500;letter-spacing:0;text-transform:none;margin-left:4px}
+.services-header h2{margin:0;max-width:900px;color:#152944;font-family:var(--font-display);font-size:clamp(38px,3.5vw,60px);font-weight:500;line-height:1.16;letter-spacing:-.047em}.services-header h2 strong{color:#1973e8;font-weight:600}
+.services-header-side{justify-self:end;max-width:370px;padding-bottom:3px}.services-header-side p{margin:0 0 14px;color:#687991;font-size:13px;line-height:1.55}.services-view-link{color:#2878ee;font-size:11px;font-weight:650;text-decoration:underline;text-underline-offset:3px}
+.services-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;position:relative;z-index:1}
+.service-card{min-height:236px;padding:17px 18px 16px;display:flex;flex-direction:column;border:1px solid rgba(67,105,156,.10);border-radius:17px;background:#fff !important;background-image:none !important;color:#172b4d !important;box-shadow:0 8px 28px rgba(47,82,129,.045);transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;position:relative;overflow:hidden}
+.service-card:hover,.service-card:focus-within{transform:translateY(-3px);border-color:#2878ee;background:#fff !important;background-image:none !important;color:#172b4d !important;box-shadow:0 20px 42px rgba(40,120,238,.14)}
+.service-card::before,.service-card::after{content:none !important;display:none !important}
+.service-card:hover .service-number,.service-card:focus-within .service-number{color:#c9dbf3 !important;opacity:1 !important;visibility:visible !important}
+.service-card:hover .service-icon,.service-card:focus-within .service-icon{background:#edf4ff !important;color:#2878ee !important;opacity:1 !important;visibility:visible !important}
+.service-card:hover .service-copy,.service-card:focus-within .service-copy{opacity:1 !important;visibility:visible !important}
+.service-card:hover .service-copy h3,.service-card:focus-within .service-copy h3{color:#172b4d !important;opacity:1 !important;visibility:visible !important}
+.service-card:hover .service-copy p,.service-card:focus-within .service-copy p{color:#687991 !important;opacity:1 !important;visibility:visible !important}
+.service-card:hover .service-link,.service-card:focus-within .service-link{color:#2878ee !important;opacity:1 !important;visibility:visible !important}
+.service-card:hover .service-link-arrow,.service-card:focus-within .service-link-arrow{color:#2878ee !important;background:transparent !important;border-color:rgba(40,120,238,.28) !important;opacity:1 !important;visibility:visible !important}
+.service-image-wrap{position:absolute;z-index:0;right:0;top:0;width:58%;height:100%;overflow:hidden;border-radius:0 16px 16px 0;pointer-events:none}
+.service-image-wrap:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.96) 6%,rgba(255,255,255,.66) 20%,rgba(255,255,255,.16) 45%,rgba(255,255,255,0) 72%)}
+.service-image{width:100%;height:100%;display:block;object-fit:cover;object-position:center;image-rendering:auto}
+.service-topline,.service-copy,.service-link{position:relative;z-index:2}
+.service-topline{display:flex;align-items:center;justify-content:flex-start}
+.service-index-group{display:flex;align-items:center;gap:12px}
+.service-number{color:#c9dbf3;font-family:var(--font-display);font-size:clamp(40px,3.7vw,54px);font-weight:500;letter-spacing:-.08em;line-height:.8}
+.service-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:#edf4ff;color:#2878ee;flex:0 0 auto;opacity:1!important;visibility:visible!important;position:relative;z-index:3}
+.service-icon svg{width:22px;height:22px;display:block;opacity:1!important;visibility:visible!important}
+.service-copy{margin-top:auto;padding-top:24px;max-width:300px}
+.service-copy h3{margin:0 0 7px;color:#172b4d !important;font-family:var(--font-display);font-size:clamp(18px,1.45vw,23px);font-weight:600;letter-spacing:-.045em;line-height:1.08}
+.service-copy p{margin:0;color:#687991 !important;font-size:10.5px;line-height:1.48;max-width:280px}
+.service-link{margin-top:18px;align-self:flex-start;display:inline-flex;align-items:center;gap:10px;color:#2878ee !important;font-size:11px;font-weight:650;text-decoration:none}
+.service-link-arrow{width:28px;height:28px;display:grid;place-items:center;border:1px solid rgba(40,120,238,.28);border-radius:50%;font-size:15px;line-height:1;transition:transform .25s ease,background .25s ease,color .25s ease}
+.service-card:hover .service-link-arrow{transform:translateX(2px);background:transparent;color:#2878ee;border-color:rgba(40,120,238,.45)}
+.essential-services{margin-top:10px;display:grid;grid-template-columns:260px minmax(0,1fr);align-items:stretch;border:1px solid rgba(67,105,156,.10);border-radius:17px;background:rgba(255,255,255,.82);box-shadow:0 8px 28px rgba(47,82,129,.035);overflow:hidden;position:relative;z-index:1}.essential-intro{display:flex;flex-direction:column;justify-content:center;padding:17px 22px;border-right:1px solid rgba(67,105,156,.10)}.essential-intro span{color:#8d9cb1;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}.essential-intro strong{color:#172b4d;font-family:var(--font-display);font-size:21px;font-weight:600;letter-spacing:-.035em;line-height:1.12}.essential-items{display:grid;grid-template-columns:repeat(6,minmax(0,1fr))}.essential-item{min-width:0;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 10px;border-right:1px solid rgba(67,105,156,.10);color:#2878ee}.essential-item:last-child{border-right:0}.essential-icon{width:32px;height:32px;display:grid;place-items:center;flex:0 0 auto}.essential-item>span:last-child{display:flex;flex-direction:column;min-width:0}.essential-item strong{color:#293750;font-size:13px;font-weight:650;line-height:1.2}.essential-item small{color:#71809a;font-size:11px;line-height:1.3;margin-top:3px}
+@media(max-width:1000px){.services-header{grid-template-columns:1fr;gap:14px}.services-header-side{justify-self:start;max-width:480px}.services-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.essential-services{grid-template-columns:1fr}.essential-intro{border-right:0;border-bottom:1px solid rgba(67,105,156,.10)}.essential-items{grid-template-columns:repeat(3,minmax(0,1fr))}.essential-item:nth-child(3){border-right:0}.essential-item:nth-child(-n+3){border-bottom:1px solid rgba(67,105,156,.10)}}
+@media(max-width:620px){.services-section{padding-inline:8px}.services-shell{padding:23px 14px;border-radius:23px}.services-header{margin-bottom:22px}.services-header h2{font-size:clamp(34px,10vw,48px);line-height:1.1}.services-grid{grid-template-columns:1fr;gap:9px}.service-card{min-height:220px;padding:16px}.service-index-group{gap:10px}.service-number{font-size:43px}.service-icon{width:40px;height:40px}.service-copy{padding-top:20px;max-width:58%}.service-copy h3{font-size:20px}.service-copy p{font-size:11px}.service-link{font-size:11px}.service-image-wrap{width:52%;border-radius:0 15px 15px 0}.service-image-wrap:after{background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.95) 9%,rgba(255,255,255,.62) 25%,rgba(255,255,255,.08) 58%,rgba(255,255,255,0) 78%)}.essential-items{grid-template-columns:repeat(2,minmax(0,1fr))}.essential-item:nth-child(3){border-right:1px solid rgba(67,105,156,.10)}.essential-item:nth-child(odd){border-right:1px solid rgba(67,105,156,.10)}.essential-item:nth-child(-n+4){border-bottom:1px solid rgba(67,105,156,.10)}.essential-item:nth-child(5),.essential-item:nth-child(6){border-bottom:0}.essential-intro{padding:15px 17px}.essential-item{justify-content:flex-start;padding:12px 10px}.essential-intro strong{font-size:20px}.essential-item strong{font-size:12.5px}.essential-item small{font-size:10.5px}}
+@media(prefers-reduced-motion:reduce){.service-card{transition:none}}
 </style>

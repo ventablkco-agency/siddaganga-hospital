@@ -1,0 +1,237 @@
+---
+const galleryItems = [
+  { src: '/assets/gallery/01-entrance.webp', alt: 'Siddaganga Hospital entrance', title: 'Main entrance', subtitle: 'A welcoming first impression' },
+  { src: '/assets/gallery/02-entrance-side.webp', alt: 'Siddaganga Hospital exterior', title: 'Hospital exterior', subtitle: 'Built for better health' },
+  { src: '/assets/gallery/03-entrance-wide.webp', alt: 'Siddaganga Hospital wide entrance', title: 'A place to heal', subtitle: 'Designed around people' },
+  { src: '/assets/gallery/04-reception.webp', alt: 'Siddaganga Hospital reception', title: 'Reception', subtitle: 'Calm. Clear. Considered.' },
+  { src: '/assets/gallery/05-reception-detail.webp', alt: 'Siddaganga Hospital reception detail', title: 'Patient experience', subtitle: 'Every detail matters' },
+  { src: '/assets/gallery/06-patient-room.webp', alt: 'Siddaganga Hospital patient room', title: 'Patient rooms', subtitle: 'Comfort built into care' },
+  { src: '/assets/gallery/07-emergency.webp', alt: 'Siddaganga Hospital emergency department', title: 'Emergency care', subtitle: 'Ready when it matters' },
+  { src: '/assets/gallery/08-ambulance.webp', alt: 'Siddaganga Hospital ambulance facility', title: 'Ambulance facility', subtitle: 'Care beyond the hospital' },
+  { src: '/assets/gallery/09-imaging.webp', alt: 'Siddaganga Hospital imaging department', title: 'Imaging', subtitle: 'Clarity for better decisions' },
+  { src: '/assets/gallery/10-laboratory.webp', alt: 'Siddaganga Hospital laboratory', title: 'Laboratory', subtitle: 'Accurate diagnostics' },
+];
+---
+
+<section class="gallery-section" id="gallery" aria-labelledby="gallery-title">
+  <div class="gallery-inner">
+    <div class="gallery-heading">
+      <p class="gallery-eyebrow">{`{ Inside Siddaganga }`}</p>
+      <h2 id="gallery-title">A closer look<br /><strong>at care.</strong></h2>
+      <p class="gallery-description">Step inside our spaces, people, and details<br class="desktop-break" /> that make every visit feel considered.</p>
+    </div>
+
+    <div class="panorama-carousel" data-gallery-carousel tabindex="0" role="region" aria-roledescription="carousel" aria-label="Siddaganga Hospital gallery">
+      <div class="panorama-stage">
+        <div class="panorama-rail" data-gallery-rail>
+          {galleryItems.map((item, index) => (
+            <article class="panorama-card" data-gallery-card data-index={index} aria-hidden={index !== 0}>
+              <div class="panorama-card__image">
+                <img src={item.src} alt={item.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" draggable="false" />
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="gallery-caption" aria-live="polite">
+        <span class="gallery-caption__title" data-gallery-title>{galleryItems[0].title}</span>
+        <span class="gallery-caption__subtitle" data-gallery-subtitle>{galleryItems[0].subtitle}</span>
+        <span class="gallery-caption__count"><span data-gallery-current>01</span><i>/</i>{String(galleryItems.length).padStart(2, '0')}</span>
+      </div>
+
+      <div class="gallery-controls" aria-label="Hospital gallery controls">
+        <button type="button" class="gallery-control gallery-control--prev" data-gallery-prev aria-label="Previous gallery image">←</button>
+        <button type="button" class="gallery-control gallery-control--next" data-gallery-next aria-label="Next gallery image">→</button>
+      </div>
+
+      <p class="gallery-hint">Drag to explore · Click a frame to focus</p>
+    </div>
+
+    <div class="gallery-meta" aria-hidden="true">
+      <span>SGH / 01</span>
+      <span>Spaces · People · Care</span>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ galleryItems }}>
+  const initHospitalGallery = () => {
+    document.querySelectorAll('[data-gallery-carousel]').forEach((root) => {
+      if (root.dataset.initialized === 'true') return;
+      root.dataset.initialized = 'true';
+
+      const cards = Array.from(root.querySelectorAll('[data-gallery-card]'));
+      const rail = root.querySelector('[data-gallery-rail]');
+      const current = root.querySelector('[data-gallery-current]');
+      const title = root.querySelector('[data-gallery-title]');
+      const subtitle = root.querySelector('[data-gallery-subtitle]');
+      const previous = root.querySelector('[data-gallery-prev]');
+      const next = root.querySelector('[data-gallery-next]');
+      const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+      let active = 0;
+      let locked = false;
+      let dragStartX = 0;
+      let dragStartY = 0;
+      let dragging = false;
+
+      const wrap = (value) => (value + cards.length) % cards.length;
+
+      const render = () => {
+        cards.forEach((card, index) => {
+          let offset = index - active;
+          if (offset > cards.length / 2) offset -= cards.length;
+          if (offset < -cards.length / 2) offset += cards.length;
+
+          const abs = Math.abs(offset);
+          let x = 0;
+          let z = 0;
+          let rotate = 0;
+          let scale = 1;
+          let opacity = 1;
+          let blur = 0;
+
+          if (offset === 0) {
+            x = 0;
+            z = 40;
+            rotate = 0;
+            scale = 1;
+            opacity = 1;
+          } else if (offset === -1) {
+            x = -46;
+            z = -55;
+            rotate = 10;
+            scale = .91;
+            opacity = .92;
+          } else if (offset === 1) {
+            x = 46;
+            z = -55;
+            rotate = -10;
+            scale = .91;
+            opacity = .92;
+          } else if (offset === -2) {
+            x = -82;
+            z = -170;
+            rotate = 17;
+            scale = .79;
+            opacity = .58;
+            blur = 1;
+          } else if (offset === 2) {
+            x = 82;
+            z = -170;
+            rotate = -17;
+            scale = .79;
+            opacity = .58;
+            blur = 1;
+          } else if (offset === -3) {
+            x = -112;
+            z = -275;
+            rotate = 23;
+            scale = .68;
+            opacity = .27;
+            blur = 2;
+          } else if (offset === 3) {
+            x = 112;
+            z = -275;
+            rotate = -23;
+            scale = .68;
+            opacity = .27;
+            blur = 2;
+          } else {
+            x = offset < 0 ? -140 : 140;
+            z = -360;
+            rotate = offset < 0 ? 28 : -28;
+            scale = .58;
+            opacity = 0;
+            blur = 3;
+          }
+
+          card.style.setProperty('--x', `${x}%`);
+          card.style.setProperty('--z', `${z}px`);
+          card.style.setProperty('--rotate', `${rotate}deg`);
+          card.style.setProperty('--scale', scale);
+          card.style.setProperty('--opacity', opacity);
+          card.style.setProperty('--blur', `${blur}px`);
+          card.style.zIndex = String(20 - abs);
+          card.setAttribute('aria-hidden', offset === 0 ? 'false' : 'true');
+          card.dataset.position = String(offset);
+        });
+
+        if (current) current.textContent = String(active + 1).padStart(2, '0');
+        if (title) title.textContent = galleryItems[active].title;
+        if (subtitle) subtitle.textContent = galleryItems[active].subtitle;
+      };
+
+      const move = (direction) => {
+        if (locked) return;
+        locked = true;
+        active = wrap(active + direction);
+        render();
+        window.setTimeout(() => { locked = false; }, reduced ? 0 : 560);
+      };
+
+      previous?.addEventListener('click', () => move(-1));
+      next?.addEventListener('click', () => move(1));
+
+      root.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') { event.preventDefault(); move(-1); }
+        if (event.key === 'ArrowRight') { event.preventDefault(); move(1); }
+      });
+
+      cards.forEach((card) => {
+        card.addEventListener('click', () => {
+          const index = Number(card.dataset.index);
+          if (index === active) return;
+          active = index;
+          render();
+        });
+      });
+
+      root.addEventListener('pointerdown', (event) => {
+        if (event.target.closest('.gallery-control')) return;
+        dragStartX = event.clientX;
+        dragStartY = event.clientY;
+        dragging = true;
+        root.setPointerCapture?.(event.pointerId);
+      });
+
+      root.addEventListener('pointerup', (event) => {
+        if (!dragging) return;
+        dragging = false;
+        const dx = event.clientX - dragStartX;
+        const dy = event.clientY - dragStartY;
+        if (Math.abs(dx) < 35 || Math.abs(dx) < Math.abs(dy)) return;
+        move(dx < 0 ? 1 : -1);
+      });
+
+      root.addEventListener('pointercancel', () => { dragging = false; });
+
+      let wheelLocked = false;
+      root.addEventListener('wheel', (event) => {
+        if (Math.abs(event.deltaX) < Math.abs(event.deltaY)) return;
+        if (wheelLocked) return;
+        if (Math.abs(event.deltaX) < 10) return;
+        wheelLocked = true;
+        move(event.deltaX > 0 ? 1 : -1);
+        window.setTimeout(() => { wheelLocked = false; }, 450);
+      }, { passive: true });
+
+      render();
+    });
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initHospitalGallery, { once: true });
+  else initHospitalGallery();
+</script>
+
+<style>
+.gallery-section{position:relative;min-height:92svh;background:#edf2ff;color:#101a2b;overflow:hidden;box-sizing:border-box}
+.gallery-inner{position:relative;width:100%;min-height:92svh;padding:clamp(34px,5vw,72px) clamp(34px,5.4vw,96px) clamp(28px,3.8vw,54px);box-sizing:border-box}
+.gallery-heading{position:absolute;left:clamp(34px,5.4vw,96px);top:clamp(34px,5vw,72px);z-index:8;width:min(360px,29vw)}
+.gallery-eyebrow{margin:0 0 20px;color:#8ca0bb;font-size:12px;letter-spacing:.04em}.gallery-heading h2{margin:0;color:#111a2b;font-family:var(--font-display);font-size:clamp(48px,5vw,78px);font-weight:400;line-height:.88;letter-spacing:-.07em}.gallery-heading h2 strong{font-weight:700}.gallery-description{margin:24px 0 0;color:#70819a;font-size:14px;line-height:1.48}
+.panorama-carousel{position:relative;margin-left:24%;width:76%;min-height:72svh;outline:none;user-select:none}.panorama-stage{position:absolute;left:0;right:0;top:2%;bottom:25%;display:grid;place-items:center;perspective:1450px;overflow:visible;z-index:1}.panorama-rail{position:relative;width:min(100%,760px);height:min(58vw,510px);transform-style:preserve-3d}.panorama-card{position:absolute;left:50%;top:50%;width:min(31vw,420px);aspect-ratio:4 / 3;transform:translate3d(calc(-50% + var(--x)), -50%, var(--z)) rotateY(var(--rotate)) scale(var(--scale));transform-style:preserve-3d;opacity:var(--opacity);filter:blur(var(--blur));transition:transform .68s cubic-bezier(.22,1,.36,1),opacity .55s ease,filter .55s ease;will-change:transform,opacity;cursor:pointer}.panorama-card__image{width:100%;height:100%;overflow:hidden;border-radius:20px;background:#dbe7f7;border:1px solid rgba(255,255,255,.9);box-shadow:0 28px 70px rgba(43,73,120,.16);backface-visibility:hidden}.panorama-card__image img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;user-select:none;-webkit-user-drag:none}.panorama-card[data-position="0"] .panorama-card__image{box-shadow:0 32px 82px rgba(43,73,120,.21)}
+.gallery-caption{position:absolute;left:0;right:0;bottom:6%;z-index:30;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none}.gallery-caption__title{color:#101a2b;font-family:var(--font-display);font-size:clamp(22px,2vw,29px);letter-spacing:-.045em}.gallery-caption__subtitle{margin-top:9px;color:#8a9ab0;font-size:12px}.gallery-caption__count{display:flex;gap:7px;margin-top:10px;color:#9aabc0;font-size:11px;letter-spacing:.12em}.gallery-caption__count i{font-style:normal;color:#c1cbd8}.gallery-controls{position:absolute;right:1%;bottom:6%;z-index:60;display:flex;gap:10px;pointer-events:auto}.gallery-control{position:relative;z-index:61;width:42px;height:42px;border-radius:50%;border:1px solid #2878ed;background:transparent;color:#2878ed;display:grid;place-items:center;padding:0;font:inherit;font-size:17px;cursor:pointer;pointer-events:auto;touch-action:manipulation;transition:transform .2s ease,background .2s ease,color .2s ease}.gallery-control--next{background:#2878ed;color:#fff}.gallery-control:hover{transform:translateY(-2px)}.gallery-hint{position:absolute;right:1%;top:2%;z-index:30;margin:0;color:#9aabc0;font-size:10px;letter-spacing:.1em;text-transform:uppercase;pointer-events:none}.gallery-meta{position:absolute;left:clamp(34px,5.4vw,96px);right:clamp(34px,5.4vw,96px);bottom:20px;display:flex;justify-content:space-between;color:#a0afc2;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.gallery-meta span:last-child{letter-spacing:.08em}
+@media(max-width:1000px){.gallery-heading{width:30vw}.panorama-carousel{margin-left:28%;width:72%}.panorama-stage{bottom:23%}.panorama-rail{height:min(60vw,440px)}.panorama-card{width:min(38vw,390px)}}
+@media(max-width:760px){.gallery-section{min-height:100svh}.gallery-inner{min-height:100svh;padding:30px 20px 34px}.gallery-heading{position:relative;left:auto;top:auto;width:100%;z-index:8}.gallery-eyebrow{margin-bottom:14px;font-size:11px}.gallery-heading h2{font-size:clamp(46px,15vw,68px)}.gallery-description{margin-top:17px;font-size:13px;max-width:330px}.panorama-carousel{margin:28px 0 0;width:100%;min-height:62svh}.panorama-stage{top:0;bottom:19%;overflow:visible}.panorama-rail{width:100%;height:58vw;max-height:360px}.panorama-card{width:min(70vw,340px);border-radius:16px}.panorama-card__image{border-radius:16px}.gallery-caption{bottom:9%;padding-right:100px}.gallery-caption__title{font-size:22px}.gallery-caption__subtitle{font-size:11px}.gallery-controls{right:0;bottom:8%;z-index:60}.gallery-control{width:38px;height:38px}.gallery-hint{right:0;top:-2px;font-size:8px}.gallery-meta{left:20px;right:20px;bottom:12px;font-size:8px}.desktop-break{display:none}}
+@media(prefers-reduced-motion:reduce){.panorama-card,.gallery-control{transition:none}}
+</style>

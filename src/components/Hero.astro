@@ -9,8 +9,6 @@ import HeroBody from './hero/HeroBody.astro';
 </section>
 
 <style>
-  /* The page background is the selected #EBF0FE. The frame below is the
-     single hero card; HeroBody fills it instead of creating another card. */
   .hero {
     min-height: 100svh;
     padding: clamp(8px, 1.15vw, 18px);
@@ -28,9 +26,7 @@ import HeroBody from './hero/HeroBody.astro';
     box-shadow: var(--shadow-sm);
   }
 
-  /* Restore the split hero: palette.css globally forces .hero-body white,
-     which was unintentionally hiding the blue right-hand field. Keep the
-     left ellipse white while forcing the underlying hero field blue. */
+  /* HeroBody owns the actual split-field composition. */
   :global(.hero) :global(.hero-body) {
     background:
       radial-gradient(ellipse at 72% 18%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.08) 28%, transparent 55%),
@@ -40,6 +36,23 @@ import HeroBody from './hero/HeroBody.astro';
 
   :global(.hero) :global(.hero-body)::before {
     background: #FFFFFF !important;
+  }
+
+  /* Hero-only appointment button: the circular icon stays white on hover;
+     only the arrow changes to white. */
+  :global(.hero) a[href^="https://wa.me/"] .icon-slide-button__icon::after {
+    display: none;
+  }
+
+  :global(.hero) a[href^="https://wa.me/"]:hover .icon-slide-button__icon,
+  :global(.hero) a[href^="https://wa.me/"]:focus-visible .icon-slide-button__icon {
+    background: var(--button-fill);
+    color: var(--color-white);
+  }
+
+  :global(.hero) a[href^="https://wa.me/"]:hover .icon-slide-button__icon svg,
+  :global(.hero) a[href^="https://wa.me/"]:focus-visible .icon-slide-button__icon svg {
+    color: var(--color-white);
   }
 
   .hero__frame::before {

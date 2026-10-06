@@ -1,0 +1,82 @@
+name: Reusable Visual QA
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: Node.js version used by the project
+        required: false
+        type: string
+        default: '22'
+      install-command:
+        description: Dependency installation command for the project
+        required: false
+        type: string
+        default: 'npm ci'
+      build-command:
+        description: Command that creates the production build
+        required: false
+        type: string
+        default: 'npm run build'
+      preview-command:
+        description: Command that starts the production preview server on port 4321
+        required: false
+        type: string
+        default: 'npm run preview -- --host 127.0.0.1 --port 4321'
+      test-command:
+        description: Playwright command used for the visual QA suite
+        required: false
+        type: string
+        default: 'npx playwright test'
+      playwright-version:
+        description: Pinned Playwright Test version for deterministic CI runs
+        required: false
+        type: string
+        default: '1.63.0'
+
+permissions:
+  contents: read
+
+jobs:
+  visual-qa:
+    name: Render responsive screenshots
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Install project dependencies
+        run: ${{ inputs.install-command }}
+
+      - name: Install Playwright Test
+        run: npm install --no-save @playwright/test@${{ inputs.playwright-version }}
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build site
+        run: ${{ inputs.build-command }}
+
+      - name: Run responsive visual QA
+        run: ${{ inputs.test-command }}
+        env:
+          CI: true
+          VISUAL_QA_PREVIEW_COMMAND: ${{ inputs.preview-command }}
+
+      - name: Upload visual QA artifacts
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v5
+        with:
+          name: visual-qa-${{ github.sha }}
+          path: |
+            test-results/
+            playwright-report/
+          if-no-files-found: warn
+          retention-days: 14

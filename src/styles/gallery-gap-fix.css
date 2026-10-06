@@ -1,0 +1,8 @@
+/* Desktop/laptop gallery caption spacing.
+   Keep the panorama geometry unchanged and move only the caption block down
+   so there is a deliberate visual separation between the image and its text. */
+@media (min-width: 761px) {
+  .gallery-section .gallery-caption {
+    transform: translateY(clamp(22px, 2.1vw, 38px));
+  }
+}
