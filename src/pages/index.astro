@@ -36,4 +36,12 @@ import SectionSix from '../components/sections/SectionSix.astro';
     overflow: hidden;
     background: #eef7ff;
   }
+
+  @media (max-width: 760px) {
+    .section-two-flow {
+      min-height: auto;
+      grid-template-rows: 64px auto;
+      overflow: visible;
+    }
+  }
 </style>
