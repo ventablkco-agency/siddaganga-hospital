@@ -112,3 +112,630 @@
   .hero .care-panel { bottom:112px !important; height:122px !important; }
   .hero .service-pills span { min-height:44px !important; font-size:11px !important; }
 }
+
+
+/* ==========================================================================
+   HERO RESPONSIVE SYSTEM v2
+   Final cascade layer for the live HeroBody class names.
+   Desktop composition above 1024px remains the source of truth.
+   ========================================================================== */
+
+/* The live artwork uses .hero-hand--patient / .hero-hand--clinician.
+   Keep the hand layer contained so its oversized transparent PNGs never
+   create horizontal page overflow. */
+.hero .hero-body__hands,
+.hero .hero-body__hands .hero-hand {
+  box-sizing: border-box;
+}
+
+@media (max-width: 1023px) {
+  .hero .hero-body {
+    container-type: size;
+    height: clamp(680px, 100svh, 920px) !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .hero .hero__frame {
+    height: clamp(680px, 100svh, 920px) !important;
+    min-height: 0 !important;
+  }
+
+  .hero .hero-body::before {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: #fff !important;
+    clip-path: ellipse(70% 68% at 0% 27%);
+    -webkit-clip-path: ellipse(70% 68% at 0% 27%);
+  }
+
+  .hero .hero-body__copy {
+    position: absolute !important;
+    z-index: 20 !important;
+    top: clamp(82px, 16svh, 150px) !important;
+    left: clamp(24px, 7.5vw, 60px) !important;
+    width: min(58%, 560px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .hero .eyebrow {
+    margin: 0 0 clamp(12px, 2vw, 18px) !important;
+    font-size: clamp(9px, 1.8vw, 12px) !important;
+    line-height: 1.15 !important;
+    letter-spacing: .14em !important;
+    white-space: nowrap !important;
+  }
+
+  .hero h1 {
+    margin: 0 !important;
+    width: 100% !important;
+    font-size: clamp(40px, 7.8vw, 68px) !important;
+    line-height: .9 !important;
+    letter-spacing: -.06em !important;
+  }
+
+  .hero h1 > span {
+    display: block !important;
+  }
+
+  .hero h1 > span:first-child,
+  .hero h1 > span:nth-child(2) em,
+  .hero h1 > span:nth-child(2) strong {
+    white-space: nowrap !important;
+  }
+
+  .hero h1 > span:nth-child(2) {
+    white-space: normal !important;
+  }
+
+  .hero h1 > span:nth-child(2) em {
+    display: inline !important;
+    font-size: inherit !important;
+  }
+
+  .hero h1 > span:nth-child(2) strong {
+    display: inline !important;
+    font-size: inherit !important;
+  }
+
+  .hero .intro {
+    width: min(100%, 420px) !important;
+    max-width: none !important;
+    margin: clamp(16px, 2.8vw, 24px) 0 0 !important;
+    font-size: clamp(13px, 2.1vw, 16px) !important;
+    line-height: 1.45 !important;
+  }
+
+  .hero .hero-body__copy .icon-slide-button,
+  .hero .hero-body__copy > a {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    margin-top: clamp(18px, 3vw, 28px) !important;
+  }
+
+  .hero .hero-body__right-copy {
+    position: absolute !important;
+    z-index: 20 !important;
+    top: clamp(86px, 16svh, 150px) !important;
+    left: 64% !important;
+    right: clamp(20px, 4vw, 44px) !important;
+    width: auto !important;
+    color: #fff !important;
+  }
+
+  .hero .hero-body__right-copy h2 {
+    margin: 0 0 clamp(9px, 1.5vw, 16px) !important;
+    font-size: clamp(23px, 4.4vw, 42px) !important;
+    line-height: .93 !important;
+    letter-spacing: -.055em !important;
+  }
+
+  .hero .hero-body__right-copy p {
+    margin: 0 !important;
+    font-size: clamp(11px, 1.75vw, 16px) !important;
+    line-height: 1.42 !important;
+  }
+
+  /* Live hand class names — this is the critical correction. */
+  .hero .hero-body__hands {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 10 !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .hero .hero-body__hands .hero-hand {
+    position: absolute !important;
+    height: auto !important;
+    aspect-ratio: 1671 / 941 !important;
+    max-width: none !important;
+    transform: none;
+  }
+
+  .hero .hero-body__hands .hero-hand img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  .hero .hero-body__hand-glow {
+    left: 50% !important;
+    top: 47% !important;
+    width: clamp(190px, 38vw, 420px) !important;
+    height: clamp(190px, 38vw, 420px) !important;
+    margin: 0 !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .hero .hero-hand--clinician {
+    width: clamp(320px, 72vw, 700px) !important;
+    right: clamp(-210px, -18vw, -72px) !important;
+    top: clamp(315px, 44svh, 470px) !important;
+  }
+
+  .hero .hero-hand--patient {
+    width: clamp(330px, 77vw, 740px) !important;
+    left: clamp(-215px, -19vw, -74px) !important;
+    top: clamp(400px, 55svh, 590px) !important;
+  }
+
+  /* Lower information stack: always anchored from the bottom so changing
+     device height does not create a gap or collision. */
+  .hero .care-panel {
+    left: 4.5% !important;
+    right: 4.5% !important;
+    top: auto !important;
+    bottom: clamp(118px, 16svh, 164px) !important;
+    width: auto !important;
+    height: clamp(116px, 15%, 150px) !important;
+    min-height: 0 !important;
+    padding: clamp(8px, 1.2vw, 12px) !important;
+    gap: clamp(9px, 1.6vw, 18px) !important;
+    border-radius: clamp(18px, 2.2vw, 24px) !important;
+  }
+
+  .hero .care-panel__media {
+    flex: 0 0 clamp(27%, 29%, 174px) !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    padding: clamp(10px, 1.4vw, 14px) !important;
+    border-radius: clamp(13px, 1.6vw, 16px) !important;
+  }
+
+  .hero .care-panel__media-kicker,
+  .hero .care-panel__media-meta {
+    font-size: clamp(6px, 1.25vw, 10px) !important;
+  }
+
+  .hero .care-panel__media strong {
+    font-size: clamp(18px, 3.1vw, 28px) !important;
+  }
+
+  .hero .care-panel__topline {
+    margin-bottom: clamp(9px, 1.8vw, 16px) !important;
+    font-size: clamp(9px, 1.55vw, 12px) !important;
+  }
+
+  .hero .care-highlights {
+    gap: clamp(8px, 1.8vw, 20px) !important;
+  }
+
+  .hero .care-highlight strong {
+    margin-bottom: 4px !important;
+    font-size: clamp(17px, 3vw, 28px) !important;
+  }
+
+  .hero .care-highlight span {
+    font-size: clamp(8px, 1.4vw, 11px) !important;
+    line-height: 1.2 !important;
+  }
+
+  .hero .care-highlight:not(:first-child)::before {
+    height: 42px !important;
+  }
+
+  .hero .service-pills {
+    left: 4.5% !important;
+    right: 4.5% !important;
+    top: auto !important;
+    bottom: clamp(48px, 7svh, 70px) !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: clamp(5px, 1vw, 10px) !important;
+  }
+
+  .hero .service-pills span {
+    min-width: 0 !important;
+    min-height: clamp(44px, 6vw, 58px) !important;
+    padding: 7px clamp(4px, 1vw, 12px) !important;
+    gap: clamp(4px, .7vw, 7px) !important;
+    font-size: clamp(8px, 1.45vw, 12px) !important;
+    line-height: 1.08 !important;
+    white-space: normal !important;
+  }
+
+  .hero .service-pills svg {
+    width: clamp(11px, 1.7vw, 15px) !important;
+    height: auto !important;
+  }
+
+  .hero .feedback {
+    left: 7.5% !important;
+    right: 7.5% !important;
+    bottom: 8px !important;
+    width: auto !important;
+    height: auto !important;
+    gap: 12px !important;
+  }
+
+  .hero .feedback p {
+    max-width: 62% !important;
+    font-size: clamp(10px, 1.6vw, 13px) !important;
+    line-height: 1.25 !important;
+  }
+
+  .hero .feedback__avatars span {
+    width: clamp(32px, 5.5vw, 48px) !important;
+    height: clamp(32px, 5.5vw, 48px) !important;
+    margin-left: -8px !important;
+  }
+
+  .hero .hero-arrow {
+    display: grid !important;
+    left: 7.5% !important;
+    right: auto !important;
+    bottom: 1.5% !important;
+  }
+}
+
+/* Narrow phones: preserve the composition, but give text and cards enough
+   physical pixels to remain legible instead of shrinking indefinitely. */
+@media (max-width: 599px) {
+  .hero .hero__frame,
+  .hero .hero-body {
+    height: clamp(680px, 100svh, 900px) !important;
+  }
+
+  .hero .hero-body::before {
+    clip-path: ellipse(74% 68% at 0% 27%) !important;
+    -webkit-clip-path: ellipse(74% 68% at 0% 27%) !important;
+  }
+
+  .hero .hero-body__copy {
+    top: clamp(82px, 15.5svh, 126px) !important;
+    left: 7.5% !important;
+    width: 61% !important;
+  }
+
+  .hero .eyebrow {
+    margin-bottom: 14px !important;
+    font-size: 9px !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 12.4vw, 54px) !important;
+    line-height: .9 !important;
+  }
+
+  .hero .intro {
+    margin-top: 17px !important;
+    font-size: clamp(14px, 3.8vw, 16px) !important;
+    line-height: 1.42 !important;
+  }
+
+  .hero .hero-body__right-copy {
+    top: clamp(82px, 15.5svh, 126px) !important;
+    left: 67% !important;
+    right: 4% !important;
+  }
+
+  .hero .hero-body__right-copy h2 {
+    font-size: clamp(22px, 6.4vw, 29px) !important;
+    margin-bottom: 11px !important;
+  }
+
+  .hero .hero-body__right-copy p {
+    font-size: clamp(10px, 3.05vw, 13px) !important;
+    line-height: 1.4 !important;
+  }
+
+  .hero .hero-hand--clinician {
+    width: clamp(270px, 82vw, 610px) !important;
+    right: clamp(-180px, -24vw, -76px) !important;
+    top: 44svh !important;
+  }
+
+  .hero .hero-hand--patient {
+    width: clamp(285px, 87vw, 640px) !important;
+    left: clamp(-185px, -25vw, -80px) !important;
+    top: 54svh !important;
+  }
+
+  .hero .care-panel {
+    left: 4% !important;
+    right: 4% !important;
+    bottom: clamp(112px, 15svh, 142px) !important;
+    height: clamp(116px, 14.5%, 132px) !important;
+    padding: 8px !important;
+    gap: 8px !important;
+  }
+
+  .hero .care-panel__media {
+    flex-basis: 29% !important;
+    padding: 9px !important;
+  }
+
+  .hero .care-panel__media strong {
+    font-size: clamp(18px, 5.1vw, 25px) !important;
+  }
+
+  .hero .care-panel__topline {
+    margin-bottom: 9px !important;
+    font-size: 10px !important;
+  }
+
+  .hero .care-highlights {
+    gap: 7px !important;
+  }
+
+  .hero .care-highlight strong {
+    font-size: clamp(16px, 5vw, 23px) !important;
+  }
+
+  .hero .care-highlight span {
+    font-size: 9px !important;
+  }
+
+  .hero .service-pills {
+    left: 4% !important;
+    right: 4% !important;
+    bottom: clamp(48px, 7svh, 64px) !important;
+    gap: 6px !important;
+  }
+
+  .hero .service-pills span {
+    min-height: 46px !important;
+    padding-inline: 3px !important;
+    font-size: clamp(8px, 2.45vw, 10px) !important;
+  }
+
+  .hero .feedback p {
+    max-width: 60% !important;
+    font-size: 11px !important;
+  }
+}
+
+/* Very narrow phones: never let the three-chip row or care card become
+   visually cramped. */
+@media (max-width: 379px) {
+  .hero .hero__frame,
+  .hero .hero-body {
+    height: 680px !important;
+  }
+
+  .hero .hero-body__copy {
+    top: 82px !important;
+    left: 7% !important;
+    width: 61% !important;
+  }
+
+  .hero h1 {
+    font-size: 40px !important;
+  }
+
+  .hero .intro {
+    font-size: 14px !important;
+  }
+
+  .hero .hero-body__right-copy {
+    top: 82px !important;
+    left: 67% !important;
+    right: 3% !important;
+  }
+
+  .hero .hero-body__right-copy h2 {
+    font-size: 20px !important;
+  }
+
+  .hero .hero-body__right-copy p {
+    font-size: 10px !important;
+  }
+
+  .hero .hero-hand--clinician {
+    width: 84vw !important;
+    right: -28vw !important;
+    top: 42% !important;
+  }
+
+  .hero .hero-hand--patient {
+    width: 90vw !important;
+    left: -29vw !important;
+    top: 53% !important;
+  }
+
+  .hero .care-panel {
+    bottom: 112px !important;
+    height: 120px !important;
+  }
+
+  .hero .care-panel__media {
+    flex-basis: 28% !important;
+  }
+
+  .hero .care-panel__media strong {
+    font-size: 18px !important;
+  }
+
+  .hero .care-highlight strong {
+    font-size: 16px !important;
+  }
+
+  .hero .care-highlight span {
+    font-size: 8px !important;
+  }
+
+  .hero .service-pills {
+    bottom: 48px !important;
+    gap: 5px !important;
+  }
+
+  .hero .service-pills span {
+    min-height: 43px !important;
+    font-size: 8px !important;
+  }
+
+  .hero .feedback p {
+    font-size: 10px !important;
+  }
+}
+
+/* Landscape phones / small tablets have much less vertical room. Recompose
+   the lower artwork rather than allowing the portrait stack to collide. */
+@media (orientation: landscape) and (max-width: 1023px) {
+  .hero .hero__frame,
+  .hero .hero-body {
+    height: clamp(520px, 100svh, 680px) !important;
+  }
+
+  .hero .hero-body__copy {
+    top: clamp(58px, 11svh, 86px) !important;
+    width: 52% !important;
+  }
+
+  .hero .hero-body__right-copy {
+    top: clamp(60px, 11svh, 88px) !important;
+    left: 61% !important;
+    right: 5% !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(38px, 6vw, 56px) !important;
+  }
+
+  .hero .intro {
+    max-width: 330px !important;
+    margin-top: 12px !important;
+    font-size: 13px !important;
+  }
+
+  .hero .hero-body__copy .icon-slide-button,
+  .hero .hero-body__copy > a {
+    margin-top: 14px !important;
+  }
+
+  .hero .hero-hand--clinician {
+    width: clamp(300px, 58vw, 560px) !important;
+    right: -15vw !important;
+    top: auto !important;
+    bottom: 24% !important;
+  }
+
+  .hero .hero-hand--patient {
+    width: clamp(320px, 63vw, 600px) !important;
+    left: -16vw !important;
+    top: auto !important;
+    bottom: 5% !important;
+  }
+
+  .hero .hero-body__hand-glow {
+    top: 68% !important;
+    width: 30vw !important;
+    height: 30vw !important;
+  }
+
+  .hero .care-panel {
+    left: 4% !important;
+    right: 4% !important;
+    bottom: 52px !important;
+    width: 55% !important;
+    height: 104px !important;
+  }
+
+  .hero .service-pills {
+    left: auto !important;
+    right: 4% !important;
+    bottom: 16px !important;
+    width: 38% !important;
+    gap: 5px !important;
+  }
+
+  .hero .service-pills span {
+    min-height: 42px !important;
+    font-size: 8px !important;
+  }
+
+  .hero .feedback {
+    display: none !important;
+  }
+
+  .hero .hero-arrow {
+    display: none !important;
+  }
+}
+
+/* 768–1023px portrait tablets: use the wider canvas deliberately rather than
+   letting the phone composition stretch. */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .hero .hero__frame,
+  .hero .hero-body {
+    height: clamp(760px, 100svh, 980px) !important;
+  }
+
+  .hero .hero-body__copy {
+    top: 13.5svh !important;
+    left: 6% !important;
+    width: 56% !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(54px, 7.2vw, 72px) !important;
+  }
+
+  .hero .hero-body__right-copy {
+    top: 14svh !important;
+    left: 64% !important;
+    right: 5% !important;
+  }
+
+  .hero .hero-body__right-copy h2 {
+    font-size: clamp(29px, 4vw, 40px) !important;
+  }
+
+  .hero .hero-body__right-copy p {
+    font-size: 14px !important;
+  }
+
+  .hero .hero-hand--clinician {
+    width: 70vw !important;
+    right: -15vw !important;
+    top: 46% !important;
+  }
+
+  .hero .hero-hand--patient {
+    width: 75vw !important;
+    left: -16vw !important;
+    top: 57% !important;
+  }
+
+  .hero .care-panel {
+    bottom: 13.5svh !important;
+    height: 136px !important;
+  }
+
+  .hero .service-pills {
+    bottom: 5.5svh !important;
+  }
+
+  .hero .service-pills span {
+    min-height: 54px !important;
+    font-size: 11px !important;
+  }
+}
