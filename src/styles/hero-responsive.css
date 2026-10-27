@@ -96,7 +96,7 @@
     margin: 0; transform: translate(-50%, -50%);
   }
   .hero .hero-hand--patient {
-    width: 61.2cqw; left: 0; top: 38.17%;
+    width: 61.2cqw; left: 0; top: 36.44%;
   }
   .hero .hero-hand--clinician {
     width: 61cqw; right: 0; top: 31.25%;
@@ -163,7 +163,7 @@
     height: 1360px;
     min-height: 0;
   }
-  .hero .hero__frame { border-radius: 22px; }
+  .hero .hero__frame { border-radius: 28px; }
   .hero .hero-body {
     overflow: hidden;
     background: radial-gradient(ellipse at 50% 55%, rgba(255,255,255,.28), transparent 38%), linear-gradient(160deg,#3977fe 0%,#246afe 78%);
@@ -305,4 +305,13 @@
   .hero .hero-body__white--mobile-320 { display: block; height: 675px; }
   .hero .hero__frame,
   .hero .hero-body { height: 1399px; min-height: 0; }
+}
+
+/* Exact small-phone offsets from the 320px Figma artboard. */
+@media (max-width: 339px) {
+  .hero .hero-hand--patient { top: 38.46%; }
+  .hero .hero-hand--clinician { top: 34.74%; }
+  .hero .service-pills { top: 64.55%; }
+  .hero .care-panel { top: 72.55%; }
+  .hero .feedback { top: 90.14%; }
 }
