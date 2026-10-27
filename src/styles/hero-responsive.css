@@ -32,7 +32,7 @@
   .hero { min-height: 0; padding: 0; }
   .hero .hero__frame,
   .hero .hero-body {
-    height: clamp(960px, 135.42vw, 1080px);
+    height: 1040px;
     min-height: 0;
   }
   .hero .hero-body { overflow: hidden; }
@@ -43,7 +43,7 @@
     clip-path: ellipse(150% 51% at -30% 13%);
   }
   .hero .hero-body__copy {
-    top: 16.83cqh;
+    top: 16.83%;
     left: 5.21cqw;
     width: 84.64cqw;
   }
@@ -68,7 +68,7 @@
     line-height: 1.5;
   }
   .hero .hero-body__right-copy {
-    top: 63.85cqh;
+    top: 63.85%;
     left: 5.21cqw;
     width: 89.58cqw;
     display: flex;
@@ -92,18 +92,18 @@
   }
   .hero .hero-body__hands { inset: 0; overflow: hidden; }
   .hero .hero-body__hand-glow {
-    left: 50%; top: 48.5cqh; width: 42cqw; height: 42cqw;
+    left: 50%; top: 48.5%; width: 42cqw; height: 42cqw;
     margin: 0; transform: translate(-50%, -50%);
   }
   .hero .hero-hand--patient {
-    width: 61.2cqw; left: 0; top: 38.17cqh;
+    width: 61.2cqw; left: 0; top: 38.17%;
   }
   .hero .hero-hand--clinician {
-    width: 61cqw; right: 0; top: 31.25cqh;
+    width: 61cqw; right: 0; top: 31.25%;
   }
 
   .hero .service-pills {
-    top: 75cqh; bottom: auto; left: 5.21cqw; right: auto;
+    top: 75%; bottom: auto; left: 5.21cqw; right: auto;
     width: 52cqw; display: flex; flex-wrap: nowrap; gap: 8px;
   }
   .hero .service-pills span {
@@ -115,8 +115,8 @@
   .hero .service-pills svg { width: 14px; height: 14px; flex: 0 0 auto; }
 
   .hero .care-panel {
-    top: 81.54cqh; bottom: auto; left: 4.17cqw; right: auto;
-    width: 58.33cqw; height: 16.15cqh;
+    top: 81.54%; bottom: auto; left: 4.17cqw; right: auto;
+    width: 58.33cqw; height: 16.15%;
     grid-template-columns: 30.36% minmax(0, 1fr); gap: 4%;
     padding: 8px; border-radius: 20px; background: #fff;
     box-shadow: 0 10px 30px rgba(0,0,0,.05);
@@ -145,7 +145,7 @@
   .hero .care-highlight:not(:first-child)::before { height: 59px; }
 
   .hero .feedback {
-    top: 85cqh; bottom: auto; left: 69cqw; right: auto;
+    top: 85%; bottom: auto; left: 69cqw; right: auto;
     width: 24.74cqw; min-width: 0; display: flex;
     flex-direction: column; align-items: flex-start; gap: 12px; color: #fff;
   }
@@ -160,7 +160,7 @@
   .hero { min-height: 0; padding: 0; }
   .hero .hero__frame,
   .hero .hero-body {
-    height: clamp(1240px, 348.72vw, 1360px);
+    height: 1360px;
     min-height: 0;
   }
   .hero .hero__frame { border-radius: 22px; }
@@ -172,7 +172,7 @@
     inset: 0 auto auto 0; width: 100%; height: 100%;
     clip-path: ellipse(150% 38% at -30% 10.4%);
   }
-  .hero .hero-body__copy { top: 10.66cqh; left: 6.15cqw; width: 87.7cqw; }
+  .hero .hero-body__copy { top: 10.66%; left: 6.15cqw; width: 87.7cqw; }
   .hero .hero-body .eyebrow {
     margin-bottom: 16px; font-size: 10px; letter-spacing: .12em; line-height: 1.2;
   }
@@ -190,7 +190,7 @@
   .hero .hero-body__copy .hero-body__cta { margin-top: 0; }
 
   .hero .hero-body__right-copy {
-    display: block; top: 51.03cqh; left: 6.15cqw; right: 6.15cqw;
+    display: block; top: 51.03%; left: 6.15cqw; right: 6.15cqw;
     width: auto; color: #fff;
   }
   .hero .hero-body__right-copy h2 {
@@ -200,15 +200,15 @@
 
   .hero .hero-body__hands { inset: 0; overflow: hidden; }
   .hero .hero-body__hand-glow {
-    left: 50%; top: 46.3cqh; width: 88cqw; height: 88cqw;
+    left: 50%; top: 46.3%; width: 88cqw; height: 88cqw;
     margin: 0; transform: translate(-50%, -50%);
   }
-  .hero .hero-hand--patient { width: 90.8cqw; left: -20.5cqw; top: 38.82cqh; }
-  .hero .hero-hand--clinician { width: 91.5cqw; right: -35.6cqw; top: 35cqh; }
+  .hero .hero-hand--patient { width: 90.8cqw; left: -20.5cqw; top: 38.82%; }
+  .hero .hero-hand--clinician { width: 91.5cqw; right: -35.6cqw; top: 35%; }
 
   .hero .care-panel {
-    top: 73.24cqh; bottom: auto; left: 6.15cqw; right: auto;
-    width: 87.7cqw; height: 17.35cqh; grid-template-columns: minmax(0,1fr);
+    top: 73.24%; bottom: auto; left: 6.15cqw; right: auto;
+    width: 87.7cqw; height: 17.35%; grid-template-columns: minmax(0,1fr);
     gap: 9px; padding: 8px; border-radius: 20px; background: #fff;
     box-shadow: 0 10px 30px rgba(0,0,0,.05);
   }
@@ -239,7 +239,7 @@
   .hero .care-highlight:not(:first-child)::before { height: 59px; }
 
   .hero .service-pills {
-    top: 65.07cqh; bottom: auto; left: 6.15cqw; right: auto;
+    top: 65.07%; bottom: auto; left: 6.15cqw; right: auto;
     width: 87.7cqw; display: flex; flex-wrap: wrap; align-items: flex-start;
     gap: 8px;
   }
@@ -252,7 +252,7 @@
   .hero .service-pills svg { width: 14px; height: 14px; flex: 0 0 auto; }
 
   .hero .feedback {
-    top: 91.91cqh; bottom: auto; left: 6.15cqw; right: auto;
+    top: 91.91%; bottom: auto; left: 6.15cqw; right: auto;
     width: 87.7cqw; min-width: 0; flex-direction: row; align-items: center;
     justify-content: space-between; gap: 12px; color: #fff;
   }
@@ -266,4 +266,42 @@
 @media (prefers-reduced-motion: reduce) {
   .hero .hero-hand img,
   .hero .hero-body__hand-glow { animation: none; }
+}
+
+
+/* Figma fidelity corrections: use the artboard's real curve vectors and
+   position against the hero canvas, not viewport-height query units. */
+.hero .hero-body__white { display: none; }
+
+.hero .hero-body__white--mobile,
+.hero .hero-body__white--mobile-320,
+.hero .hero-body__white--tablet {
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: auto;
+  background: none;
+  clip-path: none;
+  overflow: visible;
+}
+
+@media (min-width: 700px) and (max-width: 1023px) {
+  .hero .hero-body__white--tablet { display: block; height: 650px; }
+  .hero .hero-body__white--mobile,
+  .hero .hero-body__white--mobile-320 { display: none; }
+  .hero .hero__frame,
+  .hero .hero-body { height: 1040px; min-height: 0; }
+}
+
+@media (max-width: 699px) {
+  .hero .hero-body__white--mobile { display: block; height: 675px; }
+  .hero .hero-body__white--mobile-320,
+  .hero .hero-body__white--tablet { display: none; }
+}
+
+@media (max-width: 339px) {
+  .hero .hero-body__white--mobile { display: none; }
+  .hero .hero-body__white--mobile-320 { display: block; height: 675px; }
+  .hero .hero__frame,
+  .hero .hero-body { height: 1399px; min-height: 0; }
 }
