@@ -276,6 +276,7 @@
 .hero .hero-body__white--mobile,
 .hero .hero-body__white--mobile-320,
 .hero .hero-body__white--tablet {
+  display: none;
   position: absolute;
   inset: 0 auto auto 0;
   width: 100%;
