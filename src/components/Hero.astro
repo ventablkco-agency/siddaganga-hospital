@@ -11,19 +11,17 @@ import HeroBody from './hero/HeroBody.astro';
 <style>
   .hero {
     min-height: 100svh;
-    padding: var(--section-card-gutter);
+    padding: clamp(8px, 1.15vw, 18px);
     background: var(--color-bg);
     overflow: hidden;
   }
 
   .hero__frame {
     position: relative;
-    min-height: calc(100svh - var(--section-card-gutter) - var(--section-card-gutter));
-    width: min(100%, var(--section-card-max));
-    margin-inline: auto;
+    min-height: calc(100svh - clamp(16px, 2.3vw, 36px));
     overflow: hidden;
     isolation: isolate;
-    border-radius: var(--section-card-radius);
+    border-radius: clamp(22px, 2.1vw, 32px);
     background: var(--color-white);
     box-shadow: var(--shadow-sm);
   }
@@ -69,8 +67,8 @@ import HeroBody from './hero/HeroBody.astro';
 
   @media (max-width: 760px) {
     .hero__frame {
-      min-height: calc(100svh - var(--section-card-gutter) - var(--section-card-gutter));
-      border-radius: var(--section-card-radius);
+      min-height: calc(100svh - 16px);
+      border-radius: 22px;
     }
   }
 </style>
