@@ -70,70 +70,102 @@
   .hero .hero-arrow { display: none !important; }
 }
 
-/* Mobile: readable content stack first, artwork second, information band last. */
+/* Mobile: one vertical composition, with artwork between the CTA and care card. */
 @media (max-width: 699px) {
-  .hero { min-height: 0 !important; padding: 8px !important; }
+  .hero { min-height: 0; padding: 8px; }
   .hero .hero__frame,
-  .hero .hero-body { height: 1080px !important; min-height: 1080px !important; }
-  .hero .hero__frame { border-radius: 20px !important; }
-  .hero .hero-body { overflow: hidden !important; background: linear-gradient(160deg,#3677fa 0%,#246afe 75%) !important; }
-  .hero .hero-body__white { inset: 0 !important; width: 100% !important; right: 0 !important; clip-path: ellipse(145% 51% at 0% 0%) !important; }
-  .hero .hero-body__copy { top: 54px !important; left: 7% !important; width: 86% !important; }
-  .hero .eyebrow { margin-bottom: 14px !important; font-size: 10px !important; letter-spacing: .11em !important; line-height: 1.25 !important; }
-  .hero .hero-body h1 { font-size: clamp(37px, 9.2vw, 44px) !important; line-height: .98 !important; letter-spacing: -.055em !important; }
-  .hero .hero-body h1 span { white-space: normal !important; }
-  .hero .hero-body h1 span:first-child { white-space: nowrap !important; }
-  .hero .hero-body h1 span:nth-child(2) { max-width: 100% !important; }
+  .hero .hero-body { height: clamp(1120px, 305vw, 1300px); min-height: 0; }
+  .hero .hero__frame { border-radius: 20px; }
+  .hero .hero-body {
+    overflow: hidden;
+    background: radial-gradient(ellipse at 70% 57%, rgba(255,255,255,.26), transparent 38%), linear-gradient(160deg, #3677fa 0%, #246afe 78%);
+  }
+  .hero .hero-body__white { inset: 0; width: 100%; right: 0; clip-path: ellipse(150% 49% at 0% 0%); }
+  .hero .hero-body__copy { top: 78px; left: 7%; width: 86%; }
+  .hero .hero-body .eyebrow { margin-bottom: 14px; font-size: 10px; letter-spacing: .11em; line-height: 1.25; }
+  .hero .hero-body h1 { font-size: clamp(35px, 10vw, 42px); line-height: .98; letter-spacing: -.055em; }
+  .hero .hero-body h1 span { white-space: normal; }
+  .hero .hero-body h1 span:first-child { white-space: nowrap; }
   .hero .hero-body h1 em,
-  .hero .hero-body h1 strong { display: inline !important; font-size: inherit !important; }
-  .hero .intro { max-width: 100% !important; margin: 16px 0 20px !important; font-size: 15px !important; line-height: 1.45 !important; }
-  .hero .hero-body__copy .hero-body__cta { margin-top: 0 !important; }
-  .hero .hero-body__right-copy { top: 390px !important; left: 7% !important; right: 7% !important; width: auto !important; color: var(--color-ink) !important; }
-  .hero .hero-body__right-copy h2 { max-width: 290px !important; margin-bottom: 8px !important; font-size: 27px !important; line-height: 1 !important; }
-  .hero .hero-body__right-copy p { max-width: 440px !important; font-size: 13px !important; line-height: 1.4 !important; }
-  .hero .hero-body__hands { inset: 0 !important; overflow: hidden !important; }
-  .hero .hero-body__hand-glow { left: 50% !important; top: 60% !important; width: 74vw !important; height: 74vw !important; margin: 0 !important; transform: translate(-50%,-50%) !important; }
-  .hero .hero-hand--patient { width: 92vw !important; left: -32vw !important; top: 52% !important; }
-  .hero .hero-hand--clinician { width: 90vw !important; right: -32vw !important; top: 49% !important; }
-  .hero .care-panel { top: auto !important; left: 4% !important; right: 4% !important; bottom: 154px !important; width: auto !important; height: 142px !important; grid-template-columns: 34% minmax(0,1fr) !important; gap: 7px !important; padding: 7px !important; border-radius: 18px !important; background: #fff !important; }
-  .hero .care-panel__phone { min-width: 0 !important; min-height: 0 !important; padding: 7px !important; border-radius: 13px !important; }
-  .hero .care-panel__phone-icon { width: 25px !important; height: 25px !important; margin-bottom: 5px !important; }
-  .hero .care-panel__phone-icon svg { width: 16px !important; height: 16px !important; }
-  .hero .care-panel__phone-kicker { font-size: 8px !important; line-height: 1.1 !important; }
-  .hero .care-panel__phone strong { font-size: 12px !important; line-height: 1.1 !important; margin-top: 4px !important; }
-  .hero .care-panel__phone-number { font-size: 8px !important; white-space: normal !important; line-height: 1.15 !important; margin-top: 5px !important; }
-  .hero .care-panel__phone-dot { width: 7px !important; height: 7px !important; right: 7px !important; bottom: 7px !important; }
-  .hero .care-panel__content { min-width: 0 !important; padding-right: 0 !important; }
-  .hero .care-panel__topline { margin-bottom: 10px !important; font-size: 9px !important; }
-  .hero .care-panel__topline i { width: 22px !important; height: 5px !important; }
-  .hero .care-highlights { gap: 0 !important; }
-  .hero .care-highlight { min-width: 0 !important; padding-inline: 4px !important; gap: 5px !important; }
-  .hero .care-highlight strong { font-size: clamp(15px, 4.4vw, 19px) !important; }
-  .hero .care-highlight span { font-size: 8px !important; line-height: 1.15 !important; overflow-wrap: anywhere !important; }
-  .hero .care-highlight__rating { gap: 2px !important; }
-  .hero .care-highlight__rating svg { width: 11px !important; height: 11px !important; }
-  .hero .care-highlight:not(:first-child)::before { height: 38px !important; }
-  .hero .service-pills { top: auto !important; left: 4% !important; right: 4% !important; bottom: 80px !important; display: grid !important; grid-template-columns: repeat(3,minmax(0,1fr)) !important; gap: 5px !important; }
-  .hero .service-pills span { min-width: 0 !important; min-height: 48px !important; padding: 6px 3px !important; gap: 4px !important; border-radius: 999px !important; background: rgba(255,255,255,.95) !important; color: var(--color-brand) !important; font-size: clamp(8px,2.3vw,10px) !important; line-height: 1.05 !important; text-align: center !important; white-space: normal !important; }
-  .hero .service-pills svg { width: 12px !important; height: 12px !important; flex: 0 0 auto !important; }
-  .hero .feedback { top: auto !important; left: 7% !important; right: 7% !important; bottom: 15px !important; width: auto !important; min-width: 0 !important; flex-direction: row !important; align-items: center !important; gap: 9px !important; }
-  .hero .feedback p { max-width: 68% !important; font-size: 10px !important; line-height: 1.25 !important; }
-  .hero .feedback__avatars span { width: 29px !important; height: 29px !important; margin-left: -7px !important; }
-  .hero .hero-arrow { display: none !important; }
+  .hero .hero-body h1 strong { display: inline; font-size: inherit; }
+  .hero .hero-body .intro { max-width: 100%; margin: 16px 0 20px; font-size: 15px; line-height: 1.45; }
+  .hero .hero-body__copy .hero-body__cta { margin-top: 0; }
+  /* Keep the headline and hands as the focus on narrow screens. */
+  .hero .hero-body__right-copy { display: none; }
+  .hero .hero-body__hands { inset: 0; overflow: hidden; }
+  .hero .hero-body__hand-glow {
+    left: 50%; top: 53%; width: 76cqw; height: 76cqw; margin: 0;
+    transform: translate(-50%, -50%);
+  }
+  .hero .hero-hand--patient { width: 100cqw; left: -27cqw; top: 47%; }
+  .hero .hero-hand--clinician { width: 100cqw; right: -27cqw; top: 45%; }
+
+  /* Full-width contact card, with care metrics on a separate row. */
+  .hero .care-panel {
+    top: auto; left: 4%; right: 4%; bottom: 158px; width: auto; height: auto;
+    grid-template-columns: minmax(0, 1fr); gap: 9px; padding: 8px;
+    border-radius: 22px; background: rgba(255,255,255,.98);
+    box-shadow: 0 14px 38px rgba(15,28,60,.13);
+  }
+  .hero .care-panel__phone {
+    display: grid; grid-template-columns: 48px minmax(0, 1fr);
+    grid-template-rows: auto auto auto; align-content: center; align-items: center;
+    column-gap: 12px; min-height: 118px; padding: 14px; border-radius: 16px;
+  }
+  .hero .care-panel__phone-icon {
+    grid-column: 1; grid-row: 1 / 4; width: 44px; height: 44px; margin: 0;
+  }
+  .hero .care-panel__phone-icon svg { width: 23px; height: 23px; }
+  .hero .care-panel__phone-kicker { grid-column: 2; font-size: 12px; line-height: 1.2; }
+  .hero .care-panel__phone strong { grid-column: 2; margin-top: 4px; font-size: 17px; line-height: 1.15; }
+  .hero .care-panel__phone-number { grid-column: 2; margin-top: 4px; font-size: 13px; line-height: 1.2; white-space: nowrap; }
+  .hero .care-panel__phone-dot { right: 10px; bottom: 10px; width: 8px; height: 8px; }
+  .hero .care-panel__content { padding: 12px 8px 14px; }
+  .hero .care-panel__topline { margin-bottom: 14px; font-size: 12px; }
+  .hero .care-panel__topline i { width: 32px; height: 6px; }
+  .hero .care-highlights { gap: 0; }
+  .hero .care-highlight { min-width: 0; gap: 6px; padding-inline: 9px; }
+  .hero .care-highlight:first-child { padding-left: 0; }
+  .hero .care-highlight strong { font-size: clamp(18px, 5vw, 22px); }
+  .hero .care-highlight span { font-size: 11px; line-height: 1.25; overflow-wrap: normal; }
+  .hero .care-highlight__rating { gap: 3px; }
+  .hero .care-highlight__rating svg { width: 13px; height: 13px; }
+  .hero .care-highlight:not(:first-child)::before { height: 44px; }
+
+  .hero .service-pills {
+    top: auto; left: 4%; right: 4%; bottom: 92px;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px;
+  }
+  .hero .service-pills span {
+    min-width: 0; min-height: 54px; padding: 7px 4px; gap: 5px;
+    flex-direction: column; border: 1px solid rgba(36,106,254,.12);
+    border-radius: 999px; background: rgba(255,255,255,.96); color: var(--color-brand);
+    font-size: clamp(10px, 2.8vw, 12px); line-height: 1.05; text-align: center; white-space: normal;
+  }
+  .hero .service-pills svg { width: 16px; height: 16px; flex: 0 0 auto; }
+  .hero .feedback {
+    top: auto; left: 7%; right: 7%; bottom: 18px; width: auto; min-width: 0;
+    flex-direction: row; align-items: center; gap: 10px; padding: 0; color: var(--color-ink);
+  }
+  .hero .feedback p { max-width: 62%; font-size: 12px; line-height: 1.3; }
+  .hero .feedback__avatars span {
+    width: 30px; height: 30px; margin-left: -7px; border-color: #fff;
+  }
+  .hero .hero-arrow { display: none; }
 }
 
-/* Landscape: use the tablet composition rather than the tall portrait stack. */
+/* Landscape mobile uses the tablet layout rather than the portrait stack. */
 @media (orientation: landscape) and (min-width: 500px) and (max-width: 1023px) {
   .hero .hero__frame,
-  .hero .hero-body { height: 760px !important; min-height: 760px !important; }
-  .hero .hero-body__copy { top: 76px !important; }
-  .hero .hero-body__right-copy { top: 88px !important; }
-  .hero .care-panel { bottom: 126px !important; }
-  .hero .service-pills { bottom: 64px !important; }
-  .hero .feedback { bottom: 10px !important; }
+  .hero .hero-body { height: 760px; min-height: 760px; }
+  .hero .hero-body__copy { top: 76px; }
+  .hero .hero-body__right-copy { top: 88px; }
+  .hero .care-panel { bottom: 126px; }
+  .hero .service-pills { bottom: 64px; }
+  .hero .feedback { bottom: 10px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero .hero-hand img,
-  .hero .hero-body__hand-glow { animation: none !important; }
+  .hero .hero-body__hand-glow { animation: none; }
 }
