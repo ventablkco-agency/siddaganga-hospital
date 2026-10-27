@@ -29,13 +29,3 @@
   }
 }
 
-@media (max-width: 760px) {
-  .hero-body .eyebrow { font-size: 11px !important; }
-  .hero-body .intro,
-  .hero-body__right-copy p { font-size: 15px !important; }
-  .care-panel__media-kicker,
-  .care-panel__media-meta,
-  .care-highlight span,
-  .service-pills span { font-size: 11px !important; }
-  .feedback p { font-size: 13px !important; }
-}
