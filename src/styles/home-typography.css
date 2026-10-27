@@ -23,6 +23,7 @@ input,
 textarea,
 select { font-family: var(--font-body) !important; }
 
+@media (min-width: 1024px) {
 /* HERO */
 .hero-body h1 {
   font-family: var(--font-display) !important;
@@ -63,6 +64,8 @@ select { font-family: var(--font-body) !important; }
 }
 .care-panel__media strong,
 .care-highlight strong { font-family: var(--font-display) !important; }
+
+}
 
 /* SECTION 2 — hospital introduction */
 .section-two__text-reveal h2 {
