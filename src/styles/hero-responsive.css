@@ -269,14 +269,15 @@
 }
 
 
-/* Figma fidelity corrections: use the artboard's real curve vectors and
-   position against the hero canvas, not viewport-height query units. */
+/* Figma artboard curves: select the matching vector at each reference width. */
 .hero .hero-body__white { display: none; }
 
-.hero .hero-body__white--mobile,
+.hero .hero-body__white--mobile-wide,
+.hero .hero-body__white--mobile-narrow,
 .hero .hero-body__white--mobile-320,
 .hero .hero-body__white--tablet,
-.hero .hero-body__white--laptop {
+.hero .hero-body__white--laptop,
+.hero .hero-body__white--desktop {
   display: none;
   position: absolute;
   inset: 0 auto auto 0;
@@ -284,33 +285,28 @@
   height: auto;
   background: none;
   clip-path: none;
-  overflow: visible;
+  overflow: hidden;
 }
 
-@media (min-width: 700px) and (max-width: 1023px) {
-  .hero .hero-body__white--tablet { display: block; height: 650px; }
-  .hero .hero-body__white--mobile,
-  .hero .hero-body__white--mobile-320,
-  .hero .hero-body__white--laptop { display: none; }
+/* Mobile 390/425 artboards share the 445px curve shoulder. */
+@media (min-width: 380px) and (max-width: 699px) {
+  .hero .hero-body__white--mobile-wide { display: block; height: 675px; }
   .hero .hero__frame,
-  .hero .hero-body { height: 1040px; min-height: 0; }
+  .hero .hero-body { height: 1360px; min-height: 0; }
 }
 
-@media (max-width: 699px) {
-  .hero .hero-body__white--mobile { display: block; height: 675px; }
-  .hero .hero-body__white--mobile-320,
-  .hero .hero-body__white--tablet { display: none; }
+/* Mobile 360/375 artboards use the deeper 464px curve shoulder. */
+@media (min-width: 340px) and (max-width: 379px) {
+  .hero .hero-body__white--mobile-narrow { display: block; height: 675px; }
+  .hero .hero__frame,
+  .hero .hero-body { height: 1360px; min-height: 0; }
 }
 
+/* Exact 320px mobile artboard. */
 @media (max-width: 339px) {
-  .hero .hero-body__white--mobile { display: none; }
   .hero .hero-body__white--mobile-320 { display: block; height: 675px; }
   .hero .hero__frame,
   .hero .hero-body { height: 1399px; min-height: 0; }
-}
-
-/* Exact small-phone offsets from the 320px Figma artboard. */
-@media (max-width: 339px) {
   .hero .hero-hand--patient { top: 38.46%; }
   .hero .hero-hand--clinician { top: 34.74%; }
   .hero .service-pills { top: 64.55%; }
@@ -318,24 +314,19 @@
   .hero .feedback { top: 90.14%; }
 }
 
-/* Figma small-laptop artboard (1024 × 720). */
+/* Tablet artboards (768/820 × 1040). */
+@media (min-width: 700px) and (max-width: 1023px) {
+  .hero .hero-body__white--tablet { display: block; height: 650px; }
+  .hero .hero__frame,
+  .hero .hero-body { height: 1040px; min-height: 0; }
+}
+
+/* Small laptop artboard (1024 × 720). */
 @media (min-width: 1024px) and (max-width: 1279px) {
   .hero { min-height: 0; padding: 0; }
   .hero .hero__frame,
   .hero .hero-body { height: 720px; min-height: 0; }
-  .hero .hero-body__white { display: none; }
-  .hero .hero-body__white--laptop {
-    display: block;
-    position: absolute;
-    inset: 0 auto auto 0;
-    width: 100%;
-    height: 720px;
-    background: none;
-    clip-path: none;
-  }
-  .hero .hero-body__white--mobile,
-  .hero .hero-body__white--mobile-320,
-  .hero .hero-body__white--tablet { display: none; }
+  .hero .hero-body__white--laptop { display: block; height: 720px; }
   .hero .hero-body__copy { left: 3.90625%; top: 19.3056%; width: 49.8047%; }
   .hero .hero-body .eyebrow { font-size: 11px; margin-bottom: 20px; }
   .hero .hero-body h1 { font-size: 58px; line-height: 1.02; }
@@ -357,4 +348,11 @@
   }
   .hero .feedback p { max-width: 100%; font-size: 11px; line-height: 1.3; }
   .hero .feedback__avatars span { width: 30px; height: 30px; margin-left: -6px; }
+}
+
+/* Desktop artboard (1440 × 720) — do not fall back to the old ellipse. */
+@media (min-width: 1280px) {
+  .hero .hero__frame,
+  .hero .hero-body { height: 720px; min-height: 0; }
+  .hero .hero-body__white--desktop { display: block; height: 720px; }
 }
