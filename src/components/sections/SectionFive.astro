@@ -46,7 +46,6 @@ const doctors = [
             <article class:list={['depth-card', doctor.tone, index === 0 && 'is-active']} data-depth-card data-index={index} aria-hidden={index !== 0}>
               <div class="depth-photo" aria-label={`${doctor.name} portrait`}>
                 <img src={doctor.image} alt={`${doctor.name} — ${doctor.role}`} loading={index === 0 ? 'eager' : 'lazy'} draggable="false" />
-                <span class="photo-label">SGH · Doctor portrait</span>
               </div>
               <div class="depth-card-info">
                 <span class="depth-card-number">0{index + 1}</span>
