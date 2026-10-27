@@ -29,7 +29,7 @@
 
 /* Tablet: match the Figma 768 × 1040 composition. */
 @media (min-width: 700px) and (max-width: 1023px) {
-  .hero { min-height: 0; padding: 10px; }
+  .hero { min-height: 0; padding: 0; }
   .hero .hero__frame,
   .hero .hero-body {
     height: clamp(960px, 135.42vw, 1080px);
@@ -157,7 +157,7 @@
 
 /* Mobile: match the Figma 390 × 1360 composition. */
 @media (max-width: 699px) {
-  .hero { min-height: 0; padding: 8px; }
+  .hero { min-height: 0; padding: 0; }
   .hero .hero__frame,
   .hero .hero-body {
     height: clamp(1240px, 348.72vw, 1360px);
@@ -203,8 +203,8 @@
     left: 50%; top: 46.3cqh; width: 88cqw; height: 88cqw;
     margin: 0; transform: translate(-50%, -50%);
   }
-  .hero .hero-hand--patient { width: 90.8cqw; left: -20.5cqw; top: 34.26cqh; }
-  .hero .hero-hand--clinician { width: 91.5cqw; right: -44cqw; top: 30.6cqh; }
+  .hero .hero-hand--patient { width: 90.8cqw; left: -20.5cqw; top: 38.82cqh; }
+  .hero .hero-hand--clinician { width: 91.5cqw; right: -35.6cqw; top: 35cqh; }
 
   .hero .care-panel {
     top: 73.24cqh; bottom: auto; left: 6.15cqw; right: auto;
