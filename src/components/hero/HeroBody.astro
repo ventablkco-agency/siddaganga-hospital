@@ -1,5 +1,5 @@
 ---
-import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall } from 'lucide-astro';
+import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } from 'lucide-astro';
 import IconSlideButton from '../ui/IconSlideButton.astro';
 ---
 
@@ -53,9 +53,9 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
     <div class="care-panel__content">
       <div class="care-panel__topline"><span>care highlights</span><i aria-hidden="true"></i></div>
       <div class="care-highlights">
-        <div class="care-highlight"><strong>24×7</strong><span>Emergency</span></div>
-        <div class="care-highlight"><strong>Lab</strong><span>On-site diagnostics</span></div>
-        <div class="care-highlight"><strong>2D Echo</strong><span>ECG support</span></div>
+        <div class="care-highlight"><strong>15+</strong><span>Years of experience</span></div>
+        <div class="care-highlight"><strong>6+</strong><span>Medical specialities</span></div>
+        <div class="care-highlight"><strong class="care-highlight__rating"><Star size={15} fill="currentColor" aria-hidden="true" />4.5</strong><span>Google rating</span></div>
       </div>
     </div>
   </aside>
@@ -130,6 +130,8 @@ h1 strong{font-weight:800;color:var(--color-ink)}
 .care-highlight:first-child{padding-left:0}
 .care-highlight:not(:first-child)::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(0,0,0,.1)}
 .care-highlight strong{font-size:5cqw;line-height:1;color:var(--color-brand);font-weight:700;white-space:nowrap}
+.care-highlight .care-highlight__rating{display:flex;align-items:center;gap:1cqw}
+.care-highlight__rating svg{flex:0 0 auto;width:3cqw;height:3cqw}
 .care-highlight span{font-size:2.4cqw;line-height:1.25;color:var(--color-ink)}
 .service-pills{position:absolute;z-index:25;left:7cqw;right:7cqw;top:250cqw;display:flex;align-items:center;gap:2cqw}
 .service-pills span{display:flex;align-items:center;justify-content:center;gap:1.4cqw;min-height:8cqw;padding:0 2.2cqw;border-radius:var(--radius-pill);background:rgba(255,255,255,.14);color:var(--color-white);border:1px solid rgba(255,255,255,.4);font-size:2.8cqw;line-height:1.05;white-space:nowrap}
@@ -171,6 +173,7 @@ h1 strong{font-weight:800;color:var(--color-ink)}
   .care-panel__topline{font-size:1.6cqw;margin-bottom:1.8cqw}
   .care-highlight{padding-inline:1.4cqw;gap:.8cqw}
   .care-highlight strong{font-size:3.2cqw}
+  .care-highlight__rating svg{width:2cqw;height:2cqw}
   .care-highlight span{font-size:1.5cqw}
   .service-pills{top:137cqw;left:6cqw;right:6cqw;gap:1cqw}
   .service-pills span{min-height:6.4cqw;padding-inline:1.5cqw;font-size:1.7cqw}
@@ -209,6 +212,7 @@ h1 strong{font-weight:800;color:var(--color-ink)}
   .care-panel__topline i{width:32px;height:6px}
   .care-highlight{padding:0 10px;gap:7px}
   .care-highlight strong{font-size:clamp(19px,1.8cqw,29px)}
+  .care-highlight__rating svg{width:14px;height:14px}
   .care-highlight span{font-size:11px}
   .feedback{top:auto;left:auto;right:3.5cqw;bottom:10.5cqh;display:flex;flex-direction:column;align-items:flex-start;gap:9px;width:11cqw;min-width:150px}
   .feedback p{max-width:none;margin:0;font-size:11px;line-height:1.3}
