@@ -93,23 +93,21 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
 .hero-body{
   position:relative;width:100%;overflow:hidden;isolation:isolate;border-radius:inherit;
   container-type:size;
-/* Independent full-canvas layers. Their shared inset keeps existing
-   container-relative coordinates stable while separating stacking contexts. */
-.hero-layer{position:absolute;inset:0;min-width:0;min-height:0;pointer-events:none}
-.hero-layer--background{z-index:0}
-.hero-layer--content{z-index:20}
-.hero-layer--artwork{z-index:10}
-.hero-layer--foreground{z-index:25}
-.hero-layer--content>*,
-.hero-layer--foreground>*{pointer-events:auto}
-.hero-layer--artwork .hero-body__hands{pointer-events:none}
-
   height:max(calc(100svh - 16px),272vw);
   --wn:100;--w:calc(var(--wn)*1cqw);
   --L:max(0cqw,calc((1.576*var(--wn) - 96)*.5cqw));
   --ty:118cqw;--ty2:115cqw;
   background:radial-gradient(ellipse at 72% 30%,rgba(255,255,255,.22) 0%,rgba(255,255,255,.08) 30%,transparent 58%),var(--color-brand);
 }
+/* Independent full-canvas layers; child z-index values stay scoped to each layer. */
+.hero-body>.hero-layer{position:absolute;inset:0;min-width:0;min-height:0;pointer-events:none}
+.hero-body>.hero-layer--background{z-index:0}
+.hero-body>.hero-layer--artwork{z-index:10}
+.hero-body>.hero-layer--content{z-index:20}
+.hero-body>.hero-layer--foreground{z-index:25}
+.hero-body>.hero-layer--content>*,
+.hero-body>.hero-layer--foreground>*{pointer-events:auto}
+.hero-body>.hero-layer--artwork .hero-body__hands{pointer-events:none}
 .hero-body::before{display:none}
 .hero-body__white{position:absolute;inset:0;z-index:0;background:var(--color-white);clip-path:ellipse(140cqw 104cqw at 0 40cqw);pointer-events:none}
 
@@ -169,39 +167,6 @@ h1 strong{font-weight:800;color:var(--color-ink)}
 :global(html.hero-anim) .care-panel,
 :global(html.hero-anim) .feedback{opacity:0}
 
-/* ================= TABLET 700–1023 ================= */
-@media (min-width:700px){
-  .hero-body{height:max(calc(100svh - 24px),150vw);--wn:78;--ty:74cqw;--ty2:71cqw}
-  .hero-body__white{clip-path:ellipse(64cqw 90cqw at 0 40cqw)}
-  .hero-body__copy{left:6cqw;top:17cqw;width:56cqw}
-  .eyebrow{margin-bottom:2.4cqw}
-  h1{font-size:6cqw}
-  .intro{max-width:46cqw;font-size:2.1cqw;margin:2.4cqw 0 3cqw}
-  .hero-body__right-copy{left:68cqw;top:19cqw;width:27cqw}
-  .hero-body__right-copy h2{font-size:3.3cqw;margin-bottom:1.6cqw}
-  .hero-body__right-copy p{font-size:1.9cqw}
-
-  .care-panel{top:126cqw;left:5cqw;right:5cqw;grid-template-columns:32% 1fr;gap:2cqw;padding:1.6cqw;border-radius:2.2cqw}
-  .care-panel__phone{min-height:17cqw;padding:2cqw;border-radius:1.6cqw}
-  .care-panel__phone-icon{width:5cqw;height:5cqw;margin-bottom:1cqw}
-  .care-panel__phone-icon svg{width:2.8cqw}
-  .care-panel__phone-kicker{font-size:1.5cqw}
-  .care-panel__phone strong{font-size:2.4cqw}
-  .care-panel__phone-number{font-size:1.5cqw;margin-top:.8cqw}
-  .care-panel__phone-dot{width:1.5cqw;height:1.5cqw}
-  .care-panel__topline{font-size:1.6cqw;margin-bottom:1.8cqw}
-  .care-highlight{padding-inline:1.4cqw;gap:.8cqw}
-  .care-highlight strong{font-size:3.2cqw}
-  .care-highlight__rating svg{width:2cqw;height:2cqw}
-  .care-highlight span{font-size:1.5cqw}
-  .service-pills{top:137cqw;left:6cqw;right:6cqw;gap:1cqw}
-  .service-pills span{min-height:6.4cqw;padding-inline:1.5cqw;font-size:1.7cqw}
-  .service-pills svg{width:2cqw}
-  .feedback{top:145cqw;left:6cqw;right:6cqw}
-  .feedback p{font-size:1.9cqw}
-  .feedback__avatars span{width:5.4cqw;height:5.4cqw}
-}
-
 /* ================= DESKTOP 1024+ ================= */
 @media (min-width:1024px){
   .hero-body{height:max(600px,calc(100svh - clamp(16px,2.3vw,36px)));--w:min(62cqw,120cqh);--L:1cqw;--ty:53cqh;--ty2:50cqh}
@@ -240,22 +205,6 @@ h1 strong{font-weight:800;color:var(--color-ink)}
   .hero-arrow{position:absolute;z-index:18;right:15cqw;bottom:10.8cqh;display:grid;place-items:center;color:var(--color-white)}
 }
 
-/* Compact desktop: preserve the card and leave the feedback group its own right-side column. */
-@media (min-width:1024px) and (max-width:1279px){
-  .service-pills{left:47cqw;right:18cqw;gap:5px}
-  .service-pills span{padding-inline:8px;font-size:9px}
-  .service-pills svg{width:12px;height:12px}
-  .care-panel{width:40cqw;grid-template-columns:32% 1fr;padding:8px;gap:1.5cqw}
-  .care-panel__phone{min-height:112px;padding:10px}
-  .care-panel__phone strong{font-size:16px}
-  .care-panel__phone-number{font-size:9px}
-  .care-highlight{padding-inline:6px}
-  .care-highlight strong{font-size:19px}
-  .care-highlight span{font-size:9px}
-  .feedback{right:2.8cqw;width:12cqw;min-width:125px;bottom:10cqh}
-  .feedback p{font-size:10px}
-  .hero-arrow{right:17cqw;bottom:10.5cqh}
-}
 </style>
 
 <script>
