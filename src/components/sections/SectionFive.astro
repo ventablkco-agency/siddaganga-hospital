@@ -36,7 +36,7 @@ const doctors = [
             <span class="scroll-progress-line"><span data-scroll-progress></span></span>
             <span class="scroll-progress-label" data-scroll-label>01 / 03</span>
           </div>
-          <p class="scroll-hint"><Icon name="arrow-down" size={12} strokeWidth={1.7} /> Scroll to meet every doctor</p>
+          <p class="scroll-hint"><Icon name="arrow-down" size={12} strokeWidth={1.7} /> Select a doctor to explore</p>
         </div>
       </div>
 
@@ -58,7 +58,7 @@ const doctors = [
             </article>
           ))}
         </div>
-        <div class="depth-hint" aria-hidden="true"><Icon name="drag" size={12} strokeWidth={1.6} /> Scroll to explore</div>
+        <div class="depth-hint" aria-hidden="true"><Icon name="drag" size={12} strokeWidth={1.6} /> Select to explore</div>
       </div>
     </div>
   </div>
@@ -98,16 +98,6 @@ const doctors = [
         window.setTimeout(() => { locked = false; }, 760);
         return true;
       };
-
-      stage.addEventListener('wheel', (event) => {
-        if (Math.abs(event.deltaY) < 8) return;
-        const direction = event.deltaY > 0 ? 1 : -1;
-        if (canMove(direction)) {
-          event.preventDefault();
-          event.stopPropagation();
-          move(direction);
-        }
-      }, { passive: false });
 
       stage.addEventListener('keydown', (event) => {
         const direction = event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : event.key === 'ArrowUp' || event.key === 'ArrowLeft' ? -1 : 0;
