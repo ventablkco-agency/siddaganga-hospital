@@ -350,9 +350,109 @@
   .hero .feedback__avatars span { width: 30px; height: 30px; margin-left: -6px; }
 }
 
-/* Desktop artboard (1440 × 720) — do not fall back to the old ellipse. */
+/* Exact desktop artboard (1440 × 720). Scoped above 1279px so laptop/tablet/mobile stay unchanged. */
 @media (min-width: 1280px) {
   .hero .hero__frame,
-  .hero .hero-body { height: 720px; min-height: 0; }
-  .hero .hero-body__white--desktop { display: block; height: 720px; }
+  .hero .hero-body {
+    height: 720px;
+    min-height: 0;
+  }
+
+  .hero .hero-body__white--desktop {
+    display: block;
+    width: 100%;
+    height: 720px;
+  }
+
+  /* Figma: headline starts at x=72; preserve room for eyebrow above it. */
+  .hero .hero-body__copy {
+    left: 72px;
+    top: 136px;
+    width: 560px;
+  }
+  .hero .hero-body .eyebrow {
+    margin-bottom: 20px;
+    font-size: 11px;
+  }
+  .hero .hero-body h1 {
+    font-size: 70px;
+    line-height: .98;
+  }
+  .hero .hero-body .intro {
+    max-width: 400px;
+    margin: 24px 0 28px;
+    font-size: 15px;
+  }
+
+  /* Figma right-copy origin and headline scale. */
+  .hero .hero-body__right-copy {
+    left: 921px;
+    top: 101px;
+    width: 405px;
+  }
+  .hero .hero-body__right-copy h2 {
+    margin-bottom: 12px;
+    font-size: 48px;
+    line-height: .98;
+  }
+  .hero .hero-body__right-copy p {
+    max-width: 390px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Use the exact Figma hand image bounds instead of the shared calculated width. */
+  .hero .hero-body__hand-glow {
+    left: 50%;
+    top: 390px;
+    width: 374px;
+    height: 374px;
+    margin: -187px 0 0 -187px;
+  }
+  .hero .hero-hand--patient {
+    left: 0;
+    right: auto;
+    top: 254px;
+    width: 842px;
+  }
+  .hero .hero-hand--clinician {
+    left: 600px;
+    right: auto;
+    top: 130px;
+    width: 850px;
+  }
+
+  /* Figma care card: x=70, y=555, 330 × 119.741. */
+  .hero .care-panel {
+    left: 70px;
+    right: auto;
+    top: 555px;
+    bottom: auto;
+    width: 330px;
+    height: 120px;
+    grid-template-columns: 32% minmax(0, 1fr);
+    gap: 8px;
+    padding: 8px;
+    border-radius: 20px;
+  }
+
+  /* Figma service row starts at x=720, y=633 with 42px pills. */
+  .hero .service-pills {
+    left: 720px;
+    right: auto;
+    top: 633px;
+    bottom: auto;
+    gap: 8px;
+  }
+  .hero .service-pills span {
+    min-height: 42px;
+    height: 42px;
+    padding: 0 13px;
+    gap: 7px;
+    font-size: 11px;
+  }
+  .hero .service-pills svg {
+    width: 14px;
+    height: 14px;
+  }
 }
