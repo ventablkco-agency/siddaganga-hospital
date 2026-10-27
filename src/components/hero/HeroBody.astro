@@ -146,20 +146,24 @@ h1 strong{font-weight:800;color:var(--color-ink)}
   .hero-body__right-copy p{font-size:14px;line-height:1.5}
   .hero-body__hand-glow{left:51%;width:26cqw;height:26cqw;margin:-13cqw 0 0 -13cqw}
 
-  .service-pills{top:auto;left:auto;right:clamp(210px,16cqw,270px);bottom:13cqh;display:flex;gap:10px}
-  .service-pills span{min-height:0;padding:13px 20px;gap:8px;font-size:11px;background:rgba(255,255,255,.14);color:var(--color-white);border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(12px);white-space:nowrap}
+  /* Lower-right content is treated as one intentional footer composition:
+     service tags occupy the left column; feedback + avatars occupy the right. */
+  .service-pills{top:auto;left:52cqw;right:17cqw;bottom:13cqh;display:flex;align-items:center;gap:8px}
+  .service-pills span{min-height:0;flex:0 1 auto;padding:12px 15px;gap:7px;font-size:11px;background:rgba(255,255,255,.14);color:var(--color-white);border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(12px);white-space:nowrap}
   .service-pills svg{width:14px}
-  .feedback{top:auto;left:auto;right:3cqw;bottom:13cqh;display:block;width:180px}
-  .feedback p{max-width:none;margin-bottom:10px;font-size:11px}
+  .feedback{top:auto;left:auto;right:4cqw;bottom:13cqh;display:flex;flex-direction:column;align-items:flex-start;gap:10px;width:11cqw;min-width:150px}
+  .feedback p{max-width:none;margin:0;font-size:11px;line-height:1.35}
+  .feedback__avatars{align-self:flex-start}
   .feedback__avatars span{width:32px;height:32px;margin-left:-7px}
-  .hero-arrow{position:absolute;z-index:18;right:12cqw;bottom:2.2cqw;display:grid;place-items:center;color:var(--color-white)}
+  .hero-arrow{position:absolute;z-index:18;right:4cqw;bottom:3cqh;display:grid;place-items:center;color:var(--color-white)}
 }
 
-/* Small desktop / landscape tablet: keep chips and feedback in separate columns. */
+/* Compact desktop: keep the three tags legible and reserve a dedicated feedback column. */
 @media (min-width:1024px) and (max-width:1279px){
-  .service-pills{right:190px;gap:8px}
-  .service-pills span{padding-inline:12px}
-  .feedback{right:2.5cqw;bottom:13cqh;width:155px}
+  .service-pills{left:50cqw;right:20cqw;gap:6px}
+  .service-pills span{padding-inline:9px;font-size:10px}
+  .service-pills svg{width:12px}
+  .feedback{right:3cqw;width:12cqw;min-width:125px}
   .feedback p{font-size:10px}
   .hero-arrow{display:none}
 }
