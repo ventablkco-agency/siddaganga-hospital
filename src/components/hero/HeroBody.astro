@@ -9,9 +9,12 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
 </script>
 
 <div class="hero-body">
-  <div class="hero-body__white" aria-hidden="true"></div>
+  <div class="hero-layer hero-layer--background" aria-hidden="true">
+    <div class="hero-body__white"></div>
+  </div>
 
-  <div class="hero-body__copy">
+  <div class="hero-layer hero-layer--content">
+    <div class="hero-body__copy">
     <p class="eyebrow" data-in>SIDDAGANGA HOSPITAL · RANEBENNUR</p>
     <h1><span data-in>Heart &amp;</span><span data-in><em>Diabetes</em>, in <strong>Sync</strong></span></h1>
     <p class="intro" data-in>Specialist care, advanced diagnostics and a team that listens carefully to every patient.</p>
@@ -31,18 +34,22 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
     </div>
   </div>
 
-  <div class="hero-body__right-copy">
-    <h2 data-in>With Specialist<br />Technology</h2>
-    <p data-in>The latest diagnostic equipment, paired with a team that never rushes a conversation — because every patient deserves both.</p>
+    <div class="hero-body__right-copy">
+      <h2 data-in>With Specialist<br />Technology</h2>
+      <p data-in>The latest diagnostic equipment, paired with a team that never rushes a conversation — because every patient deserves both.</p>
+    </div>
   </div>
 
-  <div class="hero-body__hands" aria-hidden="true">
+  <div class="hero-layer hero-layer--artwork">
+    <div class="hero-body__hands" aria-hidden="true">
     <div class="hero-body__hand-glow"></div>
     <div class="hero-hand hero-hand--patient"><img src="/assets/hero/patient-hand.png" alt="" /></div>
     <div class="hero-hand hero-hand--clinician"><img src="/assets/hero/clinician-hand.png" alt="" /></div>
+    </div>
   </div>
 
-  <aside class="care-panel" aria-label="Siddaganga Hospital care highlights">
+  <div class="hero-layer hero-layer--foreground">
+    <aside class="care-panel" aria-label="Siddaganga Hospital care highlights">
     <a class="care-panel__phone" href="tel:+919591799099" aria-label="Call Siddaganga Hospital">
       <span class="care-panel__phone-icon"><PhoneCall size={23} strokeWidth={1.8} aria-hidden="true" /></span>
       <span class="care-panel__phone-kicker">Need medical assistance?</span>
@@ -75,7 +82,8 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
     </div>
   </div>
 
-  <div class="hero-arrow" aria-hidden="true"><ArrowRight size={24} strokeWidth={1.7} /></div>
+    <div class="hero-arrow" aria-hidden="true"><ArrowRight size={24} strokeWidth={1.7} /></div>
+  </div>
 </div>
 
 <style>
@@ -85,6 +93,17 @@ import IconSlideButton from '../ui/IconSlideButton.astro';
 .hero-body{
   position:relative;width:100%;overflow:hidden;isolation:isolate;border-radius:inherit;
   container-type:size;
+/* Independent full-canvas layers. Their shared inset keeps existing
+   container-relative coordinates stable while separating stacking contexts. */
+.hero-layer{position:absolute;inset:0;min-width:0;min-height:0;pointer-events:none}
+.hero-layer--background{z-index:0}
+.hero-layer--content{z-index:20}
+.hero-layer--artwork{z-index:10}
+.hero-layer--foreground{z-index:25}
+.hero-layer--content>*,
+.hero-layer--foreground>*{pointer-events:auto}
+.hero-layer--artwork .hero-body__hands{pointer-events:none}
+
   height:max(calc(100svh - 16px),272vw);
   --wn:100;--w:calc(var(--wn)*1cqw);
   --L:max(0cqw,calc((1.576*var(--wn) - 96)*.5cqw));
