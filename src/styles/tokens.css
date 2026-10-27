@@ -81,6 +81,11 @@
   /* ---- Layout ---- */
   --container: 1440px;
   --gutter: clamp(16px, 3vw, 48px);
+  /* Shared outer section-card system. Keep section heights content-specific. */
+  --section-card-max: var(--container);
+  --section-card-gutter: clamp(12px, 2vw, 28px);
+  --section-card-radius: var(--radius-lg);
+  --section-card-gap: clamp(16px, 2vw, 28px);
   --header-offset: 112px;
 
   /* ---- Radius scale ---- */
