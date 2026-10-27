@@ -360,9 +360,11 @@
 
   .hero .hero-body__white--desktop {
     display: block;
+    top: 0;
+    bottom: auto;
     width: 100%;
-    height: 100%;
-    min-height: 720px;
+    height: calc(100% + 28px);
+    min-height: 748px;
     max-height: none;
     flex: none;
   }
