@@ -29,13 +29,13 @@ if (!reducedMotion) {
         autoAlpha: 0,
         y: 20,
         scale: 0.985,
-        xPercent: index === 0 ? -9 : 9,
+        xPercent: index === 0 ? -115 : 115,
       }), {
         autoAlpha: 1,
         y: 0,
         scale: 1,
         xPercent: 0,
-        duration: 1.05,
+        duration: 1.55,
         stagger: 0.12,
       }, '-=0.68');
 
