@@ -65,6 +65,25 @@ import HeroBody from './hero/HeroBody.astro';
     pointer-events: none;
   }
 
+  /* The desktop Figma artboard is the full 1440 × 720 canvas. The previous
+     outer gutter reduced the actual container width to 1404px, so every
+     absolute Figma coordinate drifted horizontally. Keep the frame at the
+     artboard's true dimensions on desktop. */
+  @media (min-width: 1280px) {
+    .hero {
+      min-height: 720px;
+      height: 720px;
+      padding: 0;
+    }
+
+    .hero__frame {
+      width: 100%;
+      height: 720px;
+      min-height: 720px;
+      border-radius: 32px;
+    }
+  }
+
   @media (max-width: 760px) {
     .hero__frame {
       min-height: calc(100svh - 16px);
