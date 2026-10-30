@@ -10,65 +10,36 @@ import HeroBody from './hero/HeroBody.astro';
 
 <style>
   .hero {
-    min-height: 100svh;
-    padding: clamp(8px, 1.15vw, 18px);
-    background: var(--color-bg);
+    width: 100%;
+    height: 720px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
     overflow: hidden;
+    background: #fff;
   }
 
   .hero__frame {
     position: relative;
-    min-height: calc(100svh - clamp(16px, 2.3vw, 36px));
+    width: 100%;
+    height: 100%;
+    min-height: 0;
     overflow: hidden;
     isolation: isolate;
-    border-radius: clamp(22px, 2.1vw, 32px);
-    background: var(--color-white);
-    box-shadow: var(--shadow-sm);
+    border-radius: 0;
+    background: #246afe;
+    box-shadow: none;
   }
 
-  /* HeroBody owns the actual split-field composition. */
-  :global(.hero) :global(.hero-body) {
-    background:
-      radial-gradient(ellipse at 72% 18%, rgba(255,255,255,.22) 0%, rgba(255,255,255,.08) 28%, transparent 55%),
-      radial-gradient(ellipse at 90% 78%, rgba(255,255,255,.08), transparent 42%),
-      #246AFE !important;
+  @media (min-width: 700px) and (max-width: 900px) {
+    .hero { height: 1040px; }
   }
 
-  :global(.hero) :global(.hero-body)::before {
-    background: #FFFFFF !important;
+  @media (max-width: 699px) {
+    .hero { height: 1360px; }
   }
 
-  /* Hero-only appointment button: the circular icon stays white on hover;
-     only the arrow changes to white. */
-  :global(.hero) a[href^="https://wa.me/"] .icon-slide-button__icon::after {
-    display: none;
-  }
-
-  :global(.hero) a[href^="https://wa.me/"]:hover .icon-slide-button__icon,
-  :global(.hero) a[href^="https://wa.me/"]:focus-visible .icon-slide-button__icon {
-    background: var(--button-fill);
-    color: var(--color-white);
-  }
-
-  :global(.hero) a[href^="https://wa.me/"]:hover .icon-slide-button__icon svg,
-  :global(.hero) a[href^="https://wa.me/"]:focus-visible .icon-slide-button__icon svg {
-    color: var(--color-white);
-  }
-
-  .hero__frame::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 40;
-    border: 1px solid rgba(255, 255, 255, 0.96);
-    border-radius: inherit;
-    pointer-events: none;
-  }
-
-  @media (max-width: 760px) {
-    .hero__frame {
-      min-height: calc(100svh - 16px);
-      border-radius: 22px;
-    }
+  @media (max-width: 339px) {
+    .hero { height: 1399px; }
   }
 </style>
