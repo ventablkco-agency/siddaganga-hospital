@@ -117,12 +117,14 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
  .service-pills{left:50%;bottom:6.2%}.service-pills span{min-height:42px;height:42px}
  .feedback{right:3.5%;bottom:7%}
 }
-@media(min-width:700px) and (max-width:1279px){
+@media(min-width:901px) and (max-width:1279px){
  .hero-white--laptop{display:block}
  .hero-copy{left:3.9%;top:19.5%;width:48%}
- .hero-copy h1{font-size:clamp(48px,5.8vw,58px);line-height:1.02}
+ .hero-copy h1{font-size:58px;line-height:1.02}
+ .intro{max-width:400px;margin:22px 0 26px;font-size:15px}
  .hero-right-copy{left:64.8%;top:17.5%;width:31%}
  .hero-right-copy h2{font-size:36px}
+ .hero-right-copy p{font-size:14px}
  .patient-hand{left:0;top:300px;width:600px}
  .clinician-hand{left:420px;top:220px;width:604px}
  .care-panel{left:2.8%;bottom:4%;width:378px;min-height:164px;grid-template-columns:116px 1fr;border-radius:20px}
@@ -140,28 +142,39 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 }
 @media(min-width:700px) and (max-width:900px){
  .hero-body{height:1040px}
- .hero-white--laptop{display:none}.hero-white--tablet{display:block;height:650px}.patient-hand{left:0;top:379px;width:502px}.clinician-hand{left:320px;top:325px;width:500px}
+ .hero-white--laptop{display:none}
+ .hero-white--tablet{display:block;height:650px}
  .hero-copy{left:4.9%;top:17%;width:88%}
- .hero-copy h1{font-size:58px}
+ .hero-copy h1{font-size:58px;line-height:1.06}
  .intro{max-width:400px;font-size:16px;margin:24px 0}
  .hero-right-copy{left:5%;right:5%;top:64%;width:auto;display:grid;grid-template-columns:42% 1fr;gap:25px;align-items:start}
  .hero-right-copy h2{font-size:36px;line-height:1.02}
  .hero-right-copy p{font-size:14px}
- .patient-hand{left:0;top:397px;width:470px}
- .clinician-hand{left:300px;top:325px;width:468px}
  .service-pills{left:5%;right:auto;top:75%;bottom:auto;flex-wrap:wrap;width:90%}
  .care-panel{left:4%;bottom:2.3%;width:58.5%;min-height:168px;grid-template-columns:136px 1fr;border-radius:20px}
  .assistance{flex-direction:column;align-items:flex-start;padding:10px}
- .assistance-copy small{font-size:9px}.assistance-copy strong{font-size:14px}.assistance-copy b{font-size:9px}
- .metrics strong{font-size:20px}.metrics span{font-size:10px}
+ .assistance-copy small{font-size:9px}
+ .assistance-copy strong{font-size:14px}
+ .assistance-copy b{font-size:9px}
+ .metrics strong{font-size:20px}
+ .metrics span{font-size:10px}
  .feedback{right:4%;bottom:7%;width:24%}
  .feedback p{font-size:10px}
+}
+@media(min-width:700px) and (max-width:799px){
+ .patient-hand{left:0;top:397px;width:470px}
+ .clinician-hand{left:300px;top:325px;width:468px}
+}
+@media(min-width:800px) and (max-width:900px){
+ .patient-hand{left:0;top:379px;width:502px}
+ .clinician-hand{left:320px;top:325px;width:500px}
 }
 @media(max-width:699px){
  .hero-body{height:1360px;border-radius:22px}
  .hero-blue{background:radial-gradient(ellipse at 80% 70%,rgba(255,255,255,.08),transparent 42%),linear-gradient(145deg,#3478ff,#246afe 62%,#1760f5)}
  .hero-white--mobile-wide{display:block;height:675px}
- .hero-copy{left:24px;right:24px;top:145px;width:auto}\n .hero-hands{top:430px;left:0;right:0;bottom:auto;height:240px}
+ .hero-copy{left:24px;right:24px;top:145px;width:auto}
+ .hero-hands{top:430px;left:0;right:0;bottom:auto;height:240px}
  .hero-eyebrow{font-size:8px;margin-bottom:17px}
  .hero-copy h1{font-size:clamp(39px,10vw,43px);line-height:1.04;letter-spacing:-.05em}.mobile-sync{display:block}
  .intro{max-width:92%;font-size:14px;line-height:1.45;margin:16px 0 18px}
@@ -227,21 +240,30 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 }
 :global(.hero){height:auto;min-height:0;padding:0;background:#fff;overflow:hidden}
 :global(.hero__frame){height:auto;min-height:0;border-radius:0;box-shadow:none}
-:global(.site-shell:has(.hero) .header){position:absolute;top:0;left:0;right:0;inset:0 0 auto;height:80px;padding:0 42px;transform:none}
+:global(.site-shell:has(.hero) .header){position:absolute;top:0;left:0;right:0;height:80px;padding:0 42px;transform:none}
 :global(.site-shell:has(.hero) .brand){width:144px}
-:global(.site-shell:has(.hero) .desktop-nav){top:14px;left:50%;height:44px;gap:0;padding:4px 9px;background:rgba(255,255,255,.76);border:1px solid rgba(0,0,0,.07);box-shadow:0 8px 24px rgba(0,0,0,.04)}
-:global(.site-shell:has(.hero) .desktop-nav a){min-width:92px;padding:10px 14px;font-size:10px}
-:global(.site-shell:has(.hero) .location-link){font-size:9px}
-:global(.site-shell:has(.hero) .menu-trigger){width:48px;height:48px}
-@media(max-width:900px){
- :global(.site-shell:has(.hero) .header){height:72px;padding:0 32px}
+:global(.site-shell:has(.hero) .desktop-nav){top:14px;left:50%;height:44px;gap:0;padding:4px 9px;transform:translateX(-50%);width:380px;background:rgba(255,255,255,.76);border:1px solid rgba(0,0,0,.07);box-shadow:0 8px 24px rgba(0,0,0,.04)}
+:global(.site-shell:has(.hero) .desktop-nav a){min-width:0;flex:1;padding:10px 10px;font-size:10px}
+:global(.site-shell:has(.hero) .location-link){display:inline-flex;font-size:9px}
+:global(.site-shell:has(.hero) .menu-trigger){width:56px;height:56px}
+@media(min-width:901px) and (max-width:1279px){
+ :global(.site-shell:has(.hero) .header){height:84px;padding:0 30px}
+ :global(.site-shell:has(.hero) .desktop-nav){left:324px;top:18px;transform:none;width:320px}
+ :global(.site-shell:has(.hero) .desktop-nav a){min-width:0;flex:1;padding:10px 8px}
+ :global(.site-shell:has(.hero) .location-link){display:inline-flex}
+ :global(.site-shell:has(.hero) .menu-trigger){width:48px;height:48px}
+}
+@media(min-width:700px) and (max-width:900px){
+ :global(.site-shell:has(.hero) .header){top:22px;height:48px;padding:0 32px}
  :global(.site-shell:has(.hero) .brand){width:144px}
  :global(.site-shell:has(.hero) .desktop-nav){display:none}
  :global(.site-shell:has(.hero) .location-link){display:inline-flex}
+ :global(.site-shell:has(.hero) .menu-trigger){width:48px;height:48px}
 }
 @media(max-width:699px){
- :global(.site-shell:has(.hero) .header){height:64px;padding:0 20px}
+ :global(.site-shell:has(.hero) .header){top:12px;height:48px;padding:0 20px}
  :global(.site-shell:has(.hero) .brand){width:128px}
+ :global(.site-shell:has(.hero) .desktop-nav){display:none}
  :global(.site-shell:has(.hero) .location-link){display:none}
  :global(.site-shell:has(.hero) .menu-trigger){width:40px;height:40px}
 }
