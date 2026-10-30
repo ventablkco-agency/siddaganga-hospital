@@ -80,7 +80,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 .hero-hands img{position:absolute;display:block;height:auto;max-width:none;object-fit:contain}
 .patient-hand{left:0;top:35.3%;width:58.5%}
 .clinician-hand{left:41.7%;top:18%;width:59%}
-.care-panel{z-index:6;left:4.85%;bottom:5.2%;width:330px;min-height:120px;display:grid;grid-template-columns:120px 1fr;gap:9px;padding:8px;border-radius:14px;background:#fff;color:#111;box-shadow:0 12px 35px rgba(13,38,91,.09)}
+.care-panel{z-index:6;left:4.85%;bottom:5.2%;width:330px;min-height:120px;display:grid;grid-template-columns:116px 1fr;gap:9px;padding:8px;border-radius:14px;background:#fff;color:#111;box-shadow:0 12px 35px rgba(13,38,91,.09)}
 .assistance{position:relative;display:flex;align-items:center;gap:9px;min-width:0;padding:10px 7px;border-radius:12px;background:#edf2ff;color:#101010;text-decoration:none}
 .assistance>i{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#286cff;color:#fff;font-style:normal}
 .assistance-copy{display:flex;flex-direction:column;min-width:0;gap:4px}
@@ -114,7 +114,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
  .patient-hand{left:0;top:35.3%;width:58.5%}
  .clinician-hand{left:41.7%;top:18%;width:59%}
  .care-panel{left:4.85%;bottom:6.25%}
- .service-pills{left:50%;bottom:6.2%}.service-pills span{min-height:42px;height:42px}
+ .service-pills{left:50%;bottom:6.2%}.service-pills span{min-height:42px;height:42px}.service-pills span:nth-child(1){min-width:149px}.service-pills span:nth-child(2),.service-pills span:nth-child(3){min-width:117px}
  .feedback{right:3.5%;bottom:7%}
 }
 @media(min-width:901px) and (max-width:1279px){
@@ -127,7 +127,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
  .hero-right-copy p{font-size:14px}
  .patient-hand{left:0;top:300px;width:600px}
  .clinician-hand{left:420px;top:220px;width:604px}
- .care-panel{left:2.8%;bottom:4%;width:378px;min-height:164px;grid-template-columns:116px 1fr;border-radius:20px}
+ .care-panel{left:28px;right:auto;top:524px;bottom:auto;width:378px;height:168px;min-height:168px;grid-template-columns:116px 1fr;border-radius:20px}
  .assistance{flex-direction:column;align-items:flex-start;padding:10px}
  .assistance>i{width:28px;height:28px}
  .assistance-copy small{font-size:9px}
@@ -135,10 +135,10 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
  .assistance-copy b{font-size:9px}
  .metrics strong{font-size:20px}
  .metrics span{font-size:10px}
- .service-pills{left:auto;right:7%;bottom:4%;gap:7px}
- .service-pills span{min-height:40px;font-size:10px;padding:0 9px}
- .feedback{right:8%;bottom:18%;width:155px}
- .feedback p{font-size:10px}
+ .service-pills{left:550px;right:auto;top:650px;bottom:auto;gap:8px}
+ .service-pills span{min-height:40px;height:40px;font-size:12px;padding:0 12px}
+ .feedback{left:790px;right:auto;top:532px;bottom:auto;width:190px;grid-template-columns:18px 1fr;gap:12px}
+ .feedback p{font-size:11px;line-height:1.4}
 }
 @media(min-width:700px) and (max-width:900px){
  .hero-body{height:1040px}
@@ -158,8 +158,8 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
  .assistance-copy b{font-size:9px}
  .metrics strong{font-size:20px}
  .metrics span{font-size:10px}
- .feedback{right:4%;bottom:7%;width:24%}
- .feedback p{font-size:10px}
+ .feedback{left:582px;right:auto;top:884px;bottom:auto;width:190px;grid-template-columns:18px 1fr;gap:12px}
+ .feedback p{font-size:11px;line-height:1.4}
 }
 @media(min-width:700px) and (max-width:799px){
  .patient-hand{left:0;top:397px;width:470px}
