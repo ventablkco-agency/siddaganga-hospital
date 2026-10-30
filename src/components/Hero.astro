@@ -71,4 +71,19 @@ import HeroBody from './hero/HeroBody.astro';
       border-radius: 22px;
     }
   }
+
+  /* The Figma hero artboards are fixed-height canvases, not viewport-height cards. */
+  @media (min-width: 1024px) {
+    .hero {
+      min-height: 720px;
+      height: 720px;
+      padding: 0;
+    }
+    .hero__frame {
+      height: 720px;
+      min-height: 720px;
+      border-radius: 32px;
+    }
+  }
+
 </style>
