@@ -50,15 +50,10 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
     </div>
   </aside>
 
-  <div class="feedback">
-    <p>We appreciate every feedback because it inspires us to become better.</p>
+  <a class="feedback" href="https://www.google.com/maps/search/?api=1&amp;query=Siddaganga+Hospital+Ranebennur+Karnataka" target="_blank" rel="noreferrer" aria-label="Read patient feedback on Google">
+    <p>Read patient feedback on Google</p>
     <span class="feedback-arrow"><ArrowRight size={20}/></span>
-    <div class="avatars">
-      <span><img src="https://images.pexels.com/photos/19963126/pexels-photo-19963126.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=160&amp;h=160&amp;fit=crop&amp;facepad=2" alt=""/></span>
-      <span><img src="https://images.pexels.com/photos/19438560/pexels-photo-19438560.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=160&amp;h=160&amp;fit=crop&amp;facepad=2" alt=""/></span>
-      <span><img src="https://images.pexels.com/photos/6749781/pexels-photo-6749781.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=160&amp;h=160&amp;fit=crop&amp;facepad=2" alt=""/></span>
-    </div>
-  </div>
+  </a>
 </div>
 
 <style>
@@ -101,12 +96,11 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 .service-pills{z-index:6;left:50%;bottom:5.2%;display:flex;gap:8px}
 .service-pills span{display:flex;align-items:center;gap:7px;min-height:36px;padding:0 12px;border:1px solid rgba(255,255,255,.35);border-radius:30px;background:rgba(255,255,255,.15);color:#fff;font-size:10px;white-space:nowrap}
 .service-pills svg{width:13px;height:13px}
-.feedback{z-index:6;right:3.5%;bottom:7%;width:160px;display:grid;grid-template-columns:18px 1fr;align-items:center;gap:8px;color:#fff}
-.feedback p{grid-column:1/3;margin:0;font-size:9px;line-height:1.35}
+.feedback{z-index:6;right:3.5%;bottom:7%;width:160px;display:grid;grid-template-columns:18px 1fr;align-items:center;gap:8px;color:#fff;text-decoration:none}
+.feedback p{grid-column:1/3;margin:0;font-size:11px;line-height:1.4}
 .feedback-arrow{grid-column:1;width:18px;display:flex}
-.avatars{grid-column:2;display:flex}
-.avatars span{width:28px;height:28px;margin-left:-7px;border:2px solid #fff;border-radius:50%;overflow:hidden;background:#fff}
-.avatars img{width:100%;height:100%;object-fit:cover}
+.feedback-arrow{color:#fff;transition:transform .2s ease}
+.feedback:hover .feedback-arrow{transform:translateX(4px)}
 @media(min-width:1280px){
  .hero-white--desktop{display:block}
  .hero-copy{left:4.17%;top:19%;width:42%}
@@ -197,10 +191,9 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
  .metrics strong{font-size:18px}
  .metrics span{font-size:9px}
  .feedback{left:24px;right:24px;top:1250px;bottom:auto;width:auto;display:flex;gap:8px}
- .feedback p{flex:1;font-size:9px;max-width:none}
+ .feedback p{flex:1;font-size:11px;max-width:none}
  .feedback-arrow{flex:0 0 18px}
- .avatars{flex:0 0 auto}
- .avatars span{width:28px;height:28px}
+
 }
 @media(min-width:380px) and (max-width:699px){
  .hero-white--mobile-wide{display:block}
@@ -236,7 +229,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
  .assistance{min-height:88px}
  .care-data{padding:3px 9px 7px}
  .feedback{left:20px;right:20px;top:1305px}
- .feedback p{font-size:9px}
+ .feedback p{font-size:11px}
 }
 :global(.hero){height:auto;min-height:0;padding:0;background:#fff;overflow:hidden}
 :global(.hero__frame){height:auto;min-height:0;border-radius:0;box-shadow:none}
