@@ -52,7 +52,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 
   <div class="feedback">
     <p>We appreciate every feedback because it inspires us to become better.</p>
-    <ArrowRight className="feedback-arrow" size={20}/>
+    <span class="feedback-arrow"><ArrowRight size={20}/></span>
     <div class="avatars">
       <span><img src="https://images.pexels.com/photos/19963126/pexels-photo-19963126.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=160&amp;h=160&amp;fit=crop&amp;facepad=2" alt=""/></span>
       <span><img src="https://images.pexels.com/photos/19438560/pexels-photo-19438560.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=160&amp;h=160&amp;fit=crop&amp;facepad=2" alt=""/></span>
@@ -103,17 +103,17 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 .service-pills svg{width:13px;height:13px}
 .feedback{z-index:6;right:3.5%;bottom:7%;width:160px;display:grid;grid-template-columns:18px 1fr;align-items:center;gap:8px;color:#fff}
 .feedback p{grid-column:1/3;margin:0;font-size:9px;line-height:1.35}
-.feedback-arrow{grid-column:1;width:18px}
+.feedback-arrow{grid-column:1;width:18px;display:flex}
 .avatars{grid-column:2;display:flex}
 .avatars span{width:28px;height:28px;margin-left:-7px;border:2px solid #fff;border-radius:50%;overflow:hidden;background:#fff}
 .avatars img{width:100%;height:100%;object-fit:cover}
 @media(min-width:1280px){
  .hero-white--desktop{display:block}
  .hero-copy{left:4.17%;top:19%;width:42%}
- .hero-right-copy{left:64%;top:12.5%;width:29%}
- .patient-hand{left:0;top:44.5%;width:58.5%}
- .clinician-hand{left:41.7%;top:22%;width:59%}
- .care-panel{left:4.85%;bottom:5.2%}
+ .hero-right-copy{left:64%;top:14%;width:29%}
+ .patient-hand{left:0;top:35.3%;width:58.5%}
+ .clinician-hand{left:41.7%;top:18%;width:59%}
+ .care-panel{left:4.85%;bottom:6.25%}
  .service-pills{left:50%;bottom:6.2%}
  .feedback{right:3.5%;bottom:7%}
 }
@@ -232,7 +232,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 :global(.site-shell:has(.hero) .desktop-nav){top:14px;left:50%;height:44px;gap:0;padding:4px 9px;background:rgba(255,255,255,.76);border:1px solid rgba(0,0,0,.07);box-shadow:0 8px 24px rgba(0,0,0,.04)}
 :global(.site-shell:has(.hero) .desktop-nav a){min-width:72px;padding:10px 14px;font-size:10px}
 :global(.site-shell:has(.hero) .location-link){font-size:9px}
-:global(.site-shell:has(.hero) .menu-trigger){width:48px;height:48px}
+:global(.site-shell:has(.hero) .menu-trigger){width:56px;height:56px}
 @media(max-width:900px){
  :global(.site-shell:has(.hero) .header){height:72px;padding:0 32px}
  :global(.site-shell:has(.hero) .brand){width:144px}
