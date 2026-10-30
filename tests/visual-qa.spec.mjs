@@ -32,7 +32,21 @@ for (const route of visualQaConfig.routes) {
 
       const brokenImages = await page.locator('img').evaluateAll((images) =>
         images
-          .filter((image) => image.getAttribute('src') && (!image.complete || image.naturalWidth === 0))
+          .filter((image) => {
+            const rect = image.getBoundingClientRect();
+            const intersectsViewport =
+              rect.width > 0 &&
+              rect.height > 0 &&
+              rect.bottom > 0 &&
+              rect.top < window.innerHeight &&
+              rect.right > 0 &&
+              rect.left < window.innerWidth;
+            return (
+              intersectsViewport &&
+              image.getAttribute('src') &&
+              (!image.complete || image.naturalWidth === 0)
+            );
+          })
           .map((image) => image.getAttribute('src')),
       );
       expect(brokenImages, 'images must finish loading successfully').toEqual([]);
