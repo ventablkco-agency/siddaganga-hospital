@@ -115,8 +115,16 @@ const doctors = [
         const touch = event.changedTouches[0];
         const dy = touch.clientY - touchY;
         const dx = touch.clientX - touchX;
-        if (Math.abs(dy) < 40 || Math.abs(dy) < Math.abs(dx)) return;
-        move(dy < 0 ? 1 : -1);
+        const threshold = 40;
+
+        // Follow the dominant swipe axis: horizontal on the card stack,
+        // while retaining vertical navigation for users who prefer it.
+        if (Math.max(Math.abs(dx), Math.abs(dy)) < threshold) return;
+        if (Math.abs(dx) > Math.abs(dy)) {
+          move(dx < 0 ? 1 : -1);
+        } else {
+          move(dy < 0 ? 1 : -1);
+        }
       }, { passive: true });
 
       cards.forEach((card) => card.addEventListener('click', () => {
