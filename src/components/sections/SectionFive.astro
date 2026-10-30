@@ -74,8 +74,9 @@ const doctors = [
       const progress = section?.querySelector('[data-scroll-progress]');
       let activeIndex = 0;
       let locked = false;
-      let touchY = 0;
-      let touchX = 0;
+      let pointerStartX = 0;
+      let pointerStartY = 0;
+      let suppressClick = false;
 
       const render = () => {
         cards.forEach((card, index) => {
@@ -106,28 +107,40 @@ const doctors = [
         }
       });
 
-      stage.addEventListener('touchstart', (event) => {
-        touchY = event.changedTouches[0].clientY;
-        touchX = event.changedTouches[0].clientX;
-      }, { passive: true });
+      stage.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        pointerStartX = event.clientX;
+        pointerStartY = event.clientY;
+        suppressClick = false;
+        stage.setPointerCapture?.(event.pointerId);
+      });
 
-      stage.addEventListener('touchend', (event) => {
-        const touch = event.changedTouches[0];
-        const dy = touch.clientY - touchY;
-        const dx = touch.clientX - touchX;
+      stage.addEventListener('pointerup', (event) => {
+        const dx = event.clientX - pointerStartX;
+        const dy = event.clientY - pointerStartY;
         const threshold = 40;
 
-        // Follow the dominant swipe axis: horizontal on the card stack,
-        // while retaining vertical navigation for users who prefer it.
+        // Pointer events cover touch, pen and mouse dragging consistently.
         if (Math.max(Math.abs(dx), Math.abs(dy)) < threshold) return;
+        suppressClick = true;
         if (Math.abs(dx) > Math.abs(dy)) {
           move(dx < 0 ? 1 : -1);
         } else {
           move(dy < 0 ? 1 : -1);
         }
-      }, { passive: true });
+      });
 
-      cards.forEach((card) => card.addEventListener('click', () => {
+      stage.addEventListener('pointercancel', () => {
+        suppressClick = false;
+      });
+
+      cards.forEach((card) => card.addEventListener('click', (event) => {
+        if (suppressClick) {
+          event.preventDefault();
+          event.stopPropagation();
+          suppressClick = false;
+          return;
+        }
         const index = Number(card.dataset.index);
         if (index === activeIndex) return;
         activeIndex = index;
