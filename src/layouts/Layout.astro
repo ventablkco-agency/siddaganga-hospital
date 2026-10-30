@@ -22,6 +22,22 @@ const {
   description = 'Siddaganga Hospital · Ranebennur — specialist care, advanced diagnostics and 24×7 emergency support.',
   image,
 } = Astro.props;
+
+const canonicalUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const socialImage = image
+  ? (image.startsWith('http') ? image : (Astro.site ? new URL(image, Astro.site).href : image))
+  : undefined;
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Hospital',
+  name: 'Siddaganga Hospital',
+  areaServed: {
+    '@type': 'City',
+    name: 'Ranebennur',
+  },
+  ...(Astro.site ? { url: Astro.site.href } : {}),
+};
 ---
 <!doctype html>
 <html lang="en">
@@ -31,6 +47,7 @@ const {
     <meta name="theme-color" content="#EBF0FE" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <meta property="og:type" content="website" />
@@ -38,12 +55,13 @@ const {
     <meta property="og:locale" content="en_IN" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {image && <meta property="og:image" content={image} />}
-    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..600&family=Manrope:wght@400..800&family=Noto+Sans+Kannada:wght@400..700&display=swap" />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </head>
   <body>
     <SiteShell>
