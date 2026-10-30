@@ -240,18 +240,10 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 }
 :global(.hero){height:auto;min-height:0;padding:0;background:#fff;overflow:hidden}
 :global(.hero__frame){height:auto;min-height:0;border-radius:0;box-shadow:none}
-:global(.site-shell:has(.hero) .header){position:absolute;top:0;left:0;right:0;height:80px;padding:0 42px;transform:none}
-:global(.site-shell:has(.hero) .brand){width:144px}
-:global(.site-shell:has(.hero) .desktop-nav){top:14px;left:50%;height:44px;gap:0;padding:4px 9px;transform:translateX(-50%);width:380px;background:rgba(255,255,255,.76);border:1px solid rgba(0,0,0,.07);box-shadow:0 8px 24px rgba(0,0,0,.04)}
-:global(.site-shell:has(.hero) .desktop-nav a){min-width:0;flex:1;padding:10px 10px;font-size:10px}
-:global(.site-shell:has(.hero) .location-link){display:inline-flex;font-size:9px}
-:global(.site-shell:has(.hero) .menu-trigger){width:56px;height:56px}
-@media(min-width:901px) and (max-width:1279px){
- :global(.site-shell:has(.hero) .header){height:84px;padding:0 30px}
- :global(.site-shell:has(.hero) .desktop-nav){left:324px;top:18px;transform:none;width:320px}
- :global(.site-shell:has(.hero) .desktop-nav a){min-width:0;flex:1;padding:10px 8px}
- :global(.site-shell:has(.hero) .location-link){display:inline-flex}
- :global(.site-shell:has(.hero) .menu-trigger){width:48px;height:48px}
+@media(min-width:1280px){
+ :global(.hero){height:100svh!important}
+ :global(.hero__frame){height:100%!important}
+ .hero-body{height:100svh}
 }
 @media(min-width:700px) and (max-width:900px){
  :global(.site-shell:has(.hero) .header){top:22px;height:48px;padding:0 32px}
