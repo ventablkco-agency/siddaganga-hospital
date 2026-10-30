@@ -80,7 +80,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 .hero-hands img{position:absolute;display:block;height:auto;max-width:none;object-fit:contain}
 .patient-hand{left:0;top:35.3%;width:58.5%}
 .clinician-hand{left:41.7%;top:18%;width:59%}
-.care-panel{z-index:6;left:4.85%;bottom:5.2%;width:330px;min-height:120px;display:grid;grid-template-columns:96px 1fr;gap:9px;padding:8px;border-radius:14px;background:#fff;color:#111;box-shadow:0 12px 35px rgba(13,38,91,.09)}
+.care-panel{z-index:6;left:4.85%;bottom:5.2%;width:330px;min-height:120px;display:grid;grid-template-columns:120px 1fr;gap:9px;padding:8px;border-radius:14px;background:#fff;color:#111;box-shadow:0 12px 35px rgba(13,38,91,.09)}
 .assistance{position:relative;display:flex;align-items:center;gap:9px;min-width:0;padding:10px 7px;border-radius:12px;background:#edf2ff;color:#101010;text-decoration:none}
 .assistance>i{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#286cff;color:#fff;font-style:normal}
 .assistance-copy{display:flex;flex-direction:column;min-width:0;gap:4px}
@@ -170,8 +170,8 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
  .hero-right-copy{left:5.1%;right:5.1%;top:51.1%;width:auto}
  .hero-right-copy h2{font-size:30px;line-height:1.02;margin-bottom:14px}
  .hero-right-copy p{font-size:12px;line-height:1.5}
- .patient-hand{left:-5%;top:38%;width:55%}
- .clinician-hand{left:62%;top:34%;width:55%}
+ .patient-hand{left:-5%;top:39.5%;width:72%}
+ .clinician-hand{left:52%;top:36.5%;width:68%}
  .service-pills{left:5.1%;right:5.1%;top:65%;bottom:auto;display:flex;flex-wrap:wrap;gap:8px}
  .service-pills span{min-height:36px;padding:0 10px;font-size:10px}
  .care-panel{left:5.1%;right:5.1%;top:73%;bottom:auto;width:auto;min-height:236px;grid-template-columns:1fr;gap:8px;padding:7px;border-radius:18px}
@@ -194,7 +194,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 }
 @media(min-width:340px) and (max-width:379px){
  .hero-white--mobile-wide{display:none}
- .hero-white--mobile-narrow{display:block}
+ .hero-white--mobile-narrow{display:block;height:675px}
  .hero-copy{top:10.5%}
  .hero-right-copy{top:51.1%}
  .patient-hand{top:38.5%;width:55%}
@@ -206,14 +206,14 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 @media(max-width:339px){
  .hero-body{height:1399px}
  .hero-white--mobile-wide,.hero-white--mobile-narrow{display:none}
- .hero-white--mobile-320{display:block}
+ .hero-white--mobile-320{display:block;height:675px}
  .hero-copy{left:5.3%;top:10.5%;width:89%}
  .hero-eyebrow{font-size:8px;margin-bottom:17px}
  .hero-copy h1{font-size:40px;line-height:1.05}
  .intro{font-size:14px;max-width:100%;margin:17px 0 18px}
  .hero-cta{width:212px}
- .patient-hand{left:-5%;top:38.2%;width:57%}
- .clinician-hand{left:56%;top:35%;width:59%}
+ .patient-hand{left:-5%;top:39.6%;width:73%}
+ .clinician-hand{left:52%;top:38.5%;width:68%}
  .hero-right-copy{left:5.3%;right:5.3%;top:51.5%}
  .hero-right-copy h2{font-size:28px}
  .hero-right-copy p{font-size:12px}
@@ -230,7 +230,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 :global(.site-shell:has(.hero) .header){position:absolute;top:0;left:0;right:0;inset:0 0 auto;height:72px;padding:0 42px;transform:none}
 :global(.site-shell:has(.hero) .brand){width:144px}
 :global(.site-shell:has(.hero) .desktop-nav){top:14px;left:50%;height:44px;gap:0;padding:4px 9px;background:rgba(255,255,255,.76);border:1px solid rgba(0,0,0,.07);box-shadow:0 8px 24px rgba(0,0,0,.04)}
-:global(.site-shell:has(.hero) .desktop-nav a){min-width:72px;padding:10px 14px;font-size:10px}
+:global(.site-shell:has(.hero) .desktop-nav a){min-width:92px;padding:10px 14px;font-size:10px}
 :global(.site-shell:has(.hero) .location-link){font-size:9px}
 :global(.site-shell:has(.hero) .menu-trigger){width:48px;height:48px}
 @media(max-width:900px){
