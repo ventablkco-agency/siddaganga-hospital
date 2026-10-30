@@ -3,9 +3,11 @@ name: Visual QA
 on:
   push:
     branches:
+      - main
       - hero-fluid
   pull_request:
     branches:
+      - main
       - hero-fluid
   workflow_dispatch:
 
