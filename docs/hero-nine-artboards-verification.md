@@ -1,0 +1,1 @@
+Temporary CI marker to validate the nine Figma artboard viewports. Do not merge.
