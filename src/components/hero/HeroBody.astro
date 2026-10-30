@@ -13,7 +13,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 
   <div class="hero-copy">
     <p class="eyebrow">SIDDAGANGA HOSPITAL · RANEBENNUR</p>
-    <h1>Heart &amp;<br/><em>Diabetes</em>, in Sync</h1>
+    <h1>Heart &amp;<br/><em>Diabetes</em>, <span class="mobile-sync">in Sync</span></h1>
     <p class="intro">Specialist care, advanced diagnostics and a team that listens carefully to every patient.</p>
     <a class="hero-cta" href="https://wa.me/919591799099" target="_blank" rel="noreferrer"><span>Book Appointment</span><i><ArrowRight size={19} strokeWidth={1.8}/></i></a>
   </div>
@@ -69,7 +69,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 .hero-copy{z-index:5;left:4.17%;top:19%;width:43%}
 .eyebrow{margin:0 0:24px;color:#777;font-size:10px;line-height:1.2;font-weight:500;letter-spacing:.06em}
 .hero-copy h1{margin:0;color:#090909;font-family:var(--font-display,Manrope,sans-serif);font-size:clamp(52px,4.9vw,70px);font-weight:750;line-height:.99;letter-spacing:-.055em}
-.hero-copy h1 em{font-style:normal;color:#286cff}
+.hero-copy h1 em{font-style:normal;color:#286cff}.mobile-sync{display:inline}
 .intro{max-width:405px;margin:22px 0 26px;color:#858585;font-size:14px;line-height:1.5}
 .hero-cta{display:flex;align-items:center;justify-content:space-between;width:212px;height:48px;padding:4px 5px 4px 20px;border-radius:40px;background:#286cff;color:#fff;text-decoration:none;font-size:11px;font-weight:500}
 .hero-cta i{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#fff;color:#286cff;font-style:normal}
@@ -163,7 +163,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
  .hero-white--mobile-wide{display:block;height:675px}
  .hero-copy{left:5.1%;top:10.5%;width:89%}
  .eyebrow{font-size:8px;margin-bottom:17px}
- .hero-copy h1{font-size:clamp(39px,11.5vw,48px);line-height:1.04;letter-spacing:-.05em}
+ .hero-copy h1{font-size:clamp(39px,10vw,43px);line-height:1.04;letter-spacing:-.05em}.mobile-sync{display:block}
  .intro{max-width:92%;font-size:14px;line-height:1.45;margin:16px 0 18px}
  .hero-cta{width:188px;height:48px;padding-left:19px}
  .hero-cta i{width:38px;height:38px}
@@ -232,7 +232,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
 :global(.site-shell:has(.hero) .desktop-nav){top:14px;left:50%;height:44px;gap:0;padding:4px 9px;background:rgba(255,255,255,.76);border:1px solid rgba(0,0,0,.07);box-shadow:0 8px 24px rgba(0,0,0,.04)}
 :global(.site-shell:has(.hero) .desktop-nav a){min-width:72px;padding:10px 14px;font-size:10px}
 :global(.site-shell:has(.hero) .location-link){font-size:9px}
-:global(.site-shell:has(.hero) .menu-trigger){width:56px;height:56px}
+:global(.site-shell:has(.hero) .menu-trigger){width:48px;height:48px}
 @media(max-width:900px){
  :global(.site-shell:has(.hero) .header){height:72px;padding:0 32px}
  :global(.site-shell:has(.hero) .brand){width:144px}
