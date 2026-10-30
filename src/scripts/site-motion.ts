@@ -42,7 +42,9 @@ if (!reducedMotion) {
       // The hands separate as the hero scrolls away, then return together
       // automatically when the visitor scrolls back up.
       gsap.to(hands, {
-        xPercent: (index) => index === 0 ? -14 : 14,
+        // Use the independent CSS translate property so this scroll effect
+        // cannot overwrite the GSAP transform used by the entrance animation.
+        '--scroll-x': (index) => index === 0 ? '-14%' : '14%',
         ease: 'none',
         scrollTrigger: {
           trigger: hero,
