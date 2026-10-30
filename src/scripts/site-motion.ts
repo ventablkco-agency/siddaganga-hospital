@@ -10,7 +10,7 @@ if (!reducedMotion) {
   if (hero) {
     const intro = hero.querySelector('.hero-copy');
     const supportingCopy = hero.querySelector('.hero-right-copy');
-    const hands = hero.querySelectorAll('.hero-hands img');
+    const hands = hero.querySelectorAll<HTMLElement>('.hero-hands img');
     const details = hero.querySelectorAll('.care-panel, .service-pills, .feedback');
 
     const entrance = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -25,12 +25,14 @@ if (!reducedMotion) {
       }, '-=0.52');
     }
     if (hands.length) {
-      entrance.fromTo(hands, (index) => ({
+      // GSAP expects a vars object here. The index-dependent start position
+      // belongs on x, not on the fromVars argument itself.
+      entrance.fromTo(hands, {
         autoAlpha: 0,
         y: 20,
         scale: 0.985,
-        x: index === 0 ? -window.innerWidth : window.innerWidth,
-      }), {
+        x: (index) => index === 0 ? -window.innerWidth : window.innerWidth,
+      }, {
         autoAlpha: 1,
         y: 0,
         scale: 1,
