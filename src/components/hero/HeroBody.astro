@@ -1,266 +1,248 @@
 ---
 import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } from 'lucide-astro';
-import IconSlideButton from '../ui/IconSlideButton.astro';
 ---
 
-<script is:inline>
-  // Hide animated layers until GSAP starts (no flash). Skipped for reduced-motion users.
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('hero-anim');
-</script>
-
 <div class="hero-body">
-  <div class="hero-layer hero-layer--background" aria-hidden="true">
-    <div class="hero-body__white"></div>
-    <svg class="hero-body__white--mobile-wide" viewBox="0 0 425 675" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 0H425V445C425 561 280.064 624 0 647Z" fill="#fff" />
-    </svg>
-    <svg class="hero-body__white--mobile-narrow" viewBox="0 0 375 675" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 0H375V464.258C375 585.278 247.115 651.005 0 675Z" fill="#fff" />
-    </svg>
-    <svg class="hero-body__white--mobile-320" viewBox="0 0 320 675" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 0H320V464.258C320 585.278 210.872 651.005 0 675Z" fill="#fff" />
-    </svg>
-    <svg class="hero-body__white--tablet" viewBox="0 0 820 650" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 0H820V350C820 505 553.073 612 0 650Z" fill="#fff" />
-    </svg>
-    <svg class="hero-body__white--laptop" viewBox="0 0 1024 720" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 0H458.241C617.92 205 617.92 515 458.241 720H0Z" fill="#fff" />
-    </svg>
-    <svg class="hero-body__white--desktop" viewBox="0 0 1440 720" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 0H617C832 205 832 515 617 720H0Z" fill="#fff" />
-    </svg>
+  <div class="hero-blue" aria-hidden="true"></div>
+  <svg class="hero-white hero-white--desktop" viewBox="0 0 1440 720" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H516C690 172 690 548 516 720H0Z" fill="#fff"/></svg>
+  <svg class="hero-white hero-white--laptop" viewBox="0 0 1024 720" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H458C620 172 620 548 458 720H0Z" fill="#fff"/></svg>
+  <svg class="hero-white hero-white--tablet" viewBox="0 0 820 650" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H820V350C820 505 553 612 0 650Z" fill="#fff"/></svg>
+  <svg class="hero-white hero-white--mobile-wide" viewBox="0 0 425 675" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H425V445C425 561 280 624 0 647Z" fill="#fff"/></svg>
+  <svg class="hero-white hero-white--mobile-narrow" viewBox="0 0 375 675" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H375V464C375 585 247 651 0 675Z" fill="#fff"/></svg>
+  <svg class="hero-white hero-white--mobile-320" viewBox="0 0 320 675" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0H320V464C320 585 211 651 0 675Z" fill="#fff"/></svg>
+
+  <div class="hero-copy">
+    <p class="eyebrow">SIDDAGANGA HOSPITAL · RANEBENNUR</p>
+    <h1>Heart &amp;<br/><em>Diabetes</em>, in Sync</h1>
+    <p class="intro">Specialist care, advanced diagnostics and a team that listens carefully to every patient.</p>
+    <a class="hero-cta" href="https://wa.me/919591799099" target="_blank" rel="noreferrer"><span>Book Appointment</span><i><ArrowRight size={19} strokeWidth={1.8}/></i></a>
   </div>
 
-  <div class="hero-layer hero-layer--content">
-    <div class="hero-body__copy">
-    <p class="eyebrow" data-in>SIDDAGANGA HOSPITAL · RANEBENNUR</p>
-    <h1><span data-in>Heart &amp;</span><span data-in><em>Diabetes</em>, in <strong>Sync</strong></span></h1>
-    <p class="intro" data-in>Specialist care, advanced diagnostics and a team that listens carefully to every patient.</p>
-    <div class="hero-body__cta" data-in>
-      <IconSlideButton
-        href="https://wa.me/919591799099"
-        label="Book Appointment"
-        newTab={true}
-        background="var(--color-brand)"
-        backgroundHover="var(--color-ink)"
-        textColor="var(--color-white)"
-        textHover="var(--color-white)"
-        fillColor="var(--color-white)"
-        iconColor="var(--color-brand)"
-        iconHoverFill="var(--color-ink)"
-      />
-    </div>
+  <div class="hero-right-copy">
+    <h2>With Specialist<br/>Technology</h2>
+    <p>The latest diagnostic equipment, paired with a team that never rushes a conversation — because every patient deserves both.</p>
   </div>
 
-    <div class="hero-body__right-copy">
-      <h2 data-in>With Specialist<br />Technology</h2>
-      <p data-in>The latest diagnostic equipment, paired with a team that never rushes a conversation — because every patient deserves both.</p>
-    </div>
+  <div class="hero-hands" aria-hidden="true">
+    <img class="patient-hand" src="/assets/hero/patient-hand.png" alt=""/>
+    <img class="clinician-hand" src="/assets/hero/clinician-hand.png" alt=""/>
   </div>
 
-  <div class="hero-layer hero-layer--artwork">
-    <div class="hero-body__hands" aria-hidden="true">
-    <div class="hero-body__hand-glow"></div>
-    <div class="hero-hand hero-hand--patient"><img src="/assets/hero/patient-hand.png" alt="" /></div>
-    <div class="hero-hand hero-hand--clinician"><img src="/assets/hero/clinician-hand.png" alt="" /></div>
-    </div>
+  <div class="service-pills" aria-label="Hospital services">
+    <span><Ambulance size={14}/>24×7 Emergency</span>
+    <span><FlaskConical size={14}/>On-site Lab</span>
+    <span><HeartHandshake size={14}/>Family Care</span>
   </div>
 
-  <div class="hero-layer hero-layer--foreground">
-    <aside class="care-panel" aria-label="Siddaganga Hospital care highlights">
-    <a class="care-panel__phone" href="tel:+919591799099" aria-label="Call Siddaganga Hospital">
-      <span class="care-panel__phone-icon"><PhoneCall size={23} strokeWidth={1.8} aria-hidden="true" /></span>
-      <span class="care-panel__phone-kicker">Need medical assistance?</span>
-      <strong>Call our hospital</strong>
-      <span class="care-panel__phone-number">+91 95917 99099</span>
-      <span class="care-panel__phone-dot" aria-hidden="true"></span>
+  <aside class="care-panel" aria-label="Hospital assistance and care highlights">
+    <a class="assistance" href="tel:+919591799099">
+      <i><PhoneCall size={19}/></i>
+      <span class="assistance-copy"><small>Need medical assistance?</small><strong>Call our hospital</strong><b>+91 95917 99099</b></span>
+      <span class="assistance-dot"></span>
     </a>
-    <div class="care-panel__content">
-      <div class="care-panel__topline"><span>care highlights</span><i aria-hidden="true"></i></div>
-      <div class="care-highlights">
-        <div class="care-highlight"><strong>15+</strong><span>Years of experience</span></div>
-        <div class="care-highlight"><strong>6+</strong><span>Medical specialities</span></div>
-        <div class="care-highlight"><strong class="care-highlight__rating"><Star size={15} fill="currentColor" aria-hidden="true" />4.5</strong><span>Google rating</span></div>
+    <div class="care-data">
+      <div class="care-heading"><span>care highlights</span><i></i></div>
+      <div class="metrics">
+        <div><strong>15+</strong><span>Years of<br/>experience</span></div>
+        <div><strong>6+</strong><span>Medical<br/>specialities</span></div>
+        <div><strong><Star size={15} fill="currentColor"/> 4.5</strong><span>Google<br/>rating</span></div>
       </div>
     </div>
   </aside>
 
-  <div class="service-pills" aria-label="Hospital services">
-    <span><Ambulance size={14} strokeWidth={1.8} aria-hidden="true" />24×7 Emergency</span>
-    <span><FlaskConical size={14} strokeWidth={1.8} aria-hidden="true" />On-site Lab</span>
-    <span><HeartHandshake size={14} strokeWidth={1.8} aria-hidden="true" />Family Care</span>
-  </div>
-
-  <div class="feedback" aria-label="Patient feedback">
+  <div class="feedback">
     <p>We appreciate every feedback because it inspires us to become better.</p>
-    <div class="feedback__avatars">
-      <span><img src="https://images.pexels.com/photos/19963126/pexels-photo-19963126.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=160&amp;h=160&amp;fit=crop&amp;facepad=2" alt="Healthcare professional" /></span>
-      <span><img src="https://images.pexels.com/photos/19438560/pexels-photo-19438560.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=160&amp;h=160&amp;fit=crop&amp;facepad=2" alt="Healthcare professional" /></span>
-      <span><img src="https://images.pexels.com/photos/6749781/pexels-photo-6749781.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=160&amp;h=160&amp;fit=crop&amp;facepad=2" alt="Healthcare professional" /></span>
+    <ArrowRight className="feedback-arrow" size={20}/>
+    <div class="avatars">
+      <span><img src="https://images.pexels.com/photos/19963126/pexels-photo-19963126.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=160&amp;h=160&amp;fit=crop&amp;facepad=2" alt=""/></span>
+      <span><img src="https://images.pexels.com/photos/19438560/pexels-photo-19438560.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=160&amp;h=160&amp;fit=crop&amp;facepad=2" alt=""/></span>
+      <span><img src="https://images.pexels.com/photos/6749781/pexels-photo-6749781.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=160&amp;h=160&amp;fit=crop&amp;facepad=2" alt=""/></span>
     </div>
-  </div>
-
-    <div class="hero-arrow" aria-hidden="true"><ArrowRight size={24} strokeWidth={1.7} /></div>
   </div>
 </div>
 
 <style>
-/* Layout system: .hero-body is a size container, so every layer is placed in cqw/cqh and
-   scales as one piece. Hands: --wn = hand width in cqw, --L = how far each hand bleeds off its
-   edge. L is solved so the two fingertips always end ~4cqw apart at any width. */
-.hero-body{
-  position:relative;width:100%;overflow:hidden;isolation:isolate;border-radius:inherit;
-  container-type:size;
-  height:max(calc(100svh - 16px),272vw);
-  --wn:100;--w:calc(var(--wn)*1cqw);
-  --L:max(0cqw,calc((1.576*var(--wn) - 96)*.5cqw));
-  --ty:118cqw;--ty2:115cqw;
-  background:radial-gradient(ellipse at 72% 30%,rgba(255,255,255,.22) 0%,rgba(255,255,255,.08) 30%,transparent 58%),var(--color-brand);
+.hero-body{position:relative;width:100%;height:720px;min-height:0;overflow:hidden;isolation:isolate;border-radius:inherit;background:#246afe;color:#fff;font-family:var(--font-body,Inter,Arial,sans-serif)}
+.hero-blue{position:absolute;inset:0;background:radial-gradient(ellipse at 76% 17%,rgba(255,255,255,.2),transparent 38%),linear-gradient(135deg,#3478ff 0%,#246afe 58%,#1760f5 100%);z-index:0}
+.hero-white{position:absolute;inset:0;width:100%;height:100%;z-index:1;display:none}
+.hero-copy,.hero-right-copy,.hero-hands,.care-panel,.service-pills,.feedback{position:absolute}
+.hero-copy{z-index:5;left:4.17%;top:19%;width:43%}
+.eyebrow{margin:0 0:24px;color:#777;font-size:10px;line-height:1.2;font-weight:500;letter-spacing:.06em}
+.hero-copy h1{margin:0;color:#090909;font-family:var(--font-display,Manrope,sans-serif);font-size:clamp(52px,4.9vw,70px);font-weight:750;line-height:.99;letter-spacing:-.055em}
+.hero-copy h1 em{font-style:normal;color:#286cff}
+.intro{max-width:405px;margin:22px 0 26px;color:#858585;font-size:14px;line-height:1.5}
+.hero-cta{display:flex;align-items:center;justify-content:space-between;width:212px;height:48px;padding:4px 5px 4px 20px;border-radius:40px;background:#286cff;color:#fff;text-decoration:none;font-size:11px;font-weight:500}
+.hero-cta i{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#fff;color:#286cff;font-style:normal}
+.hero-right-copy{z-index:5;left:64%;top:12.5%;width:29%;color:#fff}
+.hero-right-copy h2{margin:0 0 13px;font-family:var(--font-display,Manrope,sans-serif);font-size:clamp(34px,3.35vw,48px);font-weight:400;line-height:.98;letter-spacing:-.035em}
+.hero-right-copy p{max-width:390px;margin:0;font-size:13px;line-height:1.5}
+.hero-hands{z-index:3;inset:0;pointer-events:none}
+.hero-hands img{position:absolute;display:block;height:auto;max-width:none;object-fit:contain}
+.patient-hand{left:0;top:35.3%;width:58.5%}
+.clinician-hand{left:41.7%;top:18%;width:59%}
+.care-panel{z-index:6;left:4.85%;bottom:5.2%;width:330px;min-height:120px;display:grid;grid-template-columns:96px 1fr;gap:9px;padding:8px;border-radius:14px;background:#fff;color:#111;box-shadow:0 12px 35px rgba(13,38,91,.09)}
+.assistance{position:relative;display:flex;align-items:center;gap:9px;min-width:0;padding:10px 7px;border-radius:12px;background:#edf2ff;color:#101010;text-decoration:none}
+.assistance>i{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#286cff;color:#fff;font-style:normal}
+.assistance-copy{display:flex;flex-direction:column;min-width:0;gap:4px}
+.assistance-copy small{color:#286cff;font-size:8px;line-height:1.2}
+.assistance-copy strong{font-size:10px;line-height:1.15}
+.assistance-copy b{font-size:8px;font-weight:400;color:#888;white-space:nowrap}
+.assistance-dot{position:absolute;right:8px;top:50%;width:7px;height:7px;transform:translateY(-50%);border-radius:50%;background:#286cff}
+.care-data{min-width:0;display:flex;flex-direction:column;justify-content:center;padding:2px 5px}
+.care-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;font-size:10px;font-weight:600}
+.care-heading i{width:27px;height:5px;border-radius:8px;background:#dce6ff}
+.care-heading i:after{content:"";display:block;width:45%;height:100%;border-radius:8px;background:#286cff}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr)}
+.metrics>div{display:flex;flex-direction:column;gap:5px;padding:0 7px;border-left:1px solid #e6e6e6}
+.metrics>div:first-child{padding-left:0;border:0}
+.metrics strong{display:flex;align-items:center;gap:3px;color:#286cff;font-size:18px;line-height:1.1;white-space:nowrap}
+.metrics strong svg{width:13px;height:13px}
+.metrics span{color:#161616;font-size:8px;line-height:1.25}
+.service-pills{z-index:6;left:50%;bottom:5.2%;display:flex;gap:8px}
+.service-pills span{display:flex;align-items:center;gap:7px;min-height:36px;padding:0 12px;border:1px solid rgba(255,255,255,.35);border-radius:30px;background:rgba(255,255,255,.15);color:#fff;font-size:10px;white-space:nowrap}
+.service-pills svg{width:13px;height:13px}
+.feedback{z-index:6;right:3.5%;bottom:7%;width:160px;display:grid;grid-template-columns:18px 1fr;align-items:center;gap:8px;color:#fff}
+.feedback p{grid-column:1/3;margin:0;font-size:9px;line-height:1.35}
+.feedback-arrow{grid-column:1;width:18px}
+.avatars{grid-column:2;display:flex}
+.avatars span{width:28px;height:28px;margin-left:-7px;border:2px solid #fff;border-radius:50%;overflow:hidden;background:#fff}
+.avatars img{width:100%;height:100%;object-fit:cover}
+@media(min-width:1280px){
+ .hero-white--desktop{display:block}
+ .hero-copy{left:4.17%;top:19%;width:42%}
+ .hero-right-copy{left:64%;top:12.5%;width:29%}
+ .patient-hand{left:0;top:44.5%;width:58.5%}
+ .clinician-hand{left:41.7%;top:22%;width:59%}
+ .care-panel{left:4.85%;bottom:5.2%}
+ .service-pills{left:50%;bottom:6.2%}
+ .feedback{right:3.5%;bottom:7%}
 }
-/* Independent full-canvas layers; child z-index values stay scoped to each layer. */
-.hero-body>.hero-layer{position:absolute;inset:0;min-width:0;min-height:0;pointer-events:none}
-.hero-body>.hero-layer--background{z-index:0}
-.hero-body>.hero-layer--artwork{z-index:10}
-.hero-body>.hero-layer--content{z-index:20}
-.hero-body>.hero-layer--foreground{z-index:25}
-.hero-body>.hero-layer--content>*,
-.hero-body>.hero-layer--foreground>*{pointer-events:auto}
-.hero-body>.hero-layer--artwork .hero-body__hands{pointer-events:none}
-.hero-body::before{display:none}
-.hero-body__white{position:absolute;inset:0;z-index:0;background:var(--color-white);clip-path:ellipse(140cqw 104cqw at 0 40cqw);pointer-events:none}
-
-.hero-body__copy{position:absolute;z-index:20;left:7cqw;top:24cqw;width:86cqw}
-.eyebrow{margin:0 0 4cqw;color:var(--text-secondary);font-size:clamp(9px,2.4cqw,11px);line-height:1;font-weight:500;letter-spacing:.16em;text-transform:uppercase}
-h1{margin:0;color:var(--color-ink);font-family:var(--font-display);font-size:9.6cqw;line-height:.92;letter-spacing:var(--track-display);font-weight:800}
-h1 span{display:block;white-space:nowrap}
-h1 em{font-style:normal;color:var(--color-brand)}
-h1 strong{font-weight:800;color:var(--color-ink)}
-.intro{max-width:80cqw;margin:4cqw 0 5cqw;color:var(--text-secondary);font-size:4cqw;line-height:1.5}
-.hero-body__cta{display:inline-block}
-
-.hero-body__right-copy{position:absolute;z-index:20;left:7cqw;top:160cqw;width:86cqw;color:var(--color-white)}
-.hero-body__right-copy h2{margin:0 0 3cqw;font-family:var(--font-display);font-size:7.4cqw;line-height:.95;letter-spacing:var(--track-display);font-weight:700}
-.hero-body__right-copy p{margin:0;font-size:3.9cqw;line-height:1.45}
-
-.hero-body__hands{position:absolute;inset:0;z-index:10;pointer-events:none}
-.hero-body__hand-glow{position:absolute;z-index:0;left:50%;top:var(--ty);width:50cqw;height:50cqw;margin:-25cqw 0 0 -25cqw;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.5),rgba(255,255,255,.1) 45%,transparent 70%)}
-.hero-hand{position:absolute;width:var(--w);aspect-ratio:1671/941}
-.hero-hand img{display:block;width:100%;height:100%;max-width:none;object-fit:contain;will-change:transform}
-.hero-hand--patient{z-index:2;left:calc(-1*var(--L));top:calc(var(--ty) - var(--w)*.1588)}
-.hero-hand--clinician{z-index:1;right:calc(-1*var(--L));top:calc(var(--ty2) - var(--w)*.2816)}
-
-.care-panel{position:absolute;z-index:26;left:4cqw;right:4cqw;top:232cqw;display:grid;grid-template-columns:35% 1fr;gap:3cqw;padding:2.2cqw;border-radius:4cqw;background:rgba(255,255,255,.97);color:var(--color-ink);box-shadow:0 14px 42px rgba(15,28,60,.12)}
-.care-panel__phone{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-height:25cqw;padding:3cqw;border-radius:3cqw;background:linear-gradient(145deg,#eef3ff,#e4ebff);color:var(--color-ink);text-decoration:none;overflow:hidden}
-.care-panel__phone-icon{display:grid;place-items:center;width:9cqw;height:9cqw;margin-bottom:2cqw;border-radius:50%;background:var(--color-brand);color:white}
-.care-panel__phone-kicker{font-size:2.4cqw;color:var(--color-brand);font-weight:600}
-.care-panel__phone strong{font-size:4cqw;line-height:1.05;margin-top:.8cqw}
-.care-panel__phone-number{font-size:2.5cqw;color:var(--text-secondary);margin-top:1.5cqw;white-space:nowrap}
-.care-panel__phone-dot{position:absolute;right:2cqw;bottom:2cqw;width:2.5cqw;height:2.5cqw;border-radius:50%;background:var(--color-brand);box-shadow:0 0 0 4px rgba(43,105,255,.12)}
-.care-panel__content{display:flex;min-width:0;flex-direction:column;justify-content:center;padding-right:1cqw}
-.care-panel__topline{display:flex;align-items:center;justify-content:space-between;margin-bottom:3cqw;font-size:2.5cqw;font-weight:600}
-.care-panel__topline i{display:block;width:7cqw;height:1.2cqw;border-radius:99px;background:#dce7ff}
-.care-panel__topline i::after{content:"";display:block;width:42%;height:100%;border-radius:inherit;background:var(--color-brand)}
-.care-highlights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
-.care-highlight{position:relative;display:flex;flex-direction:column;gap:1cqw;min-width:0;padding:0 2cqw}
-.care-highlight:first-child{padding-left:0}
-.care-highlight:not(:first-child)::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:rgba(0,0,0,.1)}
-.care-highlight strong{font-size:5cqw;line-height:1;color:var(--color-brand);font-weight:700;white-space:nowrap}
-.care-highlight .care-highlight__rating{display:flex;align-items:center;gap:1cqw}
-.care-highlight__rating svg{flex:0 0 auto;width:3cqw;height:3cqw}
-.care-highlight span{font-size:2.4cqw;line-height:1.25;color:var(--color-ink)}
-.service-pills{position:absolute;z-index:25;left:7cqw;right:7cqw;top:250cqw;display:flex;align-items:center;gap:2cqw}
-.service-pills span{display:flex;align-items:center;justify-content:center;gap:1.4cqw;min-height:8cqw;padding:0 2.2cqw;border-radius:var(--radius-pill);background:rgba(255,255,255,.14);color:var(--color-white);border:1px solid rgba(255,255,255,.4);font-size:2.8cqw;line-height:1.05;white-space:nowrap}
-.service-pills svg{flex:0 0 auto;width:3cqw;height:auto}
-.feedback{position:absolute;z-index:25;left:7cqw;right:7cqw;top:260cqw;display:flex;justify-content:space-between;align-items:center;gap:3cqw;color:var(--color-white)}
-.feedback p{margin:0;max-width:55%;font-size:3.4cqw;line-height:1.3}
-.feedback__avatars{display:flex;justify-content:flex-end}
-.feedback__avatars span{display:block;width:9cqw;height:9cqw;margin-left:-2cqw;border:2px solid rgba(255,255,255,.9);border-radius:50%;overflow:hidden;background:var(--color-white);box-shadow:0 3px 12px rgba(11,10,10,.12)}
-.feedback__avatars img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
-.hero-arrow{display:none}
-
-/* No-flash start state (class is added by the inline script above, removed once GSAP takes over) */
-:global(html.hero-anim) .hero-hand img,
-:global(html.hero-anim) .hero-body__hand-glow,
-:global(html.hero-anim) [data-in],
-:global(html.hero-anim) .care-panel,
-:global(html.hero-anim) .feedback{opacity:0}
-
-/* ================= DESKTOP 1024+ ================= */
-@media (min-width:1024px){
-  .hero-body{height:max(600px,calc(100svh - clamp(16px,2.3vw,36px)));--w:min(62cqw,120cqh);--L:1cqw;--ty:53cqh;--ty2:50cqh}
-  .hero-body__white{right:auto;width:54%;clip-path:ellipse(100% 82% at 0% 50%)}
-  .hero-body__copy{left:5cqw;top:19cqh;width:46cqw}
-  .eyebrow{font-size:11px;margin-bottom:20px}
-  h1{font-size:min(4.9cqw,4.8rem)}
-  .intro{max-width:400px;font-size:15px;margin:24px 0 28px}
-  .hero-body__right-copy{left:64cqw;top:14cqh;width:28cqw}
-  .hero-body__right-copy h2{font-size:clamp(1.5rem,2.4cqw,2.2rem);margin-bottom:12px}
-  .hero-body__right-copy p{font-size:14px;line-height:1.5}
-  .hero-body__hand-glow{left:51%;width:26cqw;height:26cqw;margin:-13cqw 0 0 -13cqw}
-
-  .service-pills{top:auto;left:50cqw;right:19cqw;bottom:13cqh;gap:8px}
-  .service-pills span{min-height:0;flex:0 1 auto;padding:12px 13px;gap:7px;font-size:11px;background:rgba(255,255,255,.14);color:var(--color-white);border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(12px);white-space:nowrap}
-  .service-pills svg{width:14px;height:14px}
-  /* Reference-inspired footer: contact/highlights card left, feedback group right. */
-  .care-panel{top:auto;left:3.2cqw;right:auto;bottom:3.8cqh;width:min(32cqw,500px);grid-template-columns:32% 1fr;gap:1.5cqw;padding:8px;border-radius:20px}
-  .care-panel__phone{min-height:102px;padding:12px;border-radius:14px}
-  .care-panel__phone-icon{width:30px;height:30px;margin-bottom:6px}
-  .care-panel__phone-icon svg{width:20px;height:20px}
-  .care-panel__phone-kicker{font-size:10px}
-  .care-panel__phone strong{font-size:16px}
-  .care-panel__phone-number{font-size:10px;margin-top:6px}
-  .care-panel__phone-dot{width:9px;height:9px;right:9px;bottom:9px}
-  .care-panel__topline{font-size:11px;margin-bottom:12px}
-  .care-panel__topline i{width:32px;height:6px}
-  .care-highlight{padding:0 7px;gap:5px}
-  .care-highlight strong{font-size:clamp(17px,1.5cqw,24px)}
-  .care-highlight__rating svg{width:14px;height:14px}
-  .care-highlight span{font-size:11px}
-  .feedback{top:auto;left:auto;right:3.5cqw;bottom:10.5cqh;display:flex;flex-direction:column;align-items:flex-start;gap:9px;width:11cqw;min-width:150px}
-  .feedback p{max-width:none;margin:0;font-size:11px;line-height:1.3}
-  .feedback__avatars{align-self:flex-start}
-  .feedback__avatars span{width:32px;height:32px;margin-left:-7px}
-  .hero-arrow{position:absolute;z-index:18;right:15cqw;bottom:10.8cqh;display:grid;place-items:center;color:var(--color-white)}
+@media(min-width:700px) and (max-width:1279px){
+ .hero-white--laptop{display:block}
+ .hero-copy{left:3.9%;top:19.5%;width:48%}
+ .hero-copy h1{font-size:clamp(48px,5.8vw,58px)}
+ .hero-right-copy{left:64.8%;top:17.5%;width:31%}
+ .hero-right-copy h2{font-size:36px}
+ .patient-hand{left:-2%;top:53%;width:52%}
+ .clinician-hand{left:54%;top:39%;width:49%}
+ .care-panel{left:2.8%;bottom:4%;width:378px;min-height:164px;grid-template-columns:116px 1fr;border-radius:20px}
+ .assistance{flex-direction:column;align-items:flex-start;padding:10px}
+ .assistance>i{width:28px;height:28px}
+ .assistance-copy small{font-size:9px}
+ .assistance-copy strong{font-size:14px}
+ .assistance-copy b{font-size:9px}
+ .metrics strong{font-size:20px}
+ .metrics span{font-size:10px}
+ .service-pills{left:auto;right:7%;bottom:4%;gap:7px}
+ .service-pills span{min-height:40px;font-size:10px;padding:0 9px}
+ .feedback{right:8%;bottom:18%;width:155px}
+ .feedback p{font-size:10px}
 }
-
+@media(min-width:700px) and (max-width:900px){
+ .hero-body{height:1040px}
+ .hero-white--tablet{display:block;height:650px}
+ .hero-copy{left:4.9%;top:17%;width:88%}
+ .hero-copy h1{font-size:58px}
+ .intro{max-width:400px;font-size:16px;margin:24px 0}
+ .hero-right-copy{left:5%;right:5%;top:64%;width:auto;display:grid;grid-template-columns:42% 1fr;gap:25px;align-items:start}
+ .hero-right-copy h2{font-size:36px;line-height:1.02}
+ .hero-right-copy p{font-size:14px}
+ .patient-hand{left:-2%;top:43%;width:53%}
+ .clinician-hand{left:51%;top:35%;width:53%}
+ .service-pills{left:5%;right:auto;top:75%;bottom:auto;flex-wrap:wrap;width:90%}
+ .care-panel{left:4%;bottom:2.3%;width:62%;min-height:168px;grid-template-columns:136px 1fr;border-radius:20px}
+ .assistance{flex-direction:column;align-items:flex-start;padding:10px}
+ .assistance-copy small{font-size:9px}.assistance-copy strong{font-size:14px}.assistance-copy b{font-size:9px}
+ .metrics strong{font-size:20px}.metrics span{font-size:10px}
+ .feedback{right:4%;bottom:7%;width:24%}
+ .feedback p{font-size:10px}
+}
+@media(max-width:699px){
+ .hero-body{height:1360px;border-radius:22px}
+ .hero-blue{background:radial-gradient(ellipse at 80% 70%,rgba(255,255,255,.08),transparent 42%),linear-gradient(145deg,#3478ff,#246afe 62%,#1760f5)}
+ .hero-white--mobile-wide{display:block;height:675px}
+ .hero-copy{left:5.1%;top:10.5%;width:89%}
+ .eyebrow{font-size:8px;margin-bottom:17px}
+ .hero-copy h1{font-size:clamp(39px,11.5vw,48px);line-height:1.04;letter-spacing:-.05em}
+ .intro{max-width:92%;font-size:14px;line-height:1.45;margin:16px 0 18px}
+ .hero-cta{width:188px;height:48px;padding-left:19px}
+ .hero-cta i{width:38px;height:38px}
+ .hero-right-copy{left:5.1%;right:5.1%;top:51.1%;width:auto}
+ .hero-right-copy h2{font-size:30px;line-height:1.02;margin-bottom:14px}
+ .hero-right-copy p{font-size:12px;line-height:1.5}
+ .patient-hand{left:-5%;top:38%;width:55%}
+ .clinician-hand{left:62%;top:34%;width:55%}
+ .service-pills{left:5.1%;right:5.1%;top:65%;bottom:auto;display:flex;flex-wrap:wrap;gap:8px}
+ .service-pills span{min-height:36px;padding:0 10px;font-size:10px}
+ .care-panel{left:5.1%;right:5.1%;top:73%;bottom:auto;width:auto;min-height:206px;grid-template-columns:1fr;gap:8px;padding:7px;border-radius:18px}
+ .assistance{min-height:74px;padding:10px 12px;gap:10px}
+ .assistance>i{width:28px;height:28px;flex-basis:28px}
+ .assistance-copy small{font-size:9px}.assistance-copy strong{font-size:13px}.assistance-copy b{font-size:9px}
+ .care-data{padding:4px 10px 7px}
+ .care-heading{font-size:10px;margin-bottom:9px}
+ .metrics>div{padding:0 7px;gap:4px}
+ .metrics strong{font-size:18px}
+ .metrics span{font-size:9px}
+ .feedback{left:5.1%;right:5.1%;top:91.5%;bottom:auto;width:auto;display:flex;gap:8px}
+ .feedback p{flex:1;font-size:9px;max-width:none}
+ .feedback-arrow{flex:0 0 18px}
+ .avatars{flex:0 0 auto}
+ .avatars span{width:28px;height:28px}
+}
+@media(min-width:380px) and (max-width:699px){
+ .hero-white--mobile-wide{display:block}
+}
+@media(min-width:340px) and (max-width:379px){
+ .hero-white--mobile-wide{display:none}
+ .hero-white--mobile-narrow{display:block}
+ .hero-copy{top:10.5%}
+ .hero-right-copy{top:51.1%}
+ .patient-hand{top:38.5%;width:55%}
+ .clinician-hand{top:34%;left:62%}
+ .service-pills{top:65%}
+ .care-panel{top:73%}
+ .feedback{top:91.5%}
+}
+@media(max-width:339px){
+ .hero-body{height:1399px}
+ .hero-white--mobile-wide,.hero-white--mobile-narrow{display:none}
+ .hero-white--mobile-320{display:block}
+ .hero-copy{left:5.3%;top:9.1%;width:89%}
+ .eyebrow{font-size:8px;margin-bottom:17px}
+ .hero-copy h1{font-size:40px;line-height:1.05}
+ .intro{font-size:14px;max-width:100%;margin:17px 0 18px}
+ .hero-cta{width:182px}
+ .patient-hand{left:-5%;top:36%;width:57%}
+ .clinician-hand{left:56%;top:33%;width:59%}
+ .hero-right-copy{left:5.3%;right:5.3%;top:44.1%}
+ .hero-right-copy h2{font-size:28px}
+ .hero-right-copy p{font-size:12px}
+ .service-pills{left:5.3%;right:5.3%;top:56.7%;gap:7px}
+ .service-pills span{min-height:35px;padding:0 9px;font-size:9px}
+ .care-panel{left:5.3%;right:5.3%;top:63.5%;min-height:204px;padding:7px}
+ .assistance{min-height:75px}
+ .care-data{padding:3px 9px 7px}
+ .feedback{left:5.3%;right:5.3%;top:80.5%}
+ .feedback p{font-size:9px}
+}
+:global(.hero){height:auto;min-height:0;padding:0;background:#fff;overflow:hidden}
+:global(.hero__frame){height:auto;min-height:0;border-radius:0;box-shadow:none}
+:global(.site-shell:has(.hero) .header){position:absolute;top:0;left:0;right:0;inset:0 0 auto;height:72px;padding:0 42px;transform:none}
+:global(.site-shell:has(.hero) .brand){width:144px}
+:global(.site-shell:has(.hero) .desktop-nav){top:14px;left:50%;height:44px;gap:0;padding:4px 9px;background:rgba(255,255,255,.76);border:1px solid rgba(0,0,0,.07);box-shadow:0 8px 24px rgba(0,0,0,.04)}
+:global(.site-shell:has(.hero) .desktop-nav a){min-width:72px;padding:10px 14px;font-size:10px}
+:global(.site-shell:has(.hero) .location-link){font-size:9px}
+:global(.site-shell:has(.hero) .menu-trigger){width:48px;height:48px}
+@media(max-width:900px){
+ :global(.site-shell:has(.hero) .header){height:72px;padding:0 32px}
+ :global(.site-shell:has(.hero) .brand){width:144px}
+ :global(.site-shell:has(.hero) .desktop-nav){display:none}
+ :global(.site-shell:has(.hero) .location-link){display:inline-flex}
+}
+@media(max-width:699px){
+ :global(.site-shell:has(.hero) .header){height:64px;padding:0 20px}
+ :global(.site-shell:has(.hero) .brand){width:128px}
+ :global(.site-shell:has(.hero) .location-link){display:none}
+ :global(.site-shell:has(.hero) .menu-trigger){width:40px;height:40px}
+}
 </style>
-
-<script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-  gsap.registerPlugin(ScrollTrigger);
-
-  let started = false;
-  function initHero() {
-    const body = document.querySelector<HTMLElement>('.hero-body');
-    const frame = document.querySelector<HTMLElement>('.hero__frame');
-    const hero = document.querySelector<HTMLElement>('.hero');
-    if (!body || !frame || !hero || started) return;
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; // static hero
-    started = true;
-
-    // 1) Entrance: hands slide in from their own edges, glow blooms where fingertips meet.
-    gsap.timeline({ defaults: { ease: 'power3.out' } })
-      .fromTo('.hero-hand--patient img', { xPercent: -75, opacity: 0 }, { xPercent: 0, opacity: 1, duration: 1.6 }, 0)
-      .fromTo('.hero-hand--clinician img', { xPercent: 75, opacity: 0 }, { xPercent: 0, opacity: 1, duration: 1.6 }, 0)
-      .fromTo('.hero-body__hand-glow', { scale: 0.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.4, ease: 'power2.out' }, 1.1)
-      .fromTo('[data-in]', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, stagger: 0.09 }, 0.25)
-      .fromTo('.care-panel, .feedback', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, stagger: 0.12 }, 0.9)
-      .add(() => { gsap.to('.hero-hand img', { y: 7, duration: 3.6, yoyo: true, repeat: -1, ease: 'sine.inOut', stagger: 0.7 }); }, 1.7);
-    document.documentElement.classList.remove('hero-anim');
-
-    // 2) Scroll: the hero scrolls away normally (no pinning). While it leaves, the hands
-    //    retreat to the edges they came from. Reverses when scrolling back up.
-    const reach = () => body.offsetWidth * 1.1;
-    gsap.timeline({
-      scrollTrigger: { trigger: frame, start: 'top top', end: () => '+=' + innerHeight * 0.8, scrub: 0.6, invalidateOnRefresh: true },
-    })
-      .to('.hero-hand--patient', { x: () => -reach(), ease: 'none', duration: 1 }, 0)
-      .to('.hero-hand--clinician', { x: () => reach(), ease: 'none', duration: 1 }, 0)
-      .to('.hero-body__hand-glow', { opacity: 0, scale: 0.3, duration: 0.4 }, 0);
-  }
-
-  initHero();
-  document.addEventListener('astro:page-load', initHero); // only fires if View Transitions are on
-</script>
