@@ -1,4 +1,7 @@
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -22,10 +25,33 @@ if (!reducedMotion) {
       }, '-=0.52');
     }
     if (hands.length) {
-      entrance.fromTo(hands, { autoAlpha: 0, y: 20, scale: 0.985 }, {
-        autoAlpha: 1, y: 0, scale: 1, duration: 1.05, stagger: 0.12,
-        clearProps: 'opacity,visibility,transform',
+      entrance.fromTo(hands, (index) => ({
+        autoAlpha: 0,
+        y: 20,
+        scale: 0.985,
+        xPercent: index === 0 ? -9 : 9,
+      }), {
+        autoAlpha: 1,
+        y: 0,
+        scale: 1,
+        xPercent: 0,
+        duration: 1.05,
+        stagger: 0.12,
       }, '-=0.68');
+
+      // The hands separate as the hero scrolls away, then return together
+      // automatically when the visitor scrolls back up.
+      gsap.to(hands, {
+        xPercent: (index) => index === 0 ? -14 : 14,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: hero,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.2,
+          invalidateOnRefresh: true,
+        },
+      });
     }
     if (details.length) {
       entrance.fromTo(details, { autoAlpha: 0, y: 14 }, {
