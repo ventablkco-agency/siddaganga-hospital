@@ -123,6 +123,7 @@ const doctors = [
         // Pointer events cover touch, pen and mouse dragging consistently.
         if (Math.max(Math.abs(dx), Math.abs(dy)) < threshold) return;
         suppressClick = true;
+        window.setTimeout(() => { suppressClick = false; }, 400);
         if (Math.abs(dx) > Math.abs(dy)) {
           move(dx < 0 ? 1 : -1);
         } else {
@@ -134,13 +135,14 @@ const doctors = [
         suppressClick = false;
       });
 
-      cards.forEach((card) => card.addEventListener('click', (event) => {
-        if (suppressClick) {
-          event.preventDefault();
-          event.stopPropagation();
-          suppressClick = false;
-          return;
-        }
+      stage.addEventListener('click', (event) => {
+        if (!suppressClick) return;
+        event.preventDefault();
+        event.stopPropagation();
+        suppressClick = false;
+      }, true);
+
+      cards.forEach((card) => card.addEventListener('click', () => {
         const index = Number(card.dataset.index);
         if (index === activeIndex) return;
         activeIndex = index;
