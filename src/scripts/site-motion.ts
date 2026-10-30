@@ -29,12 +29,12 @@ if (!reducedMotion) {
         autoAlpha: 0,
         y: 20,
         scale: 0.985,
-        xPercent: index === 0 ? -115 : 115,
+        x: index === 0 ? -window.innerWidth : window.innerWidth,
       }), {
         autoAlpha: 1,
         y: 0,
         scale: 1,
-        xPercent: 0,
+        x: 0,
         duration: 1.55,
         stagger: 0.12,
       }, '-=0.68');
