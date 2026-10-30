@@ -210,6 +210,7 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
  .feedback{top:92.5%}
 }
 @media(max-width:339px){
+ :global(.hero__frame){height:1399px}
  .hero-body{height:1399px}
  .hero-white--mobile-wide,.hero-white--mobile-narrow{display:none}
  .hero-white--mobile-320{display:block;height:675px}
@@ -231,14 +232,20 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
  .feedback{left:20px;right:20px;top:1305px}
  .feedback p{font-size:11px}
 }
-:global(.hero){height:auto;min-height:0;padding:0;background:#fff;overflow:hidden}
-:global(.hero__frame){height:auto;min-height:0;border-radius:0;box-shadow:none}
+:global(.hero){height:auto;min-height:0;padding:20px;box-sizing:border-box;background:#ebf0fe;overflow:hidden}
+:global(.hero__frame){height:720px;min-height:0;border-radius:34px;box-shadow:none}
 @media(min-width:1280px){
- :global(.hero){height:100svh!important}
- :global(.hero__frame){height:100%!important}
- .hero-body{height:100svh}
+ :global(.hero){height:100svh!important;padding:20px!important}
+ :global(.hero__frame){height:100%!important;border-radius:34px!important}
+ .hero-body{height:100%!important}
+}
+@media(min-width:901px) and (max-width:1279px){
+ :global(.hero){padding:14px!important}
+ :global(.hero__frame){height:720px;border-radius:30px}
 }
 @media(min-width:700px) and (max-width:900px){
+ :global(.hero){height:auto!important;padding:12px!important}
+ :global(.hero__frame){height:1040px;border-radius:28px}
  :global(.site-shell:has(.hero) .header){top:22px;height:48px;padding:0 32px}
  :global(.site-shell:has(.hero) .brand){width:144px}
  :global(.site-shell:has(.hero) .desktop-nav){display:none}
@@ -246,6 +253,8 @@ import { Ambulance, ArrowRight, FlaskConical, HeartHandshake, PhoneCall, Star } 
  :global(.site-shell:has(.hero) .menu-trigger){width:48px;height:48px}
 }
 @media(max-width:699px){
+ :global(.hero){height:auto!important;padding:10px!important}
+ :global(.hero__frame){height:1360px;border-radius:22px}
  :global(.site-shell:has(.hero) .header){top:12px;height:48px;padding:0 20px}
  :global(.site-shell:has(.hero) .brand){width:144px}
  :global(.site-shell:has(.hero) .desktop-nav){display:none}
