@@ -11,35 +11,74 @@ import HeroBody from './hero/HeroBody.astro';
 <style>
   .hero {
     width: 100%;
-    height: 720px;
+    height: auto;
     min-height: 0;
     margin: 0;
-    padding: 0;
+    padding: 20px;
+    box-sizing: border-box;
     overflow: hidden;
-    background: #fff;
+    background: #ebf0fe;
   }
 
   .hero__frame {
     position: relative;
     width: 100%;
-    height: 100%;
+    height: 720px;
     min-height: 0;
     overflow: hidden;
     isolation: isolate;
-    border-radius: 0;
+    border-radius: 34px;
     background: #246afe;
     box-shadow: none;
   }
 
+  @media (min-width: 1280px) {
+    .hero {
+      height: 100svh;
+      padding: 20px;
+    }
+
+    .hero__frame {
+      height: 100%;
+    }
+  }
+
+  @media (min-width: 901px) and (max-width: 1279px) {
+    .hero {
+      padding: 14px;
+    }
+
+    .hero__frame {
+      height: 720px;
+      border-radius: 30px;
+    }
+  }
+
   @media (min-width: 700px) and (max-width: 900px) {
-    .hero { height: 1040px; }
+    .hero {
+      padding: 12px;
+    }
+
+    .hero__frame {
+      height: 1040px;
+      border-radius: 28px;
+    }
   }
 
   @media (max-width: 699px) {
-    .hero { height: 1360px; }
+    .hero {
+      padding: 10px;
+    }
+
+    .hero__frame {
+      height: 1360px;
+      border-radius: 22px;
+    }
   }
 
   @media (max-width: 339px) {
-    .hero { height: 1399px; }
+    .hero__frame {
+      height: 1399px;
+    }
   }
 </style>
