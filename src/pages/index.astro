@@ -1,4 +1,5 @@
 ---
+import '../styles/homepage-motion.css';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import MedicalTicker from '../components/sections/MedicalTicker.astro';
@@ -11,7 +12,6 @@ import SectionSix from '../components/sections/SectionSix.astro';
 ---
 
 <Layout>
-  <main>
     <Hero />
 
     <section class="section-two-flow" aria-label="Siddaganga Hospital introduction">
@@ -24,7 +24,6 @@ import SectionSix from '../components/sections/SectionSix.astro';
     <SectionFive />
     <HospitalGallery />
     <SectionSix />
-  </main>
 </Layout>
 
 <style>
@@ -45,3 +44,7 @@ import SectionSix from '../components/sections/SectionSix.astro';
     }
   }
 </style>
+
+<script>
+  import '../scripts/homepage-motion';
+</script>

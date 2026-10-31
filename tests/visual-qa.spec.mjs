@@ -68,7 +68,7 @@ for (const route of visualQaConfig.routes) {
         });
       }
 
-      for (const focus of visualQaConfig.focusSelectors) {
+      for (const focus of (route.path === '/' ? visualQaConfig.focusSelectors : [])) {
         const locator = page.locator(focus.selector).first();
         await expect(locator, `${focus.name} must exist`).toBeVisible();
         await locator.screenshot({

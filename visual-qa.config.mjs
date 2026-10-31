@@ -22,12 +22,21 @@ export const visualQaConfig = {
   ],
 
   // Full-page captures are intentionally limited so CI artifacts stay useful.
-  fullPageViewports: new Set(),
+  fullPageViewports: new Set(['1440x720', '390x1360']),
 
   // Set to true only after a design is approved and committed as a baseline.
   visualRegression: process.env.VISUAL_REGRESSION === 'true',
 
   // Optional selectors for sections that deserve focused screenshots.
   // Example: { name: 'hero', selector: '[data-visual="hero"]' }
-  focusSelectors: [],
+  focusSelectors: [
+    { name: 'hero', selector: '.hero' },
+    { name: 'about', selector: '.section-two' },
+    { name: 'services', selector: '.services-section' },
+    { name: 'why-us', selector: '.why-section' },
+    { name: 'doctors', selector: '.doctors-section' },
+    { name: 'gallery', selector: '.gallery-section' },
+    { name: 'reviews', selector: '.reviews-section' },
+    { name: 'footer', selector: '.site-footer' },
+  ],
 };

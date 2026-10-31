@@ -23,7 +23,7 @@ export default defineConfig({
     trace: 'retain-on-failure',
     video: 'retain-on-failure',
     colorScheme: 'light',
-    reducedMotion: 'reduce',
+    reducedMotion: 'no-preference',
     actionTimeout: 15_000,
     navigationTimeout: 60_000,
   },
