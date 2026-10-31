@@ -25,10 +25,81 @@ const items = [
 </div>
 
 <style>
-  .medical-ticker {position:relative;z-index:2;flex:0 0 clamp(72px,5.6vw,88px);width:100%;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;display:flex;align-items:center;border-top:1px solid rgba(20,71,119,.08);border-bottom:1px solid rgba(20,71,119,.08);background:#f8fbff}
-  .medical-ticker__track{display:flex;width:max-content;align-items:center;}
-  .medical-ticker__item{display:inline-flex;align-items:center;gap:12px;padding-right:clamp(28px,2.6vw,42px);white-space:nowrap;color:#49627f;font-family:var(--font-body);font-size:clamp(12px,.8vw,14px);font-weight:600;letter-spacing:.18em}
-  .medical-ticker__item svg{color:#2477e8;flex:0 0 auto}.medical-ticker__separator{width:4px;height:4px;border-radius:50%;background:#9fc5fb;display:inline-block;margin-left:16px}
-  .medical-ticker::-webkit-scrollbar{display:none}
-  @media(max-width:760px){.medical-ticker{flex-basis:64px}.medical-ticker__item{gap:9px;padding-right:22px;font-size:10px;letter-spacing:.13em}.medical-ticker__separator{margin-left:9px}}
+  .medical-ticker {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 clamp(72px, 5.6vw, 88px);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgba(20, 71, 119, .08);
+    border-bottom: 1px solid rgba(20, 71, 119, .08);
+    background: #f8fbff;
+  }
+
+  .medical-ticker__track {
+    display: flex;
+    width: max-content;
+    flex: 0 0 auto;
+    align-items: center;
+    animation: medical-ticker-scroll 36s linear infinite;
+    will-change: transform;
+  }
+
+  .medical-ticker__item {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 12px;
+    padding-right: clamp(28px, 2.6vw, 42px);
+    white-space: nowrap;
+    color: #49627f;
+    font-family: var(--font-body);
+    font-size: clamp(12px, .8vw, 14px);
+    font-weight: 600;
+    letter-spacing: .18em;
+  }
+
+  .medical-ticker__item svg {
+    color: #2477e8;
+    flex: 0 0 auto;
+  }
+
+  .medical-ticker__separator {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #9fc5fb;
+    display: inline-block;
+    margin-left: 16px;
+  }
+
+  .medical-ticker:hover .medical-ticker__track {
+    animation-play-state: paused;
+  }
+
+  @keyframes medical-ticker-scroll {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+
+  @media (max-width: 760px) {
+    .medical-ticker { flex-basis: 64px; }
+
+    .medical-ticker__item {
+      gap: 9px;
+      padding-right: 22px;
+      font-size: 10px;
+      letter-spacing: .13em;
+    }
+
+    .medical-ticker__separator { margin-left: 9px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .medical-ticker { overflow-x: auto; scrollbar-width: none; }
+    .medical-ticker::-webkit-scrollbar { display: none; }
+    .medical-ticker__track { animation: none; will-change: auto; }
+  }
 </style>
