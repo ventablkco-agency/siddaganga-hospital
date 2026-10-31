@@ -48,6 +48,8 @@ const organizationSchema = {
     <title>{title}</title>
     <meta name="description" content={description} />
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    {Astro.url.pathname === '/' && <link rel="preload" as="image" href="/optimized-assets/hero/patient-hand.webp" fetchpriority="high" />}
+    {Astro.url.pathname === '/' && <link rel="preload" as="image" href="/optimized-assets/hero/clinician-hand.webp" fetchpriority="high" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <meta property="og:type" content="website" />
