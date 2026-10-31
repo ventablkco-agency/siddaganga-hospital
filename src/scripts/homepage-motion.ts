@@ -131,15 +131,7 @@ if (reduced) {
   ambient.forEach((el) => observer.observe(el));
 
   // Preserve the existing carousel/gallery logic; animate only the state it already exposes.
-  document.querySelectorAll<HTMLElement>('.depth-card').forEach((card) => {
-    const stateObserver = new MutationObserver(() => {
-      if (card.dataset.position === '0' && !lite) {
-        gsap.fromTo(card, { scale: 1.035 }, { scale: 1, duration: 0.6, ease: 'power3.out', overwrite: true });
-      }
-    });
-    stateObserver.observe(card, { attributes: true, attributeFilter: ['data-position'] });
-  });
-
+  // The doctors carousel owns its transforms; do not write to its card transform property.
   const review = document.querySelector<HTMLElement>('[data-review-card]');
   if (review) {
     const reviewObserver = new MutationObserver(() => {
