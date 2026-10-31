@@ -1,0 +1,17 @@
+/* Progressive homepage motion layer. Static content remains visible by default. */
+.hero__frame, .hero-body, .hero-hands img, .service-card, .service-card img,
+.depth-card, .featured-review { transform-style: preserve-3d; }
+.hero-white { clip-path: inset(0 0 0 0); }
+.service-card, .service-card img, .service-image { will-change: transform, clip-path; }
+.section-two__geometry, .footer-retro-grid, .retro-grid, .medical-ticker, .ticker-track { will-change: transform; }
+@media (hover: hover) and (pointer: fine) {
+  .service-card { transition: box-shadow 350ms ease; }
+  .service-card:hover { box-shadow: 0 24px 58px rgba(31,78,145,.16); }
+}
+.motion-lite .service-card, .motion-lite .hero-hands img { will-change: auto; }
+.motion-reduced *, .motion-reduced *::before, .motion-reduced *::after {
+  scroll-behavior: auto !important;
+  animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .01ms !important;
+}
