@@ -64,6 +64,7 @@ const galleryItems = [
       const current = root.querySelector('[data-gallery-current]');
       const title = root.querySelector('[data-gallery-title]');
       const subtitle = root.querySelector('[data-gallery-subtitle]');
+      const caption = root.querySelector('.gallery-caption');
       const previous = root.querySelector('[data-gallery-prev]');
       const next = root.querySelector('[data-gallery-next]');
       const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
@@ -76,7 +77,7 @@ const galleryItems = [
 
       const wrap = (value) => (value + cards.length) % cards.length;
 
-      const render = () => {
+      const render = (animateCaption = false) => {
         cards.forEach((card, index) => {
           let offset = index - active;
           if (offset > cards.length / 2) offset -= cards.length;
@@ -149,16 +150,28 @@ const galleryItems = [
           card.dataset.position = String(offset);
         });
 
-        if (current) current.textContent = String(active + 1).padStart(2, '0');
-        if (title) title.textContent = galleryItems[active].title;
-        if (subtitle) subtitle.textContent = galleryItems[active].subtitle;
+        const updateCaption = () => {
+          if (current) current.textContent = String(active + 1).padStart(2, '0');
+          if (title) title.textContent = galleryItems[active].title;
+          if (subtitle) subtitle.textContent = galleryItems[active].subtitle;
+        };
+
+        if (animateCaption && caption && !reduced) {
+          caption.classList.add('is-changing');
+          requestAnimationFrame(() => {
+            updateCaption();
+            requestAnimationFrame(() => caption.classList.remove('is-changing'));
+          });
+        } else {
+          updateCaption();
+        }
       };
 
       const move = (direction) => {
         if (locked) return;
         locked = true;
         active = wrap(active + direction);
-        render();
+        render(true);
         window.setTimeout(() => { locked = false; }, reduced ? 0 : 560);
       };
 
@@ -176,7 +189,7 @@ const galleryItems = [
           if (suppressClick) { suppressClick = false; return; }
           if (index === active) return;
           active = index;
-          render();
+          render(true);
         });
       });
 
