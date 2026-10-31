@@ -52,12 +52,11 @@ const {
       linear-gradient(to bottom, var(--retro-light) 1px, transparent 1px);
     background-size: var(--retro-cell) var(--retro-cell);
     animation: retro-grid-drift 10s linear infinite;
-    will-change: background-position;
   }
 
   @keyframes retro-grid-drift {
-    from { background-position: 0 0, 0 0; }
-    to { background-position: 0 var(--retro-cell), 0 var(--retro-cell); }
+    from { transform: perspective(700px) rotateX(var(--retro-angle)) scale(1.25) translate3d(0, 0, 0); }
+    to { transform: perspective(700px) rotateX(var(--retro-angle)) scale(1.25) translate3d(0, 4px, 0); }
   }
 
   @media (prefers-reduced-motion: reduce) {
