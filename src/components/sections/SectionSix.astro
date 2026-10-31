@@ -55,7 +55,22 @@ const featured = reviews[0];
       {name:'Mahalinga B',meta:'1 review · a year ago',text:'Worth hospital for all people'}
     ];
     let index=0;
-    const render=()=>{const review=reviews[index];const person=card.querySelector('.review-person');if(!person)return;person.querySelector('.avatar').textContent=review.name.charAt(0).toUpperCase();person.querySelector('strong').textContent=review.name;person.querySelector('span:last-child').textContent=review.meta;card.querySelector('.review-copy').textContent=`“${review.text}”`;dots.forEach((dot,dotIndex)=>dot.classList.toggle('is-active',dotIndex===index));};
+    const render=()=>{
+      const review=reviews[index];
+      const person=card.querySelector('.review-person');
+      const copy=card.querySelector('.review-copy');
+      if(!person||!copy)return;
+      const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches??false;
+      if(!reduced)card.classList.add('is-changing');
+      requestAnimationFrame(()=>{
+        person.querySelector('.avatar').textContent=review.name.charAt(0).toUpperCase();
+        person.querySelector('strong').textContent=review.name;
+        person.querySelector('span:last-child').textContent=review.meta;
+        copy.textContent=`“${review.text}”`;
+        dots.forEach((dot,dotIndex)=>dot.classList.toggle('is-active',dotIndex===index));
+        if(!reduced)requestAnimationFrame(()=>card.classList.remove('is-changing'));
+      });
+    };
     next.addEventListener('click',()=>{index=(index+1)%reviews.length;render();}); dots.forEach((dot,dotIndex)=>dot.addEventListener('click',()=>{index=dotIndex;render();}));
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initReviews,{once:true});else initReviews();
