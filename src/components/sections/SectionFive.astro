@@ -83,6 +83,7 @@ const doctors = [
           const offset = (index - activeIndex + cards.length) % cards.length;
           card.dataset.position = String(offset);
           card.classList.toggle('is-active', offset === 0);
+          card.removeAttribute('aria-hidden');
           card.setAttribute('role', 'group');
           card.setAttribute('aria-label', `Doctor ${index + 1} of ${cards.length}`);
           card.setAttribute('aria-current', offset === 0 ? 'true' : 'false');
