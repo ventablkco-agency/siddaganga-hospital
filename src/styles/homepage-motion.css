@@ -1,17 +1,60 @@
-/* Progressive homepage motion layer. Static content remains visible by default. */
-.hero__frame, .hero-body, .hero-hands img, .service-card, .service-card img,
-.depth-card, .featured-review { transform-style: preserve-3d; }
-.hero-white { clip-path: inset(0 0 0 0); }
-.service-card, .service-card img, .service-image { will-change: transform, clip-path; }
-.section-two__geometry, .footer-retro-grid, .retro-grid, .medical-ticker, .ticker-track { will-change: transform; }
-@media (hover: hover) and (pointer: fine) {
-  .service-card { transition: box-shadow 350ms ease; }
-  .service-card:hover { box-shadow: 0 24px 58px rgba(31,78,145,.16); }
+/* Motion layer: keep compositor hints scoped to the few elements that need them. */
+.hero__frame,
+.hero-hands img,
+.service-image,
+.visual-panel img,
+.section-two__geometry--left,
+.section-two__geometry--right,
+.panorama-carousel,
+.featured-review,
+.footer-wordmark {
+  backface-visibility: hidden;
 }
-.motion-lite .service-card, .motion-lite .hero-hands img { will-change: auto; }
-.motion-reduced *, .motion-reduced *::before, .motion-reduced *::after {
+
+.gallery-caption {
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.gallery-caption.is-changing {
+  opacity: 0;
+  transform: translateY(7px);
+}
+
+.featured-review .review-person,
+.featured-review .review-copy {
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.featured-review.is-changing .review-person,
+.featured-review.is-changing .review-copy {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+html.motion-lite .section-two__geometry--left,
+html.motion-lite .section-two__geometry--right {
+  transform: none !important;
+}
+
+html.motion-reduced *,
+html.motion-reduced *::before,
+html.motion-reduced *::after {
+  animation: none !important;
+  transition: none !important;
   scroll-behavior: auto !important;
-  animation-duration: .01ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: .01ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  html:focus-within {
+    scroll-behavior: auto !important;
+  }
+
+  html *,
+  html *::before,
+  html *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
