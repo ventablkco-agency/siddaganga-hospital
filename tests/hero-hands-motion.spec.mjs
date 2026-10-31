@@ -32,9 +32,9 @@ for (const viewport of viewports) {
       await expect(page.locator(selector).first()).toHaveCSS('transform', 'none');
     }
 
-    // Other homepage sections remain free of automatic reveal/marquee motion.
+    // The medical ticker has its own intentional marquee; unrelated sections remain static.
     await expect(page.locator('.section-two__text-reveal')).toHaveCSS('transform', 'none');
-    await expect(page.locator('.medical-ticker__track')).toHaveCSS('animation-name', 'none');
+    await expect(page.locator('.medical-ticker__track')).toHaveCSS('animation-name', 'medical-ticker-scroll');
     await expect(page.locator('.retro-grid__plane').first()).toHaveCSS('animation-name', 'none');
   });
 }
