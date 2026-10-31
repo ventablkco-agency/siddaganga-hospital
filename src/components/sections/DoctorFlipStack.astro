@@ -38,7 +38,7 @@ const safeDoctors = doctors.length ? doctors : [];
               </div>
             </div>
             <div class="doctor-card__image-wrap">
-              <img src={doctor.image} alt={doctor.imageAlt} loading={index === 0 ? 'eager' : 'lazy'} draggable="false" />
+              <img src={doctor.image} alt={doctor.imageAlt} width="1122" height="1092" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" draggable="false" />
               <div class="doctor-card__image-overlay"></div>
             </div>
           </article>
