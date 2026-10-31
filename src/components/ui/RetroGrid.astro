@@ -51,19 +51,6 @@ const {
       linear-gradient(to right, var(--retro-light) 1px, transparent 1px),
       linear-gradient(to bottom, var(--retro-light) 1px, transparent 1px);
     background-size: var(--retro-cell) var(--retro-cell);
-    animation: retro-grid-drift 10s linear infinite;
-    will-change: background-position;
-  }
-
-  @keyframes retro-grid-drift {
-    from { background-position: 0 0, 0 0; }
-    to { background-position: 0 var(--retro-cell), 0 var(--retro-cell); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .retro-grid__plane {
-      animation: none;
-    }
   }
 
   /* The hospital site is intentionally light-theme. Dark colors are opt-in
