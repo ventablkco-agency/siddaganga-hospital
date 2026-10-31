@@ -5,9 +5,9 @@ import Icon from '../icons/Icon.astro';
 const appointmentUrl = 'https://wa.me/919591799099';
 
 const doctors = [
-  { name: 'Dr. Nagaraj S K', role: 'General Medicine · Cardiac & Diabetes Specialist', qualification: 'MBBS, MD (Gen Med), FDM (UK)', tone: 'doctor-tone-one', image: '/assets/doctors/doctor-01.webp' },
-  { name: 'Dr. Santosh V. Motagi', role: 'General Surgery', qualification: 'MBBS, MS (General Surgery)', tone: 'doctor-tone-two', image: '/assets/doctors/doctor-02.webp' },
-  { name: 'Dr. Basavaraj Kallihal', role: 'Obstetrics', qualification: 'MBBS, DGO', tone: 'doctor-tone-three', image: '/assets/doctors/doctor-03.webp' },
+  { name: 'Dr. Nagaraj S K', role: 'General Medicine · Cardiac & Diabetes Specialist', qualification: 'MBBS, MD (Gen Med), FDM (UK)', tone: 'doctor-tone-one', image: '/optimized-assets/doctors/doctor-01.webp' },
+  { name: 'Dr. Santosh V. Motagi', role: 'General Surgery', qualification: 'MBBS, MS (General Surgery)', tone: 'doctor-tone-two', image: '/optimized-assets/doctors/doctor-02.webp' },
+  { name: 'Dr. Basavaraj Kallihal', role: 'Obstetrics', qualification: 'MBBS, DGO', tone: 'doctor-tone-three', image: '/optimized-assets/doctors/doctor-03.webp' },
 ];
 ---
 
@@ -17,7 +17,7 @@ const doctors = [
       <span class="decor decor-left" aria-hidden="true"></span>
       <span class="decor decor-right" aria-hidden="true"></span>
       <p class="trust-message">Medicine <strong>starts with science</strong> — but true<br />healing <strong>begins with trust</strong></p>
-      <figure class="trust-image"><img src="/assets/doctors/doctor-01.webp" alt="Dr. Nagaraj S K" loading="lazy" decoding="async" /><figcaption>SGH · Care team</figcaption></figure>
+      <figure class="trust-image"><img src="/optimized-assets/doctors/doctor-01.webp" alt="Dr. Nagaraj S K" loading="lazy" decoding="async" /><figcaption>SGH · Care team</figcaption></figure>
       <div class="trust-appointment">
         <span class="trust-brand"><Icon name="medicine" size={14} strokeWidth={1.7} /> SGH</span>
         <IconSlideButton href={appointmentUrl} label="Make an appointment" newTab={true} variant="blue" />
