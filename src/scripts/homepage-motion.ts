@@ -15,8 +15,8 @@ if (motionPreference.matches) {
 } else {
   document.documentElement.classList.add(isLiteDevice ? 'motion-lite' : 'motion-full');
 
-  const ticker = document.querySelector<HTMLElement>('.medical-ticker__track');
-  let tickerObserver: IntersectionObserver | undefined;
+  const ambientLoops = all('.medical-ticker__track, .footer-retro-grid .retro-grid__plane');
+  let ambientObserver: IntersectionObserver | undefined;
 
   const motionContext = gsap.context(() => {
     // HERO — human connection, not a high-speed tech-style entrance.
@@ -264,14 +264,17 @@ if (motionPreference.matches) {
   });
 
   // The existing CSS ticker is paused outside the viewport; no duplicate tween.
-  if (ticker && 'IntersectionObserver' in window) {
-    tickerObserver = new IntersectionObserver(
-      ([entry]) => {
-        ticker.style.animationPlayState = entry?.isIntersecting ? 'running' : 'paused';
+  if (ambientLoops.length && 'IntersectionObserver' in window) {
+    ambientObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          (entry.target as HTMLElement).style.animationPlayState =
+            entry.isIntersecting ? 'running' : 'paused';
+        });
       },
       { threshold: 0.01 },
     );
-    tickerObserver.observe(ticker);
+    ambientLoops.forEach((element) => ambientObserver?.observe(element));
   }
 
   const refresh = () => ScrollTrigger.refresh();
@@ -279,7 +282,7 @@ if (motionPreference.matches) {
   else window.addEventListener('load', refresh, { once: true });
 
   window.addEventListener('pagehide', () => {
-    tickerObserver?.disconnect();
+    ambientObserver?.disconnect();
     motionContext.revert();
   }, { once: true });
 }
