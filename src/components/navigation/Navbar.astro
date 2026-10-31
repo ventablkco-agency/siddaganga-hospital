@@ -74,7 +74,7 @@ const links = [
   const trigger = document.querySelector('[data-menu-toggle]');
   const menu = document.querySelector('[data-menu]');
   const closeButtons = document.querySelectorAll('[data-menu-close], [data-menu-link]');
-  const setMenu = (open: boolean) => { if (!trigger || !menu) return; trigger.classList.toggle('is-open', open); trigger.setAttribute('aria-expanded', String(open)); trigger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); menu.classList.toggle('is-open', open); menu.setAttribute('aria-hidden', String(!open)); header?.classList.remove('header--hidden'); document.body.style.overflow = open ? 'hidden' : ''; };
+  const setMenu = (open: boolean) => { if (!trigger || !menu) return; trigger.classList.toggle('is-open', open); trigger.setAttribute('aria-expanded', String(open)); trigger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); menu.classList.toggle('is-open', open); menu.setAttribute('aria-hidden', String(!open)); menu.toggleAttribute('inert', !open); header?.classList.remove('header--hidden'); document.body.style.overflow = open ? 'hidden' : ''; };
   trigger?.addEventListener('click', () => setMenu(!menu?.classList.contains('is-open')));
   closeButtons.forEach((button) => button.addEventListener('click', () => setMenu(false)));
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape') setMenu(false); });
