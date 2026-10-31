@@ -17,7 +17,7 @@ for (const viewport of viewports) {
     await expect(clinician).toBeVisible();
 
     const readX = (element) =>
-      element.evaluate((node) => new DOMMatrixReadOnly(getComputedStyle(node).transform).m41);
+      element.evaluate((node) => (() => { const transform = getComputedStyle(node).transform; return transform === 'none' ? 0 : new DOMMatrixReadOnly(transform).m41; })());
 
     const patientStart = await readX(patient);
     const clinicianStart = await readX(clinician);
