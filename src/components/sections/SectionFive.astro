@@ -77,13 +77,14 @@ const doctors = [
       let pointerStartX = 0;
       let pointerStartY = 0;
       let suppressClick = false;
+      const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
 
       const render = () => {
         cards.forEach((card, index) => {
           const offset = (index - activeIndex + cards.length) % cards.length;
           card.dataset.position = String(offset);
           card.classList.toggle('is-active', offset === 0);
-          card.removeAttribute('aria-hidden');
+          card.setAttribute('aria-hidden', offset === 0 ? 'false' : 'true');
           card.setAttribute('role', 'group');
           card.setAttribute('aria-label', `Doctor ${index + 1} of ${cards.length}`);
           card.setAttribute('aria-current', offset === 0 ? 'true' : 'false');
@@ -98,7 +99,7 @@ const doctors = [
         locked = true;
         activeIndex += direction;
         render();
-        window.setTimeout(() => { locked = false; }, 760);
+        window.setTimeout(() => { locked = false; }, reducedMotion ? 0 : 720);
         return true;
       };
 
